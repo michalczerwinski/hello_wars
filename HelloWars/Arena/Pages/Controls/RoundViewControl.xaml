@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Arena.Pages.Controls.RoundViewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:Arena.Pages.Controls"
+             mc:Ignorable="d" 
+             Width="222">
+
+    <ListBox x:Name="ListBox1" ItemsSource="{Binding Path=PairList}" Background="Transparent" BorderThickness="0" Margin="0,20,0,20">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <controls:DuelViewControl/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+</UserControl>
