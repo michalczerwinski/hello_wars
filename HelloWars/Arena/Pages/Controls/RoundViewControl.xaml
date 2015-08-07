@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Width="222">
 
-    <ListBox x:Name="ListBox1" ItemsSource="{Binding Path=PairList}" Background="Transparent" BorderThickness="0" Margin="0,20,0,20">
+    <ListBox x:Name="ListBox1" ItemsSource="{Binding Path=PairList}" Background="Transparent" BorderThickness="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>

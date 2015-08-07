@@ -8,11 +8,10 @@ namespace Arena.Pages.Controls
     /// </summary>
     public partial class DuelViewControl : UserControl
     {
-
-      //  public DuelPair DuelPair { get { return DataContext as DuelPair; } }
         public DuelViewControl()
         {
             InitializeComponent();
+          //  var ssss = DataContext as 
         }
     }
 }

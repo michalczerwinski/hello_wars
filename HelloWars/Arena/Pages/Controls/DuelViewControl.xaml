@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:Arena.Pages.Controls"
              xmlns:models="clr-namespace:Arena.Models"
+             xmlns:userControls="clr-namespace:Arena.EliminationTypes.TournamentLadder.UserControls"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=models:DuelPair}"
-             Width="220"
-             Height="120" >
+             Width="220">
     
     <Grid Background="Transparent">
         <Grid.ColumnDefinitions>
@@ -21,8 +21,8 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <controls:CompetitorViewControl DataContext="{Binding Path=Competitor1}"/>
-            <controls:CompetitorViewControl DataContext="{Binding Path=Competitor2}" Grid.Row="1"/>
+            <!--<userControls:CompetitorViewControl DataContext="{Binding Path=Competitor1}" />-->
+            <!--<userControls:CompetitorViewControl DataContext="{Binding Path=Competitor2}" Grid.Row="1"/>-->
         </Grid>
         <Path Grid.Column="1" Stroke="DarkSlateBlue" StrokeThickness="4" Data="M 5,30 L 30,30 L 30,90 L 5,90 M 30,60 L 55,60" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round" StrokeLineJoin="Round"/>
     </Grid>

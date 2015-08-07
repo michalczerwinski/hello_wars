@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ArenaConfiguration>
+  <EliminationType>Arena.EliminationTypes.TournamentLadder.TournamentLadder</EliminationType>
+  <GameType>Arena.Games.Tanks.Tanks</GameType>
+  <Competitors>
+    <CompetitorUrl>CzesiekUrl</CompetitorUrl>
+    <CompetitorUrl>GrzesiekUrl</CompetitorUrl>
+    <CompetitorUrl>ZdzislawUrl</CompetitorUrl>
+    <CompetitorUrl>MundekUrl</CompetitorUrl>
+  </Competitors>
+</ArenaConfiguration>

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -10,48 +12,28 @@ namespace BotClient
 {
     public class BotProxy
     {
+        // http://mccomputer/super-mc
+        // http://mccomputer/super-mc/bot-info
+        // http://mccomputer/super-mc/perform-next-move
+
         public BotProxy(string url)
         {
 
         }
 
-       
-
-
-        public string TournamentRegistration()
+        public string GetAvatarUrl()
         {
-            var bot = new CompetitorConfiguration
-            {
-                Url = "http://",
-                Name = "Zenek",
-                TournamentId = 17,
-                AvatarUrl = "http://",
-                
-            };
+            return @"C:\Users\mariusz.iwanski\Documents\hello_wars\HelloWars\Arena\Assets\TempFoto.png";
+        }
 
-            Serialize(bot);
+        public string GetName()
+        {
+            return "afsd";
+        }
 
+        public object PerformNextMove(object worldInfo)
+        {
             return "";
-        }
-
-        //Begin Tournament 
-        //zwraca  Id Tournamentu
-        //zwraca 
-
-
-
-        public void EndTrounament()
-        {
-        }
-
-
-        public void Serialize(CompetitorConfiguration details)
-        {
-            var serializer = new XmlSerializer(typeof(CompetitorConfiguration));
-            using (TextWriter writer = new StreamWriter(@"C:\Xml\Xml.xml"))
-            {
-                serializer.Serialize(writer, details);
-            }
         }
     }
 }

@@ -1,8 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Xml.Linq;
+using System.Xml.Serialization;
+using Arena.Configuration;
+using Arena.EliminationTypes.TournamentLadder.UserControls;
 using Arena.Models;
+using Arena.Pages.Controls;
+using Arena.Serialization;
+using Arena.ViewModels;
 using BotClient;
 
 namespace Arena.Pages
@@ -12,67 +21,27 @@ namespace Arena.Pages
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel _viewModel;
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        public DuelPair DuelPair { get; set; }
-      //  public List<DuelPair> List { get; set; }
-        public RoundList RoundList { get; set; }
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            _viewModel = (MainWindowViewModel)DataContext;
+            EliminationTypeGrid.Children.Add(_viewModel.EliminationTypeControl);
+        }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            var competitors = GenerateCompetitorList();
-            DuelPair = new DuelPair();
-
-
-         //   List = new List<DuelPair>();
-            RoundList = new RoundList();
-
-            for (int i = 0; i < competitors.Count; i++)
-            {
-                var pair = new DuelPair
-                {
-                    Competitor1 = competitors[i++],
-                    Competitor2 = competitors[i]
-                };
-
-                RoundList.PairList.Add(pair);
-            }
-
-            RoundViewControl1.DataContext = RoundViewControl2.DataContext = RoundViewControl3.DataContext = RoundList;
         }
 
-        private List<Competitor> GenerateCompetitorList()
+        private void ButtonBase_OnClick2(object sender, RoutedEventArgs e)
         {
-            var result = new List<Competitor>();
-
-            result.Add(new Competitor
-            {
-                AvatarUrl = "/Assets/TempFoto.png",
-                Name = "Paul",
-            });
-
-            result.Add(new Competitor
-            {
-                AvatarUrl = "/Assets/TempFoto.png",
-                Name = "Vladimir",
-            });
-
-            result.Add(new Competitor
-            {
-                AvatarUrl = "/Assets/TempFoto.png",
-                Name = "Helena",
-            });
-
-            result.Add(new Competitor
-            {
-                AvatarUrl = "/Assets/TempFoto.png",
-                Name = "Duncan",
-            });
-
-            return result;
         }
+
+     
     }
 }

@@ -11,8 +11,5 @@ namespace Arena.Models
     {
         public Competitor Competitor1 { get; set; }
         public Competitor Competitor2 { get; set; }
-        //public bool IsCompetitor1Win { get; set; }
-        //public bool IsCompetitor2Win { get { return !IsCompetitor1Win; } }
-        
     }
 }

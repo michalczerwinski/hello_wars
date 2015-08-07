@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:Arena.Pages.Controls"
         Title="Hello Wars Main Window" Width="500" Height="300" 
-        Background="DimGray">
+        Background="DimGray"
+        Loaded="MainWindow_OnLoaded"
+        >
 
     <Grid>
         <Grid.RowDefinitions>
@@ -13,26 +15,41 @@
         </Grid.RowDefinitions>
 
         <Viewbox>
-            <TextBlock  Text="Hello_Wars();"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <TextBlock  Text="{Binding TempText}"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         </Viewbox>
-        <Button Grid.Row="1" Width="100" Height="20" Click="ButtonBase_OnClick">
+
+        <Button Grid.Row="1" Width="100" Height="20" HorizontalAlignment="Left">
             <Viewbox>
-                <TextBlock Text="START"/>
+                <TextBlock Text="Somefctn"/>
             </Viewbox>
         </Button>
 
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
-            <Grid>
+        <Button Grid.Row="1" Width="100" Height="20" Click="ButtonBase_OnClick">
+            <Viewbox>
+                <TextBlock Text="Somefctn"/>
+            </Viewbox>
+        </Button>
+
+        <Button Grid.Row="1" Width="100" Height="20" Click="ButtonBase_OnClick2" HorizontalAlignment="Right">
+            <Viewbox>
+                <TextBlock Text="Somefctn"/>
+            </Viewbox>
+        </Button>
+
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Grid x:Name="Grid1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="222"/>
-                    <ColumnDefinition Width="222"/>
-                    <ColumnDefinition Width="222"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <controls:RoundViewControl Grid.Column="0" x:Name="RoundViewControl1" HorizontalAlignment="Left"/>
+                <Grid x:Name="EliminationTypeGrid"></Grid>
+                <Grid x:Name="GameTypeGrid" Grid.Column="1"></Grid>
+
+            <!--<controls:RoundViewControl Grid.Column="0" x:Name="RoundViewControl1" HorizontalAlignment="Left"/>
                 <controls:RoundViewControl Grid.Column="1" x:Name="RoundViewControl2" HorizontalAlignment="Left"/>
-                <controls:RoundViewControl Grid.Column="2" x:Name="RoundViewControl3" HorizontalAlignment="Left"/>
-            </Grid>
-        </ScrollViewer>
+                <controls:RoundViewControl Grid.Column="2" x:Name="RoundViewControl3" HorizontalAlignment="Left"/>-->
+    </Grid>
+    </ScrollViewer>
     </Grid>
 </Window>

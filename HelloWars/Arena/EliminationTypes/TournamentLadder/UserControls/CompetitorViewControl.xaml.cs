@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Arena.Pages.Controls
+namespace Arena.EliminationTypes.TournamentLadder.UserControls
 {
     /// <summary>
     /// Interaction logic for UserViewControl.xaml

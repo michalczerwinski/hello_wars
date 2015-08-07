@@ -9,6 +9,7 @@ namespace Arena.Models
     public class RoundList
     {
         public List<DuelPair> PairList { get; set; }
+        public int RoundNumber { get; set; }
 
         public RoundList()
         {
