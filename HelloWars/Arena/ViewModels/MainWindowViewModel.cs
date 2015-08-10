@@ -56,7 +56,7 @@ namespace Arena.ViewModels
         {
             Competitors = new List<Competitor>();
 
-            foreach (var competitorUrl in _elimination.Competitors)
+            foreach (var competitorUrl in _arenaConfiguration.CompetitorUrls)
             {
                 _botProxy = new BotProxy(competitorUrl);
 

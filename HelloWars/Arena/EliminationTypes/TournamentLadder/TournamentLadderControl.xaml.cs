@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Arena.EliminationTypes.TournamentLadder.UserControls;
 using Arena.Models;
+using Arena.ViewModels;
 
 namespace Arena.EliminationTypes.TournamentLadder
 {
@@ -22,18 +23,15 @@ namespace Arena.EliminationTypes.TournamentLadder
     /// </summary>
     public partial class TournamentLadderControl : UserControl
     {
-        private List<Competitor> _competitors { get; set; }
-
-        public TournamentLadderControl(List<Competitor> competitors)
+        public TournamentLadderControl(TournamentLadderViewModel viewModel)
         {
+            DataContext = viewModel;
             InitializeComponent();
-            _competitors = competitors;
         }
 
         private void TournamentLadderControl_OnLoaded(object sender, RoutedEventArgs e)
         {
-            var competitorCount = 16;
-
+            var competitorCount = ((TournamentLadderViewModel)DataContext).Competitors.Count;
             var roundNumbers = (int)Math.Ceiling(Math.Log(competitorCount, 2));
 
             Grid1.HorizontalAlignment = HorizontalAlignment.Left;
@@ -43,24 +41,29 @@ namespace Arena.EliminationTypes.TournamentLadder
             for (int i = 0; i < roundNumbers; i++)
             {
                 var columndefinition = new ColumnDefinition();
+
                 Grid1.ColumnDefinitions.Add(columndefinition);
+
+                var newGrid = new Grid();
+                newGrid.SetValue(Grid.ColumnProperty, i);
 
                 for (int j = 0; j < competitorCount; j++)
                 {
-                    var newGrid = new Grid();
-
                     var rowDefinition = new RowDefinition();
-                    newGrid.SetValue(Grid.ColumnProperty, i);
-                    Grid1.RowDefinitions.Add(rowDefinition);
+                    newGrid.RowDefinitions.Add(rowDefinition);
 
                     var competitorView = new CompetitorViewControl();
+                    competitorView.DataContext = ((TournamentLadderViewModel)DataContext).Competitors.First();
+                    ((Competitor)competitorView.DataContext).Name = "asdasdadas";
 
                     competitorView.SetValue(Grid.ColumnProperty, i);
                     competitorView.SetValue(Grid.RowProperty, j);
-                    competitorView.SetValue(Grid.RowSpanProperty, i + 1);
+                    //  competitorView.SetValue(Grid.RowSpanProperty, i + 1);
 
-                    Grid1.Children.Add(competitorView);
+                    newGrid.Children.Add(competitorView);
+
                 }
+                Grid1.Children.Add(newGrid);
                 competitorCount = competitorCount / 2;
             }
         }

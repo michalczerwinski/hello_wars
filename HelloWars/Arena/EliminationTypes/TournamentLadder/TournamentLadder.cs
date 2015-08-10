@@ -9,11 +9,11 @@ namespace Arena.EliminationTypes.TournamentLadder
 {
     public class TournamentLadder: IElimination
     {
-        public List<string> Competitors { get; set; }
+        public List<Competitor> Competitors { get; set; }
 
         public UserControl GetVisualization(List<Competitor> competitors)
         {
-            return new TournamentLadderControl(competitors);
+            return new TournamentLadderControl(new TournamentLadderViewModel(competitors));
         }
 
         public IList<CompetitorUrl> GetNextCompetitors(CompetitorUrl lastWinner)

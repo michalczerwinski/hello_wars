@@ -9,8 +9,24 @@ namespace Arena.EliminationTypes.TournamentLadder
 {
     public class TournamentLadderViewModel : BindableBase
     {
-        public TournamentLadderViewModel()
+        private List<Competitor> _competitors;
+        private int _roundNumber;
+
+        public List<Competitor> Competitors
         {
+            get { return _competitors; }
+            set { SetProperty(ref _competitors, value); }
+        }
+
+        public int RoundNumber
+        {
+            get { return _roundNumber; }
+            set { SetProperty(ref _roundNumber, value); }
+        }
+
+        public TournamentLadderViewModel(List<Competitor> competitors)
+        {
+            Competitors = competitors;
         }
     }
 }

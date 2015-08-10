@@ -23,11 +23,11 @@
             </Grid.ColumnDefinitions>
 
             <Viewbox Margin="5">
-                <Image Source="{Binding AvatarUrl}"/>
+                <Image Source="{Binding AvatarUrl, Mode=TwoWay}"/>
             </Viewbox>
 
             <Viewbox Grid.Column="1" StretchDirection="DownOnly">
-                <TextBlock Text="{Binding Name}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Viewbox>
         </Grid>
     </Border>

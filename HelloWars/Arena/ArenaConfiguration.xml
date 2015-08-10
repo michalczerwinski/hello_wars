@@ -3,10 +3,10 @@
 <ArenaConfiguration>
   <EliminationType>Arena.EliminationTypes.TournamentLadder.TournamentLadder</EliminationType>
   <GameType>Arena.Games.Tanks.Tanks</GameType>
-  <Competitors>
-    <CompetitorUrl>CzesiekUrl</CompetitorUrl>
-    <CompetitorUrl>GrzesiekUrl</CompetitorUrl>
-    <CompetitorUrl>ZdzislawUrl</CompetitorUrl>
-    <CompetitorUrl>MundekUrl</CompetitorUrl>
-  </Competitors>
+  <CompetitorUrls>
+    <Url>CzesiekUrl</Url>
+    <Url>GrzesiekUrl</Url>
+    <Url>ZdzislawUrl</Url>
+    <Url>MundekUrl</Url>
+  </CompetitorUrls>
 </ArenaConfiguration>

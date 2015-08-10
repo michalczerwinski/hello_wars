@@ -16,9 +16,12 @@ namespace BotClient
         // http://mccomputer/super-mc/bot-info
         // http://mccomputer/super-mc/perform-next-move
 
+        //TODO: remove, Temporary
+        private readonly string _urlName;
+
         public BotProxy(string url)
         {
-
+            _urlName = url;
         }
 
         public string GetAvatarUrl()
@@ -28,7 +31,7 @@ namespace BotClient
 
         public string GetName()
         {
-            return "SomeName";
+            return _urlName;
         }
 
         public object PerformNextMove(object worldInfo)

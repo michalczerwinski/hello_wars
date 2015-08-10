@@ -13,8 +13,8 @@ namespace Arena.Configuration
 
         public string GameType { get; set; }
 
-        [XmlArrayItem(ElementName = "CompetitorUrl")]
-        public List<string> Competitors { get; set; }
+        [XmlArrayItem(ElementName = "Url")]
+        public List<string> CompetitorUrls { get; set; }
 
         private IElimination _elimination;
         private IGameDescription _gameDescription;
@@ -44,7 +44,6 @@ namespace Arena.Configuration
                 {
                     var eliminationType = Assembly.GetExecutingAssembly().GetType(EliminationType);
                     _elimination = (IElimination)Activator.CreateInstance(eliminationType);
-                    _elimination.Competitors = Competitors;
                 }
 
                 return _elimination;
