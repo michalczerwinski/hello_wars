@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using Arena.Models;
 
 namespace Arena.Pages.Controls
 {
@@ -11,7 +10,6 @@ namespace Arena.Pages.Controls
         public DuelViewControl()
         {
             InitializeComponent();
-          //  var ssss = DataContext as 
         }
     }
 }

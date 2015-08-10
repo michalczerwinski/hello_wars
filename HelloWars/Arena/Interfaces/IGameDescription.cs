@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Controls;
-using Arena.Configuration;
 using Arena.Models;
 
 namespace Arena.Interfaces
@@ -10,11 +8,5 @@ namespace Arena.Interfaces
     {
         IGame CreateNewGame(IEnumerable<CompetitorUrl> competitorUrls);
         UserControl GetVisualisation();
-    }
-
-    public interface IGame
-    {
-        long RoundNumber { get; set; }
-        bool PerformNextRound();
     }
 }

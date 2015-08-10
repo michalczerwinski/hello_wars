@@ -33,11 +33,12 @@ namespace Arena
         {
             Debug.Assert(propertyName != null, "propertyName != null");
 
-            if (Equals(storage, value)) return false;
+            if (Equals(storage, value)) { return false; }
 
             storage = value;
 
             OnPropertyChanged(propertyName);
+
             return true;
         }
 

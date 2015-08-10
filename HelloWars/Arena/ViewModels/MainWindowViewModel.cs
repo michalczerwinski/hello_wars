@@ -14,8 +14,34 @@ namespace Arena.ViewModels
         private IElimination _elimination;
         private IGameDescription _gameDescription;
         private BotProxy _botProxy;
+        private UserControl _gameTypeControl;
+        private UserControl _eliminationTypeControl;
+        private List<Competitor> _competitors;
 
-      
+        public string TempText
+        {
+            get { return _tempText; }
+            set { SetProperty(ref _tempText, value); }
+        }
+
+        public UserControl GameTypeControl
+        {
+            get { return null; }
+            set { SetProperty(ref _gameTypeControl, value); }
+        }
+
+        public UserControl EliminationTypeControl
+        {
+            get { return _elimination.GetVisualization(Competitors); }
+            set { SetProperty(ref _eliminationTypeControl, value); }
+        }
+
+        public List<Competitor> Competitors
+        {
+            get { return _competitors; }
+            set { SetProperty(ref _competitors, value); }
+        }
+
         public MainWindowViewModel(ArenaConfiguration arenaConfiguration)
         {
             TempText = "Hello Wars();";
@@ -43,33 +69,6 @@ namespace Arena.ViewModels
 
                 Competitors.Add(competitor);
             }
-        }
-
-        public string TempText
-        {
-            get { return _tempText; }
-            set { SetProperty(ref _tempText, value); }
-        }
-
-        private UserControl _gameTypeControl;
-        public UserControl GameTypeControl
-        {
-            get { return null; }
-            set { SetProperty(ref _gameTypeControl, value); }
-        }
-
-        private UserControl _eliminationTypeControl;
-        public UserControl EliminationTypeControl
-        {
-            get { return _elimination.GetVisualization(Competitors); }
-            set { SetProperty(ref _eliminationTypeControl, value); }
-        }
-
-        private List<Competitor> _competitors;
-        public List<Competitor> Competitors
-        {
-            get { return _competitors; }
-            set { SetProperty(ref _competitors, value); }
         }
     }
 }

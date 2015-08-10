@@ -41,7 +41,5 @@ namespace Arena.Pages
         private void ButtonBase_OnClick2(object sender, RoutedEventArgs e)
         {
         }
-
-     
     }
 }

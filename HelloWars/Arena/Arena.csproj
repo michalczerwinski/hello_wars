@@ -63,6 +63,7 @@
     <Compile Include="EliminationTypes\TournamentLadder\TournamentLadderViewModel.cs" />
     <Compile Include="Games\Tanks\Tanks.cs" />
     <Compile Include="Interfaces\IElimination.cs" />
+    <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IGameDescription.cs" />
     <Compile Include="Models\Competitor.cs" />
     <Compile Include="Models\CompetitorUrl.cs" />

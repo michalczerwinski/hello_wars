@@ -23,12 +23,12 @@ namespace BotClient
 
         public string GetAvatarUrl()
         {
-            return @"C:\Users\mariusz.iwanski\Documents\hello_wars\HelloWars\Arena\Assets\TempFoto.png";
+            return @"/Assets/TempFoto.png";
         }
 
         public string GetName()
         {
-            return "afsd";
+            return "SomeName";
         }
 
         public object PerformNextMove(object worldInfo)

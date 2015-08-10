@@ -26,9 +26,11 @@ namespace Arena.Configuration
             {
                 if (_gameDescription == null)
                 {
-                    var gameType = Assembly.GetExecutingAssembly().GetType(GameType);
+                    var sss = Assembly.GetExecutingAssembly();
+                    var gameType = sss.GetType(GameType);
                     _gameDescription = (IGameDescription)Activator.CreateInstance(gameType);
                 }
+
                 return _gameDescription;
             }
         }
@@ -44,6 +46,7 @@ namespace Arena.Configuration
                     _elimination = (IElimination)Activator.CreateInstance(eliminationType);
                     _elimination.Competitors = Competitors;
                 }
+
                 return _elimination;
             }
         }

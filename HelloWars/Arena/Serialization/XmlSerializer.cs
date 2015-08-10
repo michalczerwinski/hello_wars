@@ -23,26 +23,28 @@ namespace Arena.Serialization
 
         public string Serialize(T obj)
         {
-            string result = string.Empty;
-            using (var memStm = new MemoryStream())
-            using (var sww = new StreamWriter(memStm, _encoding))
-            using (XmlWriter writer = XmlWriter.Create(sww))
+            var result = string.Empty;
+            using (var memoryStream = new MemoryStream())
+            using (var streamWriter = new StreamWriter(memoryStream, _encoding))
+            using (XmlWriter writer = XmlWriter.Create(streamWriter))
             {
                 _serializer.Serialize(writer, obj);
-                byte[] buffer = memStm.ToArray();
+                byte[] buffer = memoryStream.ToArray();
                 result = _encoding.GetString(buffer, 0, buffer.Length);
             }
+
             return result;
         }
 
         public T Deserialize(string xmlString)
         {
-            T result = null;
-            using (var memStm = new MemoryStream(_encoding.GetBytes(xmlString)))
-            using (var reader = new StreamReader(memStm, _encoding))
+            T result;
+            using (var memoryStream = new MemoryStream(_encoding.GetBytes(xmlString)))
+            using (var reader = new StreamReader(memoryStream, _encoding))
             {
                 result = (T) _serializer.Deserialize(reader);
             }
+
             return result;
         }
     }

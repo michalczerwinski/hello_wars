@@ -22,21 +22,19 @@ namespace Arena.EliminationTypes.TournamentLadder
     /// </summary>
     public partial class TournamentLadderControl : UserControl
     {
+        private List<Competitor> _competitors { get; set; }
+
         public TournamentLadderControl(List<Competitor> competitors)
         {
             InitializeComponent();
             _competitors = competitors;
         }
 
-        private List<Competitor> _competitors { get; set; }
-
-
         private void TournamentLadderControl_OnLoaded(object sender, RoutedEventArgs e)
         {
-            int competitorsNo = 16;
+            var competitorCount = 16;
 
-            var roundNumbers = (int)Math.Ceiling(Math.Log(competitorsNo, 2));
-
+            var roundNumbers = (int)Math.Ceiling(Math.Log(competitorCount, 2));
 
             Grid1.HorizontalAlignment = HorizontalAlignment.Left;
             Grid1.VerticalAlignment = VerticalAlignment.Center;
@@ -44,27 +42,26 @@ namespace Arena.EliminationTypes.TournamentLadder
 
             for (int i = 0; i < roundNumbers; i++)
             {
-
-                ColumnDefinition columndefinition = new ColumnDefinition();
+                var columndefinition = new ColumnDefinition();
                 Grid1.ColumnDefinitions.Add(columndefinition);
 
-                for (int c = 0; c < competitorsNo; c++)
+                for (int j = 0; j < competitorCount; j++)
                 {
-                    Grid newGrid = new Grid();
+                    var newGrid = new Grid();
 
-                    RowDefinition rowDefinition = new RowDefinition();
-                    newGrid.SetValue(Grid.ColumnProperty,i);
+                    var rowDefinition = new RowDefinition();
+                    newGrid.SetValue(Grid.ColumnProperty, i);
                     Grid1.RowDefinitions.Add(rowDefinition);
 
                     var competitorView = new CompetitorViewControl();
 
                     competitorView.SetValue(Grid.ColumnProperty, i);
-                    competitorView.SetValue(Grid.RowProperty, c);
-                    competitorView.SetValue(Grid.RowSpanProperty, i+1);
+                    competitorView.SetValue(Grid.RowProperty, j);
+                    competitorView.SetValue(Grid.RowSpanProperty, i + 1);
 
                     Grid1.Children.Add(competitorView);
                 }
-                competitorsNo = competitorsNo / 2;
+                competitorCount = competitorCount / 2;
             }
         }
     }
