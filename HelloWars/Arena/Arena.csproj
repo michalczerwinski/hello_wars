@@ -55,12 +55,16 @@
     </ApplicationDefinition>
     <Compile Include="Adnotations.cs" />
     <Compile Include="BindableBase.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Configuration\ArenaConfiguration.cs" />
+    <Compile Include="EliminationTypes\TournamentLadder\Models\WrappedCompetitor.cs" />
     <Compile Include="EliminationTypes\TournamentLadder\TournamentLadder.cs" />
     <Compile Include="EliminationTypes\TournamentLadder\TournamentLadderControl.xaml.cs">
       <DependentUpon>TournamentLadderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="EliminationTypes\TournamentLadder\TournamentLadderViewModel.cs" />
+    <Compile Include="EliminationTypes\TournamentLadder\UserControls\CompetitorControlViewModel.cs" />
+    <Compile Include="Games\Tanks\Igame.cs" />
     <Compile Include="Games\Tanks\Tanks.cs" />
     <Compile Include="Interfaces\IElimination.cs" />
     <Compile Include="Interfaces\IGame.cs" />

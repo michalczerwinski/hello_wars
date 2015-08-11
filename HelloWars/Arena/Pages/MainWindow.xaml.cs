@@ -33,13 +33,5 @@ namespace Arena.Pages
             _viewModel = (MainWindowViewModel)DataContext;
             EliminationTypeGrid.Children.Add(_viewModel.EliminationTypeControl);
         }
-
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void ButtonBase_OnClick2(object sender, RoutedEventArgs e)
-        {
-        }
     }
 }

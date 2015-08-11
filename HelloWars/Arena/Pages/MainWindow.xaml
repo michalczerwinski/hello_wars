@@ -17,26 +17,28 @@
         <Viewbox>
             <TextBlock  Text="{Binding TempText}"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         </Viewbox>
+        
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button  Width="100" Height="20" HorizontalAlignment="Left" Command="{Binding PlayDuelCommand}">
+                <Viewbox>
+                    <TextBlock Text="PlayDuel"/>
+                </Viewbox>
+            </Button>
 
-        <Button Grid.Row="1" Width="100" Height="20" HorizontalAlignment="Left">
-            <Viewbox>
-                <TextBlock Text="Somefctn"/>
-            </Viewbox>
-        </Button>
+            <Button Width="100" Height="20" Command="{Binding PlayRoundCommand}">
+                <Viewbox>
+                    <TextBlock Text="PlayRound"/>
+                </Viewbox>
+            </Button>
 
-        <Button Grid.Row="1" Width="100" Height="20" Click="ButtonBase_OnClick">
-            <Viewbox>
-                <TextBlock Text="Somefctn"/>
-            </Viewbox>
-        </Button>
-
-        <Button Grid.Row="1" Width="100" Height="20" Click="ButtonBase_OnClick2" HorizontalAlignment="Right">
-            <Viewbox>
-                <TextBlock Text="Somefctn"/>
-            </Viewbox>
-        </Button>
-
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Button Width="100" Height="20" Command="{Binding AutoPlayCommand}">
+                <Viewbox>
+                    <TextBlock Text="AutoPlay"/>
+                </Viewbox>
+            </Button>
+        </StackPanel>
+        
+      <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <Grid x:Name="Grid1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />

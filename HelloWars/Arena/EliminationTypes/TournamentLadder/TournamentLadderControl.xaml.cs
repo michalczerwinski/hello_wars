@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Arena.EliminationTypes.TournamentLadder.Models;
 using Arena.EliminationTypes.TournamentLadder.UserControls;
 using Arena.Models;
 using Arena.ViewModels;
@@ -31,41 +32,167 @@ namespace Arena.EliminationTypes.TournamentLadder
 
         private void TournamentLadderControl_OnLoaded(object sender, RoutedEventArgs e)
         {
-            var competitorCount = ((TournamentLadderViewModel)DataContext).Competitors.Count;
-            var roundNumbers = (int)Math.Ceiling(Math.Log(competitorCount, 2));
+            var competitors = ((TournamentLadderViewModel)DataContext).Competitors;
 
-            Grid1.HorizontalAlignment = HorizontalAlignment.Left;
-            Grid1.VerticalAlignment = VerticalAlignment.Center;
-            Grid1.ShowGridLines = true;
+            CreateTournament(competitors);
 
-            for (int i = 0; i < roundNumbers; i++)
+
+
+            //var line = new Polyline();
+            //line.Points.Add(new Point(10, 10));
+            //line.Points.Add(new Point(20, 10));
+            //line.Points.Add(new Point(30, 20));
+            //line.Stroke = Brushes.Blue;
+            //line.StrokeThickness = 8;
+
+            //line.SetValue(Grid.ColumnProperty, i + 1);
+
+            //Grid1.Children.Add(line);
+
+        }
+
+        private void InitiateDuelPairs(List<WrappedCompetitor> competitors)
+        {
+            throw new NotImplementedException();
+        }
+
+        #region CanvasPart
+        private async void CreateTournament(List<WrappedCompetitor> competitors)
+        {
+            var startingNumberOfCompetitors = CalculateCompetitorCount(competitors);
+            var competitorCount = CalculateCompetitorCount(competitors);
+            var numberOfRound = (int)Math.Ceiling(Math.Log(competitorCount, 2));
+
+            for (int i = 1; i <= numberOfRound; i++)
             {
-                var columndefinition = new ColumnDefinition();
+                //await InitRoundView(i);
 
-                Grid1.ColumnDefinitions.Add(columndefinition);
+                //await PlayRound(i);
 
-                var newGrid = new Grid();
-                newGrid.SetValue(Grid.ColumnProperty, i);
+                //RefreshView
 
-                for (int j = 0; j < competitorCount; j++)
+            }
+
+
+
+
+            var enumerateCompetitors = competitors.ToArray();
+            for (int j = 0; j < competitors.Count; j++)
+            {
+                if (enumerateCompetitors[j] != null)
                 {
-                    var rowDefinition = new RowDefinition();
-                    newGrid.RowDefinitions.Add(rowDefinition);
-
-                    var competitorView = new CompetitorViewControl();
-                    competitorView.DataContext = ((TournamentLadderViewModel)DataContext).Competitors.First();
-                    ((Competitor)competitorView.DataContext).Name = "asdasdadas";
-
-                    competitorView.SetValue(Grid.ColumnProperty, i);
-                    competitorView.SetValue(Grid.RowProperty, j);
-                    //  competitorView.SetValue(Grid.RowSpanProperty, i + 1);
-
-                    newGrid.Children.Add(competitorView);
-
+                    AddCompetitorToRound(enumerateCompetitors[j], j, 1, 4, 8, 8);
                 }
-                Grid1.Children.Add(newGrid);
-                competitorCount = competitorCount / 2;
+            }
+
+            for (int i = 0; i < competitorCount - competitors.Count; i++)
+            {
+                var competitorBot = new WrappedCompetitor(new Competitor());
+                AddCompetitorToRound(competitorBot, competitors.Count + i, 1, 4, 8, 8);
+            }
+
+
+
+            for (int i = 0; i < 4; i++)
+            {
+                AddCompetitorToRound(enumerateCompetitors[i], i, 2, 4, 4, 8);
+            }
+
+
+            for (int i = 0; i < 2; i++)
+            {
+                AddCompetitorToRound(enumerateCompetitors[i], i, 3, 4, 2, 8);
+            }
+
+            for (int i = 0; i < 1; i++)
+            {
+                AddCompetitorToRound(enumerateCompetitors[i], i, 4, 4, 1, 8);
             }
         }
+
+        private Task InitRound(int i)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static int CalculateCompetitorCount(List<WrappedCompetitor> competitors)
+        {
+            var competitorCount = competitors.Count;
+            if (competitorCount < 3) competitorCount = 2;
+            if (competitorCount > 2 && competitorCount < 5)
+            {
+                competitorCount = 4;
+            }
+            if (competitorCount > 4 && competitorCount < 9)
+            {
+                competitorCount = 8;
+            }
+            if (competitorCount > 8 && competitorCount < 17)
+            {
+                competitorCount = 16;
+            }
+            if (competitorCount > 16 && competitorCount < 33)
+            {
+                competitorCount = 32;
+            }
+            if (competitorCount > 32 && competitorCount < 65)
+            {
+                competitorCount = 32;
+            }
+            return competitorCount;
+        }
+
+        //competitor should start from 0
+        private void AddCompetitorToRound(WrappedCompetitor competitor, int orderInRow, int roundNumber, int roundCount, int competitorCount, int maxCompetitors)
+        {
+            var competitorView = new CompetitorViewControl();
+
+            competitor.CompetitorHeadPoint = new Point
+            {
+                X = ((roundNumber - 1) * 160) + 160,
+                Y = ((maxCompetitors / competitorCount) * 60 * orderInRow + (Math.Pow(2, (roundNumber - 1)) - 1) * 60 / 2) + 60 / 2,
+            };
+
+            Canvas.SetTop(competitorView, (maxCompetitors / competitorCount) * 60 * orderInRow + (Math.Pow(2, (roundNumber - 1)) - 1) * 60 / 2);
+            Canvas.SetLeft(competitorView, (roundNumber - 1) * 160);
+            TournamentLadderCanvas.Children.Add(competitorView);
+        }
+        #endregion
+
+        //private void CreateTournamentLadderGrid(List<Competitor> competitors)
+        //{
+        //    var competitorCount = competitors.Count;
+        //    if (competitorCount < 3) competitorCount = 2;
+        //    if (competitorCount > 2 && competitorCount < 5) { competitorCount = 4; }
+        //    if (competitorCount > 4 && competitorCount < 9) { competitorCount = 8; }
+        //    if (competitorCount > 8 && competitorCount < 17) { competitorCount = 16; }
+        //    if (competitorCount > 16 && competitorCount < 33) { competitorCount = 32; }
+
+        //    var columnCount = (int)Math.Ceiling(Math.Log(competitorCount, 2)) * 2 + 1;
+
+        //    TournamentLadderGrid.ShowGridLines = true;
+
+        //    for (int i = 0; i < columnCount; i = i + 2)
+        //    {
+        //        var competitorsColumnDefinition = new ColumnDefinition();
+        //        var linesColumnDefinition = new ColumnDefinition();
+        //        TournamentLadderGrid.ColumnDefinitions.Add(competitorsColumnDefinition);
+        //        TournamentLadderGrid.ColumnDefinitions.Add(linesColumnDefinition);
+
+        //        var newGrid = new Grid();
+        //        newGrid.SetValue(Grid.ColumnProperty, i);
+        //        newGrid.ShowGridLines = true;
+
+        //        for (int j = 0; j < competitorCount; j++)
+        //        {
+        //            var rowDefinition = new RowDefinition();
+        //            newGrid.RowDefinitions.Add(rowDefinition);
+
+        //        }
+
+        //        TournamentLadderGrid.Children.Add(newGrid);
+        //        competitorCount = competitorCount / 2;
+        //    }
+        //}
     }
 }

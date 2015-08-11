@@ -6,7 +6,7 @@ namespace Arena.Interfaces
 {
     public interface IGameDescription
     {
-        IGame CreateNewGame(IEnumerable<CompetitorUrl> competitorUrls);
+        IGame CreateNewGame(IEnumerable<Competitor> competitors);
         UserControl GetVisualisation();
     }
 }

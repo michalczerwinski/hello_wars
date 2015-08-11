@@ -4,8 +4,10 @@
   <EliminationType>Arena.EliminationTypes.TournamentLadder.TournamentLadder</EliminationType>
   <GameType>Arena.Games.Tanks.Tanks</GameType>
   <CompetitorUrls>
-    <Url>CzesiekUrl</Url>
     <Url>GrzesiekUrl</Url>
+    <Url>ZdzislawUrl</Url>
+    <Url>ZdzislawUrl</Url>
+    <Url>ZdzislawUrl</Url>
     <Url>ZdzislawUrl</Url>
     <Url>MundekUrl</Url>
   </CompetitorUrls>

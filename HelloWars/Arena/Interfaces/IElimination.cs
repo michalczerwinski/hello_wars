@@ -8,6 +8,6 @@ namespace Arena.Interfaces
     {
         List<Competitor> Competitors { get; set; }
         UserControl GetVisualization(List<Competitor> competitors);
-        IList<CompetitorUrl> GetNextCompetitors(CompetitorUrl lastWinner);
+        IList<Competitor> GetNextCompetitors();
     }
 }

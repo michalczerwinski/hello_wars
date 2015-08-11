@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using Arena.Interfaces;
 using Arena.Models;
 
@@ -17,12 +18,12 @@ namespace Arena.Games.Tanks
             throw new NotImplementedException();
         }
 
-        public System.Windows.Controls.UserControl GetVisualisation()
+        public UserControl GetVisualisation()
         {
             throw new NotImplementedException();
         }
 
-        public IGame CreateNewGame(IEnumerable<CompetitorUrl> competitorUrls)
+        public IGame CreateNewGame(IEnumerable<Competitor> competitors)
         {
             throw new NotImplementedException();
         }
