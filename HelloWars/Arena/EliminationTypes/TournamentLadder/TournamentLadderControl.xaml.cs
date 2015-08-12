@@ -34,7 +34,7 @@ namespace Arena.EliminationTypes.TournamentLadder
         {
             var competitors = ((TournamentLadderViewModel)DataContext).Competitors;
 
-            CreateTournament(competitors);
+            InitiateFirstRound(competitors);
 
 
 
@@ -57,11 +57,13 @@ namespace Arena.EliminationTypes.TournamentLadder
         }
 
         #region CanvasPart
-        private async void CreateTournament(List<WrappedCompetitor> competitors)
+        private async void InitiateFirstRound(List<WrappedCompetitor> competitors)
         {
             var startingNumberOfCompetitors = CalculateCompetitorCount(competitors);
             var competitorCount = CalculateCompetitorCount(competitors);
             var numberOfRound = (int)Math.Ceiling(Math.Log(competitorCount, 2));
+
+            ((TournamentLadderViewModel)DataContext).DuelPairList = CreateDuelPairs(competitors);
 
             for (int i = 1; i <= numberOfRound; i++)
             {
@@ -110,6 +112,25 @@ namespace Arena.EliminationTypes.TournamentLadder
             }
         }
 
+        private List<Tuple<WrappedCompetitor, WrappedCompetitor>> CreateDuelPairs(List<WrappedCompetitor> competitors)
+        {
+            var pairList = new List<Tuple<WrappedCompetitor, WrappedCompetitor>>();
+
+            
+
+            //for (var i = 0; i < competitors.Count; i++)
+            //{
+            //    if (competitors[i+1])
+
+
+            //    var tuple = new Tuple<WrappedCompetitor, WrappedCompetitor>(competitors[i],competitors[++i]);
+            //    pairList.Add(tuple);
+
+            //}
+
+            return pairList;
+        }
+
         private Task InitRound(int i)
         {
             throw new NotImplementedException();
@@ -146,6 +167,8 @@ namespace Arena.EliminationTypes.TournamentLadder
         private void AddCompetitorToRound(WrappedCompetitor competitor, int orderInRow, int roundNumber, int roundCount, int competitorCount, int maxCompetitors)
         {
             var competitorView = new CompetitorViewControl();
+
+            competitorView.DataContext = competitor.Competitor;
 
             competitor.CompetitorHeadPoint = new Point
             {

@@ -7,7 +7,7 @@ namespace Arena.Interfaces
     public interface IElimination
     {
         List<Competitor> Competitors { get; set; }
-        UserControl GetVisualization(List<Competitor> competitors);
+        UserControl GetVisualization();
         IList<Competitor> GetNextCompetitors();
     }
 }

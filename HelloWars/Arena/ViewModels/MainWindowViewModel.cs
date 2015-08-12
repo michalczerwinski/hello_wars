@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Arena.Commands;
@@ -38,7 +39,7 @@ namespace Arena.ViewModels
 
         public UserControl EliminationTypeControl
         {
-            get { return _elimination.GetVisualization(Competitors); }
+            get { return _eliminationTypeControl; }
             set { SetProperty(ref _eliminationTypeControl, value); }
         }
 
@@ -73,6 +74,9 @@ namespace Arena.ViewModels
             _gameDescription = arenaConfiguration.GameDescription;
 
             AskForCompetitors();
+
+            _elimination.Competitors = Competitors;
+            _eliminationTypeControl = _elimination.GetVisualization();
         }
 
         private void AskForCompetitors()
@@ -108,7 +112,7 @@ namespace Arena.ViewModels
 
         private void PlayRound(object obj)
         {
-           throw new Exception("NotImplemented");
+            Competitors.First().StilInGame = false;
         }
 
         private void PlayDuel(object obj)

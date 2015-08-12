@@ -14,9 +14,16 @@ namespace Arena.EliminationTypes.TournamentLadder
 
         public Queue<Tuple<WrappedCompetitor, WrappedCompetitor>> DuelPairList { get; set; }
 
-        public UserControl GetVisualization(List<Competitor> competitors)
+        public UserControl GetVisualization()
         {
-            return new TournamentLadderControl(new TournamentLadderViewModel(competitors));
+            if (Competitors != null)
+            {
+                return new TournamentLadderControl(new TournamentLadderViewModel(Competitors));
+            }
+            else
+            {
+                return null;
+            }
         }
 
         //public IList<CompetitorUrl> GetNextCompetitors(List<Competitor> competitors)
