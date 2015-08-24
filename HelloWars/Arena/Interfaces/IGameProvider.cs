@@ -4,9 +4,9 @@ using Arena.Models;
 
 namespace Arena.Interfaces
 {
-    public interface IGameDescription
+    public interface IGameProvider
     {
-        IGame CreateNewGame(IEnumerable<Competitor> competitors);
         UserControl GetVisualisation();
+        IGame CreateNewGame(IEnumerable<Competitor> competitors);
     }
 }

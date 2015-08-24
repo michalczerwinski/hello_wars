@@ -57,18 +57,34 @@
     <Compile Include="BindableBase.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Configuration\ArenaConfiguration.cs" />
-    <Compile Include="EliminationTypes\TournamentLadder\Models\WrappedCompetitor.cs" />
+    <Compile Include="EliminationTypes\TournamentLadder\UserControls\CompetitorControlViewModel.cs" />
     <Compile Include="EliminationTypes\TournamentLadder\TournamentLadder.cs" />
     <Compile Include="EliminationTypes\TournamentLadder\TournamentLadderControl.xaml.cs">
       <DependentUpon>TournamentLadderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="EliminationTypes\TournamentLadder\TournamentLadderViewModel.cs" />
-    <Compile Include="EliminationTypes\TournamentLadder\UserControls\CompetitorControlViewModel.cs" />
-    <Compile Include="Games\Tanks\Igame.cs" />
+    <Compile Include="Games\PickTheWinner\Models\TankControl.xaml.cs">
+      <DependentUpon>TankControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Games\PickTheWinner\PickTheWinner.cs" />
+    <Compile Include="Games\PickTheWinner\PickTheWinnerControl.xaml.cs">
+      <DependentUpon>PickTheWinnerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Games\PickTheWinner\PickTheWInnerGame.cs" />
+    <Compile Include="Games\PickTheWinner\ViewModels\TankViewModel.cs" />
+    <Compile Include="Games\Tanks\Models\TankControl.xaml.cs">
+      <DependentUpon>TankControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Games\Tanks\TankGameViewModel.cs" />
+    <Compile Include="Games\Tanks\TankGameControl.xaml.cs">
+      <DependentUpon>TankGameControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Games\Tanks\Tanks.cs" />
+    <Compile Include="Games\Tanks\TanksProvider.cs" />
+    <Compile Include="Games\Tanks\ViewModels\TankViewModel.cs" />
     <Compile Include="Interfaces\IElimination.cs" />
     <Compile Include="Interfaces\IGame.cs" />
-    <Compile Include="Interfaces\IGameDescription.cs" />
+    <Compile Include="Interfaces\IGameProvider.cs" />
     <Compile Include="Models\Competitor.cs" />
     <Compile Include="Models\CompetitorUrl.cs" />
     <Compile Include="Models\DuelPair.cs" />
@@ -85,6 +101,22 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RoundViewModel.cs" />
     <Page Include="EliminationTypes\TournamentLadder\TournamentLadderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Games\PickTheWinner\Models\TankControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Games\PickTheWinner\PickTheWinnerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Games\Tanks\Models\TankControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Games\Tanks\TankGameControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -32,6 +32,7 @@ namespace Arena.Pages
         {
             _viewModel = (MainWindowViewModel)DataContext;
             EliminationTypeGrid.Children.Add(_viewModel.EliminationTypeControl);
+            GameTypeGrid.Children.Add(_viewModel.GameTypeControl);
         }
     }
 }

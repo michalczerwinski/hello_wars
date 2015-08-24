@@ -2,13 +2,16 @@
 
 <ArenaConfiguration>
   <EliminationType>Arena.EliminationTypes.TournamentLadder.TournamentLadder</EliminationType>
-  <GameType>Arena.Games.Tanks.Tanks</GameType>
+  <GameType>Arena.Games.PickTheWinner.PickTheWinner</GameType>
   <CompetitorUrls>
     <Url>GrzesiekUrl</Url>
-    <Url>ZdzislawUrl</Url>
-    <Url>ZdzislawUrl</Url>
-    <Url>ZdzislawUrl</Url>
-    <Url>ZdzislawUrl</Url>
-    <Url>MundekUrl</Url>
+    <Url>GrzesiekUrl1</Url>
+    <Url>GrzesiekUrl2</Url>
+    <Url>GrzesiekUrl3</Url>
+    <Url>GrzesiekUrl4</Url>
+    <Url>GrzesiekUrl5</Url>
+    <Url>GrzesiekUrl6</Url>
+    <Url>GrzesiekUrl7</Url>
+    <Url>GrzesiekUrl8</Url>
   </CompetitorUrls>
 </ArenaConfiguration>

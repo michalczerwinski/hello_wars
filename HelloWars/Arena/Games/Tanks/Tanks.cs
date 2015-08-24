@@ -1,31 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Remoting.Messaging;
 using System.Windows.Controls;
 using Arena.Interfaces;
 using Arena.Models;
 
 namespace Arena.Games.Tanks
 {
-    public class Tanks : IGameDescription
+    public class Tanks : IGame
     {
         public long RoundNumber { get; set; }
 
-        public bool PerformNextRound()
+        public bool PerformNextMove()
         {
             throw new NotImplementedException();
         }
 
-        public UserControl GetVisualisation()
+        public EventHandler GameFinishHandler
         {
-            throw new NotImplementedException();
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
-        public IGame CreateNewGame(IEnumerable<Competitor> competitors)
-        {
-            throw new NotImplementedException();
-        }
+        public List<Competitor> Competitors { get; set; }
     }
 }

@@ -8,11 +8,10 @@ namespace Arena.Models
 {
     public class Competitor : BindableBase
     {
-        private bool _stilInGame;
         private string _name;
         private string _avatarUrl;
-
-        public int TournamentId { get; set; }
+        public string Url { get; set; }
+        private bool _stilInGame;
 
         public string Name
         {
@@ -26,12 +25,26 @@ namespace Arena.Models
             set { SetProperty(ref _avatarUrl, value); }
         }
 
-        public string Url { get; set; }
+
+        public delegate void DuelFinishedDelegete(object sender);
+        public event DuelFinishedDelegete DuelFinished;
 
         public bool StilInGame
         {
             get { return _stilInGame; }
-            set { SetProperty(ref _stilInGame, value); }
+            set
+            {
+                DuelFinishedInformer();
+                SetProperty(ref _stilInGame, value);
+            }
+        }
+
+        private void DuelFinishedInformer()
+        {
+            if (DuelFinished != null)
+            {
+                DuelFinished(this);
+            }
         }
     }
 }

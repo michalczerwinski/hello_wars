@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Arena.Commands;
@@ -16,7 +17,7 @@ namespace Arena.ViewModels
         private string _tempText;
         private ArenaConfiguration _arenaConfiguration;
         private IElimination _elimination;
-        private IGameDescription _gameDescription;
+        private IGameProvider _gameProvider;
         private BotProxy _botProxy;
         private UserControl _gameTypeControl;
         private UserControl _eliminationTypeControl;
@@ -24,6 +25,8 @@ namespace Arena.ViewModels
         private ICommand _playDuelCommand;
         private ICommand _autoPlayCommand;
         private ICommand _playRoundCommand;
+        public ICommand _startDuelCommand;
+        public ICommand _stopDuelCommand;
 
         public string TempText
         {
@@ -33,7 +36,7 @@ namespace Arena.ViewModels
 
         public UserControl GameTypeControl
         {
-            get { return null; }
+            get { return _gameTypeControl; }
             set { SetProperty(ref _gameTypeControl, value); }
         }
 
@@ -64,19 +67,28 @@ namespace Arena.ViewModels
             get { return _autoPlayCommand ?? (_autoPlayCommand = new RelayCommand(AutoPlay)); }
         }
 
+        public ICommand StartDuelCommand
+        {
+            get { return _startDuelCommand ?? (_startDuelCommand = new RelayCommand(StartDuel)); }
+        }
+
+        public ICommand StopDuelCommand
+        {
+            get { return _stopDuelCommand ?? (_stopDuelCommand = new RelayCommand(StopDuel)); }
+        }
+
         public MainWindowViewModel(ArenaConfiguration arenaConfiguration)
         {
             TempText = "Hello Wars();";
             _arenaConfiguration = arenaConfiguration;
             _elimination = arenaConfiguration.Eliminations;
-            var _game = new Games.Tanks.Tanks();
-
-            _gameDescription = arenaConfiguration.GameDescription;
+            _gameProvider = arenaConfiguration.GameDescription;
 
             AskForCompetitors();
 
             _elimination.Competitors = Competitors;
             _eliminationTypeControl = _elimination.GetVisualization();
+            _gameTypeControl = _gameProvider.GetVisualisation();
         }
 
         private void AskForCompetitors()
@@ -94,7 +106,6 @@ namespace Arena.ViewModels
                     Name = _botProxy.GetName(),
                     StilInGame = true,
                 };
-
                 Competitors.Add(competitor);
             }
         }
@@ -105,19 +116,37 @@ namespace Arena.ViewModels
 
             while (nextCompetitors != null)
             {
-                _gameDescription.CreateNewGame(nextCompetitors);
+                var game = _gameProvider.CreateNewGame(nextCompetitors);
+                game.PerformNextMove();
                 nextCompetitors = _elimination.GetNextCompetitors();
             }
         }
 
         private void PlayRound(object obj)
         {
-            Competitors.First().StilInGame = false;
         }
 
         private void PlayDuel(object obj)
         {
-            _gameDescription.CreateNewGame(_elimination.GetNextCompetitors());
+            var game = _gameProvider.CreateNewGame(_elimination.GetNextCompetitors());
+            game.PerformNextMove();
+        }
+
+
+        private void StopDuel(object obj)
+        {
+            _duelInRun = false;
+        }
+
+        private bool _duelInRun;
+
+        private void StartDuel(object obj)
+        {
+            _duelInRun = true;
+            while (_duelInRun)
+            {
+                Task.Delay(1000);
+            }
         }
     }
 }

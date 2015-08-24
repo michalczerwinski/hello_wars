@@ -3,31 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:models="clr-namespace:Arena.Models"
              xmlns:converters="clr-namespace:Arena.Pages.Converters"
-             mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=models:Competitor}"
-             Height="60" Width="160">
+             xmlns:userControls="clr-namespace:Arena.EliminationTypes.TournamentLadder.UserControls"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=userControls:CompetitorControlViewModel}"
+             Height="60" Width="160"
+             >
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter"></converters:BoolToOpacityConverter>
+            <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     
     <Border Margin="2" BorderThickness="3" CornerRadius="5"
-            Background="#FF626262" BorderBrush="#FFFFAC00" Opacity="{Binding StilInGame, Converter={StaticResource BoolToOpacityConverter}, Mode=TwoWay}">
+            Background="#FF626262" BorderBrush="#FFFFAC00" Opacity="{Binding Competitor.StilInGame, Converter={StaticResource BoolToOpacityConverter}, Mode=TwoWay}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60"/>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="90"/>
             </Grid.ColumnDefinitions>
 
             <Viewbox Margin="5">
-                <Image Source="{Binding AvatarUrl, Mode=TwoWay}"/>
+                <Image Source="{Binding Competitor.AvatarUrl, Mode=TwoWay}"/>
             </Viewbox>
 
-            <Viewbox Grid.Column="1" StretchDirection="DownOnly">
-                <TextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Viewbox Grid.Column="1" >
+                <TextBlock Padding="3" Text="{Binding Competitor.Name, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Viewbox>
         </Grid>
     </Border>
