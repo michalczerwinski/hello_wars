@@ -16,24 +16,19 @@ namespace Arena.EliminationTypes.TournamentLadder
     public partial class TournamentLadderControl : UserControl
     {
         private int _startingNumberOfCompetitors;
-        private List<CompetitorViewControl> _tournamentList;
+        public List<CompetitorViewControl> TournamentList;
         private TournamentLadderViewModel _viewModel;
 
         public TournamentLadderControl(TournamentLadderViewModel viewModel)
         {
-            _viewModel = viewModel;
             InitializeComponent();
-        }
 
-        private void TournamentLadderControl_OnLoaded(object sender, RoutedEventArgs e)
-        {
+            _viewModel = viewModel;
             _startingNumberOfCompetitors = _viewModel.Competitors.Count;
-            var numberOfCompetitors = _startingNumberOfCompetitors;
-            var numberOfRound = (int)Math.Ceiling(Math.Log(_startingNumberOfCompetitors, 2)) + 1;
-
             CreateEmptyTournamentLadderView();
-
             AddCompetitorsToTournamentList();
+
+            //var numberOfRound = (int)Math.Ceiling(Math.Log(_startingNumberOfCompetitors, 2)) + 1;
         }
 
         private List<CompetitorViewControl> CreateRoundList(int roundNumber, int numberOfCompetitors)
@@ -45,7 +40,7 @@ namespace Arena.EliminationTypes.TournamentLadder
                 for (int i = 0; i < numberOfCompetitors; i++)
                 {
                     var competitorShell = AddEmptyCompetitorToRound(roundNumber, i, numberOfCompetitors);
-                   ((CompetitorControlViewModel)competitorShell.DataContext).Id = i;
+                    ((CompetitorControlViewModel)competitorShell.DataContext).Id = i;
                     result.Add(competitorShell);
                 }
             }
@@ -84,11 +79,18 @@ namespace Arena.EliminationTypes.TournamentLadder
             while (numberOfCompetitors > 0)
             {
                 var list = CreateRoundList(roundNumber, numberOfCompetitors);
-
                 _viewModel.RoundList.Add(list);
 
                 roundNumber++;
                 numberOfCompetitors = numberOfCompetitors / 2;
+            }
+
+            foreach (var roundList in _viewModel.RoundList)
+            {
+                if (roundList.Count > 1)
+                {
+                    SetDuels(roundList);
+                }
             }
 
             for (int i = 0; i < roundNumber - 2; i++)
@@ -99,6 +101,15 @@ namespace Arena.EliminationTypes.TournamentLadder
                 {
                     DrawTournamentLines(competitorsInRound[j], competitorsInRound[++j]);
                 }
+            }
+        }
+
+        private void SetDuels(List<CompetitorViewControl> list)
+        {
+            for (int i = 0; i < list.Count; i = i + 2)
+            {
+                ((CompetitorControlViewModel)list[i].DataContext).PairWithId = ((CompetitorControlViewModel)list[i + 1].DataContext).Id;
+                ((CompetitorControlViewModel)list[i + 1].DataContext).PairWithId = ((CompetitorControlViewModel)list[i].DataContext).Id;
             }
         }
 
@@ -125,9 +136,7 @@ namespace Arena.EliminationTypes.TournamentLadder
             return competitorView;
         }
 
-
         #region CanvasPart
-
         private void DrawTournamentLines(CompetitorViewControl competitor1, CompetitorViewControl competitor2)
         {
             var line = new Polyline();

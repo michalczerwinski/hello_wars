@@ -145,7 +145,7 @@ namespace Arena.ViewModels
             _duelInRun = true;
             while (_duelInRun)
             {
-                Task.Delay(1000);
+                Task.Delay(5000);
             }
         }
     }

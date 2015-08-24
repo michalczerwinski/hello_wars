@@ -10,18 +10,11 @@ namespace Arena.EliminationTypes.TournamentLadder
     {
         private List<Competitor> _competitors;
         private int _currentRound;
-        private List<Tuple<CompetitorControlViewModel, CompetitorControlViewModel>> _duelPairList;
 
         public List<Competitor> Competitors
         {
             get { return _competitors; }
             set { SetProperty(ref _competitors, value); }
-        }
-
-        public List<Tuple<CompetitorControlViewModel, CompetitorControlViewModel>> DuelPairList
-        {
-            get { return _duelPairList; }
-            set { SetProperty(ref _duelPairList, value); }
         }
 
         public int CurrentRound
@@ -34,15 +27,17 @@ namespace Arena.EliminationTypes.TournamentLadder
 
         public TournamentLadderViewModel(List<Competitor> competitors)
         {
+            CurrentRound = 0;
             Competitors = competitors;
-            competitors.First().DuelFinished += OnDuelFinished;
-            //    Competitors = WrapCompetitors(competitors);
+            foreach (var competitor in competitors)
+            {
+                competitor.DuelFinished += OnDuelFinished;
+            }
         }
 
         private void OnDuelFinished(object sender)
         {
             var competitor = sender as Competitor;
-
             var competitorViewModel = (CompetitorControlViewModel)RoundList[CurrentRound].FirstOrDefault(f => ((CompetitorControlViewModel)f.DataContext).Competitor == competitor).DataContext;
 
             var item = RoundList[competitorViewModel.CurrentRound + 1].First(f => ((CompetitorControlViewModel)f.DataContext).ItemConnected1 == competitorViewModel.Id || ((CompetitorControlViewModel)f.DataContext).ItemConnected2 == competitorViewModel.Id);
@@ -55,42 +50,19 @@ namespace Arena.EliminationTypes.TournamentLadder
 
             if (itemConnected11 != null && itemConnected11.Competitor.StilInGame)
             {
-                item.DataContext = itemConnected2;
+                itemConnected22.CurrentRound++;
+                item.DataContext = itemConnected22;
+
             }
             else if (itemConnected22 != null && itemConnected22.Competitor.StilInGame)
             {
+                itemConnected11.CurrentRound++;
                 item.DataContext = itemConnected1;
             }
             else
             {
                 throw new Exception("something goes wrong.");
             }
-        }
-
-        private void CreateRoundList(int roundNumber, int competitorsNumber)
-        {
-            var result = new List<Competitor>();
-
-            for (int i = 0; i < competitorsNumber; i++)
-            {
-                result.Add(new Competitor());
-            }
-
-
-        }
-
-        private List<CompetitorControlViewModel> WrapCompetitors(List<Competitor> competitors)
-        {
-            var result = new List<CompetitorControlViewModel>();
-
-            foreach (var competitor in competitors)
-            {
-                var wrappedCompetitor = new CompetitorControlViewModel(competitor);
-
-                result.Add(wrappedCompetitor);
-            }
-
-            return result;
         }
     }
 }

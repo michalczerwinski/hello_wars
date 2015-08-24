@@ -25,7 +25,6 @@ namespace Arena.Models
             set { SetProperty(ref _avatarUrl, value); }
         }
 
-
         public delegate void DuelFinishedDelegete(object sender);
         public event DuelFinishedDelegete DuelFinished;
 

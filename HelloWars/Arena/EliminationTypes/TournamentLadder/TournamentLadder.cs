@@ -1,61 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
+using Arena.EliminationTypes.TournamentLadder.UserControls;
 using Arena.Interfaces;
 using Arena.Models;
 
 namespace Arena.EliminationTypes.TournamentLadder
 {
-    public class TournamentLadder :  IElimination
+    public class TournamentLadder : IElimination
     {
         public List<Competitor> Competitors { get; set; }
-        public Queue<Tuple<Competitor, Competitor>> DuelPairList { get; set; }
+
+        private TournamentLadderViewModel _tournamentLadderViewModel;
+        private TournamentLadderControl _tournamentLadderControl;
 
         public UserControl GetVisualization()
         {
             if (Competitors != null)
             {
                 var startingNumberOfCompetitors = CalculateCompetitorCount(Competitors);
-                
+
                 AddBotsToCompetitorsList(startingNumberOfCompetitors - Competitors.Count);
-              //  CreateDuelsList();
+                _tournamentLadderViewModel = new TournamentLadderViewModel(Competitors);
+                _tournamentLadderControl = new TournamentLadderControl(_tournamentLadderViewModel);
 
-                return new TournamentLadderControl(new TournamentLadderViewModel(Competitors));
+                return _tournamentLadderControl;
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
-
-        private void CreateDuelsList()
-        {
-            DuelPairList = new Queue<Tuple<Competitor, Competitor>>();
-
-            for (int i = 0; i < Competitors.Count; i++)
-            {
-                var pair = new Tuple<Competitor, Competitor>(Competitors[i], Competitors[++i]);
-
-                DuelPairList.Enqueue(pair);
-            }
-        }
-
 
         public IList<Competitor> GetNextCompetitors()
         {
             var result = new List<Competitor>();
 
-            result.Add(Competitors[0]);
-            result.Add(Competitors[1]);
-            //if (DuelPairList.Count != 0)
-            //{
-            //    result.Add(DuelPairList.First().Item1);
-            //    result.Add(DuelPairList.First().Item2);
-            //    DuelPairList.Dequeue();
-            //    return result;
-            //}
-            return result;
+            foreach (var roundList in _tournamentLadderViewModel.RoundList)
+            {
+                var competitorViewModelList = roundList.Select(f => (CompetitorControlViewModel)f.DataContext).ToList();
+
+                foreach (var competitor in competitorViewModelList)
+                {
+                    if (competitor.Competitor.StilInGame)
+                    {
+                        var connectedCompetitor = competitorViewModelList.First(f => f.PairWithId == competitor.Id).Competitor;
+                        if (connectedCompetitor.StilInGame)
+                        {
+                            result.Add(competitor.Competitor);
+                            result.Add(connectedCompetitor);
+                            return result;
+                        }
+                    }
+                }
+            }
+
+            return null;
         }
 
         private void AddBotsToCompetitorsList(int botCount)
@@ -93,6 +90,5 @@ namespace Arena.EliminationTypes.TournamentLadder
             }
             return competitorCount;
         }
-
     }
 }
