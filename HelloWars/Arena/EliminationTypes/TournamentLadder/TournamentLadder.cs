@@ -26,16 +26,16 @@ namespace Arena.EliminationTypes.TournamentLadder
         {
             var result = new List<Competitor>();
 
-            foreach (var roundList in _tournamentLadderViewModel.RoundList)
+            foreach (var stageList in _tournamentLadderViewModel.StageLists)
             {
-                foreach (var competitor in roundList)
+                foreach (var competitor in stageList)
                 {
-                    if (roundList.Count > 1)
+                    if (stageList.Count > 1)
                     {
                         var competitorViewModel = competitor.ViewModel;
                         if (competitorViewModel.Competitor.StilInGame)
                         {
-                            var connectedCompetitor = roundList.First(f => f.PairWithId == competitor.Id).ViewModel.Competitor;
+                            var connectedCompetitor = stageList.First(f => f.PairWithId == competitor.Id).ViewModel.Competitor;
 
                             if (connectedCompetitor.StilInGame)
                             {

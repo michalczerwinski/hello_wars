@@ -5,7 +5,7 @@ namespace Arena.EliminationTypes.TournamentLadder.UserControls
     public class CompetitorControlViewModel : BindableBase
     {
         private Competitor _competitor;
-        public int CurrentRound;
+        public int CurrentStage;
 
         public Competitor Competitor
         {

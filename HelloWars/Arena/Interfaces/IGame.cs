@@ -6,10 +6,11 @@ namespace Arena.Interfaces
 {
     public interface IGame
     {
-        List<Competitor> Competitors { get; set; } 
-        long RoundNumber { get; set; }
-        bool PerformNextMove();
         UserControl GetVisualisation();
+        List<Competitor> Competitors { get; set; }
+        bool PerformNextMove();
+
+        long RoundNumber { get; set; }
         IGame CreateNewGame(List<Competitor> competitors);
     }
 }

@@ -33,21 +33,21 @@ namespace Arena.EliminationTypes.TournamentLadder
 
         private void SetCanvasSize()
         {
-            var numberOfRound = (int)Math.Ceiling(Math.Log(_startingNumberOfCompetitors, 2)) + 1;
+            var numberOfStages = (int)Math.Ceiling(Math.Log(_startingNumberOfCompetitors, 2)) + 1;
 
-            TournamentLadderCanvas.Height = _startingNumberOfCompetitors*60;
-            TournamentLadderCanvas.Width = numberOfRound*(160 + 50);
+            TournamentLadderCanvas.Height = _startingNumberOfCompetitors * 60;
+            TournamentLadderCanvas.Width = numberOfStages * (160 + 50);
         }
 
-        private List<CompetitorViewControl> CreateRoundList(int roundNumber, int numberOfCompetitors)
+        private List<CompetitorViewControl> CreateStageList(int stageNumber, int numberOfCompetitors)
         {
             var result = new List<CompetitorViewControl>();
 
-            if (roundNumber == 1)
+            if (stageNumber == 1)
             {
                 for (int i = 0; i < numberOfCompetitors; i++)
                 {
-                    var competitorShell = AddEmptyCompetitorToRound(roundNumber, i, numberOfCompetitors);
+                    var competitorShell = AddEmptyCompetitorToStage(stageNumber, i, numberOfCompetitors);
                     competitorShell.Id = i;
 
                     result.Add(competitorShell);
@@ -57,7 +57,7 @@ namespace Arena.EliminationTypes.TournamentLadder
             {
                 for (int i = 0; i < numberOfCompetitors; i++)
                 {
-                    var competitorShell = AddEmptyCompetitorToRound(roundNumber, i, numberOfCompetitors);
+                    var competitorShell = AddEmptyCompetitorToStage(stageNumber, i, numberOfCompetitors);
                     competitorShell.Id = i;
                     competitorShell.ItemConnected1 = competitorShell.Id * 2;
                     competitorShell.ItemConnected2 = competitorShell.Id * 2 + 1;
@@ -71,7 +71,7 @@ namespace Arena.EliminationTypes.TournamentLadder
         private void AddCompetitorsToTournamentList()
         {
             var competitorsEnumerable = _viewModel.Competitors.GetEnumerator();
-            foreach (var emptyCompetitorShell in _viewModel.RoundList[0])
+            foreach (var emptyCompetitorShell in _viewModel.StageLists[0])
             {
                 competitorsEnumerable.MoveNext();
                 ((CompetitorControlViewModel)emptyCompetitorShell.DataContext).Competitor = competitorsEnumerable.Current;
@@ -80,34 +80,34 @@ namespace Arena.EliminationTypes.TournamentLadder
 
         private void CreateEmptyTournamentLadderView()
         {
-            _viewModel.RoundList = new List<List<CompetitorViewControl>>();
+            _viewModel.StageLists = new List<List<CompetitorViewControl>>();
             var numberOfCompetitors = _startingNumberOfCompetitors;
-            var roundNumber = 1;
+            var stageNumber = 1;
 
             while (numberOfCompetitors > 0)
             {
-                var list = CreateRoundList(roundNumber, numberOfCompetitors);
-                _viewModel.RoundList.Add(list);
+                var list = CreateStageList(stageNumber, numberOfCompetitors);
+                _viewModel.StageLists.Add(list);
 
-                roundNumber++;
+                stageNumber++;
                 numberOfCompetitors = numberOfCompetitors / 2;
             }
 
-            foreach (var roundList in _viewModel.RoundList)
+            foreach (var stageList in _viewModel.StageLists)
             {
-                if (roundList.Count > 1)
+                if (stageList.Count > 1)
                 {
-                    SetDuels(roundList);
+                    SetDuels(stageList);
                 }
             }
 
-            for (int i = 0; i < roundNumber - 2; i++)
+            for (int i = 0; i < stageNumber - 2; i++)
             {
-                var competitorsInRound = _viewModel.RoundList[i];
+                var competitorsInStage = _viewModel.StageLists[i];
 
-                for (int j = 0; j < competitorsInRound.Count; j++)
+                for (int j = 0; j < competitorsInStage.Count; j++)
                 {
-                    DrawTournamentLines(competitorsInRound[j], competitorsInRound[++j]);
+                    DrawTournamentLines(competitorsInStage[j], competitorsInStage[++j]);
                 }
             }
         }
@@ -121,24 +121,24 @@ namespace Arena.EliminationTypes.TournamentLadder
             }
         }
 
-        private CompetitorViewControl AddEmptyCompetitorToRound(int roundNumber, int orderInRow, int numberOfCompetitors)
+        private CompetitorViewControl AddEmptyCompetitorToStage(int stageNumber, int orderInRow, int numberOfCompetitors)
         {
             var competitorView = new CompetitorViewControl(new CompetitorControlViewModel());
 
             competitorView.CompetitorHeadPoint = new Point
             {
-                X = ((roundNumber - 1) * (160 + 50)) + 160,
-                Y = ((_startingNumberOfCompetitors / numberOfCompetitors) * 60 * orderInRow + (Math.Pow(2, (roundNumber - 1)) - 1) * 60 / 2) + 60 / 2,
+                X = ((stageNumber - 1) * (160 + 50)) + 160,
+                Y = ((_startingNumberOfCompetitors / numberOfCompetitors) * 60 * orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1) * 60 / 2) + 60 / 2,
             };
 
             competitorView.CompetitorTailPoint = new Point
             {
-                X = ((roundNumber - 1) * (160 + 50)),
-                Y = ((_startingNumberOfCompetitors / numberOfCompetitors) * 60 * orderInRow + (Math.Pow(2, (roundNumber - 1)) - 1) * 60 / 2) + 60 / 2,
+                X = ((stageNumber - 1) * (160 + 50)),
+                Y = ((_startingNumberOfCompetitors / numberOfCompetitors) * 60 * orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1) * 60 / 2) + 60 / 2,
             };
 
-            Canvas.SetTop(competitorView, (_startingNumberOfCompetitors / numberOfCompetitors) * 60 * orderInRow + (Math.Pow(2, (roundNumber - 1)) - 1) * 60 / 2);
-            Canvas.SetLeft(competitorView, (roundNumber - 1) * (160 + 50));
+            Canvas.SetTop(competitorView, (_startingNumberOfCompetitors / numberOfCompetitors) * 60 * orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1) * 60 / 2);
+            Canvas.SetLeft(competitorView, (stageNumber - 1) * (160 + 50));
             TournamentLadderCanvas.Children.Add(competitorView);
 
             return competitorView;
