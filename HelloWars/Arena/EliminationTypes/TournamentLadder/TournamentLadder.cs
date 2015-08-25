@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
-using Arena.EliminationTypes.TournamentLadder.UserControls;
 using Arena.Interfaces;
 using Arena.Models;
 
@@ -9,10 +8,8 @@ namespace Arena.EliminationTypes.TournamentLadder
 {
     public class TournamentLadder : IElimination
     {
-        public List<Competitor> Competitors { get; set; }
-
         private TournamentLadderViewModel _tournamentLadderViewModel;
-        private TournamentLadderControl _tournamentLadderControl;
+        public List<Competitor> Competitors { get; set; }
 
         public UserControl GetVisualization()
         {
@@ -22,10 +19,10 @@ namespace Arena.EliminationTypes.TournamentLadder
 
                 AddBotsToCompetitorsList(startingNumberOfCompetitors - Competitors.Count);
                 _tournamentLadderViewModel = new TournamentLadderViewModel(Competitors);
-                _tournamentLadderControl = new TournamentLadderControl(_tournamentLadderViewModel);
 
-                return _tournamentLadderControl;
+                return new TournamentLadderControl(_tournamentLadderViewModel);;
             }
+
             return null;
         }
 
@@ -35,18 +32,21 @@ namespace Arena.EliminationTypes.TournamentLadder
 
             foreach (var roundList in _tournamentLadderViewModel.RoundList)
             {
-                var competitorViewModelList = roundList.Select(f => (CompetitorControlViewModel)f.DataContext).ToList();
-
-                foreach (var competitor in competitorViewModelList)
+                foreach (var competitor in roundList)
                 {
-                    if (competitor.Competitor.StilInGame)
+                    if (roundList.Count > 1)
                     {
-                        var connectedCompetitor = competitorViewModelList.First(f => f.PairWithId == competitor.Id).Competitor;
-                        if (connectedCompetitor.StilInGame)
+                        var competitorViewModel = competitor.ViewModel;
+                        if (competitorViewModel.Competitor.StilInGame)
                         {
-                            result.Add(competitor.Competitor);
-                            result.Add(connectedCompetitor);
-                            return result;
+                            var connectedCompetitor = roundList.First(f => f.PairWithId == competitor.Id).ViewModel.Competitor;
+
+                            if (connectedCompetitor.StilInGame)
+                            {
+                                result.Add(competitor.ViewModel.Competitor);
+                                result.Add(connectedCompetitor);
+                                return result;
+                            }
                         }
                     }
                 }
@@ -59,7 +59,12 @@ namespace Arena.EliminationTypes.TournamentLadder
         {
             for (int i = 0; i < botCount; i++)
             {
-                var competitor = new Competitor();
+                var competitor = new Competitor
+                {
+                    AvatarUrl = @"/Assets/BotImg.png",
+                    Name = "Bot",
+                    StilInGame = true,
+                };
                 Competitors.Add(competitor);
             }
         }
@@ -86,7 +91,7 @@ namespace Arena.EliminationTypes.TournamentLadder
             }
             if (competitorCount > 32 && competitorCount < 65)
             {
-                competitorCount = 32;
+                competitorCount = 64;
             }
             return competitorCount;
         }

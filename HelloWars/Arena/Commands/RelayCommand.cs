@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Arena.Commands
@@ -66,7 +62,6 @@ namespace Arena.Commands
             EventHandler handler = this.CanExecuteChangedInternal;
             if (handler != null)
             {
-                //DispatcherHelper.BeginInvokeOnUIThread(() => handler.Invoke(this, EventArgs.Empty));
                 handler.Invoke(this, EventArgs.Empty);
             }
         }

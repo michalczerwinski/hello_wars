@@ -9,13 +9,23 @@ namespace Arena.EliminationTypes.TournamentLadder.UserControls
     /// []
     public partial class CompetitorViewControl : UserControl
     {
-        public Point CompetitorHeadPoint { get; set; }
-        public Point CompetitorTailPoint { get; set; }
-     
+        public int Id;
+        public int PairWithId;
+        public int ItemConnected1;
+        public int ItemConnected2;
+        public Point CompetitorHeadPoint;
+        public Point CompetitorTailPoint;
+
+        public CompetitorControlViewModel ViewModel
+        {
+            get { return (CompetitorControlViewModel)DataContext; }
+            set { DataContext = value; }
+        }
+
         public CompetitorViewControl(CompetitorControlViewModel viewModel)
         {
+            ViewModel = viewModel;
             InitializeComponent();
-            DataContext = viewModel;
         }
     }
 }

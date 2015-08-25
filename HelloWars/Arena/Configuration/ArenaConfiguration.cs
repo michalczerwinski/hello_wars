@@ -26,8 +26,8 @@ namespace Arena.Configuration
             {
                 if (_gameDescription == null)
                 {
-                    var sss = Assembly.GetExecutingAssembly();
-                    var gameType = sss.GetType(GameType);
+                    var assembly = Assembly.GetExecutingAssembly();
+                    var gameType = assembly.GetType(GameType);
                     _gameDescription = (IGameProvider)Activator.CreateInstance(gameType);
                 }
 

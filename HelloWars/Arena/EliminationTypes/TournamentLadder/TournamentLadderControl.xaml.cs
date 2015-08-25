@@ -15,7 +15,7 @@ namespace Arena.EliminationTypes.TournamentLadder
     /// </summary>
     public partial class TournamentLadderControl : UserControl
     {
-        private int _startingNumberOfCompetitors;
+        private readonly int _startingNumberOfCompetitors;
         public List<CompetitorViewControl> TournamentList;
         private TournamentLadderViewModel _viewModel;
 
@@ -28,7 +28,15 @@ namespace Arena.EliminationTypes.TournamentLadder
             CreateEmptyTournamentLadderView();
             AddCompetitorsToTournamentList();
 
-            //var numberOfRound = (int)Math.Ceiling(Math.Log(_startingNumberOfCompetitors, 2)) + 1;
+            SetCanvasSize();
+        }
+
+        private void SetCanvasSize()
+        {
+            var numberOfRound = (int)Math.Ceiling(Math.Log(_startingNumberOfCompetitors, 2)) + 1;
+
+            TournamentLadderCanvas.Height = _startingNumberOfCompetitors*60;
+            TournamentLadderCanvas.Width = numberOfRound*(160 + 50);
         }
 
         private List<CompetitorViewControl> CreateRoundList(int roundNumber, int numberOfCompetitors)
@@ -40,7 +48,8 @@ namespace Arena.EliminationTypes.TournamentLadder
                 for (int i = 0; i < numberOfCompetitors; i++)
                 {
                     var competitorShell = AddEmptyCompetitorToRound(roundNumber, i, numberOfCompetitors);
-                    ((CompetitorControlViewModel)competitorShell.DataContext).Id = i;
+                    competitorShell.Id = i;
+
                     result.Add(competitorShell);
                 }
             }
@@ -49,9 +58,9 @@ namespace Arena.EliminationTypes.TournamentLadder
                 for (int i = 0; i < numberOfCompetitors; i++)
                 {
                     var competitorShell = AddEmptyCompetitorToRound(roundNumber, i, numberOfCompetitors);
-                    ((CompetitorControlViewModel)competitorShell.DataContext).Id = i;
-                    ((CompetitorControlViewModel)competitorShell.DataContext).ItemConnected1 = ((CompetitorControlViewModel)competitorShell.DataContext).Id * 2;
-                    ((CompetitorControlViewModel)competitorShell.DataContext).ItemConnected2 = ((CompetitorControlViewModel)competitorShell.DataContext).Id * 2 + 1;
+                    competitorShell.Id = i;
+                    competitorShell.ItemConnected1 = competitorShell.Id * 2;
+                    competitorShell.ItemConnected2 = competitorShell.Id * 2 + 1;
                     result.Add(competitorShell);
                 }
             }
@@ -71,11 +80,10 @@ namespace Arena.EliminationTypes.TournamentLadder
 
         private void CreateEmptyTournamentLadderView()
         {
-            var numberOfCompetitors = _startingNumberOfCompetitors;
-
             _viewModel.RoundList = new List<List<CompetitorViewControl>>();
-
+            var numberOfCompetitors = _startingNumberOfCompetitors;
             var roundNumber = 1;
+
             while (numberOfCompetitors > 0)
             {
                 var list = CreateRoundList(roundNumber, numberOfCompetitors);
@@ -108,8 +116,8 @@ namespace Arena.EliminationTypes.TournamentLadder
         {
             for (int i = 0; i < list.Count; i = i + 2)
             {
-                ((CompetitorControlViewModel)list[i].DataContext).PairWithId = ((CompetitorControlViewModel)list[i + 1].DataContext).Id;
-                ((CompetitorControlViewModel)list[i + 1].DataContext).PairWithId = ((CompetitorControlViewModel)list[i].DataContext).Id;
+                list[i].PairWithId = list[i + 1].Id;
+                list[i + 1].PairWithId = list[i].Id;
             }
         }
 
@@ -136,7 +144,6 @@ namespace Arena.EliminationTypes.TournamentLadder
             return competitorView;
         }
 
-        #region CanvasPart
         private void DrawTournamentLines(CompetitorViewControl competitor1, CompetitorViewControl competitor2)
         {
             var line = new Polyline();
@@ -187,6 +194,5 @@ namespace Arena.EliminationTypes.TournamentLadder
             };
             line.Points.Add(point);
         }
-        #endregion
     }
 }

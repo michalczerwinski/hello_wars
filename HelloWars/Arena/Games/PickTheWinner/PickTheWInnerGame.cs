@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Arena.Interfaces;
 using Arena.Models;
 
@@ -14,10 +11,11 @@ namespace Arena.Games.PickTheWinner
 
         public long RoundNumber { get; set; }
 
+        private readonly Random _rand = new Random(DateTime.Now.Millisecond);
+
         public bool PerformNextMove()
         {
-            var rand = new Random(DateTime.Now.Millisecond);
-            var looser = rand.Next(0, 1);
+            var looser = _rand.Next(0, 2);
 
             Competitors[looser].StilInGame = false;
 

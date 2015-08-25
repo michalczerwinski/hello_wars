@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Arena.Models
+﻿namespace Arena.Models
 {
     public class Competitor : BindableBase
     {
         private string _name;
         private string _avatarUrl;
-        public string Url { get; set; }
         private bool _stilInGame;
+        public string Url { get; set; }
 
         public string Name
         {
@@ -33,8 +27,8 @@ namespace Arena.Models
             get { return _stilInGame; }
             set
             {
-                DuelFinishedInformer();
                 SetProperty(ref _stilInGame, value);
+                DuelFinishedInformer();
             }
         }
 

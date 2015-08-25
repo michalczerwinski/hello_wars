@@ -6,29 +6,16 @@ using Arena.Models;
 
 namespace Arena.EliminationTypes.TournamentLadder
 {
-    public class TournamentLadderViewModel : BindableBase
+    public class TournamentLadderViewModel
     {
-        private List<Competitor> _competitors;
-        private int _currentRound;
-
-        public List<Competitor> Competitors
-        {
-            get { return _competitors; }
-            set { SetProperty(ref _competitors, value); }
-        }
-
-        public int CurrentRound
-        {
-            get { return _currentRound; }
-            set { SetProperty(ref _currentRound, value); }
-        }
-
-        public List<List<CompetitorViewControl>> RoundList { get; set; }
+        private List<CompetitorControlViewModel> _competitorViewModels;
+        public List<Competitor> Competitors;
+        public List<List<CompetitorViewControl>> RoundList;
 
         public TournamentLadderViewModel(List<Competitor> competitors)
         {
-            CurrentRound = 0;
             Competitors = competitors;
+
             foreach (var competitor in competitors)
             {
                 competitor.DuelFinished += OnDuelFinished;
@@ -37,32 +24,41 @@ namespace Arena.EliminationTypes.TournamentLadder
 
         private void OnDuelFinished(object sender)
         {
+            if (_competitorViewModels == null) { _competitorViewModels = GetCompetitorViewModelList(); }
             var competitor = sender as Competitor;
-            var competitorViewModel = (CompetitorControlViewModel)RoundList[CurrentRound].FirstOrDefault(f => ((CompetitorControlViewModel)f.DataContext).Competitor == competitor).DataContext;
+            var competitorViewModel = _competitorViewModels.FirstOrDefault(f => f.Competitor == competitor);
 
-            var item = RoundList[competitorViewModel.CurrentRound + 1].First(f => ((CompetitorControlViewModel)f.DataContext).ItemConnected1 == competitorViewModel.Id || ((CompetitorControlViewModel)f.DataContext).ItemConnected2 == competitorViewModel.Id);
-            var itemConnected1 = RoundList[competitorViewModel.CurrentRound].FirstOrDefault(f => ((CompetitorControlViewModel)f.DataContext).Id == ((CompetitorControlViewModel)item.DataContext).ItemConnected1).DataContext;
-            var itemConnected11 = itemConnected1 as CompetitorControlViewModel;
+            var competitorControl = RoundList[competitorViewModel.CurrentRound].First(f => f.ViewModel == competitorViewModel);
 
-            var itemConnected2 = RoundList[competitorViewModel.CurrentRound].FirstOrDefault(f => ((CompetitorControlViewModel)f.DataContext).Id == ((CompetitorControlViewModel)item.DataContext).ItemConnected2).DataContext;
-            var itemConnected22 = itemConnected2 as CompetitorControlViewModel;
+            var nextRoundItem = RoundList[competitorViewModel.CurrentRound + 1].First(f => f.ItemConnected1 == competitorControl.Id || f.ItemConnected2 == competitorControl.Id);
+            var itemConnected1 = RoundList[competitorViewModel.CurrentRound].FirstOrDefault(f => f.Id == nextRoundItem.ItemConnected1).ViewModel;
+            var itemConnected2 = RoundList[competitorViewModel.CurrentRound].FirstOrDefault(f => f.Id == nextRoundItem.ItemConnected2).ViewModel;
 
-
-            if (itemConnected11 != null && itemConnected11.Competitor.StilInGame)
+            if (itemConnected1 != null && itemConnected1.Competitor.StilInGame)
             {
-                itemConnected22.CurrentRound++;
-                item.DataContext = itemConnected22;
-
+                itemConnected1.CurrentRound++;
+                nextRoundItem.ViewModel = itemConnected1;
             }
-            else if (itemConnected22 != null && itemConnected22.Competitor.StilInGame)
+            else if (itemConnected2 != null && itemConnected2.Competitor.StilInGame)
             {
-                itemConnected11.CurrentRound++;
-                item.DataContext = itemConnected1;
+                itemConnected2.CurrentRound++;
+                nextRoundItem.ViewModel = itemConnected2;
             }
             else
             {
                 throw new Exception("something goes wrong.");
             }
+        }
+
+        private List<CompetitorControlViewModel> GetCompetitorViewModelList()
+        {
+            var result = new List<CompetitorControlViewModel>();
+
+            foreach (var roundList in RoundList)
+            {
+                result.AddRange(roundList.Select(f => (CompetitorControlViewModel)f.DataContext));
+            }
+            return result;
         }
     }
 }

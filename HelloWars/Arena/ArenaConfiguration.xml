@@ -4,7 +4,7 @@
   <EliminationType>Arena.EliminationTypes.TournamentLadder.TournamentLadder</EliminationType>
   <GameType>Arena.Games.PickTheWinner.PickTheWinner</GameType>
   <CompetitorUrls>
-    <Url>GrzesiekUrl</Url>
+    <Url>GrzesiekUrl0</Url>
     <Url>GrzesiekUrl1</Url>
     <Url>GrzesiekUrl2</Url>
     <Url>GrzesiekUrl3</Url>
