@@ -27,16 +27,6 @@
                     <TextBlock Text="AutoPlay!"/>
                 </Viewbox>
             </Button>
-            <Button Width="100" Height="20" Command="{Binding StartDuelCommand}">
-                <Viewbox>
-                    <TextBlock Text="StartBattle"/>
-                </Viewbox>
-            </Button>
-            <Button Width="100" Height="20" Command="{Binding StopDuelCommand}">
-                <Viewbox>
-                    <TextBlock Text="StopBattle"/>
-                </Viewbox>
-            </Button>
         </StackPanel>
 
         <ScrollViewer Grid.Row="2">

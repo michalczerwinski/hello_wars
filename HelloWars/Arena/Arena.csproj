@@ -66,11 +66,10 @@
     <Compile Include="Games\PickTheWinner\Models\TankControl.xaml.cs">
       <DependentUpon>TankControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Games\PickTheWinner\PickTheWinner.cs" />
     <Compile Include="Games\PickTheWinner\PickTheWinnerControl.xaml.cs">
       <DependentUpon>PickTheWinnerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Games\PickTheWinner\PickTheWInnerGame.cs" />
+    <Compile Include="Games\PickTheWinner\PickTheWinner.cs" />
     <Compile Include="Games\PickTheWinner\ViewModels\TankViewModel.cs" />
     <Compile Include="Games\Tanks\Models\TankControl.xaml.cs">
       <DependentUpon>TankControl.xaml</DependentUpon>
@@ -80,11 +79,9 @@
       <DependentUpon>TankGameControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Games\Tanks\Tanks.cs" />
-    <Compile Include="Games\Tanks\TanksProvider.cs" />
     <Compile Include="Games\Tanks\ViewModels\TankViewModel.cs" />
     <Compile Include="Interfaces\IElimination.cs" />
     <Compile Include="Interfaces\IGame.cs" />
-    <Compile Include="Interfaces\IGameProvider.cs" />
     <Compile Include="Models\Competitor.cs" />
     <Compile Include="Models\CompetitorUrl.cs" />
     <Compile Include="EliminationTypes\TournamentLadder\UserControls\CompetitorViewControl.xaml.cs">

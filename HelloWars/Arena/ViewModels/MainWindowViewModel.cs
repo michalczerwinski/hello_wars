@@ -17,15 +17,13 @@ namespace Arena.ViewModels
         private string _tempText;
         private readonly ArenaConfiguration _arenaConfiguration;
         private readonly IElimination _elimination;
-        private readonly IGameProvider _gameProvider;
+        private readonly IGame _gameProvider;
         private BotProxy _botProxy;
         private UserControl _gameTypeControl;
         private UserControl _eliminationTypeControl;
         private List<Competitor> _competitors;
         private ICommand _playDuelCommand;
         private ICommand _autoPlayCommand;
-        private ICommand _startDuelCommand;
-        private ICommand _stopDuelCommand;
 
         public string TempText
         {
@@ -59,16 +57,6 @@ namespace Arena.ViewModels
         public ICommand AutoPlayCommand
         {
             get { return _autoPlayCommand ?? (_autoPlayCommand = new RelayCommand(AutoPlay)); }
-        }
-
-        public ICommand StartDuelCommand
-        {
-            get { return _startDuelCommand ?? (_startDuelCommand = new RelayCommand(StartDuel)); }
-        }
-
-        public ICommand StopDuelCommand
-        {
-            get { return _stopDuelCommand ?? (_stopDuelCommand = new RelayCommand(StopDuel)); }
         }
 
         public MainWindowViewModel(ArenaConfiguration arenaConfiguration)
@@ -110,7 +98,7 @@ namespace Arena.ViewModels
 
             while (nextCompetitors != null)
             {
-                var game = _gameProvider.CreateNewGame(nextCompetitors);
+                var game = _gameProvider.CreateNewGame(nextCompetitors.ToList());
                 game.PerformNextMove();
                 nextCompetitors = _elimination.GetNextCompetitors();
             }
@@ -121,25 +109,9 @@ namespace Arena.ViewModels
             var nextCompetitors = _elimination.GetNextCompetitors();
             if (nextCompetitors != null)
             {
-                var game = _gameProvider.CreateNewGame(nextCompetitors);
+                var game = _gameProvider.CreateNewGame(nextCompetitors.ToList());
                 game.PerformNextMove();
             }
-        }
-
-        private void StopDuel(object obj)
-        {
-            //_duelInRun = false;
-        }
-
-      //  private bool _duelInRun;
-
-        private void StartDuel(object obj)
-        {
-            //_duelInRun = true;
-            //while (_duelInRun)
-            //{
-            //    Task.Delay(5000);
-            //}
         }
     }
 }

@@ -15,12 +15,8 @@ namespace Arena.EliminationTypes.TournamentLadder
         {
             if (Competitors != null)
             {
-                var startingNumberOfCompetitors = CalculateCompetitorCount(Competitors);
-
-                AddBotsToCompetitorsList(startingNumberOfCompetitors - Competitors.Count);
                 _tournamentLadderViewModel = new TournamentLadderViewModel(Competitors);
-
-                return new TournamentLadderControl(_tournamentLadderViewModel);;
+                return new TournamentLadderControl(_tournamentLadderViewModel); ;
             }
 
             return null;
@@ -67,33 +63,6 @@ namespace Arena.EliminationTypes.TournamentLadder
                 };
                 Competitors.Add(competitor);
             }
-        }
-
-        private static int CalculateCompetitorCount(List<Competitor> competitors)
-        {
-            var competitorCount = competitors.Count;
-            if (competitorCount < 3) competitorCount = 2;
-            if (competitorCount > 2 && competitorCount < 5)
-            {
-                competitorCount = 4;
-            }
-            if (competitorCount > 4 && competitorCount < 9)
-            {
-                competitorCount = 8;
-            }
-            if (competitorCount > 8 && competitorCount < 17)
-            {
-                competitorCount = 16;
-            }
-            if (competitorCount > 16 && competitorCount < 33)
-            {
-                competitorCount = 32;
-            }
-            if (competitorCount > 32 && competitorCount < 65)
-            {
-                competitorCount = 64;
-            }
-            return competitorCount;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
 using System.Windows.Controls;
 using Arena.Interfaces;
 using Arena.Models;
@@ -10,24 +9,32 @@ namespace Arena.Games.Tanks
     public class Tanks : IGame
     {
         public long RoundNumber { get; set; }
+        private TankGameViewModel _viewModel;
 
         public bool PerformNextMove()
         {
             throw new NotImplementedException();
         }
 
-        public EventHandler GameFinishHandler
+        public List<Competitor> Competitors { get; set; }
+
+        public UserControl GetVisualisation()
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            _viewModel = new TankGameViewModel();
+            SetBattleFieldSize(100, 100);
+            return new TankGameControl(_viewModel);
         }
 
-        public List<Competitor> Competitors { get; set; }
+        private void SetBattleFieldSize(int width, int heigth)
+        {
+            _viewModel.Width = width;
+            _viewModel.Heigth = heigth;
+        }
+
+
+        public IGame CreateNewGame(List<Competitor> competitors)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

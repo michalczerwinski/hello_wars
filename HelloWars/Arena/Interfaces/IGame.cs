@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Windows.Controls;
 using Arena.Models;
 
 namespace Arena.Interfaces
@@ -9,6 +9,7 @@ namespace Arena.Interfaces
         List<Competitor> Competitors { get; set; } 
         long RoundNumber { get; set; }
         bool PerformNextMove();
-        EventHandler GameFinishHandler { get; set; }
+        UserControl GetVisualisation();
+        IGame CreateNewGame(List<Competitor> competitors);
     }
 }

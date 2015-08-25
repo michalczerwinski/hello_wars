@@ -34,9 +34,18 @@ namespace BotClient
             return _urlName;
         }
 
-        public object PerformNextMove(object worldInfo)
+        public string GetGameType()
         {
             return "";
+        }
+
+        public object PerformNextMove(object boardDescription)
+        {
+            // 1 Serialize BordDescrioption to JSON 
+            // 2 Call post methd http://mccomputer/super-mc/perform-next-move
+            // 3 Deserialize and return result 
+
+            return null;
         }
     }
 }

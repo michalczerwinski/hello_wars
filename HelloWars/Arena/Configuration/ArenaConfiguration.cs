@@ -17,10 +17,10 @@ namespace Arena.Configuration
         public List<string> CompetitorUrls { get; set; }
 
         private IElimination _elimination;
-        private IGameProvider _gameDescription;
+        private IGame _gameDescription;
 
         [XmlIgnore]
-        public IGameProvider GameDescription
+        public IGame GameDescription
         {
             get
             {
@@ -28,7 +28,7 @@ namespace Arena.Configuration
                 {
                     var assembly = Assembly.GetExecutingAssembly();
                     var gameType = assembly.GetType(GameType);
-                    _gameDescription = (IGameProvider)Activator.CreateInstance(gameType);
+                    _gameDescription = (IGame)Activator.CreateInstance(gameType);
                 }
 
                 return _gameDescription;
