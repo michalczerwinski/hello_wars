@@ -82,7 +82,6 @@
     <Compile Include="Games\Tanks\ViewModels\TankViewModel.cs" />
     <Compile Include="Interfaces\IElimination.cs" />
     <Compile Include="Interfaces\IGame.cs" />
-    <Compile Include="Models\Competitor.cs" />
     <Compile Include="Models\CompetitorUrl.cs" />
     <Compile Include="EliminationTypes\TournamentLadder\UserControls\CompetitorViewControl.xaml.cs">
       <DependentUpon>CompetitorViewControl.xaml</DependentUpon>

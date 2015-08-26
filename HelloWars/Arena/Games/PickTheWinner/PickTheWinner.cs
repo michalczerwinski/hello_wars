@@ -2,25 +2,52 @@
 using System.Collections.Generic;
 using System.Windows.Controls;
 using Arena.Interfaces;
-using Arena.Models;
+using Bot = BotClient.BotClient;
 
 namespace Arena.Games.PickTheWinner
 {
     public class PickTheWinner : IGame
     {
-        public List<Competitor> Competitors { get; set; }
-
+        private readonly Random _rand = new Random(DateTime.Now.Millisecond);
+        private List<Bot> _competitors;
+        private Dictionary<Bot, double> _result;
         public long RoundNumber { get; set; }
 
-        private readonly Random _rand = new Random(DateTime.Now.Millisecond);
+        public List<Bot> Competitors
+        {
+            get { return _competitors; }
+            set
+            {
+                _competitors = value;
+                if (value.Count != 0)
+                {
+                    CreateNewGame();
+                }
+            }
+        }
+
+        public Dictionary<Bot, double> GetResoult()
+        {
+            return _result;
+        }
 
         public bool PerformNextMove()
         {
             var looser = _rand.Next(0, 2);
+            _result = new Dictionary<Bot, double>();
 
-            Competitors[looser].StilInGame = false;
-
-            return true;
+            if (looser == 0)
+            {
+                _result.Add(Competitors[0], 0);
+                _result.Add(Competitors[1], 1);
+            }
+            else
+            {
+                _result.Add(Competitors[0], 1);
+                _result.Add(Competitors[1], 0);
+            }
+            RoundNumber++;
+            return false;
         }
 
         public UserControl GetVisualisation()
@@ -28,11 +55,9 @@ namespace Arena.Games.PickTheWinner
             return new PickTheWinnerControl();
         }
 
-        public IGame CreateNewGame(List<Competitor> competitors)
+        public void CreateNewGame()
         {
-            var game = new PickTheWinner();
-            game.Competitors = competitors;
-            return game;
+            RoundNumber = 0;
         }
     }
 }

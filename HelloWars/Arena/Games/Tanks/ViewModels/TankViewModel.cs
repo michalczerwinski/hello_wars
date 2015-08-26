@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Arena.Games.Tanks.ViewModels
+﻿namespace Arena.Games.Tanks.ViewModels
 {
     public class TankViewModel : BindableBase
     {

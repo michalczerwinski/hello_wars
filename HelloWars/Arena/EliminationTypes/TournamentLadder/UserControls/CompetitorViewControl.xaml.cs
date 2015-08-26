@@ -11,8 +11,7 @@ namespace Arena.EliminationTypes.TournamentLadder.UserControls
     {
         public int Id;
         public int PairWithId;
-        public int ItemConnected1;
-        public int ItemConnected2;
+        public int NextStageTargetId;
         public Point CompetitorHeadPoint;
         public Point CompetitorTailPoint;
 

@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Windows.Controls;
 using Arena.Interfaces;
-using Arena.Models;
+using Bot = BotClient.BotClient;
 
 namespace Arena.Games.Tanks
 {
     public class Tanks : IGame
     {
+        public Dictionary<Bot, double> GetResoult()
+        {
+            throw new NotImplementedException();
+        }
+
         public long RoundNumber { get; set; }
         private TankGameViewModel _viewModel;
 
@@ -16,7 +21,7 @@ namespace Arena.Games.Tanks
             throw new NotImplementedException();
         }
 
-        public List<Competitor> Competitors { get; set; }
+        public List<Bot> Competitors { get; set; }
 
         public UserControl GetVisualisation()
         {
@@ -32,7 +37,7 @@ namespace Arena.Games.Tanks
         }
 
 
-        public IGame CreateNewGame(List<Competitor> competitors)
+        public IGame CreateNewGame(List<Bot> competitors)
         {
             throw new NotImplementedException();
         }

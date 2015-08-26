@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using Arena.Games.Tanks.ViewModels;
 
 namespace Arena.Games.PickTheWinner.Models
 {

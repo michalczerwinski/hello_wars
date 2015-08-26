@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Arena.Commands;
 using Arena.Configuration;
 using Arena.Interfaces;
-using Arena.Models;
 using BotClient;
+using Bot = BotClient.BotClient;
 
 namespace Arena.ViewModels
 {
@@ -17,13 +15,14 @@ namespace Arena.ViewModels
         private string _tempText;
         private readonly ArenaConfiguration _arenaConfiguration;
         private readonly IElimination _elimination;
-        private readonly IGame _gameProvider;
+        private readonly IGame _game;
         private BotProxy _botProxy;
         private UserControl _gameTypeControl;
         private UserControl _eliminationTypeControl;
-        private List<Competitor> _competitors;
+        private List<Bot> _competitors;
         private ICommand _playDuelCommand;
         private ICommand _autoPlayCommand;
+        private Dictionary<Bot, double> _scoreList;
 
         public string TempText
         {
@@ -43,7 +42,7 @@ namespace Arena.ViewModels
             set { SetProperty(ref _eliminationTypeControl, value); }
         }
 
-        public List<Competitor> Competitors
+        public List<Bot> Competitors
         {
             get { return _competitors; }
             set { SetProperty(ref _competitors, value); }
@@ -64,29 +63,28 @@ namespace Arena.ViewModels
             TempText = "Hello Wars();";
             _arenaConfiguration = arenaConfiguration;
             _elimination = arenaConfiguration.Eliminations;
-            _gameProvider = arenaConfiguration.GameDescription;
+            _game = arenaConfiguration.GameDescription;
 
             AskForCompetitors();
 
             _elimination.Competitors = Competitors;
             _eliminationTypeControl = _elimination.GetVisualization();
-            _gameTypeControl = _gameProvider.GetVisualisation();
+            _gameTypeControl = _game.GetVisualisation();
         }
 
         private void AskForCompetitors()
         {
-            Competitors = new List<Competitor>();
+            Competitors = new List<Bot>();
 
             foreach (var competitorUrl in _arenaConfiguration.CompetitorUrls)
             {
                 _botProxy = new BotProxy(competitorUrl);
 
-                var competitor = new Competitor
+                var competitor = new Bot
                 {
                     Url = competitorUrl,
                     AvatarUrl = _botProxy.GetAvatarUrl(),
                     Name = _botProxy.GetName(),
-                    StilInGame = true,
                 };
                 Competitors.Add(competitor);
             }
@@ -98,10 +96,14 @@ namespace Arena.ViewModels
 
             while (nextCompetitors != null)
             {
-                var game = _gameProvider.CreateNewGame(nextCompetitors.ToList());
-                game.PerformNextMove();
+                _game.Competitors = nextCompetitors.ToList();
+                _game.PerformNextMove();
+                _elimination.SetLastDuelResult(_game.GetResoult());
                 nextCompetitors = _elimination.GetNextCompetitors();
             }
+
+            //if (_scoreList == null) _scoreList = new Dictionary<Competitor, double>();
+
         }
 
         private void PlayDuel(object obj)
@@ -109,9 +111,10 @@ namespace Arena.ViewModels
             var nextCompetitors = _elimination.GetNextCompetitors();
             if (nextCompetitors != null)
             {
-                var game = _gameProvider.CreateNewGame(nextCompetitors.ToList());
-                game.PerformNextMove();
+                _game.Competitors = nextCompetitors.ToList();
+                _game.PerformNextMove();
             }
+            _elimination.SetLastDuelResult(_game.GetResoult());
         }
     }
 }

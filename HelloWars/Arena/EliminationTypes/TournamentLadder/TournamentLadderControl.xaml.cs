@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Arena.EliminationTypes.TournamentLadder.UserControls;
-using Arena.Models;
 
 namespace Arena.EliminationTypes.TournamentLadder
 {
@@ -18,6 +16,7 @@ namespace Arena.EliminationTypes.TournamentLadder
         private readonly int _startingNumberOfCompetitors;
         public List<CompetitorViewControl> TournamentList;
         private TournamentLadderViewModel _viewModel;
+        private int _numberOfStages;
 
         public TournamentLadderControl(TournamentLadderViewModel viewModel)
         {
@@ -25,18 +24,17 @@ namespace Arena.EliminationTypes.TournamentLadder
 
             _viewModel = viewModel;
             _startingNumberOfCompetitors = _viewModel.Competitors.Count;
+            _numberOfStages = (int)Math.Ceiling(Math.Log(_startingNumberOfCompetitors, 2)) + 1;
+
             CreateEmptyTournamentLadderView();
             AddCompetitorsToTournamentList();
-
             SetCanvasSize();
         }
 
         private void SetCanvasSize()
         {
-            var numberOfStages = (int)Math.Ceiling(Math.Log(_startingNumberOfCompetitors, 2)) + 1;
-
             TournamentLadderCanvas.Height = _startingNumberOfCompetitors * 60;
-            TournamentLadderCanvas.Width = numberOfStages * (160 + 50);
+            TournamentLadderCanvas.Width = _numberOfStages * (160 + 50);
         }
 
         private List<CompetitorViewControl> CreateStageList(int stageNumber, int numberOfCompetitors)
@@ -49,7 +47,16 @@ namespace Arena.EliminationTypes.TournamentLadder
                 {
                     var competitorShell = AddEmptyCompetitorToStage(stageNumber, i, numberOfCompetitors);
                     competitorShell.Id = i;
-
+                    competitorShell.NextStageTargetId = i / 2;
+                    result.Add(competitorShell);
+                }
+            }
+            else if (stageNumber == _numberOfStages)
+            {
+                for (int i = 0; i < numberOfCompetitors; i++)
+                {
+                    var competitorShell = AddEmptyCompetitorToStage(stageNumber, i, numberOfCompetitors);
+                    competitorShell.Id = i;
                     result.Add(competitorShell);
                 }
             }
@@ -59,8 +66,7 @@ namespace Arena.EliminationTypes.TournamentLadder
                 {
                     var competitorShell = AddEmptyCompetitorToStage(stageNumber, i, numberOfCompetitors);
                     competitorShell.Id = i;
-                    competitorShell.ItemConnected1 = competitorShell.Id * 2;
-                    competitorShell.ItemConnected2 = competitorShell.Id * 2 + 1;
+                    competitorShell.NextStageTargetId = i / 2;
                     result.Add(competitorShell);
                 }
             }
@@ -74,7 +80,7 @@ namespace Arena.EliminationTypes.TournamentLadder
             foreach (var emptyCompetitorShell in _viewModel.StageLists[0])
             {
                 competitorsEnumerable.MoveNext();
-                ((CompetitorControlViewModel)emptyCompetitorShell.DataContext).Competitor = competitorsEnumerable.Current;
+                emptyCompetitorShell.ViewModel.BotClient = competitorsEnumerable.Current;
             }
         }
 

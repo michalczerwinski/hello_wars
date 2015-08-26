@@ -6,8 +6,7 @@
              xmlns:converters="clr-namespace:Arena.Pages.Converters"
              xmlns:userControls="clr-namespace:Arena.EliminationTypes.TournamentLadder.UserControls"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=userControls:CompetitorControlViewModel}"
-             Height="60" Width="160"
-             >
+             Height="60" Width="160">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -16,7 +15,7 @@
     </UserControl.Resources>
     
     <Border Margin="2" BorderThickness="3" CornerRadius="5"
-            Background="#FF626262" BorderBrush="#FFFFAC00" Opacity="{Binding Competitor.StilInGame, Converter={StaticResource BoolToOpacityConverter}, Mode=TwoWay}">
+            Background="#FF626262" BorderBrush="#FFFFAC00" Opacity="{Binding StilInGame, Converter={StaticResource BoolToOpacityConverter}, Mode=TwoWay}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60"/>
@@ -24,11 +23,11 @@
             </Grid.ColumnDefinitions>
 
             <Viewbox Margin="5">
-                <Image Source="{Binding Competitor.AvatarUrl, Mode=TwoWay}"/>
+                <Image Source="{Binding BotClient.AvatarUrl, Mode=TwoWay}"/>
             </Viewbox>
 
             <Viewbox Grid.Column="1" >
-                <TextBlock Padding="3" Text="{Binding Competitor.Name, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Padding="3" Text="{Binding BotClient.Name, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Viewbox>
         </Grid>
     </Border>
