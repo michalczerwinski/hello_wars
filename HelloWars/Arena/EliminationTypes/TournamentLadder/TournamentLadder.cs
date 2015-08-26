@@ -10,39 +10,38 @@ namespace Arena.EliminationTypes.TournamentLadder
     public class TournamentLadder : IElimination
     {
         private TournamentLadderViewModel _tournamentLadderViewModel;
-        public List<Bot> Competitors { get; set; }
-
+        public List<Bot> Bots { get; set; }
 
         public UserControl GetVisualization()
         {
-            if (Competitors != null)
+            if (Bots != null)
             {
-                _tournamentLadderViewModel = new TournamentLadderViewModel(Competitors);
+                _tournamentLadderViewModel = new TournamentLadderViewModel(Bots);
                 return new TournamentLadderControl(_tournamentLadderViewModel);
             }
 
             return null;
         }
 
-        public IList<Bot> GetNextCompetitors()
+        public IList<Bot> GetNextBots()
         {
             var result = new List<Bot>();
 
             foreach (var stageList in _tournamentLadderViewModel.StageLists)
             {
-                foreach (var competitor in stageList)
+                foreach (var Bot in stageList)
                 {
                     if (stageList.Count > 1)
                     {
-                        var competitorViewModel = competitor.ViewModel;
-                        if (competitorViewModel.StilInGame)
+                        var BotViewModel = Bot.ViewModel;
+                        if (BotViewModel.StilInGame)
                         {
-                            var connectedCompetitor = stageList.First(f => f.PairWithId == competitor.Id).ViewModel;
+                            var connectedBot = stageList.First(f => f.PairWithId == Bot.Id).ViewModel;
 
-                            if (connectedCompetitor.StilInGame)
+                            if (connectedBot.StilInGame)
                             {
-                                result.Add(competitor.ViewModel.BotClient);
-                                result.Add(connectedCompetitor.BotClient);
+                                result.Add(Bot.ViewModel.BotClient);
+                                result.Add(connectedBot.BotClient);
                                 return result;
                             }
                         }
@@ -59,39 +58,39 @@ namespace Arena.EliminationTypes.TournamentLadder
             {
                 foreach (var singleResult in resultDictionary)
                 {
-                    var competitorControl = ReturnCompetitorControl(singleResult.Key);
+                    var botControl = ReturnBotControl(singleResult.Key);
 
-                    if (competitorControl != null)
+                    if (botControl != null)
                     {
                         if (singleResult.Value == 1)
                         {
-                            if (_tournamentLadderViewModel.StageLists[competitorControl.ViewModel.CurrentStage].Count > 1)
+                            if (_tournamentLadderViewModel.StageLists[botControl.ViewModel.CurrentStage].Count > 1)
                             {
-                                var nextStageControl = _tournamentLadderViewModel.StageLists[competitorControl.ViewModel.CurrentStage + 1].First(f => f.Id == competitorControl.NextStageTargetId);
-                                competitorControl.ViewModel.CurrentStage++;
-                                nextStageControl.ViewModel = competitorControl.ViewModel;
+                                var nextStageControl = _tournamentLadderViewModel.StageLists[botControl.ViewModel.CurrentStage + 1].First(f => f.Id == botControl.NextStageTargetId);
+                                botControl.ViewModel.CurrentStage++;
+                                nextStageControl.ViewModel = botControl.ViewModel;
                             }
                         }
                         if (singleResult.Value == 0)
                         {
-                            competitorControl.ViewModel.StilInGame = false;
+                            botControl.ViewModel.StilInGame = false;
                         }
                     }
                 }
             }
         }
 
-        private CompetitorViewControl ReturnCompetitorControl(Bot botClient)
+        private BotViewControl ReturnBotControl(Bot botClient)
         {
-            CompetitorViewControl competitorViewControl = null;
+            BotViewControl botViewControl = null;
 
             foreach (var stageList in _tournamentLadderViewModel.StageLists)
             {
                 var tempViewControl = stageList.FirstOrDefault(f => f.ViewModel.BotClient == botClient);
-                if (tempViewControl != null) { competitorViewControl = tempViewControl; }
+                if (tempViewControl != null) { botViewControl = tempViewControl; }
             }
 
-            return competitorViewControl;
+            return botViewControl;
         }
     }
 }

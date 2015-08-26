@@ -14,7 +14,7 @@ namespace Arena.Configuration
         public string GameType { get; set; }
 
         [XmlArrayItem(ElementName = "Url")]
-        public List<string> CompetitorUrls { get; set; }
+        public List<string> BotUrls { get; set; }
 
         private IElimination _elimination;
         private IGame _gameDescription;

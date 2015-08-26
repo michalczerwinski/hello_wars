@@ -7,21 +7,21 @@ namespace Arena.EliminationTypes.TournamentLadder.UserControls
     /// Interaction logic for UserViewControl.xaml
     /// </summary>
     /// []
-    public partial class CompetitorViewControl : UserControl
+    public partial class BotViewControl : UserControl
     {
         public int Id;
         public int PairWithId;
         public int NextStageTargetId;
-        public Point CompetitorHeadPoint;
-        public Point CompetitorTailPoint;
+        public Point BotHeadPoint;
+        public Point BotTailPoint;
 
-        public CompetitorControlViewModel ViewModel
+        public BotControlViewModel ViewModel
         {
-            get { return (CompetitorControlViewModel)DataContext; }
+            get { return (BotControlViewModel)DataContext; }
             set { DataContext = value; }
         }
 
-        public CompetitorViewControl(CompetitorControlViewModel viewModel)
+        public BotViewControl(BotControlViewModel viewModel)
         {
             ViewModel = viewModel;
             InitializeComponent();

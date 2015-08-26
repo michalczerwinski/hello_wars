@@ -6,12 +6,12 @@ namespace Arena.EliminationTypes.TournamentLadder
 {
     public class TournamentLadderViewModel
     {
-        public List<Bot> Competitors;
-        public List<List<CompetitorViewControl>> StageLists;
+        public List<Bot> Bots;
+        public List<List<BotViewControl>> StageLists;
 
-        public TournamentLadderViewModel(List<Bot> competitors)
+        public TournamentLadderViewModel(List<Bot> bots)
         {
-            Competitors = competitors;
+            Bots = bots;
         }
     }
 }

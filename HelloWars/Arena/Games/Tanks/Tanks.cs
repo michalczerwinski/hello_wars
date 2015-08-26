@@ -21,7 +21,7 @@ namespace Arena.Games.Tanks
             throw new NotImplementedException();
         }
 
-        public List<Bot> Competitors { get; set; }
+        public List<Bot> Bots { get; set; }
 
         public UserControl GetVisualisation()
         {
@@ -37,7 +37,7 @@ namespace Arena.Games.Tanks
         }
 
 
-        public IGame CreateNewGame(List<Bot> competitors)
+        public IGame CreateNewGame(List<Bot> Bots)
         {
             throw new NotImplementedException();
         }

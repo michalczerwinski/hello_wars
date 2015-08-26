@@ -57,7 +57,7 @@
     <Compile Include="BindableBase.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Configuration\ArenaConfiguration.cs" />
-    <Compile Include="EliminationTypes\TournamentLadder\UserControls\CompetitorControlViewModel.cs" />
+    <Compile Include="EliminationTypes\TournamentLadder\UserControls\BotControlViewModel.cs" />
     <Compile Include="EliminationTypes\TournamentLadder\TournamentLadder.cs" />
     <Compile Include="EliminationTypes\TournamentLadder\TournamentLadderControl.xaml.cs">
       <DependentUpon>TournamentLadderControl.xaml</DependentUpon>
@@ -83,8 +83,8 @@
     <Compile Include="Interfaces\IElimination.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Models\CompetitorUrl.cs" />
-    <Compile Include="EliminationTypes\TournamentLadder\UserControls\CompetitorViewControl.xaml.cs">
-      <DependentUpon>CompetitorViewControl.xaml</DependentUpon>
+    <Compile Include="EliminationTypes\TournamentLadder\UserControls\BotViewControl.xaml.cs">
+      <DependentUpon>BotViewControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Converters\BoolToOpacityConverter.cs" />
     <Compile Include="Serialization\XmlSerializer.cs" />
@@ -109,7 +109,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EliminationTypes\TournamentLadder\UserControls\CompetitorViewControl.xaml">
+    <Page Include="EliminationTypes\TournamentLadder\UserControls\BotViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

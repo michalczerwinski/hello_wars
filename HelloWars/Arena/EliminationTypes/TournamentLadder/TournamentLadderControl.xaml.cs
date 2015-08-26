@@ -13,8 +13,8 @@ namespace Arena.EliminationTypes.TournamentLadder
     /// </summary>
     public partial class TournamentLadderControl : UserControl
     {
-        private readonly int _startingNumberOfCompetitors;
-        public List<CompetitorViewControl> TournamentList;
+        private readonly int _startingNumberOfBots;
+        public List<BotViewControl> TournamentList;
         private TournamentLadderViewModel _viewModel;
         private int _numberOfStages;
 
@@ -23,80 +23,80 @@ namespace Arena.EliminationTypes.TournamentLadder
             InitializeComponent();
 
             _viewModel = viewModel;
-            _startingNumberOfCompetitors = _viewModel.Competitors.Count;
-            _numberOfStages = (int)Math.Ceiling(Math.Log(_startingNumberOfCompetitors, 2)) + 1;
+            _startingNumberOfBots = _viewModel.Bots.Count;
+            _numberOfStages = (int)Math.Ceiling(Math.Log(_startingNumberOfBots, 2)) + 1;
 
             CreateEmptyTournamentLadderView();
-            AddCompetitorsToTournamentList();
+            AddBotsToTournamentList();
             SetCanvasSize();
         }
 
         private void SetCanvasSize()
         {
-            TournamentLadderCanvas.Height = _startingNumberOfCompetitors * 60;
+            TournamentLadderCanvas.Height = _startingNumberOfBots * 60;
             TournamentLadderCanvas.Width = _numberOfStages * (160 + 50);
         }
 
-        private List<CompetitorViewControl> CreateStageList(int stageNumber, int numberOfCompetitors)
+        private List<BotViewControl> CreateStageList(int stageNumber, int numberOfBots)
         {
-            var result = new List<CompetitorViewControl>();
+            var result = new List<BotViewControl>();
 
             if (stageNumber == 1)
             {
-                for (int i = 0; i < numberOfCompetitors; i++)
+                for (int i = 0; i < numberOfBots; i++)
                 {
-                    var competitorShell = AddEmptyCompetitorToStage(stageNumber, i, numberOfCompetitors);
-                    competitorShell.Id = i;
-                    competitorShell.NextStageTargetId = i / 2;
-                    result.Add(competitorShell);
+                    var BotShell = AddEmptyBotToStage(stageNumber, i, numberOfBots);
+                    BotShell.Id = i;
+                    BotShell.NextStageTargetId = i / 2;
+                    result.Add(BotShell);
                 }
             }
             else if (stageNumber == _numberOfStages)
             {
-                for (int i = 0; i < numberOfCompetitors; i++)
+                for (int i = 0; i < numberOfBots; i++)
                 {
-                    var competitorShell = AddEmptyCompetitorToStage(stageNumber, i, numberOfCompetitors);
-                    competitorShell.Id = i;
-                    result.Add(competitorShell);
+                    var BotShell = AddEmptyBotToStage(stageNumber, i, numberOfBots);
+                    BotShell.Id = i;
+                    result.Add(BotShell);
                 }
             }
             else
             {
-                for (int i = 0; i < numberOfCompetitors; i++)
+                for (int i = 0; i < numberOfBots; i++)
                 {
-                    var competitorShell = AddEmptyCompetitorToStage(stageNumber, i, numberOfCompetitors);
-                    competitorShell.Id = i;
-                    competitorShell.NextStageTargetId = i / 2;
-                    result.Add(competitorShell);
+                    var BotShell = AddEmptyBotToStage(stageNumber, i, numberOfBots);
+                    BotShell.Id = i;
+                    BotShell.NextStageTargetId = i / 2;
+                    result.Add(BotShell);
                 }
             }
 
             return result;
         }
 
-        private void AddCompetitorsToTournamentList()
+        private void AddBotsToTournamentList()
         {
-            var competitorsEnumerable = _viewModel.Competitors.GetEnumerator();
-            foreach (var emptyCompetitorShell in _viewModel.StageLists[0])
+            var BotsEnumerable = _viewModel.Bots.GetEnumerator();
+            foreach (var emptyBotShell in _viewModel.StageLists[0])
             {
-                competitorsEnumerable.MoveNext();
-                emptyCompetitorShell.ViewModel.BotClient = competitorsEnumerable.Current;
+                BotsEnumerable.MoveNext();
+                emptyBotShell.ViewModel.BotClient = BotsEnumerable.Current;
             }
         }
 
         private void CreateEmptyTournamentLadderView()
         {
-            _viewModel.StageLists = new List<List<CompetitorViewControl>>();
-            var numberOfCompetitors = _startingNumberOfCompetitors;
+            _viewModel.StageLists = new List<List<BotViewControl>>();
+            var numberOfBots = _startingNumberOfBots;
             var stageNumber = 1;
 
-            while (numberOfCompetitors > 0)
+            while (numberOfBots > 0)
             {
-                var list = CreateStageList(stageNumber, numberOfCompetitors);
+                var list = CreateStageList(stageNumber, numberOfBots);
                 _viewModel.StageLists.Add(list);
 
                 stageNumber++;
-                numberOfCompetitors = numberOfCompetitors / 2;
+                numberOfBots = numberOfBots / 2;
             }
 
             foreach (var stageList in _viewModel.StageLists)
@@ -109,16 +109,16 @@ namespace Arena.EliminationTypes.TournamentLadder
 
             for (int i = 0; i < stageNumber - 2; i++)
             {
-                var competitorsInStage = _viewModel.StageLists[i];
+                var BotsInStage = _viewModel.StageLists[i];
 
-                for (int j = 0; j < competitorsInStage.Count; j++)
+                for (int j = 0; j < BotsInStage.Count; j++)
                 {
-                    DrawTournamentLines(competitorsInStage[j], competitorsInStage[++j]);
+                    DrawTournamentLines(BotsInStage[j], BotsInStage[++j]);
                 }
             }
         }
 
-        private void SetDuels(List<CompetitorViewControl> list)
+        private void SetDuels(List<BotViewControl> list)
         {
             for (int i = 0; i < list.Count; i = i + 2)
             {
@@ -127,30 +127,30 @@ namespace Arena.EliminationTypes.TournamentLadder
             }
         }
 
-        private CompetitorViewControl AddEmptyCompetitorToStage(int stageNumber, int orderInRow, int numberOfCompetitors)
+        private BotViewControl AddEmptyBotToStage(int stageNumber, int orderInRow, int numberOfBots)
         {
-            var competitorView = new CompetitorViewControl(new CompetitorControlViewModel());
+            var BotView = new BotViewControl(new BotControlViewModel());
 
-            competitorView.CompetitorHeadPoint = new Point
+            BotView.BotHeadPoint = new Point
             {
                 X = ((stageNumber - 1) * (160 + 50)) + 160,
-                Y = ((_startingNumberOfCompetitors / numberOfCompetitors) * 60 * orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1) * 60 / 2) + 60 / 2,
+                Y = ((_startingNumberOfBots / numberOfBots) * 60 * orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1) * 60 / 2) + 60 / 2,
             };
 
-            competitorView.CompetitorTailPoint = new Point
+            BotView.BotTailPoint = new Point
             {
                 X = ((stageNumber - 1) * (160 + 50)),
-                Y = ((_startingNumberOfCompetitors / numberOfCompetitors) * 60 * orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1) * 60 / 2) + 60 / 2,
+                Y = ((_startingNumberOfBots / numberOfBots) * 60 * orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1) * 60 / 2) + 60 / 2,
             };
 
-            Canvas.SetTop(competitorView, (_startingNumberOfCompetitors / numberOfCompetitors) * 60 * orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1) * 60 / 2);
-            Canvas.SetLeft(competitorView, (stageNumber - 1) * (160 + 50));
-            TournamentLadderCanvas.Children.Add(competitorView);
+            Canvas.SetTop(BotView, (_startingNumberOfBots / numberOfBots) * 60 * orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1) * 60 / 2);
+            Canvas.SetLeft(BotView, (stageNumber - 1) * (160 + 50));
+            TournamentLadderCanvas.Children.Add(BotView);
 
-            return competitorView;
+            return BotView;
         }
 
-        private void DrawTournamentLines(CompetitorViewControl competitor1, CompetitorViewControl competitor2)
+        private void DrawTournamentLines(BotViewControl Bot1, BotViewControl Bot2)
         {
             var line = new Polyline();
             line.Stroke = Brushes.BlueViolet;
@@ -158,26 +158,26 @@ namespace Arena.EliminationTypes.TournamentLadder
             TournamentLadderCanvas.Children.Add(line);
             Point point;
 
-            line.Points.Add(competitor1.CompetitorHeadPoint);
+            line.Points.Add(Bot1.BotHeadPoint);
 
             point = new Point
             {
-                X = competitor1.CompetitorHeadPoint.X + 25,
-                Y = competitor1.CompetitorHeadPoint.Y
+                X = Bot1.BotHeadPoint.X + 25,
+                Y = Bot1.BotHeadPoint.Y
             };
             line.Points.Add(point);
 
             point = new Point
             {
-                X = competitor1.CompetitorHeadPoint.X + 25,
-                Y = competitor2.CompetitorHeadPoint.Y
+                X = Bot1.BotHeadPoint.X + 25,
+                Y = Bot2.BotHeadPoint.Y
             };
             line.Points.Add(point);
 
             point = new Point
             {
-                X = competitor2.CompetitorHeadPoint.X,
-                Y = competitor2.CompetitorHeadPoint.Y
+                X = Bot2.BotHeadPoint.X,
+                Y = Bot2.BotHeadPoint.Y
             };
             line.Points.Add(point);
 
@@ -188,15 +188,15 @@ namespace Arena.EliminationTypes.TournamentLadder
 
             point = new Point
             {
-                X = competitor1.CompetitorHeadPoint.X + 25,
-                Y = (Math.Abs(competitor2.CompetitorHeadPoint.Y - competitor1.CompetitorHeadPoint.Y) / 2) + Math.Min(competitor2.CompetitorHeadPoint.Y, competitor1.CompetitorHeadPoint.Y)
+                X = Bot1.BotHeadPoint.X + 25,
+                Y = (Math.Abs(Bot2.BotHeadPoint.Y - Bot1.BotHeadPoint.Y) / 2) + Math.Min(Bot2.BotHeadPoint.Y, Bot1.BotHeadPoint.Y)
             };
             line.Points.Add(point);
 
             point = new Point
             {
-                X = competitor1.CompetitorHeadPoint.X + 50,
-                Y = (Math.Abs(competitor2.CompetitorHeadPoint.Y - competitor1.CompetitorHeadPoint.Y) / 2) + Math.Min(competitor2.CompetitorHeadPoint.Y, competitor1.CompetitorHeadPoint.Y)
+                X = Bot1.BotHeadPoint.X + 50,
+                Y = (Math.Abs(Bot2.BotHeadPoint.Y - Bot1.BotHeadPoint.Y) / 2) + Math.Min(Bot2.BotHeadPoint.Y, Bot1.BotHeadPoint.Y)
             };
             line.Points.Add(point);
         }

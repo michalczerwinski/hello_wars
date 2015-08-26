@@ -6,9 +6,9 @@ namespace Arena.Interfaces
 {
     public interface IElimination
     {
-        List<Bot> Competitors { get; set; }
+        List<Bot> Bots { get; set; }
         UserControl GetVisualization();
-        IList<Bot> GetNextCompetitors();
+        IList<Bot> GetNextBots();
         void SetLastDuelResult(IDictionary<Bot, double> result);
     }
 }

@@ -3,7 +3,7 @@
 <ArenaConfiguration>
   <EliminationType>Arena.EliminationTypes.TournamentLadder.TournamentLadder</EliminationType>
   <GameType>Arena.Games.PickTheWinner.PickTheWinner</GameType>
-  <CompetitorUrls>
+  <BotUrls>
     <Url>GrzesiekUrl0</Url>
     <Url>GrzesiekUrl1</Url>
     <Url>GrzesiekUrl2</Url>
@@ -20,5 +20,5 @@
     <Url>GrzesiekUrl39</Url>
     <Url>GrzesiekUrl29</Url>
     <Url>GrzesiekUrl19</Url>
-  </CompetitorUrls>
+  </BotUrls>
 </ArenaConfiguration>

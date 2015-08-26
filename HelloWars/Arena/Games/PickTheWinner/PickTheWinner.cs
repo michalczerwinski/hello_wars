@@ -9,16 +9,16 @@ namespace Arena.Games.PickTheWinner
     public class PickTheWinner : IGame
     {
         private readonly Random _rand = new Random(DateTime.Now.Millisecond);
-        private List<Bot> _competitors;
+        private List<Bot> _bots;
         private Dictionary<Bot, double> _result;
         public long RoundNumber { get; set; }
 
-        public List<Bot> Competitors
+        public List<Bot> Bots
         {
-            get { return _competitors; }
+            get { return _bots; }
             set
             {
-                _competitors = value;
+                _bots = value;
                 if (value.Count != 0)
                 {
                     CreateNewGame();
@@ -38,13 +38,13 @@ namespace Arena.Games.PickTheWinner
 
             if (looser == 0)
             {
-                _result.Add(Competitors[0], 0);
-                _result.Add(Competitors[1], 1);
+                _result.Add(Bots[0], 0);
+                _result.Add(Bots[1], 1);
             }
             else
             {
-                _result.Add(Competitors[0], 1);
-                _result.Add(Competitors[1], 0);
+                _result.Add(Bots[0], 1);
+                _result.Add(Bots[1], 0);
             }
             RoundNumber++;
             return false;

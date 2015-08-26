@@ -2,7 +2,7 @@
 
 namespace Arena.EliminationTypes.TournamentLadder.UserControls
 {
-    public class CompetitorControlViewModel : BindableBase
+    public class BotControlViewModel : BindableBase
     {
         private Bot _botClient;
         public int CurrentStage;
@@ -20,7 +20,7 @@ namespace Arena.EliminationTypes.TournamentLadder.UserControls
             set { SetProperty(ref _stilInGame, value); }
         }
 
-        public CompetitorControlViewModel()
+        public BotControlViewModel()
         {
             StilInGame = true;
         }

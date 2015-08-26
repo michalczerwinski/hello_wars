@@ -1,6 +1,6 @@
 ﻿namespace Arena.Models
 {
-    public class CompetitorUrl
+    public class BotUrl
     {
         public string Url { get; set; }
     }
