@@ -80,6 +80,18 @@
     </Compile>
     <Compile Include="Games\Tanks\Tanks.cs" />
     <Compile Include="Games\Tanks\ViewModels\TankViewModel.cs" />
+    <Compile Include="Games\TicTacToe\BindableArray.cs" />
+    <Compile Include="Games\TicTacToe\Models\CircleControl.xaml.cs">
+      <DependentUpon>CircleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Games\TicTacToe\Models\CrossControl.xaml.cs">
+      <DependentUpon>CrossControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Games\TicTacToe\Models\TicTacToeControl.xaml.cs">
+      <DependentUpon>TicTacToeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Games\TicTacToe\TicTacToe.cs" />
+    <Compile Include="Games\TicTacToe\ViewModels\TicTacToeViewModel.cs" />
     <Compile Include="Interfaces\IElimination.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Models\CompetitorUrl.cs" />
@@ -110,6 +122,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EliminationTypes\TournamentLadder\UserControls\BotViewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Games\TicTacToe\Models\CircleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Games\TicTacToe\Models\CrossControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Games\TicTacToe\Models\TicTacToeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
