@@ -8,7 +8,7 @@ namespace Arena.Games.Tanks
 {
     public class Tanks : IGame
     {
-        public Dictionary<Bot, double> GetResoult()
+        public IDictionary<Bot, double> GetResoult()
         {
             throw new NotImplementedException();
         }
@@ -16,12 +16,12 @@ namespace Arena.Games.Tanks
         public long RoundNumber { get; set; }
         private TankGameViewModel _viewModel;
 
-        public bool PerformNextMove()
+        public bool PerformNextRound()
         {
             throw new NotImplementedException();
         }
 
-        public List<Bot> Bots { get; set; }
+        public List<Bot> Competitors { get; set; }
 
         public UserControl GetVisualisation()
         {
@@ -37,7 +37,7 @@ namespace Arena.Games.Tanks
         }
 
 
-        public IGame CreateNewGame(List<Bot> Bots)
+        public IGame CreateNewGame(List<Bot> bots)
         {
             throw new NotImplementedException();
         }

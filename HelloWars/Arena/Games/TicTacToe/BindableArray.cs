@@ -13,14 +13,14 @@ namespace Arena.Games.TicTacToe
         public int XSize;
         public int YSize;
         public event PropertyChangedEventHandler PropertyChanged;
-        T[,] data;
+        readonly T[,] _data;
 
         public T this[int c1, int c2]
         {
-            get { return data[c1, c2]; }
+            get { return _data[c1, c2]; }
             set
             {
-                data[c1, c2] = value;
+                _data[c1, c2] = value;
                 Notify(Binding.IndexerName);
             }
         }
@@ -31,20 +31,20 @@ namespace Arena.Games.TicTacToe
             {
                 int c1, c2;
                 SplitIndex(index, out c1, out c2);
-                return data[c1, c2];
+                return _data[c1, c2];
             }
             set
             {
                 int c1, c2;
                 SplitIndex(index, out c1, out c2);
-                data[c1, c2] = value;
+                _data[c1, c2] = value;
                 Notify(Binding.IndexerName);
             }
         }
 
         public BindableArray(int size1, int size2)
         {
-            data = new T[size1, size2];
+            _data = new T[size1, size2];
             XSize = size1;
             YSize = size2;
         }
@@ -75,7 +75,7 @@ namespace Arena.Games.TicTacToe
 
         public static implicit operator T[,](BindableArray<T> a)
         {
-            return a.data;
+            return a._data;
         }
     }
 }

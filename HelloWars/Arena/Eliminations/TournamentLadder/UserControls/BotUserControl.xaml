@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="Arena.EliminationTypes.TournamentLadder.UserControls.BotViewControl"
+﻿<UserControl x:Class="Arena.Eliminations.TournamentLadder.UserControls.BotUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-namespace:Arena.Pages.Converters"
-             xmlns:userControls="clr-namespace:Arena.EliminationTypes.TournamentLadder.UserControls"
-             mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=userControls:BotControlViewModel}"
+             xmlns:viewModels="clr-namespace:Arena.Eliminations.TournamentLadder.ViewModels"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=viewModels:BotViewModel}"
              Height="60" Width="160">
 
     <UserControl.Resources>

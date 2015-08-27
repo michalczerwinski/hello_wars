@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
-using Arena.EliminationTypes.TournamentLadder.UserControls;
+using Arena.Eliminations.TournamentLadder.UserControls;
+using Arena.Eliminations.TournamentLadder.ViewModels;
 using Arena.Interfaces;
 using Bot = BotClient.BotClient;
 
-namespace Arena.EliminationTypes.TournamentLadder
+namespace Arena.Eliminations.TournamentLadder
 {
     public class TournamentLadder : IElimination
     {
@@ -23,24 +24,24 @@ namespace Arena.EliminationTypes.TournamentLadder
             return null;
         }
 
-        public IList<Bot> GetNextBots()
+        public IList<Bot> GetNextCompetitors()
         {
             var result = new List<Bot>();
 
             foreach (var stageList in _tournamentLadderViewModel.StageLists)
             {
-                foreach (var Bot in stageList)
+                foreach (var bot in stageList)
                 {
                     if (stageList.Count > 1)
                     {
-                        var BotViewModel = Bot.ViewModel;
-                        if (BotViewModel.StilInGame)
+                        var botViewModel = bot.ViewModel;
+                        if (botViewModel.StilInGame)
                         {
-                            var connectedBot = stageList.First(f => f.PairWithId == Bot.Id).ViewModel;
+                            var connectedBot = stageList.First(f => f.PairWithId == bot.Id).ViewModel;
 
                             if (connectedBot.StilInGame)
                             {
-                                result.Add(Bot.ViewModel.BotClient);
+                                result.Add(bot.ViewModel.BotClient);
                                 result.Add(connectedBot.BotClient);
                                 return result;
                             }
@@ -62,7 +63,7 @@ namespace Arena.EliminationTypes.TournamentLadder
 
                     if (botControl != null)
                     {
-                        if (singleResult.Value == 1)
+                        if ((int)singleResult.Value == 1)
                         {
                             if (_tournamentLadderViewModel.StageLists[botControl.ViewModel.CurrentStage].Count > 1)
                             {
@@ -71,7 +72,7 @@ namespace Arena.EliminationTypes.TournamentLadder
                                 nextStageControl.ViewModel = botControl.ViewModel;
                             }
                         }
-                        if (singleResult.Value == 0)
+                        if ((int)singleResult.Value == 0)
                         {
                             botControl.ViewModel.StilInGame = false;
                         }
@@ -80,17 +81,17 @@ namespace Arena.EliminationTypes.TournamentLadder
             }
         }
 
-        private BotViewControl ReturnBotControl(Bot botClient)
+        private BotUserControl ReturnBotControl(Bot botClient)
         {
-            BotViewControl botViewControl = null;
+            BotUserControl botUserControl = null;
 
             foreach (var stageList in _tournamentLadderViewModel.StageLists)
             {
                 var tempViewControl = stageList.FirstOrDefault(f => f.ViewModel.BotClient == botClient);
-                if (tempViewControl != null) { botViewControl = tempViewControl; }
+                if (tempViewControl != null) { botUserControl = tempViewControl; }
             }
 
-            return botViewControl;
+            return botUserControl;
         }
     }
 }

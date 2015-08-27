@@ -1,12 +1,12 @@
 ﻿using Bot = BotClient.BotClient;
 
-namespace Arena.EliminationTypes.TournamentLadder.UserControls
+namespace Arena.Eliminations.TournamentLadder.ViewModels
 {
-    public class BotControlViewModel : BindableBase
+    public class BotViewModel : BindableBase
     {
         private Bot _botClient;
-        public int CurrentStage;
         private bool _stilInGame;
+        public int CurrentStage;
 
         public Bot BotClient
         {
@@ -20,7 +20,7 @@ namespace Arena.EliminationTypes.TournamentLadder.UserControls
             set { SetProperty(ref _stilInGame, value); }
         }
 
-        public BotControlViewModel()
+        public BotViewModel()
         {
             StilInGame = true;
         }

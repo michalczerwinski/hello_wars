@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using Arena.Games.PickTheWinner.UserControls;
 using Arena.Interfaces;
 using Bot = BotClient.BotClient;
 
@@ -13,7 +14,7 @@ namespace Arena.Games.PickTheWinner
         private Dictionary<Bot, double> _result;
         public long RoundNumber { get; set; }
 
-        public List<Bot> Bots
+        public List<Bot> Competitors
         {
             get { return _bots; }
             set
@@ -26,25 +27,25 @@ namespace Arena.Games.PickTheWinner
             }
         }
 
-        public Dictionary<Bot, double> GetResoult()
+        public IDictionary<Bot, double> GetResoult()
         {
             return _result;
         }
 
-        public bool PerformNextMove()
+        public bool PerformNextRound()
         {
             var looser = _rand.Next(0, 2);
             _result = new Dictionary<Bot, double>();
 
             if (looser == 0)
             {
-                _result.Add(Bots[0], 0);
-                _result.Add(Bots[1], 1);
+                _result.Add(Competitors[0], 0);
+                _result.Add(Competitors[1], 1);
             }
             else
             {
-                _result.Add(Bots[0], 1);
-                _result.Add(Bots[1], 0);
+                _result.Add(Competitors[0], 1);
+                _result.Add(Competitors[1], 0);
             }
             RoundNumber++;
             return false;

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <ArenaConfiguration>
-  <EliminationType>Arena.EliminationTypes.TournamentLadder.TournamentLadder</EliminationType>
-  <GameType>Arena.Games.TicTacToe.TicTacToe</GameType>
+  <EliminationType>Arena.Eliminations.TournamentLadder.TournamentLadder</EliminationType>
+  <GameType>Arena.Games.PickTheWinner.PickTheWinner</GameType>
   <BotUrls>
     <Url>GrzesiekUrl0</Url>
     <Url>GrzesiekUrl1</Url>

@@ -1,13 +1,14 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Arena.Eliminations.TournamentLadder.ViewModels;
 
-namespace Arena.EliminationTypes.TournamentLadder.UserControls
+namespace Arena.Eliminations.TournamentLadder.UserControls
 {
     /// <summary>
     /// Interaction logic for UserViewControl.xaml
     /// </summary>
     /// []
-    public partial class BotViewControl : UserControl
+    public partial class BotUserControl : UserControl
     {
         public int Id;
         public int PairWithId;
@@ -15,13 +16,13 @@ namespace Arena.EliminationTypes.TournamentLadder.UserControls
         public Point BotHeadPoint;
         public Point BotTailPoint;
 
-        public BotControlViewModel ViewModel
+        public BotViewModel ViewModel
         {
-            get { return (BotControlViewModel)DataContext; }
+            get { return (BotViewModel)DataContext; }
             set { DataContext = value; }
         }
 
-        public BotViewControl(BotControlViewModel viewModel)
+        public BotUserControl(BotViewModel viewModel)
         {
             ViewModel = viewModel;
             InitializeComponent();

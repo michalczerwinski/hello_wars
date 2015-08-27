@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
+using Arena.Helpers;
 using Arena.Interfaces;
 
 namespace Arena.Configuration
@@ -10,44 +9,24 @@ namespace Arena.Configuration
     public class ArenaConfiguration
     {
         public string EliminationType { get; set; }
-
         public string GameType { get; set; }
 
         [XmlArrayItem(ElementName = "Url")]
         public List<string> BotUrls { get; set; }
 
         private IElimination _elimination;
-        private IGame _gameDescription;
+        private IGame _game;
 
         [XmlIgnore]
-        public IGame GameDescription
+        public IGame Game
         {
-            get
-            {
-                if (_gameDescription == null)
-                {
-                    var assembly = Assembly.GetExecutingAssembly();
-                    var gameType = assembly.GetType(GameType);
-                    _gameDescription = (IGame)Activator.CreateInstance(gameType);
-                }
-
-                return _gameDescription;
-            }
+            get { return _game ?? (_game = TypeHelper<IGame>.GetType(GameType)); }
         }
 
         [XmlIgnore]
-        public IElimination Eliminations
+        public IElimination Elimination
         {
-            get
-            {
-                if (_elimination == null)
-                {
-                    var eliminationType = Assembly.GetExecutingAssembly().GetType(EliminationType);
-                    _elimination = (IElimination)Activator.CreateInstance(eliminationType);
-                }
-
-                return _elimination;
-            }
+            get { return _elimination ?? (_elimination = TypeHelper<IElimination>.GetType(EliminationType)); }
         }
     }
 }

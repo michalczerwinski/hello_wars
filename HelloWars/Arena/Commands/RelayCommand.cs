@@ -5,10 +5,8 @@ namespace Arena.Commands
 {
     public class RelayCommand : ICommand
     {
-        private Action<object> _execute;
-
-        private Predicate<object> _canExecute;
-
+        private readonly Action<object> _execute;
+        private readonly Predicate<object> _canExecute;
         private event EventHandler CanExecuteChangedInternal;
 
         public RelayCommand(Action<object> execute)
@@ -28,8 +26,8 @@ namespace Arena.Commands
                 throw new ArgumentNullException("canExecute");
             }
 
-            this._execute = execute;
-            this._canExecute = canExecute;
+            _execute = execute;
+            _canExecute = canExecute;
         }
 
         public event EventHandler CanExecuteChanged
@@ -37,39 +35,33 @@ namespace Arena.Commands
             add
             {
                 CommandManager.RequerySuggested += value;
-                this.CanExecuteChangedInternal += value;
+                CanExecuteChangedInternal += value;
             }
 
             remove
             {
                 CommandManager.RequerySuggested -= value;
-                this.CanExecuteChangedInternal -= value;
+                CanExecuteChangedInternal -= value;
             }
         }
 
         public bool CanExecute(object parameter)
         {
-            return this._canExecute != null && this._canExecute(parameter);
+            return _canExecute != null && _canExecute(parameter);
         }
 
         public void Execute(object parameter)
         {
-            this._execute(parameter);
+            _execute(parameter);
         }
 
         public void OnCanExecuteChanged()
         {
-            EventHandler handler = this.CanExecuteChangedInternal;
+            EventHandler handler = CanExecuteChangedInternal;
             if (handler != null)
             {
                 handler.Invoke(this, EventArgs.Empty);
             }
-        }
-
-        public void Destroy()
-        {
-            this._canExecute = _ => false;
-            this._execute = _ => { return; };
         }
 
         private static bool DefaultCanExecute(object parameter)

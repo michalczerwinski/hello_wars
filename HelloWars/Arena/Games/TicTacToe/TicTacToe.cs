@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using Arena.Games.TicTacToe.Models;
+using Arena.Games.TicTacToe.UserControls;
 using Arena.Games.TicTacToe.ViewModels;
 using Arena.Interfaces;
 using Bot = BotClient.BotClient;
@@ -12,19 +12,19 @@ namespace Arena.Games.TicTacToe
     public class TicTacToe : IGame
     {
         private TicTacToeViewModel _ticTacToeViewModel;
-        public List<Bot> Bots { get; set; }
+        public List<Bot> Competitors { get; set; }
         public long RoundNumber { get; set; }
 
-        private bool Player1Win;
-        private bool Player2Win;
+        private bool _player1Win;
+        private bool _player2Win;
 
         public UserControl GetVisualisation()
         {
             _ticTacToeViewModel = new TicTacToeViewModel();
-            return new TicTacToeControl(_ticTacToeViewModel);
+            return new TicTacToeUserControl(_ticTacToeViewModel);
         }
 
-        public bool PerformNextMove()
+        public bool PerformNextRound()
         {
             //Deserialize XML for Move from player
 
@@ -38,7 +38,7 @@ namespace Arena.Games.TicTacToe
         }
 
        
-        public Dictionary<Bot, double> GetResoult()
+        public IDictionary<Bot, double> GetResoult()
         {
             throw new NotImplementedException();
         }
@@ -70,10 +70,10 @@ namespace Arena.Games.TicTacToe
 
         private bool IsGameFinish()
         {
-            Player1Win = IsThereAWinner(_ticTacToeViewModel.ArrayOfX);
-            Player2Win = IsThereAWinner(_ticTacToeViewModel.ArrayOfO);
+            _player1Win = IsThereAWinner(_ticTacToeViewModel.ArrayOfX);
+            _player2Win = IsThereAWinner(_ticTacToeViewModel.ArrayOfO);
 
-            return (Player1Win || Player2Win);
+            return (_player1Win || _player2Win);
         }
 
         private bool IsThereAWinner(BindableArray<Visibility> array)

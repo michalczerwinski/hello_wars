@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Arena.Commands;
 using Arena.Configuration;
 using Arena.Interfaces;
@@ -14,7 +16,7 @@ namespace Arena.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        private string _tempText;
+        private string _headerText;
         private readonly ArenaConfiguration _arenaConfiguration;
         private readonly IElimination _elimination;
         private readonly IGame _game;
@@ -26,10 +28,10 @@ namespace Arena.ViewModels
         private ICommand _autoPlayCommand;
         private Dictionary<Bot, Stack<Tuple<Bot, double>>> _scoreList;
 
-        public string TempText
+        public string HeaderText
         {
-            get { return _tempText; }
-            set { SetProperty(ref _tempText, value); }
+            get { return _headerText; }
+            set { SetProperty(ref _headerText, value); }
         }
 
         public UserControl GameTypeControl
@@ -62,10 +64,10 @@ namespace Arena.ViewModels
 
         public MainWindowViewModel(ArenaConfiguration arenaConfiguration)
         {
-            TempText = "Hello Wars();";
+            HeaderText = "Hello Wars();";
             _arenaConfiguration = arenaConfiguration;
-            _elimination = arenaConfiguration.Eliminations;
-            _game = arenaConfiguration.GameDescription;
+            _elimination = arenaConfiguration.Elimination;
+            _game = arenaConfiguration.Game;
 
             AskForBots();
 
@@ -94,14 +96,15 @@ namespace Arena.ViewModels
 
         private void AutoPlay(object obj)
         {
-            var nextBots = _elimination.GetNextBots();
+            var nextCompetitors = _elimination.GetNextCompetitors();
 
-            while (nextBots != null)
+            while (nextCompetitors != null)
             {
-                _game.Bots = nextBots.ToList();
-                while (_game.PerformNextMove())
+                _game.Competitors = nextCompetitors.ToList();
+                while (_game.PerformNextRound())
                 {
-                    Task.Delay(1000);
+                    Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
+                                          new Action(() => Thread.Sleep(100)));
                 }
 
                 var duelResoult = _game.GetResoult();
@@ -109,24 +112,18 @@ namespace Arena.ViewModels
                 _elimination.SetLastDuelResult(duelResoult);
                 SaveDuelResult(duelResoult);
 
-                nextBots = _elimination.GetNextBots();
+                nextCompetitors = _elimination.GetNextCompetitors();
             }
         }
 
-        private void SaveDuelResult(Dictionary<Bot, double> duelResoult)
+        private void SaveDuelResult(IDictionary<Bot, double> duelResoult)
         {
             if (_scoreList == null)
             {
                 _scoreList = new Dictionary<Bot, Stack<Tuple<Bot, double>>>();
             }
 
-            var duelResoultList = new List<Tuple<Bot, double>>();
-
-            //Urgent need for refactor
-            foreach (var item in duelResoult)
-            {
-                duelResoultList.Add(new Tuple<Bot, double>(item.Key, item.Value));
-            }
+            var duelResoultList = duelResoult.Select(item => new Tuple<Bot, double>(item.Key, item.Value)).ToList();
 
             foreach (var competitor in duelResoultList)
             {
@@ -139,7 +136,7 @@ namespace Arena.ViewModels
 
                     _scoreList.Add(competitor.Item1, newStack);
                 }
-                else 
+                else
                 {
                     var tempList = duelResoultList.Where(f => f.Item1 != competitor.Item1);
 
@@ -153,14 +150,15 @@ namespace Arena.ViewModels
 
         private void PlayDuel(object obj)
         {
-            var nextBots = _elimination.GetNextBots();
-            if (nextBots != null)
+            var nextCompetitors = _elimination.GetNextCompetitors();
+            if (nextCompetitors != null)
             {
-                _game.Bots = nextBots.ToList();
+                _game.Competitors = nextCompetitors.ToList();
 
-                while (_game.PerformNextMove())
+                while (_game.PerformNextRound())
                 {
-
+                    Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
+                                         new Action(() => Thread.Sleep(100)));
                 }
                 _elimination.SetLastDuelResult(_game.GetResoult());
             }

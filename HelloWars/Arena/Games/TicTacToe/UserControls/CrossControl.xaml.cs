@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Arena.Games.TicTacToe.Models
+namespace Arena.Games.TicTacToe.UserControls
 {
     /// <summary>
     /// Interaction logic for CrossControl.xaml

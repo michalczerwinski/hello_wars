@@ -8,7 +8,7 @@ namespace Arena.Interfaces
     {
         List<Bot> Bots { get; set; }
         UserControl GetVisualization();
-        IList<Bot> GetNextBots();
+        IList<Bot> GetNextCompetitors();
         void SetLastDuelResult(IDictionary<Bot, double> result);
     }
 }

@@ -17,31 +17,26 @@ namespace Arena.Games.TicTacToe.ViewModels
             get { return _arrayOfO; }
             set { SetProperty(ref _arrayOfO, value); }
         }
-
         public BindableArray<Visibility> ArrayOfX
         {
             get { return _arrayOfX; }
             set { SetProperty(ref _arrayOfX, value); }
         }
-
         public BindableArray<Visibility> ArrayOfHorizontalLines
         {
             get { return _arrayOfHorizontalLines; }
             set { SetProperty(ref _arrayOfHorizontalLines, value); }
         }
-
         public BindableArray<Visibility> ArrayOfVerticalLines
         {
             get { return _arrayOfVerticalLines; }
             set { SetProperty(ref _arrayOfVerticalLines, value); }
         }
-
         public BindableArray<Visibility> ArrayOfDiagonalLines
         {
             get { return _arrayOfDiagonalLines; }
             set { SetProperty(ref _arrayOfDiagonalLines, value); }
         }
-
 
         public TicTacToeViewModel()
         {
@@ -84,8 +79,5 @@ namespace Arena.Games.TicTacToe.ViewModels
             ArrayOfX[1, 1] = Visibility.Visible;
             ArrayOfX[2, 2] = Visibility.Visible;
         }
-
-
-        
     }
 }

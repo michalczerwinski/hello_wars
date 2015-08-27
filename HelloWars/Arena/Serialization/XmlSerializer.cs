@@ -1,29 +1,30 @@
 ﻿using System.IO;
 using System.Text;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace Arena.Serialization
 {
     public class XmlSerializer<T> where T : class 
     {
-        private readonly System.Xml.Serialization.XmlSerializer _serializer;
+        private readonly XmlSerializer _serializer;
         private readonly Encoding _encoding;
 
         public XmlSerializer()
         {
-            _serializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
+            _serializer = new XmlSerializer(typeof(T));
             _encoding = new UTF8Encoding();
         }
 
         public XmlSerializer(Encoding encoding)
         {
-            _serializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
+            _serializer = new XmlSerializer(typeof(T));
             _encoding = encoding;
         }
 
         public string Serialize(T obj)
         {
-            var result = string.Empty;
+            string result;
             using (var memoryStream = new MemoryStream())
             using (var streamWriter = new StreamWriter(memoryStream, _encoding))
             using (XmlWriter writer = XmlWriter.Create(streamWriter))

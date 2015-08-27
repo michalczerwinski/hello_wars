@@ -1,14 +1,14 @@
 ﻿using System.Windows.Controls;
 using Arena.Games.TicTacToe.ViewModels;
 
-namespace Arena.Games.TicTacToe.Models
+namespace Arena.Games.TicTacToe.UserControls
 {
     /// <summary>
     /// Interaction logic for TicTacToeControl.xaml
     /// </summary>
-    public partial class TicTacToeControl : UserControl
+    public partial class TicTacToeUserControl : UserControl
     {
-        public TicTacToeControl(TicTacToeViewModel viewModel)
+        public TicTacToeUserControl(TicTacToeViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;

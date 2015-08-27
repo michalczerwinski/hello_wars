@@ -7,7 +7,7 @@ namespace Arena.Games.Tanks
     /// </summary>
     public partial class TankGameControl : UserControl
     {
-        private TankGameViewModel _viewModel;
+        private readonly TankGameViewModel _viewModel;
 
         public TankGameControl(TankGameViewModel viewModel)
         {

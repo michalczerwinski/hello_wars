@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Arena.Games.PickTheWinner
+namespace Arena.Games.PickTheWinner.UserControls
 {
     /// <summary>
     /// Interaction logic for PickTheWinnerControl.xaml
