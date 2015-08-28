@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace Arena.Serialization
 {
-    public class XmlSerializer<T> where T : class 
+    public class XmlSerializer<T> where T : class
     {
         private readonly XmlSerializer _serializer;
         private readonly Encoding _encoding;
@@ -24,29 +24,29 @@ namespace Arena.Serialization
 
         public string Serialize(T obj)
         {
-            string result;
             using (var memoryStream = new MemoryStream())
-            using (var streamWriter = new StreamWriter(memoryStream, _encoding))
-            using (XmlWriter writer = XmlWriter.Create(streamWriter))
             {
-                _serializer.Serialize(writer, obj);
-                byte[] buffer = memoryStream.ToArray();
-                result = _encoding.GetString(buffer, 0, buffer.Length);
+                using (var streamWriter = new StreamWriter(memoryStream, _encoding))
+                {
+                    using (var writer = XmlWriter.Create(streamWriter))
+                    {
+                        _serializer.Serialize(writer, obj);
+                        var buffer = memoryStream.ToArray();
+                        return _encoding.GetString(buffer, 0, buffer.Length);
+                    }
+                }
             }
-
-            return result;
         }
 
         public T Deserialize(string xmlString)
         {
-            T result;
             using (var memoryStream = new MemoryStream(_encoding.GetBytes(xmlString)))
-            using (var reader = new StreamReader(memoryStream, _encoding))
             {
-                result = (T) _serializer.Deserialize(reader);
+                using (var reader = new StreamReader(memoryStream, _encoding))
+                {
+                   return (T)_serializer.Deserialize(reader);
+                }
             }
-
-            return result;
         }
     }
 }

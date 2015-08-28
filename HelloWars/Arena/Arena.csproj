@@ -55,7 +55,9 @@
     </ApplicationDefinition>
     <Compile Include="Annotations.cs" />
     <Compile Include="BindableBase.cs" />
-    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Commands\AutoPlayCommand.cs" />
+    <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\PlayDuelCommand.cs" />
     <Compile Include="Configuration\ArenaConfiguration.cs" />
     <Compile Include="Eliminations\TournamentLadder\ViewModels\BotViewModel.cs" />
     <Compile Include="Eliminations\TournamentLadder\TournamentLadder.cs" />
@@ -98,7 +100,7 @@
     <Compile Include="Eliminations\TournamentLadder\UserControls\BotUserControl.xaml.cs">
       <DependentUpon>BotUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Converters\BoolToOpacityConverter.cs" />
+    <Compile Include="Helpers\Converters\BoolToOpacityConverter.cs" />
     <Compile Include="Serialization\XmlSerializer.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="Eliminations\TournamentLadder\UserControls\TournamentLadderControl.xaml">
@@ -137,7 +139,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -145,12 +147,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Pages\Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Pages\MainWindow.xaml.cs">
+    <Compile Include="Helpers\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\Styles\Styles.xaml">
+    <Page Include="Views\Styles\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

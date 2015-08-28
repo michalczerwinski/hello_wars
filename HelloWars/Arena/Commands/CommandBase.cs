@@ -3,30 +3,23 @@ using System.Windows.Input;
 
 namespace Arena.Commands
 {
-    public class RelayCommand : ICommand
+    public class CommandBase : ICommand
     {
-        private readonly Action<object> _execute;
         private readonly Predicate<object> _canExecute;
         private event EventHandler CanExecuteChangedInternal;
 
-        public RelayCommand(Action<object> execute)
-            : this(execute, DefaultCanExecute)
+        public CommandBase()
+            : this(DefaultCanExecute)
         {
         }
 
-        public RelayCommand(Action<object> execute, Predicate<object> canExecute)
+        public CommandBase(Predicate<object> canExecute)
         {
-            if (execute == null)
-            {
-                throw new ArgumentNullException("execute");
-            }
-
-            if (canExecute == null)
+          if (canExecute == null)
             {
                 throw new ArgumentNullException("canExecute");
             }
 
-            _execute = execute;
             _canExecute = canExecute;
         }
 
@@ -50,14 +43,13 @@ namespace Arena.Commands
             return _canExecute != null && _canExecute(parameter);
         }
 
-        public void Execute(object parameter)
+        public virtual void Execute(object parameter = null)
         {
-            _execute(parameter);
         }
 
         public void OnCanExecuteChanged()
         {
-            EventHandler handler = CanExecuteChangedInternal;
+            var handler = CanExecuteChangedInternal;
             if (handler != null)
             {
                 handler.Invoke(this, EventArgs.Empty);

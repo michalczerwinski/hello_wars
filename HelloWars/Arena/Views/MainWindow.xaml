@@ -39,7 +39,9 @@
                 <Viewbox VerticalAlignment="Top">
                     <Grid x:Name="EliminationTypeGrid" HorizontalAlignment="Left"/>
                 </Viewbox>
+                
                 <Grid x:Name="GameTypeGrid" Grid.Column="1" HorizontalAlignment="Right"/>
+                
             </Grid>
         </ScrollViewer>
     </Grid>

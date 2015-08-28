@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
 using Arena.Commands;
 using Arena.Configuration;
 using Arena.Interfaces;
@@ -54,12 +50,12 @@ namespace Arena.ViewModels
 
         public ICommand PlayDuelCommand
         {
-            get { return _playDuelCommand ?? (_playDuelCommand = new RelayCommand(PlayDuel)); }
+            get { return _playDuelCommand ?? (_playDuelCommand = new PlayDuelCommand(_elimination, _game)); }
         }
 
         public ICommand AutoPlayCommand
         {
-            get { return _autoPlayCommand ?? (_autoPlayCommand = new RelayCommand(AutoPlay)); }
+            get { return _autoPlayCommand ?? (_autoPlayCommand = new AutoPlayCommand(_elimination, _game, _scoreList)); }
         }
 
         public MainWindowViewModel(ArenaConfiguration arenaConfiguration)
@@ -91,76 +87,6 @@ namespace Arena.ViewModels
                     Name = _botProxy.GetName(),
                 };
                 Bots.Add(bot);
-            }
-        }
-
-        private void AutoPlay(object obj)
-        {
-            var nextCompetitors = _elimination.GetNextCompetitors();
-
-            while (nextCompetitors != null)
-            {
-                _game.Competitors = nextCompetitors.ToList();
-                while (_game.PerformNextRound())
-                {
-                    Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-                                          new Action(() => Thread.Sleep(100)));
-                }
-
-                var duelResoult = _game.GetResoult();
-
-                _elimination.SetLastDuelResult(duelResoult);
-                SaveDuelResult(duelResoult);
-
-                nextCompetitors = _elimination.GetNextCompetitors();
-            }
-        }
-
-        private void SaveDuelResult(IDictionary<Bot, double> duelResoult)
-        {
-            if (_scoreList == null)
-            {
-                _scoreList = new Dictionary<Bot, Stack<Tuple<Bot, double>>>();
-            }
-
-            var duelResoultList = duelResoult.Select(item => new Tuple<Bot, double>(item.Key, item.Value)).ToList();
-
-            foreach (var competitor in duelResoultList)
-            {
-                var scoreRecord = _scoreList.FirstOrDefault(f => f.Key == competitor.Item1);
-
-                if (scoreRecord.Key == null)
-                {
-                    var tempList = duelResoultList.Where(f => f.Item1 != competitor.Item1);
-                    var newStack = new Stack<Tuple<Bot, double>>(tempList);
-
-                    _scoreList.Add(competitor.Item1, newStack);
-                }
-                else
-                {
-                    var tempList = duelResoultList.Where(f => f.Item1 != competitor.Item1);
-
-                    foreach (var temp in tempList)
-                    {
-                        scoreRecord.Value.Push(temp);
-                    }
-                }
-            }
-        }
-
-        private void PlayDuel(object obj)
-        {
-            var nextCompetitors = _elimination.GetNextCompetitors();
-            if (nextCompetitors != null)
-            {
-                _game.Competitors = nextCompetitors.ToList();
-
-                while (_game.PerformNextRound())
-                {
-                    Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-                                         new Action(() => Thread.Sleep(100)));
-                }
-                _elimination.SetLastDuelResult(_game.GetResoult());
             }
         }
     }
