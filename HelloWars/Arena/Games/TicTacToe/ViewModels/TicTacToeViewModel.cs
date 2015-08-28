@@ -68,16 +68,5 @@ namespace Arena.Games.TicTacToe.ViewModels
                 }
             }
         }
-
-        private ICommand _commandButton;
-        public ICommand CommandButton
-        {
-            get { return _commandButton ?? (_commandButton = new CommandBase()); }
-        }
-        private void DoSomething(object obj)
-        {
-            ArrayOfX[1, 1] = Visibility.Visible;
-            ArrayOfX[2, 2] = Visibility.Visible;
-        }
     }
 }

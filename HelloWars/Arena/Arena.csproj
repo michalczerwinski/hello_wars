@@ -83,6 +83,8 @@
     <Compile Include="Games\Tanks\Tanks.cs" />
     <Compile Include="Games\Tanks\ViewModels\TankViewModel.cs" />
     <Compile Include="Games\TicTacToe\BindableArray.cs" />
+    <Compile Include="Games\TicTacToe\GameLogic.cs" />
+    <Compile Include="Games\TicTacToe\Models\Player.cs" />
     <Compile Include="Games\TicTacToe\UserControls\CircleControl.xaml.cs">
       <DependentUpon>CircleControl.xaml</DependentUpon>
     </Compile>

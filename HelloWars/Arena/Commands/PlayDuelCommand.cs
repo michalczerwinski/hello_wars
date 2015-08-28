@@ -25,10 +25,11 @@ namespace Arena.Commands
             {
                 _game.Competitors = nextCompetitors.ToList();
 
-                while (_game.PerformNextRound())
+                while (!_game.PerformNextRound())
                 {
                     Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-                                         new Action(() => Thread.Sleep(100)));
+                                         new Action(() => Thread.Sleep(1000)));
+                    _game.RoundNumber++;
                 }
                 _elimination.SetLastDuelResult(_game.GetResoult());
             }

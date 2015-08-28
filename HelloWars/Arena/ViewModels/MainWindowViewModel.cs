@@ -50,7 +50,7 @@ namespace Arena.ViewModels
 
         public ICommand PlayDuelCommand
         {
-            get { return _playDuelCommand ?? (_playDuelCommand = new PlayDuelCommand(_elimination, _game)); }
+            get { return new PlayDuelCommand(_elimination, _game); }
         }
 
         public ICommand AutoPlayCommand
