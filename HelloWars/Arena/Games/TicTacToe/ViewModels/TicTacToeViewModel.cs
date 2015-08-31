@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Input;
-using Arena.Commands;
 
 namespace Arena.Games.TicTacToe.ViewModels
 {

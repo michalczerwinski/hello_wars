@@ -29,17 +29,14 @@ namespace Arena.Commands
             while (nextCompetitors != null)
             {
                 _game.Competitors = nextCompetitors.ToList();
+
                 while (_game.PerformNextRound())
                 {
-                    Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-                                          new Action(() => Thread.Sleep(100)));
                 }
 
                 var duelResoult = _game.GetResoult();
-
                 _elimination.SetLastDuelResult(duelResoult);
                 SaveDuelResult(duelResoult);
-
                 nextCompetitors = _elimination.GetNextCompetitors();
             }
         }
@@ -48,10 +45,10 @@ namespace Arena.Commands
         {
             if (_scoreList == null)
             {
-                _scoreList = new Dictionary<BotClient.BotClient, Stack<Tuple<BotClient.BotClient, double>>>();
+                _scoreList = new Dictionary<Bot, Stack<Tuple<BotClient.BotClient, double>>>();
             }
 
-            var duelResoultList = duelResoult.Select(item => new Tuple<BotClient.BotClient, double>(item.Key, item.Value)).ToList();
+            var duelResoultList = duelResoult.Select(item => new Tuple<Bot, double>(item.Key, item.Value)).ToList();
 
             foreach (var competitor in duelResoultList)
             {
@@ -60,7 +57,7 @@ namespace Arena.Commands
                 if (scoreRecord.Key == null)
                 {
                     var tempList = duelResoultList.Where(f => f.Item1 != competitor.Item1);
-                    var newStack = new Stack<Tuple<BotClient.BotClient, double>>(tempList);
+                    var newStack = new Stack<Tuple<Bot, double>>(tempList);
 
                     _scoreList.Add(competitor.Item1, newStack);
                 }

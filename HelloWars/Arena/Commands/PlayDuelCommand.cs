@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Windows;
-using System.Windows.Threading;
+﻿using System.Linq;
 using Arena.Interfaces;
 
 namespace Arena.Commands
@@ -25,11 +21,8 @@ namespace Arena.Commands
             {
                 _game.Competitors = nextCompetitors.ToList();
 
-                while (!_game.PerformNextRound())
+                while (_game.PerformNextRound())
                 {
-                    Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-                                         new Action(() => Thread.Sleep(1000)));
-                    _game.RoundNumber++;
                 }
                 _elimination.SetLastDuelResult(_game.GetResoult());
             }

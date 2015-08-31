@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Arena.Eliminations.TournamentLadder.ViewModels;
 using Arena.Games.TicTacToe.Models;
 using Arena.Games.TicTacToe.UserControls;
 using Arena.Games.TicTacToe.ViewModels;
@@ -10,9 +12,9 @@ using Bot = BotClient.BotClient;
 
 namespace Arena.Games.TicTacToe
 {
-    public class TicTacToe : IGame
+    public partial class TicTacToe : IGame
     {
-        private TicTacToeViewModel _ticTacToeViewModel;
+        protected TicTacToeViewModel TicTacToeViewModel;
         public long RoundNumber { get; set; }
         private Player _player1;
         private Player _player2;
@@ -25,6 +27,10 @@ namespace Arena.Games.TicTacToe
             {
                 _competitors = value;
                 InitializePlayers();
+                if (_competitors != null)
+                {
+                    ClearTheBoard();
+                }
             }
         }
 
@@ -51,24 +57,25 @@ namespace Arena.Games.TicTacToe
 
         public UserControl GetVisualisation()
         {
-            _ticTacToeViewModel = new TicTacToeViewModel();
-            return new TicTacToeUserControl(_ticTacToeViewModel);
+            TicTacToeViewModel = new TicTacToeViewModel();
+            return new TicTacToeUserControl(TicTacToeViewModel);
         }
 
-
+        /// <summary>
+        /// Return false if there is no next round, otherwise return true.
+        /// </summary>
+        /// <returns></returns>
         public bool PerformNextRound()
         {
-            //communication with client
-            //Deserialize XML for Move from player
             if (_player1 == null || _player2 == null) { throw new Exception("There are no players to perform next round."); }
 
             var move = _player1.NextMove();
 
-            while (true)
+            while (!IsBoardFull())
             {
                 if (IsNextMoveValid(move))
                 {
-                    DoNextMove(move, _ticTacToeViewModel.ArrayOfX);
+                    DoNextMove(move, TicTacToeViewModel.ArrayOfX);
                     break;
                 }
                 else
@@ -77,13 +84,16 @@ namespace Arena.Games.TicTacToe
                 }
             }
 
-            if (IsGameFinish()) { return true; }
+            if (IsSomeoneWon())
+            {
+                return false;
+            }
 
-            while (true)
+            while (!IsBoardFull())
             {
                 if (IsNextMoveValid(move))
                 {
-                    DoNextMove(move, _ticTacToeViewModel.ArrayOfO);
+                    DoNextMove(move, TicTacToeViewModel.ArrayOfO);
                     break;
                 }
                 else
@@ -92,131 +102,33 @@ namespace Arena.Games.TicTacToe
                 }
             }
 
-            if (IsGameFinish()) { return true; }
-            return false;
+            if (IsSomeoneWon())
+            {
+                return false;
+            }
+
+            if (IsBoardFull() && !IsSomeoneWon())
+            {
+                ClearTheBoard();
+                return true;
+            }
+            return true;
         }
+
 
         public IDictionary<Bot, double> GetResoult()
         {
             var result = new Dictionary<Bot, double>();
 
-            if (_player1.IsWinner)
-            {
-                double score;
-                if (_player1.IsWinner)
-                {
-                    score = 1.0;
-                }
-                else
-                {
-                    score = 0.0;
-                }
+            double score = _player1.IsWinner ? 1.0 : 0.0;
+            var bot = _competitors.First(f => f.Name == _player1.UniqueKey);
+            result.Add(bot, score);
 
-                var bot = new Bot
-                {
-                    Name = _player1.UniqueKey,
-                };
-
-                result.Add(bot, score);
-            }
-            else if (_player2.IsWinner)
-            {
-                double score;
-                if (_player2.IsWinner)
-                {
-                    score = 1.0;
-                }
-                else
-                {
-                    score = 0.0;
-                }
-
-                var bot = new Bot
-                {
-                    Name = _player1.UniqueKey,
-                };
-
-                result.Add(bot, score);
-            }
+            score = _player2.IsWinner ? 1.0 : 0.0;
+            bot = _competitors.First(f => f.Name == _player2.UniqueKey);
+            result.Add(bot, score);
 
             return result;
         }
-
-        #region GameLogic
-        private void DoNextMove(Point movePoint, BindableArray<Visibility> array)
-        {
-            array[(int)movePoint.X, (int)movePoint.Y] = Visibility.Visible;
-        }
-
-        private bool IsNextMoveValid(Point movePoint)
-        {
-            var arrayO = _ticTacToeViewModel.ArrayOfO;
-            var arrayX = _ticTacToeViewModel.ArrayOfX;
-
-            return arrayO[(int)movePoint.X, (int)movePoint.Y] == Visibility.Collapsed
-                   && arrayX[(int)movePoint.X, (int)movePoint.Y] == Visibility.Collapsed;
-        }
-
-        private bool IsGameFinish()
-        {
-            if (IsThereAWinner(_ticTacToeViewModel.ArrayOfX))
-            {
-                _player1.IsWinner = true;
-                return true;
-            }
-
-            if (IsThereAWinner(_ticTacToeViewModel.ArrayOfO))
-            {
-                _player2.IsWinner = true;
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool IsThereAWinner(BindableArray<Visibility> array)
-        {
-            for (int i = 0; i < array.XSize; i++)
-            {
-                var xEsLine = 0;
-                var yEsLine = 0;
-                var diagonal1 = 0;
-                var diagonal2 = 0;
-                for (int j = 0; j < array.YSize; j++)
-                {
-                    if (array[i, j] == Visibility.Visible)
-                    {
-                        xEsLine++;
-                    }
-                  
-
-                    if (array[j, i] == Visibility.Visible)
-                    {
-                        yEsLine++;
-                    }
-               
-                 
-
-                    //need Work For This - Diagonal
-                    if ((i == j) && array[j, i] == Visibility.Visible)
-                    {
-                        diagonal1++;
-                    }
-
-                    if ((i == j || ((i == 3) && (j == 1)) || ((i == 1) && (j == 3))) && array[j, i] == Visibility.Visible)
-                    {
-                        diagonal2++;
-                    }
-                }
-
-                if (xEsLine == 3 || yEsLine == 3 || diagonal1 == 3 || diagonal2 == 3)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-        #endregion
     }
 }

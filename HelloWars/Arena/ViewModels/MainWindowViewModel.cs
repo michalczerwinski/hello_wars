@@ -20,7 +20,6 @@ namespace Arena.ViewModels
         private UserControl _gameTypeControl;
         private UserControl _eliminationTypeControl;
         private List<Bot> _bots;
-        private ICommand _playDuelCommand;
         private ICommand _autoPlayCommand;
         private Dictionary<Bot, Stack<Tuple<Bot, double>>> _scoreList;
 
