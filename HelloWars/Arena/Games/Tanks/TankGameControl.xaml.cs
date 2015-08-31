@@ -5,7 +5,7 @@ namespace Arena.Games.Tanks
     /// <summary>
     /// Interaction logic for TankGameControl.xaml
     /// </summary>
-    public partial class TankGameControl : UserControl
+    public partial class TankGameControl 
     {
         private readonly TankGameViewModel _viewModel;
 

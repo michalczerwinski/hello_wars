@@ -96,6 +96,7 @@
     </Compile>
     <Compile Include="Games\TicTacToe\TicTacToe.cs" />
     <Compile Include="Games\TicTacToe\ViewModels\TicTacToeViewModel.cs" />
+    <Compile Include="Helpers\DelayHelper.cs" />
     <Compile Include="Helpers\TypeHelper.cs" />
     <Compile Include="Interfaces\IElimination.cs" />
     <Compile Include="Interfaces\IGame.cs" />

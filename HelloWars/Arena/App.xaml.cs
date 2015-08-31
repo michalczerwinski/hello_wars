@@ -2,16 +2,16 @@
 using System.Reflection;
 using System.Windows;
 using Arena.Configuration;
-using Arena.Pages;
 using Arena.Serialization;
 using Arena.ViewModels;
+using Arena.Views;
 
 namespace Arena
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App 
     {
         private ArenaConfiguration _arenaConfiguration;
 

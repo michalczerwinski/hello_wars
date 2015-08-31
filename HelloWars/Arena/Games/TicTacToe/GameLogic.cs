@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading;
-using System.Windows;
-using System.Windows.Threading;
+﻿using System.Windows;
+using Arena.Games.TicTacToe.Models;
+using Arena.Helpers;
 
 namespace Arena.Games.TicTacToe
 {
@@ -10,9 +9,7 @@ namespace Arena.Games.TicTacToe
         private static void DoNextMove(Point movePoint, BindableArray<Visibility> array)
         {
             array[(int)movePoint.X, (int)movePoint.Y] = Visibility.Visible;
-
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-                      new Action(() => Thread.Sleep(150)));
+            DelayHelper.Delay(250);
         }
 
         private bool IsNextMoveValid(Point movePoint)
@@ -24,41 +21,22 @@ namespace Arena.Games.TicTacToe
                    && arrayX[(int)movePoint.X, (int)movePoint.Y] == Visibility.Collapsed;
         }
 
-        private bool IsSomeoneWon()
+        private bool IsPlayerWon(Player player)
         {
-            if (IsWon(TicTacToeViewModel.ArrayOfX))
-            {
-                _player1.IsWinner = true;
-                return true;
-            }
-
-            if (IsWon(TicTacToeViewModel.ArrayOfO))
-            {
-                _player2.IsWinner = true;
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool IsWon(BindableArray<Visibility> array)
-        {
+            var array = player.PlayerMovesArray;
             var diagonal1 = 0;
             var diagonal2 = 0;
+            var xLine = new int[3];
+            var yLine = new int[3];
+
             for (int i = 0; i < array.XSize; i++)
             {
-                var xEsLine = 0;
-                var yEsLine = 0;
                 for (int j = 0; j < array.YSize; j++)
                 {
                     if (array[i, j] == Visibility.Visible)
                     {
-                        xEsLine++;
-                    }
-
-                    if (array[j, i] == Visibility.Visible)
-                    {
-                        yEsLine++;
+                        xLine[i]++;
+                        yLine[j]++;
                     }
 
                     if ((i == j) && array[j, i] == Visibility.Visible)
@@ -66,18 +44,46 @@ namespace Arena.Games.TicTacToe
                         diagonal1++;
                     }
 
-                    if ((i == j || ((i == 2) && (j == 0)) || ((i == 0) && (j == 2))) && array[i, j] == Visibility.Visible)
+                    if ((((i == 1) && (j == 1)) || ((i == 2) && (j == 0)) || ((i == 0) && (j == 2))) && array[i, j] == Visibility.Visible)
                     {
                         diagonal2++;
                     }
                 }
 
-                if (xEsLine == 3 || yEsLine == 3 || diagonal1 == 3 || diagonal2 == 3)
+                if (diagonal1 == 3)
                 {
+                    TicTacToeViewModel.ArrayOfDiagonalLines[0, 0] = Visibility.Visible;
+                    player.IsWinner = true;
+                    DelayHelper.Delay(500);
                     return true;
+                }
+                if (diagonal2 == 3)
+                {
+                    TicTacToeViewModel.ArrayOfDiagonalLines[1, 0] = Visibility.Visible;
+                    player.IsWinner = true;
+                    DelayHelper.Delay(500);
+                    return true;
+                }
+                for (int j = 0; j < 3; j++)
+                {
+                    if (xLine[j] == 3)
+                    {
+                        TicTacToeViewModel.ArrayOfHorizontalLines[j, 0] = Visibility.Visible;
+                        player.IsWinner = true;
+                        DelayHelper.Delay(500);
+                        return true;
+                    }
+                    if (yLine[j] == 3)
+                    {
+                        TicTacToeViewModel.ArrayOfVerticalLines[j, 0] = Visibility.Visible;
+                        player.IsWinner = true;
+                        DelayHelper.Delay(500);
+                        return true;
+                    }
                 }
             }
 
+            player.IsWinner = false;
             return false;
         }
 
@@ -93,21 +99,27 @@ namespace Arena.Games.TicTacToe
                     }
                 }
             }
+
             return true;
         }
 
         private void ClearTheBoard()
         {
-            var arrayO = TicTacToeViewModel.ArrayOfO;
-            var arrayX = TicTacToeViewModel.ArrayOfX;
-
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    arrayO[i, j] = Visibility.Collapsed;
-                    arrayX[i, j] = Visibility.Collapsed;
+                    TicTacToeViewModel.ArrayOfO[i, j] = Visibility.Collapsed;
+                    TicTacToeViewModel.ArrayOfX[i, j] = Visibility.Collapsed;
                 }
+            }
+            TicTacToeViewModel.ArrayOfDiagonalLines[0, 0] = Visibility.Collapsed;
+            TicTacToeViewModel.ArrayOfDiagonalLines[1, 0] = Visibility.Collapsed;
+
+            for (int i = 0; i < 3; i++)
+            {
+                TicTacToeViewModel.ArrayOfVerticalLines[i, 0] = Visibility.Collapsed;
+                TicTacToeViewModel.ArrayOfHorizontalLines[i, 0] = Visibility.Collapsed;
             }
         }
     }

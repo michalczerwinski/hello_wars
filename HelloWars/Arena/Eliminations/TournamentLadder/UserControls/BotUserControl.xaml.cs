@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using Arena.Eliminations.TournamentLadder.ViewModels;
 
 namespace Arena.Eliminations.TournamentLadder.UserControls
@@ -8,7 +7,7 @@ namespace Arena.Eliminations.TournamentLadder.UserControls
     /// Interaction logic for UserViewControl.xaml
     /// </summary>
     /// []
-    public partial class BotUserControl : UserControl
+    public partial class BotUserControl 
     {
         public int Id;
         public int PairWithId;

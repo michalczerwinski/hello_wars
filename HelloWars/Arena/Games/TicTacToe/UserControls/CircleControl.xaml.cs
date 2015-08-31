@@ -1,11 +1,9 @@
-﻿using System.Windows.Controls;
-
-namespace Arena.Games.TicTacToe.UserControls
+﻿namespace Arena.Games.TicTacToe.UserControls
 {
     /// <summary>
     /// Interaction logic for CircleControl.xaml
     /// </summary>
-    public partial class CircleControl : UserControl
+    public partial class CircleControl 
     {
         public CircleControl()
         {

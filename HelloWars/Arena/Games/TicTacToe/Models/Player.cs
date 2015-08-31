@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Windows;
+using Bot = BotClient.BotClient;
 
 namespace Arena.Games.TicTacToe.Models
 {
     public class Player
     {
-        private Random _rand = new Random(DateTime.Now.Millisecond);
+        private readonly Random _rand = new Random(DateTime.Now.Millisecond);
 
-        public string UniqueKey;
-        public string PlayerId;
+        public Bot Bot;
         public bool IsWinner;
+        public BindableArray<Visibility> PlayerMovesArray; 
         public Point NextMove()
         {
             return new Point

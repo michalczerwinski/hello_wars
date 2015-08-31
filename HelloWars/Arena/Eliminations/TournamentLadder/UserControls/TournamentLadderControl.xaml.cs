@@ -11,7 +11,7 @@ namespace Arena.Eliminations.TournamentLadder.UserControls
     /// <summary>
     /// Interaction logic for TournamentLadderControl.xaml
     /// </summary>
-    public partial class TournamentLadderControl : UserControl
+    public partial class TournamentLadderControl 
     {
         private readonly int _startingNumberOfBots;
         public List<BotUserControl> TournamentList;
@@ -129,18 +129,18 @@ namespace Arena.Eliminations.TournamentLadder.UserControls
 
         private BotUserControl AddEmptyBotToStage(int stageNumber, int orderInRow, int numberOfBots)
         {
-            var botView = new BotUserControl(new BotViewModel());
-
-            botView.BotHeadPoint = new Point
+            var botView = new BotUserControl(new BotViewModel())
             {
-                X = ((stageNumber - 1) * (160 + 50)) + 160,
-                Y = ((_startingNumberOfBots / numberOfBots) * 60 * orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1) * 60 / 2) + 60 / 2,
-            };
-
-            botView.BotTailPoint = new Point
-            {
-                X = ((stageNumber - 1) * (160 + 50)),
-                Y = ((_startingNumberOfBots / numberOfBots) * 60 * orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1) * 60 / 2) + 60 / 2,
+                BotHeadPoint = new Point
+                {
+                    X = ((stageNumber - 1)*(160 + 50)) + 160,
+                    Y = ((_startingNumberOfBots/numberOfBots)*60*orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1)*60/2) + 60/2,
+                },
+                BotTailPoint = new Point
+                {
+                    X = ((stageNumber - 1)*(160 + 50)),
+                    Y = ((_startingNumberOfBots/numberOfBots)*60*orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1)*60/2) + 60/2,
+                }
             };
 
             Canvas.SetTop(botView, (_startingNumberOfBots / numberOfBots) * 60 * orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1) * 60 / 2);
