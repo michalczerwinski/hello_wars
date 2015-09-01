@@ -84,32 +84,23 @@ namespace Arena.Games.TicTacToe
             if (_player1 == null || _player2 == null) { throw new Exception("There are no players to perform next round."); }
 
             PlayerNextMove(_player1);
-            if (IsPlayerWon(_player1)) { return false; }
+            if (IsPlayerWon(_player1))
+            {
+                return false;
+            }
 
             PlayerNextMove(_player2);
-            if (IsPlayerWon(_player2)) { return false; }
+            if (IsPlayerWon(_player2))
+            {
+                return false;
+            }
 
             if (IsBoardFull())
             {
                 ClearTheBoard();
             }
+
             return true;
-        }
-
-        private void PlayerNextMove(Player player)
-        {
-            var move = player.NextMove();
-
-            while (!IsBoardFull())
-            {
-                if (IsNextMoveValid(move))
-                {
-                    DoNextMove(move, player.PlayerMovesArray);
-                    break;
-                }
-
-                move = player.NextMove();
-            }
         }
     }
 }

@@ -6,10 +6,21 @@ namespace Arena.Games.TicTacToe
 {
     public partial class TicTacToe
     {
-        private static void DoNextMove(Point movePoint, BindableArray<Visibility> array)
+        private void PlayerNextMove(Player player)
         {
-            array[(int)movePoint.X, (int)movePoint.Y] = Visibility.Visible;
-            DelayHelper.Delay(250);
+            var move = player.NextMove();
+
+            while (!IsBoardFull())
+            {
+                if (IsNextMoveValid(move))
+                {
+                    player.PlayerMovesArray[(int)move.X, (int)move.Y] = Visibility.Visible;
+                    DelayHelper.Delay(250);
+                    break;
+                }
+
+                move = player.NextMove();
+            }
         }
 
         private bool IsNextMoveValid(Point movePoint)
@@ -112,15 +123,13 @@ namespace Arena.Games.TicTacToe
                     TicTacToeViewModel.ArrayOfO[i, j] = Visibility.Collapsed;
                     TicTacToeViewModel.ArrayOfX[i, j] = Visibility.Collapsed;
                 }
-            }
-            TicTacToeViewModel.ArrayOfDiagonalLines[0, 0] = Visibility.Collapsed;
-            TicTacToeViewModel.ArrayOfDiagonalLines[1, 0] = Visibility.Collapsed;
 
-            for (int i = 0; i < 3; i++)
-            {
                 TicTacToeViewModel.ArrayOfVerticalLines[i, 0] = Visibility.Collapsed;
                 TicTacToeViewModel.ArrayOfHorizontalLines[i, 0] = Visibility.Collapsed;
             }
+
+            TicTacToeViewModel.ArrayOfDiagonalLines[0, 0] = Visibility.Collapsed;
+            TicTacToeViewModel.ArrayOfDiagonalLines[1, 0] = Visibility.Collapsed;
         }
     }
 }
