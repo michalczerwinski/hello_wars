@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
-using Arena.Configuration;
-using Arena.Models;
+using Bot = BotClient.BotClient;
 
 namespace Arena.Interfaces
 {
     public interface IElimination
     {
-        List<string> Competitors { get; set; }
-        UserControl GetVisualization(List<Competitor> competitors);
-        IList<CompetitorUrl> GetNextCompetitors(CompetitorUrl lastWinner);
+        List<Bot> Bots { get; set; }
+        UserControl GetVisualization();
+        IList<Bot> GetNextCompetitors();
+        void SetLastDuelResult(IDictionary<Bot, double> result);
     }
 }

@@ -1,12 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <ArenaConfiguration>
-  <EliminationType>Arena.EliminationTypes.TournamentLadder.TournamentLadder</EliminationType>
-  <GameType>Arena.Games.Tanks.Tanks</GameType>
-  <Competitors>
-    <CompetitorUrl>CzesiekUrl</CompetitorUrl>
-    <CompetitorUrl>GrzesiekUrl</CompetitorUrl>
-    <CompetitorUrl>ZdzislawUrl</CompetitorUrl>
-    <CompetitorUrl>MundekUrl</CompetitorUrl>
-  </Competitors>
+  <EliminationType>Arena.Eliminations.TournamentLadder.TournamentLadder</EliminationType>
+  <GameType>Arena.Games.TicTacToe.TicTacToe</GameType>
+  <BotUrls>
+    <Url>Czesiek</Url>
+    <Url>Heniek</Url>
+    <Url>Stasiu</Url>
+    <Url>Wiesiu</Url>
+    <Url>Molle</Url>
+    <Url>Dolly</Url>
+    <Url>Olie</Url>
+    <Url>Zenek</Url>
+  </BotUrls>
 </ArenaConfiguration>
