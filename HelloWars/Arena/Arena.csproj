@@ -65,6 +65,7 @@
       <DependentUpon>TournamentLadderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Eliminations\TournamentLadder\ViewModels\TournamentLadderViewModel.cs" />
+    <Compile Include="Utilities\Score.cs" />
     <Compile Include="Games\PickTheWinner\UserControls\TankControl.xaml.cs">
       <DependentUpon>TankControl.xaml</DependentUpon>
     </Compile>
@@ -83,7 +84,7 @@
     <Compile Include="Games\Tanks\Tanks.cs" />
     <Compile Include="Games\Tanks\ViewModels\TankViewModel.cs" />
     <Compile Include="Games\TicTacToe\BindableArray.cs" />
-    <Compile Include="Games\TicTacToe\GameLogic.cs" />
+    <Compile Include="Games\TicTacToe\TicTacToeLogic.cs" />
     <Compile Include="Games\TicTacToe\Models\Player.cs" />
     <Compile Include="Games\TicTacToe\UserControls\CircleControl.xaml.cs">
       <DependentUpon>CircleControl.xaml</DependentUpon>
@@ -104,6 +105,7 @@
       <DependentUpon>BotUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Converters\BoolToOpacityConverter.cs" />
+    <Compile Include="Utilities\ScoreList.cs" />
     <Compile Include="Serialization\XmlSerializer.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="Eliminations\TournamentLadder\UserControls\TournamentLadderControl.xaml">

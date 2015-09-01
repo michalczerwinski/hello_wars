@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Arena.Commands;
 using Arena.Configuration;
 using Arena.Interfaces;
+using Arena.Utilities;
 using BotClient;
 using Bot = BotClient.BotClient;
 
@@ -21,7 +21,7 @@ namespace Arena.ViewModels
         private UserControl _eliminationTypeControl;
         private List<Bot> _bots;
         private ICommand _autoPlayCommand;
-        private Dictionary<Bot, Stack<Tuple<Bot, double>>> _scoreList;
+        private readonly ScoreList _scoreList;
 
         public string HeaderText
         {
@@ -49,7 +49,7 @@ namespace Arena.ViewModels
 
         public ICommand PlayDuelCommand
         {
-            get { return new PlayDuelCommand(_elimination, _game); }
+            get { return new PlayDuelCommand(_elimination, _game, _scoreList); }
         }
 
         public ICommand AutoPlayCommand
@@ -59,6 +59,7 @@ namespace Arena.ViewModels
 
         public MainWindowViewModel(ArenaConfiguration arenaConfiguration)
         {
+            _scoreList = new ScoreList();
             HeaderText = "Hello Wars();";
             _arenaConfiguration = arenaConfiguration;
             _elimination = arenaConfiguration.Elimination;

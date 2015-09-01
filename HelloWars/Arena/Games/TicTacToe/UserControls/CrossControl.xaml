@@ -7,7 +7,7 @@
             >
 
     <Grid >
-        <Path Data="M 0,0 L 100,100" Stroke="DarkRed" StrokeThickness="10"/>
-        <Path Data="M 100,0 L 0,100" Stroke="DarkRed" StrokeThickness="10"/>
+        <Path Data="M 10,10 L 90,90" Stroke="DarkRed" StrokeThickness="10"/>
+        <Path Data="M 90,10 L 10,90" Stroke="DarkRed" StrokeThickness="10"/>
     </Grid>
 </UserControl> 
