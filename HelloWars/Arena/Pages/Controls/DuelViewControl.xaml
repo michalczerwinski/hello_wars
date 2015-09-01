@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Arena.Pages.Controls.DuelViewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:Arena.Pages.Controls"
+             xmlns:models="clr-namespace:Arena.Models"
+             xmlns:userControls="clr-namespace:Arena.EliminationTypes.TournamentLadder.UserControls"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=models:DuelPair}"
+             Width="220">
+    
+    <Grid Background="Transparent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="60"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!--<userControls:CompetitorViewControl DataContext="{Binding Path=Competitor1}" />-->
+            <!--<userControls:CompetitorViewControl DataContext="{Binding Path=Competitor2}" Grid.Row="1"/>-->
+        </Grid>
+        <Path Grid.Column="1" Stroke="DarkSlateBlue" StrokeThickness="4" Data="M 5,30 L 30,30 L 30,90 L 5,90 M 30,60 L 55,60" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round" StrokeLineJoin="Round"/>
+    </Grid>
+</UserControl>
