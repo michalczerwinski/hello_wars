@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Arena.Commands;
 using Arena.Configuration;
+using Arena.Helpers;
 using Arena.Interfaces;
 using Arena.Utilities;
 using BotClient;
+using Newtonsoft.Json;
 using Bot = BotClient.BotClient;
 
 namespace Arena.ViewModels
@@ -16,7 +20,6 @@ namespace Arena.ViewModels
         private readonly ArenaConfiguration _arenaConfiguration;
         private readonly IElimination _elimination;
         private readonly IGame _game;
-        private BotProxy _botProxy;
         private UserControl _gameTypeControl;
         private UserControl _eliminationTypeControl;
         private List<Bot> _bots;
@@ -72,20 +75,21 @@ namespace Arena.ViewModels
             _gameTypeControl = _game.GetVisualisation();
         }
 
-        private void AskForBots()
+        private  void AskForBots()
         {
             Bots = new List<Bot>();
-
             foreach (var botUrl in _arenaConfiguration.BotUrls)
             {
-                _botProxy = new BotProxy(botUrl);
-
+                var botJson = WebClientHelper.GetStringResponseFromUrl(botUrl + "info");
+                var deserializedBot = JsonHelper<Bot>.Deserialize(botJson);
+   
                 var bot = new Bot
                 {
                     Url = botUrl,
-                    AvatarUrl = _botProxy.GetAvatarUrl(),
-                    Name = _botProxy.GetName(),
+                    Name = deserializedBot.Name,
+                    AvatarUrl = deserializedBot.AvatarUrl
                 };
+
                 Bots.Add(bot);
             }
         }

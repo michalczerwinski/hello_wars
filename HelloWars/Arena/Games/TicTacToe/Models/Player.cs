@@ -1,23 +1,25 @@
-﻿using System;
+﻿using System.IO;
+using System.Net;
 using System.Windows;
-using Bot = BotClient.BotClient;
+using Newtonsoft.Json;
 
 namespace Arena.Games.TicTacToe.Models
 {
     public class Player
     {
-        private readonly Random _rand = new Random(DateTime.Now.Millisecond);
-
-        public Bot Bot;
+        public BotClient.BotClient Bot;
         public bool IsWinner;
         public BindableArray<Visibility> PlayerMovesArray; 
         public Point NextMove()
         {
-            return new Point
-            {
-                X = _rand.Next(0, 3),
-                Y = _rand.Next(0, 3),
-            };       
+            var webClient = new WebClient();
+            webClient.Headers.Add("Accept", "application/json");
+            var jsonSerializer = JsonSerializer.Create();
+            var botJson2 = webClient.DownloadString(Bot.Url + "PerformNextMove");
+            var reader = new JsonTextReader(new StringReader(botJson2));
+            var deserializedBot = jsonSerializer.Deserialize<Point>(reader);
+
+            return deserializedBot;
         }
     }
 }
