@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Game.Common.Interfaces;
 using Game.TicTacToe.Interfaces;
 using Game.TicTacToe.Models;
 using Game.TicTacToe.UserControls;
 using Game.TicTacToe.ViewModels;
 using System.Drawing;
-using Game.Common.Attributes;
-using Game.Common.Helpers;
+using Common.Attributes;
+using Common.Helpers;
+using Common.Interfaces;
 using Point = System.Drawing.Point;
 
 namespace Game.TicTacToe
@@ -49,7 +49,18 @@ namespace Game.TicTacToe
 
         public void AddCompetitor(ICompetitor competitor)
         {
-            _competitors.Add(new TicTacToeLocalBot(competitor));
+            ITicTacToeBot bot;
+
+            if (!string.IsNullOrEmpty(competitor.Url))
+            {
+                bot = new TicTacToeWebBot(competitor);
+            }
+            else
+            {
+                bot = new TicTacToeLocalBot(competitor);
+            }
+
+            _competitors.Add(bot);
         }
 
         public void Start()
@@ -126,11 +137,6 @@ namespace Game.TicTacToe
         private bool IsNextMoveValid(Point movePoint)
         {
             return _board[movePoint.X, movePoint.Y] == TicTacToeBoardFieldType.Empty;
-//            var arrayO = TicTacToeViewModel.ArrayOfO;
-//            var arrayX = TicTacToeViewModel.ArrayOfX;
-//
-//            return arrayO[(int)movePoint.X, (int)movePoint.Y] == Visibility.Collapsed
-//                   && arrayX[(int)movePoint.X, (int)movePoint.Y] == Visibility.Collapsed;
         }
 
         private bool IsPlayerWon(ITicTacToeBot player)
@@ -217,6 +223,7 @@ namespace Game.TicTacToe
 
         private void ClearTheBoard()
         {
+            _board = new TicTacToeBoardFieldType[3, 3];
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)

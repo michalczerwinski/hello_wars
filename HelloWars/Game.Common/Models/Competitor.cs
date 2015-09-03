@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Game.Common.Interfaces;
+using Common.Interfaces;
 
-namespace Game.Common.Models
+namespace Common.Models
 {
     public class Competitor : ICompetitor
     {

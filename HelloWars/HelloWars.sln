@@ -5,7 +5,9 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arena", "Arena\Arena.csproj", "{D8FDDA71-B680-4BC8-A1F5-B68F2906E16A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Common", "Game.Common\Game.Common.csproj", "{A40D2185-D837-4773-8DD7-3830F0C9E3FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Game.Common\Common.csproj", "{A40D2185-D837-4773-8DD7-3830F0C9E3FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWebBotClient", "SampleWebBotClient\SampleWebBotClient.csproj", "{DE6068FC-D2DC-4567-9732-ADE401B6B1EA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{D0E63415-844A-413F-9A67-05F602EB2B10}"
 EndProject
@@ -25,6 +27,10 @@ Global
 		{A40D2185-D837-4773-8DD7-3830F0C9E3FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A40D2185-D837-4773-8DD7-3830F0C9E3FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A40D2185-D837-4773-8DD7-3830F0C9E3FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE6068FC-D2DC-4567-9732-ADE401B6B1EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE6068FC-D2DC-4567-9732-ADE401B6B1EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE6068FC-D2DC-4567-9732-ADE401B6B1EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE6068FC-D2DC-4567-9732-ADE401B6B1EA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EE3BBF9D-A0BF-4F11-91BC-21A5B5099730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EE3BBF9D-A0BF-4F11-91BC-21A5B5099730}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE3BBF9D-A0BF-4F11-91BC-21A5B5099730}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -34,7 +40,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{A40D2185-D837-4773-8DD7-3830F0C9E3FF} = {D0E63415-844A-413F-9A67-05F602EB2B10}
 		{EE3BBF9D-A0BF-4F11-91BC-21A5B5099730} = {D0E63415-844A-413F-9A67-05F602EB2B10}
 	EndGlobalSection
 EndGlobal

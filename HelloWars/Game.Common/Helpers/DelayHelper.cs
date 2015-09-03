@@ -3,7 +3,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace Game.Common.Helpers
+namespace Common.Helpers
 {
     public static class DelayHelper
     {

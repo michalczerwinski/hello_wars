@@ -4,13 +4,13 @@
   <EliminationType>Arena.Eliminations.TournamentLadder.TournamentLadder</EliminationType>
   <GameType>TicTacToe</GameType>
   <BotUrls>
-    <Url>Czesiek</Url>
-    <Url>Heniek</Url>
-    <Url>Stasiu</Url>
-    <Url>Wiesiu</Url>
-    <Url>Molle</Url>
-    <Url>Dolly</Url>
-    <Url>Olie</Url>
-    <Url>Zenek</Url>
+    <Url>http://localhost:53886/SampleBot/</Url>
+    <Url>http://localhost:53886/SampleBot/</Url>
+    <Url>http://localhost:53886/SampleBot/</Url>
+    <Url>http://localhost:53886/SampleBot/</Url>
+    <Url>http://localhost:53886/SampleBot/</Url>
+    <Url>http://localhost:53886/SampleBot/</Url>
+    <Url>http://localhost:53886/SampleBot/</Url>
+    <Url>http://localhost:53886/SampleBot/</Url>
   </BotUrls>
 </ArenaConfiguration>

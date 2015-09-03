@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Arena.Eliminations.TournamentLadder.UserControls;
-using Game.Common.Interfaces;
+using Common.Interfaces;
 
 namespace Arena.Eliminations.TournamentLadder.ViewModels
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game.Common.Interfaces
+namespace Common.Interfaces
 {
     public interface ICompetitor
     {

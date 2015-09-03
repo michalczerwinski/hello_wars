@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Game.Common.Interfaces;
+using Common.Interfaces;
 
 namespace Arena.Utilities
 {
@@ -47,7 +47,7 @@ namespace Arena.Utilities
         {
             foreach (var playerRecord in duelResoult)
             {
-                var allOtherPlayers = duelResoult.Keys.Where(f => f != playerRecord.Key).ToList();
+                var allOtherPlayers = duelResoult.Keys.Where(f => f.Id != playerRecord.Key.Id).ToList();
 
                 foreach (var otherPlayer in allOtherPlayers)
                 {

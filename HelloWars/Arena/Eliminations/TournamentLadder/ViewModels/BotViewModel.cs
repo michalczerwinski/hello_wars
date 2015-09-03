@@ -1,5 +1,5 @@
-﻿using Game.Common.Interfaces;
-using Game.Common.Models;
+﻿using Common.Interfaces;
+using Common.Models;
 
 namespace Arena.Eliminations.TournamentLadder.ViewModels
 {

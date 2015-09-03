@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Game.Common.Models;
+using Common.Models;
 
 namespace Game.TicTacToe.ViewModels
 {

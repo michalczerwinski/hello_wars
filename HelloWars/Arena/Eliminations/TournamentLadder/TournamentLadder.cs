@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using Arena.Eliminations.TournamentLadder.UserControls;
 using Arena.Eliminations.TournamentLadder.ViewModels;
 using Arena.Interfaces;
-using Game.Common.Interfaces;
+using Common.Interfaces;
 
 namespace Arena.Eliminations.TournamentLadder
 {

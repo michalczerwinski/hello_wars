@@ -2,16 +2,16 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Game.Common.Attributes;
-using Game.Common.Interfaces;
+using Common.Attributes;
+using Common.Interfaces;
 
-namespace Arena.Helpers
+namespace Common.Helpers
 {
     public static class TypeHelper<T>
     {
         public static T GetType(string typeName)
         {
-            var assembly = Assembly.GetExecutingAssembly();
+            var assembly = Assembly.GetEntryAssembly();
             return (T)Activator.CreateInstance(assembly.GetType(typeName));
         }
 

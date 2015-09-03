@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
-using Game.Common.Interfaces;
-using Game.Common.Models;
+using Common.Interfaces;
+using Common.Models;
 using Game.TicTacToe.Interfaces;
 using Point = System.Drawing.Point;
 
@@ -18,15 +18,6 @@ namespace Game.TicTacToe.Models
         public bool IsWinner { get; set; }
         public BindableArray<Visibility> PlayerMovesArray { get; set; }
         public TicTacToeBoardFieldType PlayerSign { get; set; }
-
-        public Point NextMove()
-        {
-            return new Point
-            {
-                X = _rand.Next(0, 3),
-                Y = _rand.Next(0, 3),
-            };       
-        }
 
         public override Point NextMove(TicTacToeBoardFieldType[,] arenaInfo)
         {

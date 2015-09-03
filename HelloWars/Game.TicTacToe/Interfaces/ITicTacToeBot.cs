@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Game.Common.Interfaces;
+using Common.Interfaces;
 using Game.TicTacToe.Models;
 using Point = System.Drawing.Point;
 

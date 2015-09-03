@@ -1,13 +1,12 @@
-﻿using Game.Common.Interfaces;
+﻿using Common.Interfaces;
 
-namespace Game.Common.Models
+namespace Common.Models
 {
-    public abstract class BotLocalClient<TArenaInfo, TMove> : Competitor, IBotClient<TArenaInfo, TMove>
+    public abstract class BotLocalClient<TArenaInfo, TMove> : BotClientBase<TArenaInfo, TMove>
     {
         protected BotLocalClient(ICompetitor competitor) : base(competitor)
-        {
-        }
+        {}
 
-        public abstract TMove NextMove(TArenaInfo arenaInfo);
+        public abstract override TMove NextMove(TArenaInfo arenaInfo);
     }
 }

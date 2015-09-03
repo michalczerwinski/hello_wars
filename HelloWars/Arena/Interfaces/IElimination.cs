@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
-using Game.Common.Interfaces;
+using Common.Interfaces;
 
 namespace Arena.Interfaces
 {

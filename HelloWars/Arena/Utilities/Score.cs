@@ -1,4 +1,4 @@
-﻿using Game.Common.Interfaces;
+﻿using Common.Interfaces;
 
 namespace Arena.Utilities
 {

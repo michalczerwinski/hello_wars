@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
 
-namespace Game.Common.Interfaces
+namespace Common.Interfaces
 {
     public interface IGame
     {

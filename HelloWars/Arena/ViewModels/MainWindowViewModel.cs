@@ -7,9 +7,9 @@ using Arena.Configuration;
 using Arena.Helpers;
 using Arena.Interfaces;
 using Arena.Utilities;
-using Game.Common.Helpers;
-using Game.Common.Interfaces;
-using Game.Common.Models;
+using Common.Helpers;
+using Common.Interfaces;
+using Common.Models;
 using Game.TicTacToe.Models;
 
 namespace Arena.ViewModels
@@ -82,15 +82,10 @@ namespace Arena.ViewModels
 
             foreach (var botUrl in _arenaConfiguration.BotUrls)
             {
-                //TODO: use botFactory and download information via provided URLs
-                var bot = new Competitor()
-                {
-                    Id = Guid.NewGuid(),
-                    AvatarUrl = null,
-                    Name = botUrl,
-                    Url = null
-                };
-                Competitors.Add(bot);
+                var loader = new CompetitorLoadService();
+                var competitor = loader.LoadCompetitor(botUrl);
+                
+                Competitors.Add(competitor);
             }
         }
     }

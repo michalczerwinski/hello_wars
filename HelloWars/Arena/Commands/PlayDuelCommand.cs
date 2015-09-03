@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Arena.Interfaces;
 using Arena.Utilities;
-using Game.Common.Interfaces;
+using Common.Interfaces;
 
 namespace Arena.Commands
 {
@@ -36,9 +36,9 @@ namespace Arena.Commands
                 {
                 }
 
-                var duelResoult = _game.GetResults();
-                _elimination.SetLastDuelResult(duelResoult);
-                _scoreList.SaveScore(duelResoult);
+                var duelResult = _game.GetResults();
+                _elimination.SetLastDuelResult(duelResult);
+                _scoreList.SaveScore(duelResult);
             }
         }
     }

@@ -2,8 +2,7 @@
 using System.Xml.Serialization;
 using Arena.Helpers;
 using Arena.Interfaces;
-using Game.Common.Helpers;
-using Game.Common.Interfaces;
+using Common.Helpers;
 
 namespace Arena.Configuration
 {
