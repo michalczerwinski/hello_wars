@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Arena.Commands;
@@ -76,17 +78,13 @@ namespace Arena.ViewModels
             _gameTypeControl = _game.GetVisualisation();
         }
 
-        private void AskForCompetitors()
+        private async void AskForCompetitors()
         {
-            Competitors = new List<ICompetitor>();
+            var loader = new CompetitorLoadService();
 
-            foreach (var botUrl in _arenaConfiguration.BotUrls)
-            {
-                var loader = new CompetitorLoadService();
-                var competitor = loader.LoadCompetitor(botUrl);
-                
-                Competitors.Add(competitor);
-            }
+            var competitorsTasks = _arenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitorAsync(botUrl)).ToList();
+
+            Competitors = (await Task.WhenAll(competitorsTasks)).ToList();
         }
     }
 }
