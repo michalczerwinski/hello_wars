@@ -1,6 +1,6 @@
-﻿using Arena.Games.TicTacToe.ViewModels;
+﻿using Game.TicTacToe.ViewModels;
 
-namespace Arena.Games.TicTacToe.UserControls
+namespace Game.TicTacToe.UserControls
 {
     /// <summary>
     /// Interaction logic for TicTacToeControl.xaml

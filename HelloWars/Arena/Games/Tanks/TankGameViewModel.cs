@@ -1,4 +1,6 @@
-﻿namespace Arena.Games.Tanks
+﻿using Game.Common.Models;
+
+namespace Arena.Games.Tanks
 {
     public class TankGameViewModel : BindableBase
     {

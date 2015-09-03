@@ -1,9 +1,8 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 
-namespace Arena
+namespace Game.Common.Models
 {
     public abstract class BindableBase : INotifyPropertyChanged
     {
@@ -28,7 +27,6 @@ namespace Arena
         /// support CallerMemberName.</param>
         /// <returns>True if the value was changed, false if the existing value matched the
         /// desired value.</returns>
-        [NotifyPropertyChangedInvocator]
         protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
             Debug.Assert(propertyName != null, "propertyName != null");

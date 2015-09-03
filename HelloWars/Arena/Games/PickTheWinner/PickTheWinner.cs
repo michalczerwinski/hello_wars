@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using Arena.Games.PickTheWinner.UserControls;
 using Arena.Interfaces;
-using Bot = BotClient.BotClient;
+using Game.Common.Attributes;
+using Game.Common.Interfaces;
 
 namespace Arena.Games.PickTheWinner
 {
+    [GameType("PickTheWinner")]
     public class PickTheWinner : IGame
     {
         private readonly Random _rand = new Random(DateTime.Now.Millisecond);
-        private List<Bot> _bots;
-        private Dictionary<Bot, double> _result;
+        private List<ICompetitor> _bots;
+        private Dictionary<ICompetitor, double> _result;
         public long RoundNumber { get; set; }
 
-        public List<Bot> Competitors
+        public List<ICompetitor> Competitors
         {
             get { return _bots; }
             set
@@ -27,7 +29,7 @@ namespace Arena.Games.PickTheWinner
             }
         }
 
-        public IDictionary<Bot, double> GetResoult()
+        public IDictionary<ICompetitor, double> GetResoult()
         {
             return _result;
         }
@@ -35,7 +37,7 @@ namespace Arena.Games.PickTheWinner
         public bool PerformNextRound()
         {
             var looser = _rand.Next(0, 2);
-            _result = new Dictionary<Bot, double>();
+            _result = new Dictionary<ICompetitor, double>();
 
             if (looser == 0)
             {
@@ -54,6 +56,26 @@ namespace Arena.Games.PickTheWinner
         public UserControl GetVisualisation()
         {
             return new PickTheWinnerControl();
+        }
+
+        public IDictionary<ICompetitor, double> GetResults()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddCompetitor(ICompetitor competitor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Start()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Reset()
+        {
+            throw new NotImplementedException();
         }
 
         public void CreateNewGame()

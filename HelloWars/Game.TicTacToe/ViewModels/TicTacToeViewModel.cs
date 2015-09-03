@@ -1,6 +1,7 @@
 ﻿using System.Windows;
+using Game.Common.Models;
 
-namespace Arena.Games.TicTacToe.ViewModels
+namespace Game.TicTacToe.ViewModels
 {
     public class TicTacToeViewModel : BindableBase
     {

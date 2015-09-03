@@ -2,7 +2,7 @@
 
 <ArenaConfiguration>
   <EliminationType>Arena.Eliminations.TournamentLadder.TournamentLadder</EliminationType>
-  <GameType>Arena.Games.TicTacToe.TicTacToe</GameType>
+  <GameType>TicTacToe</GameType>
   <BotUrls>
     <Url>Czesiek</Url>
     <Url>Heniek</Url>

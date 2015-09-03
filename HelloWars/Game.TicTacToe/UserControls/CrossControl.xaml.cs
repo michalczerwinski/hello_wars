@@ -1,4 +1,4 @@
-﻿namespace Arena.Games.TicTacToe.UserControls
+﻿namespace Game.TicTacToe.UserControls
 {
     /// <summary>
     /// Interaction logic for CrossControl.xaml

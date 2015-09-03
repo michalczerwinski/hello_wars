@@ -1,4 +1,6 @@
-﻿namespace Arena.Games.PickTheWinner.ViewModels
+﻿using Game.Common.Models;
+
+namespace Arena.Games.PickTheWinner.ViewModels
 {
     public class TankViewModel : BindableBase
     {

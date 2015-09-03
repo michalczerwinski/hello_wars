@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Game.Common.Interfaces;
 
 namespace Arena.Utilities
 {
     public class ScoreList
     {
-        private readonly Dictionary<BotClient.BotClient, List<GameScore>> _scoreDictionary;
+        private readonly Dictionary<ICompetitor, List<GameScore>> _scoreDictionary;
 
         public ScoreList()
         {
-            _scoreDictionary = new Dictionary<BotClient.BotClient, List<GameScore>>();
+            _scoreDictionary = new Dictionary<ICompetitor, List<GameScore>>();
         }
 
-        public void AddScore(BotClient.BotClient player, double score, BotClient.BotClient oponent)
+        public void AddScore(ICompetitor player, double score, ICompetitor oponent)
         {
             if (_scoreDictionary.Count == 0 || !_scoreDictionary.Any(f => f.Key.Equals(player)))
             {
@@ -32,17 +33,17 @@ namespace Arena.Utilities
             }
         }
 
-        public List<GameScore> ShowGameScoresForPlayer(BotClient.BotClient bot)
+        public List<GameScore> ShowGameScoresForPlayer(ICompetitor competitor)
         {
-            return _scoreDictionary.FirstOrDefault(f => Equals(f.Key, bot)).Value;
+            return _scoreDictionary.FirstOrDefault(f => f.Key.Id == competitor.Id).Value;
         }
 
-        public List<GameScore> ScoreAgainstPlayer(BotClient.BotClient bot, BotClient.BotClient oponent)
+        public List<GameScore> ScoreAgainstPlayer(ICompetitor competitor, ICompetitor oponent)
         {
-            return _scoreDictionary.FirstOrDefault(f => f.Key == bot).Value.Where(f=>f.Oponent == oponent).ToList();
+            return _scoreDictionary.FirstOrDefault(f => f.Key.Id == competitor.Id).Value.Where(f=>f.Oponent.Id == oponent.Id).ToList();
         }
 
-        public void SaveScore(IDictionary<BotClient.BotClient, double> duelResoult)
+        public void SaveScore(IDictionary<ICompetitor, double> duelResoult)
         {
             foreach (var playerRecord in duelResoult)
             {
