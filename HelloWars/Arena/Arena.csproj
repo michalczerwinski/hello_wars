@@ -66,23 +66,6 @@
     </Compile>
     <Compile Include="Eliminations\TournamentLadder\ViewModels\TournamentLadderViewModel.cs" />
     <Compile Include="Utilities\Score.cs" />
-    <Compile Include="Games\PickTheWinner\UserControls\TankControl.xaml.cs">
-      <DependentUpon>TankControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Games\PickTheWinner\UserControls\PickTheWinnerControl.xaml.cs">
-      <DependentUpon>PickTheWinnerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Games\PickTheWinner\PickTheWinner.cs" />
-    <Compile Include="Games\PickTheWinner\ViewModels\TankViewModel.cs" />
-    <Compile Include="Games\Tanks\Models\TankControl.xaml.cs">
-      <DependentUpon>TankControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Games\Tanks\TankGameViewModel.cs" />
-    <Compile Include="Games\Tanks\TankGameControl.xaml.cs">
-      <DependentUpon>TankGameControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Games\Tanks\Tanks.cs" />
-    <Compile Include="Games\Tanks\ViewModels\TankViewModel.cs" />
     <Compile Include="Helpers\TypeHelper.cs" />
     <Compile Include="Interfaces\IElimination.cs" />
     <Compile Include="Eliminations\TournamentLadder\UserControls\BotUserControl.xaml.cs">
@@ -93,22 +76,6 @@
     <Compile Include="Serialization\XmlSerializer.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="Eliminations\TournamentLadder\UserControls\TournamentLadderControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Games\PickTheWinner\UserControls\TankControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Games\PickTheWinner\UserControls\PickTheWinnerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Games\Tanks\Models\TankControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Games\Tanks\TankGameControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
