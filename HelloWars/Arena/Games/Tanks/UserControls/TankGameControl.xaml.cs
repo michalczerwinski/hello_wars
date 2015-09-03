@@ -1,15 +1,16 @@
 ﻿using System.Windows.Controls;
+using Arena.Games.Tanks.ViewModels;
 
-namespace Arena.Games.Tanks
+namespace Arena.Games.Tanks.UserControls
 {
     /// <summary>
     /// Interaction logic for TankGameControl.xaml
     /// </summary>
-    public partial class TankGameControl 
+    public partial class TankGameUserControl 
     {
         private readonly TankGameViewModel _viewModel;
 
-        public TankGameControl(TankGameViewModel viewModel)
+        public TankGameUserControl(TankGameViewModel viewModel)
         {
             _viewModel = viewModel;
             DataContext = viewModel;

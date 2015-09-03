@@ -1,9 +1,12 @@
-﻿namespace Arena.Games.Tanks
+﻿namespace Arena.Games.Tanks.ViewModels
 {
     public class TankGameViewModel : BindableBase
     {
         private int _heigth;
         private int _width;
+
+
+
 
         public int Width
         {
