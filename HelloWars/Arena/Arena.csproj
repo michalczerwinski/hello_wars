@@ -80,11 +80,11 @@
     </Compile>
     <Compile Include="Games\PickTheWinner\PickTheWinner.cs" />
     <Compile Include="Games\PickTheWinner\ViewModels\TankViewModel.cs" />
-    <Compile Include="Games\Tanks\Models\TankControl.xaml.cs">
+    <Compile Include="Games\Tanks\UserControls\TankControl.xaml.cs">
       <DependentUpon>TankControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Games\Tanks\TankGameViewModel.cs" />
-    <Compile Include="Games\Tanks\TankGameControl.xaml.cs">
+    <Compile Include="Games\Tanks\ViewModels\TankGameViewModel.cs" />
+    <Compile Include="Games\Tanks\UserControls\TankGameControl.xaml.cs">
       <DependentUpon>TankGameControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Games\Tanks\Tanks.cs" />
@@ -126,11 +126,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Games\Tanks\Models\TankControl.xaml">
+    <Page Include="Games\Tanks\UserControls\TankControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Games\Tanks\TankGameControl.xaml">
+    <Page Include="Games\Tanks\UserControls\TankGameControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -201,7 +201,6 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Assets\BotImg.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BotClient\BotClient.csproj">
@@ -209,11 +208,8 @@
       <Name>BotClient</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Assets\TempFoto.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Folder Include="Assets\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

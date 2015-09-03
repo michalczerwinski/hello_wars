@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Web.Hosting;
 using System.Web.Http;
 using SampleWebBotClient.Models;
 
@@ -21,23 +16,10 @@ namespace SampleWebBotClient.Controllers
             {
                 Url = "",
                 Name = "Czesiek",
-                AvatarUrl = "http://localhost:53886/samplebot/avatar"
+                AvatarUrl = "http://localhost:53886/Content/BotImg.png"
             };
 
             return bot;
-        }
-
-        [HttpGet]
-        public HttpResponseMessage Avatar()
-        {
-            var path = HostingEnvironment.MapPath("~/Content/BotImg.png");
-            var fileStream = new FileStream(path, FileMode.Open);
-            var result = new HttpResponseMessage(HttpStatusCode.OK);
-
-            result.Content = new StreamContent(fileStream);
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
-
-            return result;
         }
 
         [HttpGet]

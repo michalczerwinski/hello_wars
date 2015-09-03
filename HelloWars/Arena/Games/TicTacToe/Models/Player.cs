@@ -1,7 +1,5 @@
-﻿using System.IO;
-using System.Net;
-using System.Windows;
-using Newtonsoft.Json;
+﻿using System.Windows;
+using Arena.Helpers;
 
 namespace Arena.Games.TicTacToe.Models
 {
@@ -12,14 +10,7 @@ namespace Arena.Games.TicTacToe.Models
         public BindableArray<Visibility> PlayerMovesArray; 
         public Point NextMove()
         {
-            var webClient = new WebClient();
-            webClient.Headers.Add("Accept", "application/json");
-            var jsonSerializer = JsonSerializer.Create();
-            var botJson2 = webClient.DownloadString(Bot.Url + "PerformNextMove");
-            var reader = new JsonTextReader(new StringReader(botJson2));
-            var deserializedBot = jsonSerializer.Deserialize<Point>(reader);
-
-            return deserializedBot;
+            return WebClientHelper<Point>.GetResponseFromUrl(Bot.Url + "PerformNextMove");
         }
     }
 }

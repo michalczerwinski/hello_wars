@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using Arena.Games.Tanks.UserControls;
+using Arena.Games.Tanks.ViewModels;
 using Arena.Interfaces;
 using Bot = BotClient.BotClient;
 
@@ -27,7 +29,7 @@ namespace Arena.Games.Tanks
         {
             _viewModel = new TankGameViewModel();
             SetBattleFieldSize(100, 100);
-            return new TankGameControl(_viewModel);
+            return new TankGameUserControl(_viewModel);
         }
 
         private void SetBattleFieldSize(int width, int heigth)

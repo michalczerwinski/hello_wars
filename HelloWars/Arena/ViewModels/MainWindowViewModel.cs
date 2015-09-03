@@ -80,14 +80,13 @@ namespace Arena.ViewModels
             Bots = new List<Bot>();
             foreach (var botUrl in _arenaConfiguration.BotUrls)
             {
-                var botJson = WebClientHelper.GetStringResponseFromUrl(botUrl + "info");
-                var deserializedBot = JsonHelper<Bot>.Deserialize(botJson);
-   
+                var botResponse = WebClientHelper<Bot>.GetResponseFromUrl(botUrl + "info");
+
                 var bot = new Bot
                 {
                     Url = botUrl,
-                    Name = deserializedBot.Name,
-                    AvatarUrl = deserializedBot.AvatarUrl
+                    Name = botResponse.Name,
+                    AvatarUrl = botResponse.AvatarUrl
                 };
 
                 Bots.Add(bot);

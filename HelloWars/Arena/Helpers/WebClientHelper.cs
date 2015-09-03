@@ -2,13 +2,15 @@
 
 namespace Arena.Helpers
 {
-    public static class WebClientHelper
+    public static class WebClientHelper<T>
     {
-        public static string GetStringResponseFromUrl(string url)
+        public static T GetResponseFromUrl(string url)
         {
             var webClient = new WebClient();
             webClient.Headers.Add("Accept", "application/json");
-            return webClient.DownloadString(url);
+            var downloadedString = webClient.DownloadString(url);
+
+            return JsonHelper<T>.Deserialize(downloadedString);
         }
-    }
+        }
 }
