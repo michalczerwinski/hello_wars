@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Common.Helpers
@@ -30,7 +31,7 @@ namespace Common.Helpers
         public static async Task<TResponse> GetDataAsync<TResponse>(string url)
         {
             var webClient = new WebClient();
-            webClient.Headers.Add("Accept", "application/json");
+            webClient.Headers["Accept"] = "application/json";
             webClient.DownloadString(url);
             var downloadedString = await webClient.DownloadStringTaskAsync(url);
 

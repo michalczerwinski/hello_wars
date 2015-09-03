@@ -19,14 +19,14 @@ namespace Arena.ViewModels
     public class MainWindowViewModel : BindableBase
     {
         private string _headerText;
-        private readonly ArenaConfiguration _arenaConfiguration;
-        private readonly IElimination _elimination;
-        private readonly IGame _game;
+        private ArenaConfiguration _arenaConfiguration;
+        private IElimination _elimination;
+        private IGame _game;
         private UserControl _gameTypeControl;
         private UserControl _eliminationTypeControl;
         private List<ICompetitor> _competitors;
         private ICommand _autoPlayCommand;
-        private readonly ScoreList _scoreList;
+        private ScoreList _scoreList;
 
         public string HeaderText
         {
@@ -62,7 +62,7 @@ namespace Arena.ViewModels
             get { return _autoPlayCommand ?? (_autoPlayCommand = new AutoPlayCommand(_elimination, _game, _scoreList)); }
         }
 
-        public MainWindowViewModel(ArenaConfiguration arenaConfiguration)
+        public async Task Init(ArenaConfiguration arenaConfiguration)
         {
             _scoreList = new ScoreList();
             HeaderText = "Hello Wars();";
@@ -71,14 +71,14 @@ namespace Arena.ViewModels
             var gameType = TypeHelper<IGame>.GetGameType(arenaConfiguration.GameType);
             _game = TypeHelper<IGame>.CreateInstance(gameType);
 
-            AskForCompetitors();
+            await AskForCompetitorsAsync();
 
             _elimination.Bots = Competitors;
             _eliminationTypeControl = _elimination.GetVisualization();
             _gameTypeControl = _game.GetVisualisation();
         }
 
-        private async void AskForCompetitors()
+        private async Task AskForCompetitorsAsync()
         {
             var loader = new CompetitorLoadService();
 
@@ -86,5 +86,12 @@ namespace Arena.ViewModels
 
             Competitors = (await Task.WhenAll(competitorsTasks)).ToList();
         }
+
+//        private void AskForCompetitors()
+//        {
+//            var loader = new CompetitorLoadService();
+//
+//            Competitors = _arenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitor(botUrl)).ToList();
+//        }
     }
 }
