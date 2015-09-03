@@ -7,17 +7,13 @@ using Point = System.Drawing.Point;
 
 namespace Game.TicTacToe.Models
 {
-    public class TicTacToeLocalBot : BotLocalClient<TicTacToeBoardFieldType[,], Point>, ITicTacToeBot
+    public class TicTacToeLocalBot : TicTacToeWebBot
     {
         private readonly Random _rand = new Random(DateTime.Now.Millisecond);
 
         public TicTacToeLocalBot(ICompetitor competitor) : base(competitor)
         {
         }
-
-        public bool IsWinner { get; set; }
-        public BindableArray<Visibility> PlayerMovesArray { get; set; }
-        public TicTacToeBoardFieldType PlayerSign { get; set; }
 
         public override Point NextMove(TicTacToeBoardFieldType[,] arenaInfo)
         {

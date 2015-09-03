@@ -57,7 +57,6 @@
     <Compile Include="Interfaces\ICompetitor.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Models\BindableBase.cs" />
-    <Compile Include="Models\BotLocalClient.cs" />
     <Compile Include="Models\BotClientBase.cs" />
     <Compile Include="Models\Competitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
