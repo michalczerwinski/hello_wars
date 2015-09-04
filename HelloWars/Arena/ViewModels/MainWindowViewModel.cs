@@ -59,7 +59,7 @@ namespace Arena.ViewModels
             get { return _autoPlayCommand ?? (_autoPlayCommand = new AutoPlayCommand(_elimination, _game, _scoreList)); }
         }
 
-        public async Task Init(ArenaConfiguration arenaConfiguration)
+        public void Init(ArenaConfiguration arenaConfiguration)
         {
             _scoreList = new ScoreList();
             HeaderText = "Hello Wars();";
@@ -68,27 +68,23 @@ namespace Arena.ViewModels
             var gameType = TypeHelper<IGame>.GetGameType(arenaConfiguration.GameType);
             _game = TypeHelper<IGame>.CreateInstance(gameType);
 
-            await AskForCompetitorsAsync(arenaConfiguration.GameType);
+            AskForCompetitors(arenaConfiguration.GameType);
 
             _elimination.Bots = Competitors;
             _eliminationTypeControl = _elimination.GetVisualization();
             _gameTypeControl = _game.GetVisualisation();
         }
 
-        private async Task AskForCompetitorsAsync(string gameTypeName)
+        private void AskForCompetitors(string gameTypeName)
         {
-            var loader = new CompetitorLoadService();
+            Task.Run(async () =>
+            {
+                var loader = new CompetitorLoadService();
 
             var competitorsTasks = _arenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitorAsync(botUrl, gameTypeName)).ToList();
 
             Competitors = (await Task.WhenAll(competitorsTasks)).Where(competitor => competitor != null).ToList();
+            }).Wait();
         }
-
-//        private void AskForCompetitors()
-//        {
-//            var loader = new CompetitorLoadService();
-//
-//            Competitors = _arenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitor(botUrl)).ToList();
-//        }
     }
 }

@@ -15,12 +15,12 @@ namespace Arena
     {
         private ArenaConfiguration _arenaConfiguration;
 
-        protected async override void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             _arenaConfiguration = ReadConfigurationFromXML();
 
             var viewModel = new MainWindowViewModel();
-            await viewModel.Init(_arenaConfiguration);
+            viewModel.Init(_arenaConfiguration);
             var mainWindow = new MainWindow
             {
                 DataContext = viewModel
