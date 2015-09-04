@@ -5,10 +5,9 @@ using Point = System.Drawing.Point;
 
 namespace Game.TicTacToe.Interfaces
 {
-    public interface ITicTacToeBot : IBotClient<TicTacToeBoardFieldType[,], Point>
+    public interface ITicTacToeBot : IBotClient<BoardFieldSign[,], Point>
     {
         bool IsWinner { get; set; }
-        BindableArray<Visibility> PlayerMovesArray { get;set; }
-        TicTacToeBoardFieldType PlayerSign { get; set; }
+        BoardFieldSign PlayerSign { get; set; }
     }
 }

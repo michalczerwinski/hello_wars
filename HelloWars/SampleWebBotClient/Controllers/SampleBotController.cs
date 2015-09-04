@@ -15,7 +15,8 @@ namespace SampleWebBotClient.Controllers
             var bot = new BotInfo()
             {
                 Name = "Czesiek",
-                AvatarUrl = "http://localhost:53886/Content/BotImg.png"
+                AvatarUrl = "http://localhost:53886/Content/BotImg.png",
+                GameType = "TicTacToe"
             };
 
             return bot;

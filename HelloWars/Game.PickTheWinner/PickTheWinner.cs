@@ -58,6 +58,5 @@ namespace Game.PickTheWinner
             RoundNumber = 0;
             _competitors = new List<ICompetitor>();
         }
-
     }
 }

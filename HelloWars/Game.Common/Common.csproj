@@ -59,6 +59,7 @@
     <Compile Include="Models\BindableBase.cs" />
     <Compile Include="Models\BotClientBase.cs" />
     <Compile Include="Models\Competitor.cs" />
+    <Compile Include="Models\CompetitorInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
