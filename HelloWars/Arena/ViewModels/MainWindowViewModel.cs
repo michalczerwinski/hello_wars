@@ -68,20 +68,20 @@ namespace Arena.ViewModels
             var gameType = TypeHelper<IGame>.GetGameType(arenaConfiguration.GameType);
             _game = TypeHelper<IGame>.CreateInstance(gameType);
 
-            await AskForCompetitorsAsync();
+            await AskForCompetitorsAsync(arenaConfiguration.GameType);
 
             _elimination.Bots = Competitors;
             _eliminationTypeControl = _elimination.GetVisualization();
             _gameTypeControl = _game.GetVisualisation();
         }
 
-        private async Task AskForCompetitorsAsync()
+        private async Task AskForCompetitorsAsync(string gameTypeName)
         {
             var loader = new CompetitorLoadService();
 
-            var competitorsTasks = _arenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitorAsync(botUrl)).ToList();
+            var competitorsTasks = _arenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitorAsync(botUrl, gameTypeName)).ToList();
 
-            Competitors = (await Task.WhenAll(competitorsTasks)).ToList();
+            Competitors = (await Task.WhenAll(competitorsTasks)).Where(competitor => competitor != null).ToList();
         }
 
 //        private void AskForCompetitors()
