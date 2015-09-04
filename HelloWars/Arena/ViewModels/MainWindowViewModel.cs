@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Arena.Commands;
 using Arena.Configuration;
-using Arena.Helpers;
 using Arena.Interfaces;
-using Arena.Utilities;
 using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
-using Game.TicTacToe.Models;
+using Common.Utilities;
 
 namespace Arena.ViewModels
 {

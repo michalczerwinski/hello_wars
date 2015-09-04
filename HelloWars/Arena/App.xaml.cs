@@ -2,9 +2,9 @@
 using System.Reflection;
 using System.Windows;
 using Arena.Configuration;
-using Arena.Serialization;
 using Arena.ViewModels;
 using Arena.Views;
+using Common.Serialization;
 
 namespace Arena
 {

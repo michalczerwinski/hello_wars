@@ -3,7 +3,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Arena.Serialization
+namespace Common.Serialization
 {
     public class XmlSerializer<T> where T : class
     {

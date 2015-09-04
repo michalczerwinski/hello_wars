@@ -2,7 +2,7 @@
 using System.Linq;
 using Common.Interfaces;
 
-namespace Arena.Utilities
+namespace Common.Utilities
 {
     public class ScoreList
     {

@@ -5,8 +5,6 @@ namespace Common.Models
 {
     public class BotClientBase<TArenaInfo, TMove> : Competitor, IBotClient<TArenaInfo, TMove>
     {
-        protected const string _nextMoveUrl = "PerformNextMove";
-
         public BotClientBase()
         {}
 
@@ -15,7 +13,7 @@ namespace Common.Models
 
         public virtual TMove NextMove(TArenaInfo arenaInfo)
         {
-            return WebClientHelper.PostData<TArenaInfo, TMove>(Url + _nextMoveUrl, arenaInfo);
+            return WebClientHelper.PostData<TArenaInfo, TMove>(Url + Resources.PerformNextMoveUrlSuffix, arenaInfo);
         }
     }
 }

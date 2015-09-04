@@ -1,6 +1,6 @@
 ﻿using Arena.Interfaces;
-using Arena.Utilities;
 using Common.Interfaces;
+using Common.Utilities;
 
 namespace Arena.Commands
 {

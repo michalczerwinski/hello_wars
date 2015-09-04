@@ -69,14 +69,11 @@
       <DependentUpon>TournamentLadderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Eliminations\TournamentLadder\ViewModels\TournamentLadderViewModel.cs" />
-    <Compile Include="Utilities\Score.cs" />
     <Compile Include="Interfaces\IElimination.cs" />
     <Compile Include="Eliminations\TournamentLadder\UserControls\BotUserControl.xaml.cs">
       <DependentUpon>BotUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Converters\BoolToOpacityConverter.cs" />
-    <Compile Include="Utilities\ScoreList.cs" />
-    <Compile Include="Serialization\XmlSerializer.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="Eliminations\TournamentLadder\UserControls\TournamentLadderControl.xaml">
       <SubType>Designer</SubType>

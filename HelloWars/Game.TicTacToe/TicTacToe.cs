@@ -7,7 +7,6 @@ using Game.TicTacToe.Interfaces;
 using Game.TicTacToe.Models;
 using Game.TicTacToe.UserControls;
 using Game.TicTacToe.ViewModels;
-using System.Drawing;
 using Common.Attributes;
 using Common.Helpers;
 using Common.Interfaces;

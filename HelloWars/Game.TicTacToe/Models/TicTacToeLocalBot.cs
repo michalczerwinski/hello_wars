@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Windows;
 using Common.Interfaces;
-using Common.Models;
-using Game.TicTacToe.Interfaces;
 using Point = System.Drawing.Point;
 
 namespace Game.TicTacToe.Models
