@@ -1,14 +1,14 @@
-﻿using System.Linq;
-using Arena.Interfaces;
-using Arena.Utilities;
+﻿using Arena.Interfaces;
+using Common.Interfaces;
+using Common.Utilities;
 
 namespace Arena.Commands
 {
     public class PlayDuelCommand : CommandBase
     {
-        private readonly IElimination _elimination;
-        private readonly IGame _game;
-        private readonly ScoreList _scoreList;
+        protected readonly IElimination _elimination;
+        protected readonly IGame _game;
+        protected readonly ScoreList _scoreList;
 
         public PlayDuelCommand(IElimination elimination, IGame game, ScoreList scoreList)
         {
@@ -19,18 +19,25 @@ namespace Arena.Commands
 
         public override void Execute(object parameter = null)
         {
+            
             var nextCompetitors = _elimination.GetNextCompetitors();
             if (nextCompetitors != null)
             {
-                _game.Competitors = nextCompetitors.ToList();
+                _game.Reset();
+                foreach (var nextCompetitor in nextCompetitors)
+                {
+                    _game.AddCompetitor(nextCompetitor);
+                }
+
+                _game.Start();
 
                 while (_game.PerformNextRound())
                 {
                 }
 
-                var duelResoult = _game.GetResoult();
-                _elimination.SetLastDuelResult(duelResoult);
-                _scoreList.SaveScore(duelResoult);
+                var duelResult = _game.GetResults();
+                _elimination.SetLastDuelResult(duelResult);
+                _scoreList.SaveScore(duelResult);
             }
         }
     }

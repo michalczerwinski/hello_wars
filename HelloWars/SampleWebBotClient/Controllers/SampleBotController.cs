@@ -10,11 +10,10 @@ namespace SampleWebBotClient.Controllers
         private readonly Random _rand = new Random(DateTime.Now.Millisecond);
 
         [HttpGet]
-        public BotClient Info()
+        public BotInfo Info()
         {
-            var bot = new BotClient
+            var bot = new BotInfo()
             {
-                Url = "",
                 Name = "Czesiek",
                 AvatarUrl = "http://localhost:53886/Content/BotImg.png"
             };
@@ -22,14 +21,18 @@ namespace SampleWebBotClient.Controllers
             return bot;
         }
 
-        [HttpGet]
-        public Point PerformNextMove()
+        [HttpPost]
+        public Point PerformNextMove(TicTacToeBoardFieldType[,] board)
         {
-            return new Point
+            var point = new Point();
+            do
             {
-                X = _rand.Next(0, 3),
-                Y = _rand.Next(0, 3),
-            };
+                point.X = _rand.Next(0, 3);
+                point.Y = _rand.Next(0, 3);
+            }
+            while (board[point.X, point.Y] != TicTacToeBoardFieldType.Empty);
+
+            return point;
         }
     }
 }

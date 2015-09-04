@@ -1,30 +1,29 @@
 ﻿using System.Collections.Generic;
-using System.IO;
-using System.Net;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Arena.Commands;
 using Arena.Configuration;
-using Arena.Helpers;
 using Arena.Interfaces;
-using Arena.Utilities;
-using BotClient;
-using Newtonsoft.Json;
-using Bot = BotClient.BotClient;
+using Common.Helpers;
+using Common.Interfaces;
+using Common.Models;
+using Common.Utilities;
 
 namespace Arena.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
         private string _headerText;
-        private readonly ArenaConfiguration _arenaConfiguration;
-        private readonly IElimination _elimination;
-        private readonly IGame _game;
+        private ArenaConfiguration _arenaConfiguration;
+        private IElimination _elimination;
+        private IGame _game;
         private UserControl _gameTypeControl;
         private UserControl _eliminationTypeControl;
-        private List<Bot> _bots;
+        private List<ICompetitor> _competitors;
         private ICommand _autoPlayCommand;
-        private readonly ScoreList _scoreList;
+        private ScoreList _scoreList;
 
         public string HeaderText
         {
@@ -44,10 +43,10 @@ namespace Arena.ViewModels
             set { SetProperty(ref _eliminationTypeControl, value); }
         }
 
-        public List<Bot> Bots
+        public List<ICompetitor> Competitors
         {
-            get { return _bots; }
-            set { SetProperty(ref _bots, value); }
+            get { return _competitors; }
+            set { SetProperty(ref _competitors, value); }
         }
 
         public ICommand PlayDuelCommand
@@ -60,37 +59,36 @@ namespace Arena.ViewModels
             get { return _autoPlayCommand ?? (_autoPlayCommand = new AutoPlayCommand(_elimination, _game, _scoreList)); }
         }
 
-        public MainWindowViewModel(ArenaConfiguration arenaConfiguration)
+        public async Task Init(ArenaConfiguration arenaConfiguration)
         {
             _scoreList = new ScoreList();
             HeaderText = "Hello Wars();";
             _arenaConfiguration = arenaConfiguration;
             _elimination = arenaConfiguration.Elimination;
-            _game = arenaConfiguration.Game;
+            var gameType = TypeHelper<IGame>.GetGameType(arenaConfiguration.GameType);
+            _game = TypeHelper<IGame>.CreateInstance(gameType);
 
-            AskForBots();
+            await AskForCompetitorsAsync();
 
-            _elimination.Bots = Bots;
+            _elimination.Bots = Competitors;
             _eliminationTypeControl = _elimination.GetVisualization();
             _gameTypeControl = _game.GetVisualisation();
         }
 
-        private  void AskForBots()
+        private async Task AskForCompetitorsAsync()
         {
-            Bots = new List<Bot>();
-            foreach (var botUrl in _arenaConfiguration.BotUrls)
-            {
-                var botResponse = WebClientHelper<Bot>.GetResponseFromUrl(botUrl + "info");
+            var loader = new CompetitorLoadService();
 
-                var bot = new Bot
-                {
-                    Url = botUrl,
-                    Name = botResponse.Name,
-                    AvatarUrl = botResponse.AvatarUrl
-                };
+            var competitorsTasks = _arenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitorAsync(botUrl)).ToList();
 
-                Bots.Add(bot);
-            }
+            Competitors = (await Task.WhenAll(competitorsTasks)).ToList();
         }
+
+//        private void AskForCompetitors()
+//        {
+//            var loader = new CompetitorLoadService();
+//
+//            Competitors = _arenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitor(botUrl)).ToList();
+//        }
     }
 }

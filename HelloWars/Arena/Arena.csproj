@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -58,7 +59,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Annotations.cs" />
-    <Compile Include="BindableBase.cs" />
     <Compile Include="Commands\AutoPlayCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\PlayDuelCommand.cs" />
@@ -69,84 +69,17 @@
       <DependentUpon>TournamentLadderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Eliminations\TournamentLadder\ViewModels\TournamentLadderViewModel.cs" />
-    <Compile Include="Helpers\JsonHelper.cs" />
-    <Compile Include="Helpers\WebClientHelper.cs" />
-    <Compile Include="Utilities\Score.cs" />
-    <Compile Include="Games\PickTheWinner\UserControls\TankControl.xaml.cs">
-      <DependentUpon>TankControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Games\PickTheWinner\UserControls\PickTheWinnerControl.xaml.cs">
-      <DependentUpon>PickTheWinnerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Games\PickTheWinner\PickTheWinner.cs" />
-    <Compile Include="Games\PickTheWinner\ViewModels\TankViewModel.cs" />
-    <Compile Include="Games\Tanks\UserControls\TankControl.xaml.cs">
-      <DependentUpon>TankControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Games\Tanks\ViewModels\TankGameViewModel.cs" />
-    <Compile Include="Games\Tanks\UserControls\TankGameControl.xaml.cs">
-      <DependentUpon>TankGameControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Games\Tanks\Tanks.cs" />
-    <Compile Include="Games\Tanks\ViewModels\TankViewModel.cs" />
-    <Compile Include="Games\TicTacToe\BindableArray.cs" />
-    <Compile Include="Games\TicTacToe\TicTacToeLogic.cs" />
-    <Compile Include="Games\TicTacToe\Models\Player.cs" />
-    <Compile Include="Games\TicTacToe\UserControls\CircleControl.xaml.cs">
-      <DependentUpon>CircleControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Games\TicTacToe\UserControls\CrossControl.xaml.cs">
-      <DependentUpon>CrossControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Games\TicTacToe\UserControls\TicTacToeUserControl.xaml.cs">
-      <DependentUpon>TicTacToeUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Games\TicTacToe\TicTacToe.cs" />
-    <Compile Include="Games\TicTacToe\ViewModels\TicTacToeViewModel.cs" />
-    <Compile Include="Helpers\DelayHelper.cs" />
-    <Compile Include="Helpers\TypeHelper.cs" />
     <Compile Include="Interfaces\IElimination.cs" />
-    <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Eliminations\TournamentLadder\UserControls\BotUserControl.xaml.cs">
       <DependentUpon>BotUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Converters\BoolToOpacityConverter.cs" />
-    <Compile Include="Utilities\ScoreList.cs" />
-    <Compile Include="Serialization\XmlSerializer.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="Eliminations\TournamentLadder\UserControls\TournamentLadderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Games\PickTheWinner\UserControls\TankControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Games\PickTheWinner\UserControls\PickTheWinnerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Games\Tanks\UserControls\TankControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Games\Tanks\UserControls\TankGameControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Eliminations\TournamentLadder\UserControls\BotUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Games\TicTacToe\UserControls\CircleControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Games\TicTacToe\UserControls\CrossControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Games\TicTacToe\UserControls\TicTacToeUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -203,9 +136,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BotClient\BotClient.csproj">
-      <Project>{24cd1100-6472-44bc-a286-6dd2af970e2a}</Project>
-      <Name>BotClient</Name>
+    <ProjectReference Include="..\Game.Common\Common.csproj">
+      <Project>{a40d2185-d837-4773-8dd7-3830f0c9e3ff}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Game.TicTacToe\Game.TicTacToe.csproj">
+      <Project>{EE3BBF9D-A0BF-4F11-91BC-21A5B5099730}</Project>
+      <Name>Game.TicTacToe</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

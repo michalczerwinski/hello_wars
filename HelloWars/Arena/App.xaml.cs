@@ -2,9 +2,9 @@
 using System.Reflection;
 using System.Windows;
 using Arena.Configuration;
-using Arena.Serialization;
 using Arena.ViewModels;
 using Arena.Views;
+using Common.Serialization;
 
 namespace Arena
 {
@@ -15,13 +15,15 @@ namespace Arena
     {
         private ArenaConfiguration _arenaConfiguration;
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected async override void OnStartup(StartupEventArgs e)
         {
             _arenaConfiguration = ReadConfigurationFromXML();
 
+            var viewModel = new MainWindowViewModel();
+            await viewModel.Init(_arenaConfiguration);
             var mainWindow = new MainWindow
             {
-                DataContext = new MainWindowViewModel(_arenaConfiguration)
+                DataContext = viewModel
             };
 
             mainWindow.Show();

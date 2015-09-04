@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
-using Arena.Helpers;
 using Arena.Interfaces;
+using Common.Helpers;
 
 namespace Arena.Configuration
 {
@@ -15,13 +15,6 @@ namespace Arena.Configuration
         public List<string> BotUrls { get; set; }
 
         private IElimination _elimination;
-        private IGame _game;
-
-        [XmlIgnore]
-        public IGame Game
-        {
-            get { return _game ?? (_game = TypeHelper<IGame>.GetType(GameType)); }
-        }
 
         [XmlIgnore]
         public IElimination Elimination

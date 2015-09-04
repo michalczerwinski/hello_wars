@@ -1,14 +1,15 @@
-﻿using Bot = BotClient.BotClient;
+﻿using Common.Interfaces;
+using Common.Models;
 
 namespace Arena.Eliminations.TournamentLadder.ViewModels
 {
     public class BotViewModel : BindableBase
     {
-        private Bot _botClient;
+        private ICompetitor _botClient;
         private bool _stilInGame;
         public int CurrentStage;
 
-        public Bot BotClient
+        public ICompetitor BotClient
         {
             get { return _botClient; }
             set { SetProperty(ref _botClient, value); }

@@ -4,14 +4,14 @@ using System.Windows.Controls;
 using Arena.Eliminations.TournamentLadder.UserControls;
 using Arena.Eliminations.TournamentLadder.ViewModels;
 using Arena.Interfaces;
-using Bot = BotClient.BotClient;
+using Common.Interfaces;
 
 namespace Arena.Eliminations.TournamentLadder
 {
     public class TournamentLadder : IElimination
     {
         private TournamentLadderViewModel _tournamentLadderViewModel;
-        public List<Bot> Bots { get; set; }
+        public List<ICompetitor> Bots { get; set; }
 
         public UserControl GetVisualization()
         {
@@ -24,9 +24,9 @@ namespace Arena.Eliminations.TournamentLadder
             return null;
         }
 
-        public IList<Bot> GetNextCompetitors()
+        public IList<ICompetitor> GetNextCompetitors()
         {
-            var result = new List<Bot>();
+            var result = new List<ICompetitor>();
 
             foreach (var stageList in _tournamentLadderViewModel.StageLists)
             {
@@ -53,7 +53,7 @@ namespace Arena.Eliminations.TournamentLadder
             return null;
         }
 
-        public void SetLastDuelResult(IDictionary<Bot, double> resultDictionary)
+        public void SetLastDuelResult(IDictionary<ICompetitor, double> resultDictionary)
         {
             if (resultDictionary != null)
             {
@@ -81,13 +81,13 @@ namespace Arena.Eliminations.TournamentLadder
             }
         }
 
-        private BotUserControl ReturnBotControl(Bot botClient)
+        private BotUserControl ReturnBotControl(ICompetitor botClient)
         {
             BotUserControl botUserControl = null;
 
             foreach (var stageList in _tournamentLadderViewModel.StageLists)
             {
-                var tempViewControl = stageList.FirstOrDefault(f => f.ViewModel.BotClient == botClient);
+                var tempViewControl = stageList.FirstOrDefault(f => f.ViewModel.BotClient != null && f.ViewModel.BotClient.Id == botClient.Id);
                 if (tempViewControl != null) { botUserControl = tempViewControl; }
             }
 
