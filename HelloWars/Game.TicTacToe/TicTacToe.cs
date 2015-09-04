@@ -19,7 +19,6 @@ namespace Game.TicTacToe
     {
         private ITicTacToeBot _player1 { get { return _competitors[0]; } }
         private ITicTacToeBot _player2 { get { return _competitors[1]; } }
-        private TicTacToeBoardFieldType[,] _board;
         private List<ITicTacToeBot> _competitors;
         protected TicTacToeViewModel TicTacToeViewModel;
 
@@ -70,7 +69,10 @@ namespace Game.TicTacToe
 
         public void Reset()
         {
-            _board = new TicTacToeBoardFieldType[3, 3];
+            if (TicTacToeViewModel != null)
+            {
+                TicTacToeViewModel.Board = new BindableArray<BoardFieldSign>(3, 3);
+            }
             _competitors = new List<ITicTacToeBot>();
         }
 
@@ -78,11 +80,8 @@ namespace Game.TicTacToe
         {
             if (_competitors.Count == 2)
             {
-                _player1.PlayerMovesArray = TicTacToeViewModel.ArrayOfO;
-                _player1.PlayerSign = TicTacToeBoardFieldType.O;
-
-                _player2.PlayerMovesArray = TicTacToeViewModel.ArrayOfX;
-                _player2.PlayerSign = TicTacToeBoardFieldType.X;
+                _player1.PlayerSign = BoardFieldSign.O;
+                _player2.PlayerSign = BoardFieldSign.X;
             }
             else
             {
@@ -122,11 +121,10 @@ namespace Game.TicTacToe
         {
             while (!IsBoardFull())
             {
-                var move = player.NextMove(_board);
+                var move = player.NextMove(TicTacToeViewModel.Board);
                 if (IsNextMoveValid(move))
                 {
-                    player.PlayerMovesArray[move.X, move.Y] = Visibility.Visible;
-                    _board[move.X, move.Y] = player.PlayerSign;
+                    TicTacToeViewModel.Board[move.X, move.Y] = player.PlayerSign;
                     DelayHelper.Delay(250);
                     break;
                 }
@@ -135,12 +133,12 @@ namespace Game.TicTacToe
 
         private bool IsNextMoveValid(Point movePoint)
         {
-            return _board[movePoint.X, movePoint.Y] == TicTacToeBoardFieldType.Empty;
+            return TicTacToeViewModel.Board[movePoint.X, movePoint.Y] == BoardFieldSign.Empty;
         }
 
         private bool IsPlayerWon(ITicTacToeBot player)
         {
-            var array = player.PlayerMovesArray;
+            var array = TicTacToeViewModel.Board;
             var diagonal1 = 0;
             var diagonal2 = 0;
             var xLine = new int[3];
@@ -150,18 +148,18 @@ namespace Game.TicTacToe
             {
                 for (int j = 0; j < array.YSize; j++)
                 {
-                    if (array[i, j] == Visibility.Visible)
+                    if (array[i, j] == player.PlayerSign)
                     {
                         xLine[i]++;
                         yLine[j]++;
                     }
 
-                    if ((i == j) && array[j, i] == Visibility.Visible)
+                    if ((i == j) && array[j, i] == player.PlayerSign)
                     {
                         diagonal1++;
                     }
 
-                    if ((((i == 1) && (j == 1)) || ((i == 2) && (j == 0)) || ((i == 0) && (j == 2))) && array[i, j] == Visibility.Visible)
+                    if ((((i == 1) && (j == 1)) || ((i == 2) && (j == 0)) || ((i == 0) && (j == 2))) && array[i, j] == player.PlayerSign)
                     {
                         diagonal2++;
                     }
@@ -210,7 +208,7 @@ namespace Game.TicTacToe
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    if (TicTacToeViewModel.ArrayOfO[i, j] == Visibility.Collapsed && TicTacToeViewModel.ArrayOfX[i, j] == Visibility.Collapsed)
+                    if (TicTacToeViewModel.Board[i, j] == BoardFieldSign.Empty)
                     {
                         return false;
                     }
@@ -222,13 +220,11 @@ namespace Game.TicTacToe
 
         private void ClearTheBoard()
         {
-            _board = new TicTacToeBoardFieldType[3, 3];
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    TicTacToeViewModel.ArrayOfO[i, j] = Visibility.Collapsed;
-                    TicTacToeViewModel.ArrayOfX[i, j] = Visibility.Collapsed;
+                    TicTacToeViewModel.Board[i, j] = BoardFieldSign.Empty;
                 }
 
                 TicTacToeViewModel.ArrayOfVerticalLines[i, 0] = Visibility.Collapsed;

@@ -1,6 +1,6 @@
 ﻿namespace Game.TicTacToe.Models
 {
-    public enum TicTacToeBoardFieldType
+    public enum BoardFieldSign
     {
         Empty = 0,
         X = 1,

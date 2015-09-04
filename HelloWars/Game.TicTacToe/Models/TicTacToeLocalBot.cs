@@ -12,7 +12,7 @@ namespace Game.TicTacToe.Models
         {
         }
 
-        public override Point NextMove(TicTacToeBoardFieldType[,] arenaInfo)
+        public override Point NextMove(BoardFieldSign[,] arenaInfo)
         {
             var point = new Point();
             do
@@ -20,7 +20,7 @@ namespace Game.TicTacToe.Models
                 point.X = _rand.Next(0, 3);
                 point.Y = _rand.Next(0, 3);
             } 
-            while (arenaInfo[point.X,point.Y] != TicTacToeBoardFieldType.Empty);
+            while (arenaInfo[point.X,point.Y] != BoardFieldSign.Empty);
 
             return point;
         }

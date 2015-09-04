@@ -44,6 +44,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\BoardSignToVisibilityConverter.cs" />
     <Compile Include="Interfaces\ITicTacToeBot.cs" />
     <Compile Include="Models\TicTacToeBoardFieldType.cs" />
     <Compile Include="Models\TicTacToeWebBot.cs" />

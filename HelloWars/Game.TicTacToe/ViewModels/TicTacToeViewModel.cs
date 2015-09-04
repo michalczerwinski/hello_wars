@@ -1,26 +1,22 @@
 ﻿using System.Windows;
 using Common.Models;
+using Game.TicTacToe.Models;
 
 namespace Game.TicTacToe.ViewModels
 {
     public class TicTacToeViewModel : BindableBase
     {
-        private BindableArray<Visibility> _arrayOfX;
-        private BindableArray<Visibility> _arrayOfO;
+        private BindableArray<BoardFieldSign> _board;
         private BindableArray<Visibility> _arrayOfHorizontalLines;
         private BindableArray<Visibility> _arrayOfVerticalLines;
         private BindableArray<Visibility> _arrayOfDiagonalLines;
 
-        public BindableArray<Visibility> ArrayOfO
+        public BindableArray<BoardFieldSign> Board
         {
-            get { return _arrayOfO; }
-            set { SetProperty(ref _arrayOfO, value); }
+            get { return _board; }
+            set { SetProperty(ref _board, value); }
         }
-        public BindableArray<Visibility> ArrayOfX
-        {
-            get { return _arrayOfX; }
-            set { SetProperty(ref _arrayOfX, value); }
-        }
+
         public BindableArray<Visibility> ArrayOfHorizontalLines
         {
             get { return _arrayOfHorizontalLines; }
@@ -44,14 +40,12 @@ namespace Game.TicTacToe.ViewModels
 
         private void InitializeArrays()
         {
-            ArrayOfX = new BindableArray<Visibility>(3, 3);
-            ArrayOfO = new BindableArray<Visibility>(3, 3);
+            Board = new BindableArray<BoardFieldSign>(3, 3);
             ArrayOfHorizontalLines = new BindableArray<Visibility>(3, 1);
             ArrayOfVerticalLines = new BindableArray<Visibility>(3, 1);
             ArrayOfDiagonalLines = new BindableArray<Visibility>(2, 1);
 
-            HideAllItemsInArray(ArrayOfX);
-            HideAllItemsInArray(ArrayOfO);
+            HideAllItemsInArray(Board);
             HideAllItemsInArray(ArrayOfHorizontalLines);
             HideAllItemsInArray(ArrayOfVerticalLines);
             HideAllItemsInArray(ArrayOfDiagonalLines);
@@ -64,6 +58,17 @@ namespace Game.TicTacToe.ViewModels
                 for (int j = 0; j < array.YSize; j++)
                 {
                     array[i, j] = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private void HideAllItemsInArray(BindableArray<BoardFieldSign> array)
+        {
+            for (int i = 0; i < array.XSize; i++)
+            {
+                for (int j = 0; j < array.YSize; j++)
+                {
+                    array[i, j] = BoardFieldSign.Empty;
                 }
             }
         }
