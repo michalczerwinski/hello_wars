@@ -9,12 +9,19 @@ namespace SampleWebBotClient.Controllers
     {
         private readonly Random _rand = new Random(DateTime.Now.Millisecond);
 
+        private static readonly string[] Names = 
+        {
+            "Czesiek", "Wiesiek", "Michal", "Mateusz", "Robert", "Tomek", "Przemek",
+            "Dominik", "Bartek", "Romek", "Asia", "Kasia", "Magda", "Grazyna", "Danuta",
+            "Genowefa"
+        };
+
         [HttpGet]
         public BotInfo Info()
         {
             var bot = new BotInfo()
             {
-                Name = "Czesiek",
+                Name = Names[_rand.Next(Names.Length)],
                 AvatarUrl = "http://localhost:53886/Content/BotImg.png",
                 GameType = "TicTacToe"
             };

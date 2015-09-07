@@ -17,13 +17,15 @@ namespace Arena.ViewModels
     {
         private string _headerText;
         private ArenaConfiguration _arenaConfiguration;
-        private IElimination _elimination;
-        private IGame _game;
         private UserControl _gameTypeControl;
         private UserControl _eliminationTypeControl;
+        private string _gameLog;
         private List<ICompetitor> _competitors;
         private ICommand _autoPlayCommand;
-        private ScoreList _scoreList;
+
+        public IElimination Elimination { get; set; }
+        public IGame Game { get; set; }
+        public ScoreList ScoreList { get; set; }
 
         public string HeaderText
         {
@@ -35,6 +37,12 @@ namespace Arena.ViewModels
         {
             get { return _gameTypeControl; }
             set { SetProperty(ref _gameTypeControl, value); }
+        }
+
+        public string GameLog
+        {
+            get { return _gameLog; }
+            set { SetProperty(ref _gameLog, value); }
         }
 
         public UserControl EliminationTypeControl
@@ -51,28 +59,28 @@ namespace Arena.ViewModels
 
         public ICommand PlayDuelCommand
         {
-            get { return new PlayDuelCommand(_elimination, _game, _scoreList); }
+            get { return new PlayDuelCommand(this); }
         }
 
         public ICommand AutoPlayCommand
         {
-            get { return _autoPlayCommand ?? (_autoPlayCommand = new AutoPlayCommand(_elimination, _game, _scoreList)); }
+            get { return _autoPlayCommand ?? (_autoPlayCommand = new AutoPlayCommand(this)); }
         }
 
         public void Init(ArenaConfiguration arenaConfiguration)
         {
-            _scoreList = new ScoreList();
+            ScoreList = new ScoreList();
             HeaderText = "Hello Wars();";
             _arenaConfiguration = arenaConfiguration;
-            _elimination = arenaConfiguration.Elimination;
+            Elimination = arenaConfiguration.Elimination;
             var gameType = TypeHelper<IGame>.GetGameType(arenaConfiguration.GameType);
-            _game = TypeHelper<IGame>.CreateInstance(gameType);
+            Game = TypeHelper<IGame>.CreateInstance(gameType);
 
             AskForCompetitors(arenaConfiguration.GameType);
 
-            _elimination.Bots = Competitors;
-            _eliminationTypeControl = _elimination.GetVisualization();
-            _gameTypeControl = _game.GetVisualisation();
+            Elimination.Bots = Competitors;
+            _eliminationTypeControl = Elimination.GetVisualization();
+            _gameTypeControl = Game.GetVisualisation();
         }
 
         private void AskForCompetitors(string gameTypeName)

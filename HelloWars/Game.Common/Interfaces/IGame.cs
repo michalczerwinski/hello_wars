@@ -7,11 +7,13 @@ namespace Common.Interfaces
     {
         List<ICompetitor> Competitors { get; }
         long RoundNumber { get; set; }
-        bool PerformNextRound();
+        string PerformNextRound();
         UserControl GetVisualisation();
         IDictionary<ICompetitor, double> GetResults();
         void AddCompetitor(ICompetitor competitor);
         void Start();
         void Reset();
+        bool IsGameFinished();
+
     }
 }

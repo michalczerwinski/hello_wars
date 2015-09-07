@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using Arena.ViewModels;
 
 namespace Arena.Views

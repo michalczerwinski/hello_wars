@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls;
 using Common.Attributes;
 using Common.Interfaces;
@@ -21,7 +22,7 @@ namespace Game.PickTheWinner
             get { return _competitors; }
         }
 
-        public bool PerformNextRound()
+        public string PerformNextRound()
         {
             var random = _rand.Next();
             _result = new Dictionary<ICompetitor, double>
@@ -31,7 +32,8 @@ namespace Game.PickTheWinner
             };
 
             RoundNumber++;
-            return false;
+
+            return string.Format("{0} has won!", _result.Single(pair => pair.Value == 1.0).Key.Name);
         }
 
         public UserControl GetVisualisation()
@@ -57,6 +59,11 @@ namespace Game.PickTheWinner
         {
             RoundNumber = 0;
             _competitors = new List<ICompetitor>();
+        }
+
+        public bool IsGameFinished()
+        {
+            return RoundNumber > 0;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using Game.TicTacToe.Interfaces;
@@ -76,6 +77,11 @@ namespace Game.TicTacToe
             _competitors = new List<ITicTacToeBot>();
         }
 
+        public bool IsGameFinished()
+        {
+            return _competitors.Any(IsPlayerWon);
+        }
+
         private void InitializePlayers()
         {
             if (_competitors.Count == 2)
@@ -89,35 +95,34 @@ namespace Game.TicTacToe
             }
         }
 
-        /// <summary>
-        /// Return false if there is no next round, otherwise return true.
-        /// </summary>
-        /// <returns></returns>
-        public bool PerformNextRound()
+        public string PerformNextRound()
         {
             if (_player1 == null || _player2 == null) { throw new Exception("There are no players to perform next round."); }
 
-            PlayerNextMove(_player1);
-            if (IsPlayerWon(_player1))
-            {
-                return false;
-            }
+            var roundDescription = new StringBuilder();
 
-            PlayerNextMove(_player2);
-            if (IsPlayerWon(_player2))
+            foreach (var competitor in _competitors)
             {
-                return false;
+                roundDescription.AppendLine(PlayerNextMove(competitor));
+                
+                if (IsPlayerWon(competitor))
+                {
+                    roundDescription.AppendFormat("{0} has won!\n", competitor.Name);
+                    return roundDescription.ToString();
+                }
             }
 
             if (IsBoardFull())
             {
+                roundDescription.AppendLine("Tie! Beginning new round.");
                 ClearTheBoard();
             }
 
-            return true;
+            return roundDescription.ToString();
         }
 
-        private void PlayerNextMove(ITicTacToeBot player)
+
+        private string PlayerNextMove(ITicTacToeBot player)
         {
             while (!IsBoardFull())
             {
@@ -126,9 +131,10 @@ namespace Game.TicTacToe
                 {
                     TicTacToeViewModel.Board[move.X, move.Y] = player.PlayerSign;
                     DelayHelper.Delay(250);
-                    break;
+                    return string.Format("{0} has marked field [{1},{2}] with {3}", player.Name, move.X, move.Y, player.PlayerSign);
                 }
             }
+            return string.Empty;
         }
 
         private bool IsNextMoveValid(Point movePoint)
