@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 using Common.Interfaces;
@@ -78,6 +79,12 @@ namespace Elimination.TournamentLadder
                     }
                 }
             }
+        }
+
+        public string GetGameDescription()
+        {
+            var competitors = GetNextCompetitors();
+            return string.Format("Duel: {0} vs {1}", competitors[0].Name, competitors[1].Name);
         }
 
         private BotUserControl ReturnBotControl(ICompetitor botClient)

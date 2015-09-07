@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         Title="Hello Wars Main Window" 
-        Width="800" Height="600" 
-        Background="DimGray">
+        Width="1200" Height="600" 
+       
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -39,8 +39,9 @@
         <ScrollViewer Grid.Row="2">
             <Grid x:Name="Grid1" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
                 <Viewbox Grid.Column="0" VerticalAlignment="Top">
@@ -49,6 +50,7 @@
                 <Viewbox Grid.Column="1" VerticalAlignment="Top">
                     <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}" HorizontalAlignment="Center"/>
                 </Viewbox>
+                <TextBox Grid.Column="2" HorizontalAlignment="Stretch" Margin="0,0,10,0" Height="520" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" x:Name="GameLog" IsReadOnly="True" VerticalAlignment="Top" Text="{Binding Path=GameLog}"/>
             </Grid>
         </ScrollViewer>
     </Grid>

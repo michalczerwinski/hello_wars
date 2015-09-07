@@ -25,14 +25,16 @@ namespace Arena.ViewModels
         private IEnumerable<IElimination> _eliminationPlugins;
         private string _headerText;
         private ArenaConfiguration _arenaConfiguration;
-        private IElimination _elimination;
-        private IGame _game;
         private UserControl _gameTypeControl;
         private UserControl _eliminationTypeControl;
+        private string _gameLog;
         private List<ICompetitor> _competitors;
         private ICommand _autoPlayCommand;
-        private ScoreList _scoreList;
         private ICommand _onLoadedCommand;
+
+        public IElimination Elimination { get; set; }
+        public IGame Game { get; set; }
+        public ScoreList ScoreList { get; set; }
 
         public string HeaderText
         {
@@ -44,6 +46,12 @@ namespace Arena.ViewModels
         {
             get { return _gameTypeControl; }
             set { SetProperty(ref _gameTypeControl, value); }
+        }
+
+        public string GameLog
+        {
+            get { return _gameLog; }
+            set { SetProperty(ref _gameLog, value); }
         }
 
         public UserControl EliminationTypeControl
@@ -60,12 +68,12 @@ namespace Arena.ViewModels
 
         public ICommand PlayDuelCommand
         {
-            get { return new PlayDuelCommand(_elimination, _game, _scoreList); }
+            get { return new PlayDuelCommand(this); }
         }
 
         public ICommand AutoPlayCommand
         {
-            get { return _autoPlayCommand ?? (_autoPlayCommand = new AutoPlayCommand(_elimination, _game, _scoreList)); }
+            get { return _autoPlayCommand ?? (_autoPlayCommand = new AutoPlayCommand(this)); }
         }
 
         public ICommand OnLoadedCommand
@@ -98,7 +106,7 @@ namespace Arena.ViewModels
 
         public void Init(ArenaConfiguration arenaConfiguration)
         {
-            _scoreList = new ScoreList();
+            ScoreList = new ScoreList();
             HeaderText = "Hello Wars();";
             _arenaConfiguration = arenaConfiguration;
             InitMef();

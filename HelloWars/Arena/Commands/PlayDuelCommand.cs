@@ -1,41 +1,39 @@
-﻿using Common.Interfaces;
-using Common.Utilities;
+﻿using Arena.ViewModels;
 
 namespace Arena.Commands
 {
     public class PlayDuelCommand : CommandBase
     {
-        protected readonly IElimination _elimination;
-        protected readonly IGame _game;
-        protected readonly ScoreList _scoreList;
+        protected readonly MainWindowViewModel _viewModel;
 
-        public PlayDuelCommand(IElimination elimination, IGame game, ScoreList scoreList)
+        public PlayDuelCommand(MainWindowViewModel viewModel)
         {
-            _scoreList = scoreList;
-            _elimination = elimination;
-            _game = game;
+            _viewModel = viewModel;
         }
 
         public override void Execute(object parameter = null)
         {
-            var nextCompetitors = _elimination.GetNextCompetitors();
+            var nextCompetitors = _viewModel.Elimination.GetNextCompetitors();
             if (nextCompetitors != null)
             {
-                _game.Reset();
+                _viewModel.Game.Reset();
                 foreach (var nextCompetitor in nextCompetitors)
                 {
-                    _game.AddCompetitor(nextCompetitor);
+                    _viewModel.Game.AddCompetitor(nextCompetitor);
                 }
 
-                _game.Start();
-
-                while (_game.PerformNextRound())
+                _viewModel.Game.Start();
+                _viewModel.GameLog += string.Format("New game starting!\n{0}\n", _viewModel.Elimination.GetGameDescription());
+                
+                while (!_viewModel.Game.IsGameFinished())
                 {
+                    _viewModel.GameLog += _viewModel.Game.PerformNextRound();
                 }
 
-                var duelResult = _game.GetResults();
-                _elimination.SetLastDuelResult(duelResult);
-                _scoreList.SaveScore(duelResult);
+                _viewModel.GameLog += "\n";
+                var duelResult = _viewModel.Game.GetResults();
+                _viewModel.Elimination.SetLastDuelResult(duelResult);
+                _viewModel.ScoreList.SaveScore(duelResult);
             }
         }
     }
