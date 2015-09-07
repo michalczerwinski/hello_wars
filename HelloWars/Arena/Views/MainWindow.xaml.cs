@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using Arena.ViewModels;
 
@@ -23,10 +24,10 @@ namespace Arena.Views
             _viewModel.GameControlChanged += GameControlChanged;
         }
 
-        public void GameControlChanged(object sender, GameControlChangedEventArgs eventArgs)
+        public void GameControlChanged(object sender, EventArgs eventArgs)
         {
             GameTypeGrid.Children.Clear();
-            GameTypeGrid.Children.Add(eventArgs.NewControl);
+            GameTypeGrid.Children.Add(_viewModel.GameTypeControl);
         }
     }
 }

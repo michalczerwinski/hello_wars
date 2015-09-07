@@ -14,11 +14,6 @@ using Common.Utilities;
 
 namespace Arena.ViewModels
 {
-    public class GameControlChangedEventArgs : EventArgs
-    {
-        public UserControl NewControl { get; set; }
-    }
-
     public class MainWindowViewModel : BindableBase
     {
         private string _headerText;
@@ -35,13 +30,13 @@ namespace Arena.ViewModels
         public IGame CurrentGame { get; set; }
         public ScoreList ScoreList { get; set; }
 
-        public event EventHandler<GameControlChangedEventArgs> GameControlChanged;
+        public event EventHandler GameControlChanged;
 
-        protected virtual void OnGameControlChanged(GameControlChangedEventArgs eventArgs)
+        protected virtual void OnGameControlChanged()
         {
             if (GameControlChanged != null)
             {
-                GameControlChanged(this, eventArgs);
+                GameControlChanged(this, EventArgs.Empty);
             }
         }
 
@@ -57,7 +52,7 @@ namespace Arena.ViewModels
             set
             {
                 SetProperty(ref _gameTypeControl, value);
-                OnGameControlChanged(new GameControlChangedEventArgs() { NewControl = value });
+                OnGameControlChanged();
             }
         }
 
