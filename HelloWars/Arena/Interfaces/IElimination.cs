@@ -10,5 +10,6 @@ namespace Arena.Interfaces
         UserControl GetVisualization();
         IList<ICompetitor> GetNextCompetitors();
         void SetLastDuelResult(IDictionary<ICompetitor, double> result);
+        string GetGameDescription();
     }
 }

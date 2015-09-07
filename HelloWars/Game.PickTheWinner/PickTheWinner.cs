@@ -21,7 +21,7 @@ namespace Game.PickTheWinner
             get { return _competitors; }
         }
 
-        public bool PerformNextRound()
+        public string PerformNextRound()
         {
             var random = _rand.Next();
             _result = new Dictionary<ICompetitor, double>
@@ -31,7 +31,7 @@ namespace Game.PickTheWinner
             };
 
             RoundNumber++;
-            return false;
+            return "";
         }
 
         public UserControl GetVisualisation()
@@ -58,5 +58,12 @@ namespace Game.PickTheWinner
             RoundNumber = 0;
             _competitors = new List<ICompetitor>();
         }
+
+        public bool IsGameFinished()
+        {
+            return RoundNumber > 0;
+        }
+
+        public string Log { get; private set; }
     }
 }

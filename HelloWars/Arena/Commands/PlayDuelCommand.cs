@@ -1,43 +1,39 @@
-﻿using Arena.Interfaces;
-using Common.Interfaces;
-using Common.Utilities;
+﻿using Arena.ViewModels;
 
 namespace Arena.Commands
 {
     public class PlayDuelCommand : CommandBase
     {
-        protected readonly IElimination _elimination;
-        protected readonly IGame _game;
-        protected readonly ScoreList _scoreList;
+        protected readonly MainWindowViewModel _caller;
 
-        public PlayDuelCommand(IElimination elimination, IGame game, ScoreList scoreList)
+        public PlayDuelCommand(MainWindowViewModel caller)
         {
-            _scoreList = scoreList;
-            _elimination = elimination;
-            _game = game;
+            _caller = caller;
         }
 
         public override void Execute(object parameter = null)
         {
-            
-            var nextCompetitors = _elimination.GetNextCompetitors();
+            var nextCompetitors = _caller.Elimination.GetNextCompetitors();
             if (nextCompetitors != null)
             {
-                _game.Reset();
+                _caller.Game.Reset();
                 foreach (var nextCompetitor in nextCompetitors)
                 {
-                    _game.AddCompetitor(nextCompetitor);
+                    _caller.Game.AddCompetitor(nextCompetitor);
                 }
 
-                _game.Start();
-
-                while (_game.PerformNextRound())
+                _caller.Game.Start();
+                _caller.GameLog += string.Format("New game starting!\n{0}\n", _caller.Elimination.GetGameDescription());
+                
+                while (!_caller.Game.IsGameFinished())
                 {
+                    _caller.GameLog += _caller.Game.PerformNextRound();
                 }
 
-                var duelResult = _game.GetResults();
-                _elimination.SetLastDuelResult(duelResult);
-                _scoreList.SaveScore(duelResult);
+                _caller.GameLog += "\n";
+                var duelResult = _caller.Game.GetResults();
+                _caller.Elimination.SetLastDuelResult(duelResult);
+                _caller.ScoreList.SaveScore(duelResult);
             }
         }
     }
