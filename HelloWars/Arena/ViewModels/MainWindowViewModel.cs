@@ -22,7 +22,6 @@ namespace Arena.ViewModels
         private string _gameLog;
         private List<ICompetitor> _competitors;
         private ICommand _autoPlayCommand;
-        
 
         public IElimination Elimination { get; set; }
         public IGame Game { get; set; }
@@ -33,7 +32,6 @@ namespace Arena.ViewModels
             get { return _headerText; }
             set { SetProperty(ref _headerText, value); }
         }
-
 
         public UserControl GameTypeControl
         {

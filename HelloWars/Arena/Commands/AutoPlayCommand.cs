@@ -8,15 +8,15 @@ namespace Arena.Commands
     public class AutoPlayCommand : PlayDuelCommand
     {
 
-        public AutoPlayCommand(MainWindowViewModel caller) : base(caller)
+        public AutoPlayCommand(MainWindowViewModel viewModel) : base(viewModel)
         {
         }
 
         public override void Execute(object parameter = null)
         {
-            while (_caller.Elimination.GetNextCompetitors() != null)
+            while (_viewModel.Elimination.GetNextCompetitors() != null)
             {
-                base.Execute();
+                base.Execute(parameter);
             }
         }
     }
