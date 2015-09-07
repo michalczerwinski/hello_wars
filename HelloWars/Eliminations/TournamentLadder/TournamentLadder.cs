@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
-using Arena.Eliminations.TournamentLadder.UserControls;
-using Arena.Eliminations.TournamentLadder.ViewModels;
-using Arena.Interfaces;
 using Common.Interfaces;
+using Eliminations.TournamentLadder.UserControls;
+using Eliminations.TournamentLadder.ViewModels;
 
-namespace Arena.Eliminations.TournamentLadder
+namespace Eliminations.TournamentLadder
 {
     public class TournamentLadder : IElimination
     {

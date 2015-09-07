@@ -1,5 +1,4 @@
-﻿using Arena.Interfaces;
-using Common.Interfaces;
+﻿using Common.Interfaces;
 using Common.Utilities;
 
 namespace Arena.Commands

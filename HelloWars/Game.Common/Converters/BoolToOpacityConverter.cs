@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Arena.Helpers.Converters
+namespace Common.Converters
 {
     public sealed class BoolToOpacityConverter : IValueConverter
     {

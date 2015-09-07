@@ -1,16 +1,16 @@
-﻿<UserControl x:Class="Arena.Eliminations.TournamentLadder.UserControls.BotUserControl"
+﻿<UserControl x:Class="Eliminations.TournamentLadder.UserControls.BotUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:viewModels="clr-namespace:Arena.Eliminations.TournamentLadder.ViewModels"
-             xmlns:converters="clr-namespace:Arena.Helpers.Converters"
-             mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=viewModels:BotViewModel}"
+             xmlns:converters1="clr-namespace:Common.Converters;assembly=Common"
+             xmlns:viewModels1="clr-namespace:Eliminations.TournamentLadder.ViewModels"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=viewModels1:BotViewModel}"
              Height="60" Width="160">
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter"/>
+            <converters1:BoolToOpacityConverter x:Key="BoolToOpacityConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     

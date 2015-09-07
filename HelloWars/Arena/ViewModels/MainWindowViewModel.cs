@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Arena.Commands;
 using Arena.Configuration;
-using Arena.Interfaces;
 using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;

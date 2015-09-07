@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
-using Common.Interfaces;
 
-namespace Arena.Interfaces
+namespace Common.Interfaces
 {
     public interface IElimination
     {

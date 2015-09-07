@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Arena.Helpers.Converters
+namespace Common.Converters
 {
     public sealed class BooleanToVisibilityConverter : IValueConverter
     {
