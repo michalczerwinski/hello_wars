@@ -83,17 +83,17 @@ namespace Arena.ViewModels
 
         private Predicate<object> OnLoaded()
         {
-            _game = _gamePlugins.FirstOrDefault(f => (f.GetType().Name == _arenaConfiguration.GameType));
-            _elimination = _eliminationPlugins.FirstOrDefault(f => (f.GetType().Name == _arenaConfiguration.EliminationType));
+            Game = _gamePlugins.FirstOrDefault(f => (f.GetType().Name == _arenaConfiguration.GameType));
+            Elimination = _eliminationPlugins.FirstOrDefault(f => (f.GetType().Name == _arenaConfiguration.EliminationType));
 
-            if (_elimination != null)
+            if (Elimination != null)
             {
-                _elimination.Bots = Competitors;
-                EliminationTypeControl = _elimination.GetVisualization();
+                Elimination.Bots = Competitors;
+                EliminationTypeControl = Elimination.GetVisualization();
             }
-            if (_game != null)
+            if (Game != null)
             {
-                GameTypeControl = _game.GetVisualisation();
+                GameTypeControl = Game.GetVisualisation();
             }
 
             return DefaultCanExecute;
