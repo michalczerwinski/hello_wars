@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Windows.Controls;
 using Common.Interfaces;
-using Eliminations.TournamentLadder.UserControls;
-using Eliminations.TournamentLadder.ViewModels;
+using Elimination.TournamentLadder.UserControls;
+using Elimination.TournamentLadder.ViewModels;
 
-namespace Eliminations.TournamentLadder
+namespace Elimination.TournamentLadder
 {
     public class TournamentLadder : IElimination
     {

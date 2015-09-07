@@ -9,13 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Game.Common\Commo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWebBotClient", "SampleWebBotClient\SampleWebBotClient.csproj", "{DE6068FC-D2DC-4567-9732-ADE401B6B1EA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{D0E63415-844A-413F-9A67-05F602EB2B10}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{D0E63415-844A-413F-9A67-05F602EB2B10}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.TicTacToe", "Game.TicTacToe\Game.TicTacToe.csproj", "{EE3BBF9D-A0BF-4F11-91BC-21A5B5099730}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.PickTheWinner", "Game.PickTheWinner\Game.PickTheWinner.csproj", "{A563372A-CC52-4E9C-86EB-343A38C53BEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eliminations", "Eliminations\Eliminations.csproj", "{5963818B-9CFD-4F59-88E0-15E0DFE36315}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elimination.TournamentLadder", "Eliminations\Elimination.TournamentLadder.csproj", "{5963818B-9CFD-4F59-88E0-15E0DFE36315}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,5 +54,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{EE3BBF9D-A0BF-4F11-91BC-21A5B5099730} = {D0E63415-844A-413F-9A67-05F602EB2B10}
 		{A563372A-CC52-4E9C-86EB-343A38C53BEF} = {D0E63415-844A-413F-9A67-05F602EB2B10}
+		{5963818B-9CFD-4F59-88E0-15E0DFE36315} = {D0E63415-844A-413F-9A67-05F602EB2B10}
 	EndGlobalSection
 EndGlobal

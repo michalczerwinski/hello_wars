@@ -7,8 +7,8 @@
     <ProjectGuid>{5963818B-9CFD-4F59-88E0-15E0DFE36315}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Eliminations</RootNamespace>
-    <AssemblyName>Eliminations</AssemblyName>
+    <RootNamespace>Elimination.TournamentLadder</RootNamespace>
+    <AssemblyName>Elimination.TournamentLadder</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -45,22 +45,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TournamentLadder\TournamentLadder.cs" />
-    <Compile Include="TournamentLadder\UserControls\BotUserControl.xaml.cs">
+    <Compile Include="TournamentLadder.cs" />
+    <Compile Include="UserControls\BotUserControl.xaml.cs">
       <DependentUpon>BotUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TournamentLadder\UserControls\TournamentLadderControl.xaml.cs">
+    <Compile Include="UserControls\TournamentLadderControl.xaml.cs">
       <DependentUpon>TournamentLadderControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TournamentLadder\ViewModels\BotViewModel.cs" />
-    <Compile Include="TournamentLadder\ViewModels\TournamentLadderViewModel.cs" />
+    <Compile Include="ViewModels\BotViewModel.cs" />
+    <Compile Include="ViewModels\TournamentLadderViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="TournamentLadder\UserControls\BotUserControl.xaml">
+    <Page Include="UserControls\BotUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TournamentLadder\UserControls\TournamentLadderControl.xaml">
+    <Page Include="UserControls\TournamentLadderControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
