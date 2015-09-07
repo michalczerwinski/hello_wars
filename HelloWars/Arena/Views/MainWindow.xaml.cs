@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using Arena.ViewModels;
+﻿using Arena.ViewModels;
 
 namespace Arena.Views
 {
@@ -8,18 +7,16 @@ namespace Arena.Views
     /// </summary>
     public partial class MainWindow
     {
-        private MainWindowViewModel _viewModel;
-
-        public MainWindow()
+        private MainWindowViewModel _viewModel
         {
-            InitializeComponent();
+            get { return (MainWindowViewModel)DataContext; }
+            set { DataContext = value; }
         }
 
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        public MainWindow(MainWindowViewModel viewModel)
         {
-            _viewModel = (MainWindowViewModel)DataContext;
-            EliminationTypeGrid.Children.Add(_viewModel.EliminationTypeControl);
-            GameTypeGrid.Children.Add(_viewModel.GameTypeControl);
+            _viewModel = viewModel;
+            InitializeComponent();
         }
     }
 }

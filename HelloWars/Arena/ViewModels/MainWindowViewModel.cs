@@ -1,5 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,6 +19,10 @@ namespace Arena.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
+        [ImportMany((typeof(IGame)))]
+        private IEnumerable<IGame> _gamePlugins;
+        [ImportMany((typeof(IElimination)))]
+        private IEnumerable<IElimination> _eliminationPlugins;
         private string _headerText;
         private ArenaConfiguration _arenaConfiguration;
         private IElimination _elimination;
@@ -23,6 +32,7 @@ namespace Arena.ViewModels
         private List<ICompetitor> _competitors;
         private ICommand _autoPlayCommand;
         private ScoreList _scoreList;
+        private ICommand _onLoadedCommand;
 
         public string HeaderText
         {
@@ -58,20 +68,52 @@ namespace Arena.ViewModels
             get { return _autoPlayCommand ?? (_autoPlayCommand = new AutoPlayCommand(_elimination, _game, _scoreList)); }
         }
 
+        public ICommand OnLoadedCommand
+        {
+            get { return _onLoadedCommand ?? (_onLoadedCommand = new CommandBase(OnLoaded())); }
+        }
+
+        private Predicate<object> OnLoaded()
+        {
+            _game = _gamePlugins.FirstOrDefault(f => (f.GetType().Name == _arenaConfiguration.GameType));
+            _elimination = _eliminationPlugins.FirstOrDefault(f => (f.GetType().Name == _arenaConfiguration.EliminationType));
+
+            if (_elimination != null)
+            {
+                _elimination.Bots = Competitors;
+                EliminationTypeControl = _elimination.GetVisualization();
+            }
+            if (_game != null)
+            {
+                GameTypeControl = _game.GetVisualisation();
+            }
+
+            return DefaultCanExecute;
+        }
+
+        private static bool DefaultCanExecute(object parameter)
+        {
+            return true;
+        }
+
         public void Init(ArenaConfiguration arenaConfiguration)
         {
             _scoreList = new ScoreList();
             HeaderText = "Hello Wars();";
             _arenaConfiguration = arenaConfiguration;
-            _elimination = arenaConfiguration.Elimination;
-            var gameType = TypeHelper<IGame>.GetGameType(arenaConfiguration.GameType);
-            _game = TypeHelper<IGame>.CreateInstance(gameType);
-
+            InitMef();
             AskForCompetitors(arenaConfiguration.GameType);
+        }
 
-            _elimination.Bots = Competitors;
-            _eliminationTypeControl = _elimination.GetVisualization();
-            _gameTypeControl = _game.GetVisualisation();
+        private void InitMef()
+        {
+            var catalog = new AggregateCatalog();
+            var assembly = Assembly.GetExecutingAssembly().Location;
+            var path = Path.GetDirectoryName(assembly);
+            var dictionary = new DirectoryCatalog(path);
+            catalog.Catalogs.Add(dictionary);
+            var container = new CompositionContainer(catalog);
+            container.ComposeParts(this);
         }
 
         private void AskForCompetitors(string gameTypeName)
@@ -80,9 +122,9 @@ namespace Arena.ViewModels
             {
                 var loader = new CompetitorLoadService();
 
-            var competitorsTasks = _arenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitorAsync(botUrl, gameTypeName)).ToList();
+                var competitorsTasks = _arenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitorAsync(botUrl, gameTypeName)).ToList();
 
-            Competitors = (await Task.WhenAll(competitorsTasks)).Where(competitor => competitor != null).ToList();
+                Competitors = (await Task.WhenAll(competitorsTasks)).Where(competitor => competitor != null).ToList();
             }).Wait();
         }
     }

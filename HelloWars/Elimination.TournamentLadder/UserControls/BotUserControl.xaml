@@ -3,14 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:converters1="clr-namespace:Common.Converters;assembly=Common"
              xmlns:viewModels="clr-namespace:Elimination.TournamentLadder.ViewModels"
+             xmlns:converters="clr-namespace:Common.Converters;assembly=Common"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=viewModels:BotViewModel}"
              Height="60" Width="160">
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <converters1:BoolToOpacityConverter x:Key="BoolToOpacityConverter"/>
+            <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
 

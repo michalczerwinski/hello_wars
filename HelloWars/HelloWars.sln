@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.TicTacToe", "Game.TicT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.PickTheWinner", "Game.PickTheWinner\Game.PickTheWinner.csproj", "{A563372A-CC52-4E9C-86EB-343A38C53BEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elimination.TournamentLadder", "Eliminations\Elimination.TournamentLadder.csproj", "{5963818B-9CFD-4F59-88E0-15E0DFE36315}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elimination.TournamentLadder", "Elimination.TournamentLadder\Elimination.TournamentLadder.csproj", "{5963818B-9CFD-4F59-88E0-15E0DFE36315}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

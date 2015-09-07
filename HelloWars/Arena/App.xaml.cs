@@ -21,10 +21,7 @@ namespace Arena
 
             var viewModel = new MainWindowViewModel();
             viewModel.Init(_arenaConfiguration);
-            var mainWindow = new MainWindow
-            {
-                DataContext = viewModel
-            };
+            var mainWindow = new MainWindow(viewModel);
 
             mainWindow.Show();
         }

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <ArenaConfiguration>
-  <EliminationType>Arena.Eliminations.TournamentLadder.TournamentLadder</EliminationType>
+  <EliminationType>TournamentLadder</EliminationType>
   <GameType>TicTacToe</GameType>
   <BotUrls>
     <Url>http://localhost:53886/SampleBot/</Url>

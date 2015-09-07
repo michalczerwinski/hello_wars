@@ -6,7 +6,8 @@ namespace Arena.Commands
     public class AutoPlayCommand : PlayDuelCommand
     {
 
-        public AutoPlayCommand(IElimination elimination, IGame game, ScoreList scoreList) : base(elimination, game, scoreList)
+        public AutoPlayCommand(IElimination elimination, IGame game, ScoreList scoreList)
+            : base(elimination, game, scoreList)
         {
         }
 

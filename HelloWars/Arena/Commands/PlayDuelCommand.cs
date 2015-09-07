@@ -18,7 +18,6 @@ namespace Arena.Commands
 
         public override void Execute(object parameter = null)
         {
-            
             var nextCompetitors = _elimination.GetNextCompetitors();
             if (nextCompetitors != null)
             {

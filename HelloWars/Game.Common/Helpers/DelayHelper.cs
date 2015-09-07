@@ -9,8 +9,15 @@ namespace Common.Helpers
     {
         public static void Delay(int miliSeconds)
         {
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-                         new Action(() => Thread.Sleep(miliSeconds)));
+            try
+            {
+                Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
+                    new Action(() => Thread.Sleep(miliSeconds)));
+            }
+            catch
+            {
+                //DoNothing
+            }
         }
     }
 }
