@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -13,6 +14,11 @@ using Common.Utilities;
 
 namespace Arena.ViewModels
 {
+    public class GameControlChangedEventArgs : EventArgs
+    {
+        public UserControl NewControl { get; set; }
+    }
+
     public class MainWindowViewModel : BindableBase
     {
         private string _headerText;
@@ -22,10 +28,22 @@ namespace Arena.ViewModels
         private string _gameLog;
         private List<ICompetitor> _competitors;
         private ICommand _autoPlayCommand;
+        private List<IGame> _gameHistory;
+        private Type _gameType; 
 
         public IElimination Elimination { get; set; }
-        public IGame Game { get; set; }
+        public IGame CurrentGame { get; set; }
         public ScoreList ScoreList { get; set; }
+
+        public event EventHandler<GameControlChangedEventArgs> GameControlChanged;
+
+        protected virtual void OnGameControlChanged(GameControlChangedEventArgs eventArgs)
+        {
+            if (GameControlChanged != null)
+            {
+                GameControlChanged(this, eventArgs);
+            }
+        }
 
         public string HeaderText
         {
@@ -36,7 +54,11 @@ namespace Arena.ViewModels
         public UserControl GameTypeControl
         {
             get { return _gameTypeControl; }
-            set { SetProperty(ref _gameTypeControl, value); }
+            set
+            {
+                SetProperty(ref _gameTypeControl, value);
+                OnGameControlChanged(new GameControlChangedEventArgs() { NewControl = value });
+            }
         }
 
         public string GameLog
@@ -73,14 +95,20 @@ namespace Arena.ViewModels
             HeaderText = "Hello Wars();";
             _arenaConfiguration = arenaConfiguration;
             Elimination = arenaConfiguration.Elimination;
-            var gameType = TypeHelper<IGame>.GetGameType(arenaConfiguration.GameType);
-            Game = TypeHelper<IGame>.CreateInstance(gameType);
+            _gameType = TypeHelper<IGame>.GetGameType(arenaConfiguration.GameType);
+            _gameHistory = new List<IGame>();
 
             AskForCompetitors(arenaConfiguration.GameType);
 
             Elimination.Bots = Competitors;
             _eliminationTypeControl = Elimination.GetVisualization();
-            _gameTypeControl = Game.GetVisualisation();
+        }
+
+        public void SetupNewGame()
+        {
+            CurrentGame = TypeHelper<IGame>.CreateInstance(_gameType);
+            _gameHistory.Add(CurrentGame);
+            GameTypeControl = CurrentGame.GetVisualisation();
         }
 
         private void AskForCompetitors(string gameTypeName)

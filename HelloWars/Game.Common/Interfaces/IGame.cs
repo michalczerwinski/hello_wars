@@ -12,7 +12,6 @@ namespace Common.Interfaces
         IDictionary<ICompetitor, double> GetResults();
         void AddCompetitor(ICompetitor competitor);
         void Start();
-        void Reset();
         bool IsGameFinished();
 
     }

@@ -20,7 +20,13 @@ namespace Arena.Views
         {
             _viewModel = (MainWindowViewModel)DataContext;
             EliminationTypeGrid.Children.Add(_viewModel.EliminationTypeControl);
-            GameTypeGrid.Children.Add(_viewModel.GameTypeControl);
+            _viewModel.GameControlChanged += GameControlChanged;
+        }
+
+        public void GameControlChanged(object sender, GameControlChangedEventArgs eventArgs)
+        {
+            GameTypeGrid.Children.Clear();
+            GameTypeGrid.Children.Add(eventArgs.NewControl);
         }
     }
 }

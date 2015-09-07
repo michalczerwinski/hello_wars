@@ -20,14 +20,15 @@ namespace Game.TicTacToe
     {
         private ITicTacToeBot _player1 { get { return _competitors[0]; } }
         private ITicTacToeBot _player2 { get { return _competitors[1]; } }
-        private List<ITicTacToeBot> _competitors;
+        private readonly List<ITicTacToeBot> _competitors;
         protected TicTacToeViewModel TicTacToeViewModel;
 
         public long RoundNumber { get; set; }
 
         public TicTacToe()
         {
-            Reset();
+            _competitors = new List<ITicTacToeBot>();
+            TicTacToeViewModel = new TicTacToeViewModel {Board = new BindableArray<BoardFieldSign>(3, 3)};
         }
 
         public List<ICompetitor> Competitors
@@ -37,7 +38,6 @@ namespace Game.TicTacToe
 
         public UserControl GetVisualisation()
         {
-            TicTacToeViewModel = new TicTacToeViewModel();
             return new TicTacToeUserControl(TicTacToeViewModel);
         }
 
@@ -66,15 +66,6 @@ namespace Game.TicTacToe
         {
             InitializePlayers();
             ClearTheBoard();
-        }
-
-        public void Reset()
-        {
-            if (TicTacToeViewModel != null)
-            {
-                TicTacToeViewModel.Board = new BindableArray<BoardFieldSign>(3, 3);
-            }
-            _competitors = new List<ITicTacToeBot>();
         }
 
         public bool IsGameFinished()
