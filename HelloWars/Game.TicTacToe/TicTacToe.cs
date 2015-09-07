@@ -25,11 +25,6 @@ namespace Game.TicTacToe
 
         public long RoundNumber { get; set; }
 
-        public string Log
-        {
-            get { return "test"; }
-        }
-
         public TicTacToe()
         {
             Reset();

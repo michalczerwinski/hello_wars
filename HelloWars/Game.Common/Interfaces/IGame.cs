@@ -14,7 +14,6 @@ namespace Common.Interfaces
         void Start();
         void Reset();
         bool IsGameFinished();
-        string Log { get; }
 
     }
 }

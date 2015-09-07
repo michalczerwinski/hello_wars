@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls;
 using Common.Attributes;
 using Common.Interfaces;
@@ -31,7 +32,8 @@ namespace Game.PickTheWinner
             };
 
             RoundNumber++;
-            return "";
+
+            return string.Format("{0} has won!", _result.Single(pair => pair.Value == 1.0).Key.Name);
         }
 
         public UserControl GetVisualisation()
@@ -63,7 +65,5 @@ namespace Game.PickTheWinner
         {
             return RoundNumber > 0;
         }
-
-        public string Log { get; private set; }
     }
 }
