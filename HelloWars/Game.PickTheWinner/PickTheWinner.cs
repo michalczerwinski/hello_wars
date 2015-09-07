@@ -17,6 +17,12 @@ namespace Game.PickTheWinner
         private Dictionary<ICompetitor, double> _result;
         public long RoundNumber { get; set; }
 
+        public PickTheWinner()
+        {
+            RoundNumber = 0;
+            _competitors = new List<ICompetitor>();
+        }
+
         public List<ICompetitor> Competitors
         {
             get { return _competitors; }
@@ -53,12 +59,6 @@ namespace Game.PickTheWinner
 
         public void Start()
         {
-        }
-
-        public void Reset()
-        {
-            RoundNumber = 0;
-            _competitors = new List<ICompetitor>();
         }
 
         public bool IsGameFinished()
