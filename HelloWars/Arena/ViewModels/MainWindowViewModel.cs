@@ -84,7 +84,7 @@ namespace Arena.ViewModels
             }
             if (Game != null)
             {
-                GameTypeControl = Game.GetVisualisationControl();
+                GameTypeControl = Game.GetVisualisationUserControl();
             }
 
             return DefaultCanExecute;

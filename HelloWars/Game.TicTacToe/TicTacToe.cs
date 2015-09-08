@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using Game.TicTacToe.Interfaces;
@@ -27,7 +26,7 @@ namespace Game.TicTacToe
             Reset();
         }
 
-        public UserControl GetVisualisationControl()
+        public UserControl GetVisualisationUserControl()
         {
             TicTacToeViewModel = new TicTacToeViewModel();
             return new TicTacToeUserControl(TicTacToeViewModel);
@@ -75,7 +74,7 @@ namespace Game.TicTacToe
 
                 result.History.Add(PerformNextMove(competitor));
 
-                DelayHelper.Delay(250);
+                DelayHelper.Delay(150);
 
                 if (IsPlayerWon(competitor))
                 {
@@ -192,14 +191,14 @@ namespace Game.TicTacToe
                 {
                     TicTacToeViewModel.ArrayOfDiagonalLines[0, 0] = Visibility.Visible;
                     player.IsWinner = true;
-                    DelayHelper.Delay(500);
+                    DelayHelper.Delay(300);
                     return true;
                 }
                 if (diagonal2 == 3)
                 {
                     TicTacToeViewModel.ArrayOfDiagonalLines[1, 0] = Visibility.Visible;
                     player.IsWinner = true;
-                    DelayHelper.Delay(500);
+                    DelayHelper.Delay(300);
                     return true;
                 }
                 for (int j = 0; j < 3; j++)
@@ -208,14 +207,14 @@ namespace Game.TicTacToe
                     {
                         TicTacToeViewModel.ArrayOfHorizontalLines[j, 0] = Visibility.Visible;
                         player.IsWinner = true;
-                        DelayHelper.Delay(500);
+                        DelayHelper.Delay(300);
                         return true;
                     }
                     if (yLine[j] == 3)
                     {
                         TicTacToeViewModel.ArrayOfVerticalLines[j, 0] = Visibility.Visible;
                         player.IsWinner = true;
-                        DelayHelper.Delay(500);
+                        DelayHelper.Delay(300);
                         return true;
                     }
                 }
