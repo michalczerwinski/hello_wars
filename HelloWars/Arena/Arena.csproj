@@ -39,6 +39,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.Composition.CodePlex">
       <HintPath>..\..\..\System.ComponentModel.Composition.CodePlex.dll</HintPath>
     </Reference>
@@ -127,10 +128,6 @@
     <ProjectReference Include="..\Game.Common\Common.csproj">
       <Project>{a40d2185-d837-4773-8dd7-3830f0c9e3ff}</Project>
       <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Game.PickTheWinner\Game.PickTheWinner.csproj">
-      <Project>{a563372a-cc52-4e9c-86eb-343a38c53bef}</Project>
-      <Name>Game.PickTheWinner</Name>
     </ProjectReference>
     <ProjectReference Include="..\Game.TicTacToe\Game.TicTacToe.csproj">
       <Project>{EE3BBF9D-A0BF-4F11-91BC-21A5B5099730}</Project>

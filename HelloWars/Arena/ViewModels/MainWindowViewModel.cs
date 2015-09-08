@@ -19,7 +19,6 @@ namespace Arena.ViewModels
         private ArenaConfiguration _arenaConfiguration { get; set; }
         private UserControl _gameTypeControl;
         private UserControl _eliminationTypeControl;
-        private string _gameLog;
         private List<ICompetitor> _competitors;
         private ICommand _autoPlayCommand;
         private ICommand _onLoadedCommand;
@@ -38,12 +37,6 @@ namespace Arena.ViewModels
         {
             get { return _gameTypeControl; }
             set { SetProperty(ref _gameTypeControl, value); }
-        }
-
-        public string GameLog
-        {
-            get { return _gameLog; }
-            set { SetProperty(ref _gameLog, value); }
         }
 
         public UserControl EliminationTypeControl
@@ -91,7 +84,7 @@ namespace Arena.ViewModels
             }
             if (Game != null)
             {
-                GameTypeControl = Game.GetVisualisation();
+                GameTypeControl = Game.GetVisualisationControl();
             }
 
             return DefaultCanExecute;
