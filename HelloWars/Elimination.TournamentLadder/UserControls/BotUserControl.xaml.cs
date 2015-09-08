@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using Arena.Eliminations.TournamentLadder.ViewModels;
+using Elimination.TournamentLadder.ViewModels;
 
-namespace Arena.Eliminations.TournamentLadder.UserControls
+namespace Elimination.TournamentLadder.UserControls
 {
     /// <summary>
     /// Interaction logic for UserViewControl.xaml

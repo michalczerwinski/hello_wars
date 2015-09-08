@@ -8,7 +8,6 @@ using Game.TicTacToe.Interfaces;
 using Game.TicTacToe.Models;
 using Game.TicTacToe.UserControls;
 using Game.TicTacToe.ViewModels;
-using Common.Attributes;
 using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
@@ -16,7 +15,6 @@ using Point = System.Drawing.Point;
 
 namespace Game.TicTacToe
 {
-    [GameType("TicTacToe")]
     public class TicTacToe : IGame
     {
         private ITicTacToeBot _player1 { get { return _competitors[0]; } }

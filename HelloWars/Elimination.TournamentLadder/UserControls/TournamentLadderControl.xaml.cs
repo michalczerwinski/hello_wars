@@ -4,9 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Arena.Eliminations.TournamentLadder.ViewModels;
+using Elimination.TournamentLadder.ViewModels;
 
-namespace Arena.Eliminations.TournamentLadder.UserControls
+namespace Elimination.TournamentLadder.UserControls
 {
     /// <summary>
     /// Interaction logic for TournamentLadderControl.xaml

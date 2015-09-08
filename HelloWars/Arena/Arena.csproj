@@ -39,8 +39,17 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.Composition.CodePlex">
+      <HintPath>..\..\..\System.ComponentModel.Composition.CodePlex.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Reflection.Context.CodePlex, Version=4.1.2.0, Culture=neutral, PublicKeyToken=13e5ffd4e05db186, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\System.Reflection.Context.CodePlex.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -63,26 +72,7 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\PlayDuelCommand.cs" />
     <Compile Include="Configuration\ArenaConfiguration.cs" />
-    <Compile Include="Eliminations\TournamentLadder\ViewModels\BotViewModel.cs" />
-    <Compile Include="Eliminations\TournamentLadder\TournamentLadder.cs" />
-    <Compile Include="Eliminations\TournamentLadder\UserControls\TournamentLadderControl.xaml.cs">
-      <DependentUpon>TournamentLadderControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Eliminations\TournamentLadder\ViewModels\TournamentLadderViewModel.cs" />
-    <Compile Include="Interfaces\IElimination.cs" />
-    <Compile Include="Eliminations\TournamentLadder\UserControls\BotUserControl.xaml.cs">
-      <DependentUpon>BotUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\Converters\BoolToOpacityConverter.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Page Include="Eliminations\TournamentLadder\UserControls\TournamentLadderControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Eliminations\TournamentLadder\UserControls\BotUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -91,7 +81,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Helpers\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -149,9 +138,7 @@
       <Name>Game.TicTacToe</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

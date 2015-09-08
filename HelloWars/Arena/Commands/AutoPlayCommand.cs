@@ -1,13 +1,9 @@
-﻿using Arena.Interfaces;
-using Arena.ViewModels;
-using Common.Interfaces;
-using Common.Utilities;
+﻿using Arena.ViewModels;
 
 namespace Arena.Commands
 {
     public class AutoPlayCommand : PlayDuelCommand
     {
-
         public AutoPlayCommand(MainWindowViewModel viewModel) : base(viewModel)
         {
         }
