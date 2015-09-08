@@ -11,6 +11,7 @@ using Game.TicTacToe.ViewModels;
 using Common.Attributes;
 using Common.Helpers;
 using Common.Interfaces;
+using Common.Models;
 using Point = System.Drawing.Point;
 
 namespace Game.TicTacToe
@@ -23,47 +24,27 @@ namespace Game.TicTacToe
         private List<ITicTacToeBot> _competitors;
         protected TicTacToeViewModel TicTacToeViewModel;
 
-        public long RoundNumber { get; set; }
-
         public TicTacToe()
         {
             Reset();
         }
 
-        public List<ICompetitor> Competitors
-        {
-            get { return _competitors.Select(bot => bot as ICompetitor).ToList(); }
-        }
-
-        public UserControl GetVisualisation()
+        public UserControl GetVisualisationControl()
         {
             TicTacToeViewModel = new TicTacToeViewModel();
             return new TicTacToeUserControl(TicTacToeViewModel);
         }
 
-        public IDictionary<ICompetitor, double> GetResults()
+        public void SetupNewGame(IEnumerable<ICompetitor> competitors)
         {
-            return _competitors.ToDictionary(toeBot => toeBot as ICompetitor, toeBot => toeBot.IsWinner ? 1.0 : 0.0);
-        }
+            Reset();
 
-        public void AddCompetitor(ICompetitor competitor)
-        {
-            ITicTacToeBot bot;
-
-            if (!string.IsNullOrEmpty(competitor.Url))
+            foreach (var competitor in competitors)
             {
-                bot = new TicTacToeWebBot(competitor);
-            }
-            else
-            {
-                bot = new TicTacToeLocalBot(competitor);
+                ITicTacToeBot bot = !string.IsNullOrEmpty(competitor.Url) ? new TicTacToeWebBot(competitor) : new TicTacToeLocalBot(competitor);
+                _competitors.Add(bot);
             }
 
-            _competitors.Add(bot);
-        }
-
-        public void Start()
-        {
             InitializePlayers();
             ClearTheBoard();
         }
@@ -77,9 +58,53 @@ namespace Game.TicTacToe
             _competitors = new List<ITicTacToeBot>();
         }
 
-        public bool IsGameFinished()
+        public RoundResult PerformNextRound()
         {
-            return _competitors.Any(IsPlayerWon);
+            if (_player1 == null || _player2 == null) { throw new Exception("There are no players to perform next round."); }
+
+            var result = new RoundResult()
+            {
+                History = new List<RoundPartialHistory>(),
+                IsFinished = false
+            };
+
+            foreach (var competitor in _competitors)
+            {
+                if (IsBoardFull())
+                {
+                    ClearTheBoard();
+                }
+
+                result.History.Add(PerformNextMove(competitor));
+
+                DelayHelper.Delay(250);
+
+                if (IsPlayerWon(competitor))
+                {
+                    result.IsFinished = true;
+                    result.FinalResult = GetResults();
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        public void SetPreview(object boardState)
+        {
+            ClearTheBoard();
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    TicTacToeViewModel.Board[i, j] = ((BoardFieldSign[,])boardState)[i, j];
+                }
+            }
+        }
+
+        private Dictionary<ICompetitor, double> GetResults()
+        {
+            return _competitors.ToDictionary(toeBot => toeBot as ICompetitor, toeBot => toeBot.IsWinner ? 1.0 : 0.0);
         }
 
         private void InitializePlayers()
@@ -95,46 +120,40 @@ namespace Game.TicTacToe
             }
         }
 
-        public string PerformNextRound()
+        private RoundPartialHistory PerformNextMove(ITicTacToeBot competitor)
         {
-            if (_player1 == null || _player2 == null) { throw new Exception("There are no players to perform next round."); }
+            var move = competitor.NextMove(TicTacToeViewModel.Board);
+            string moveDescription;
 
-            var roundDescription = new StringBuilder();
-
-            foreach (var competitor in _competitors)
+            if (IsNextMoveValid(move))
             {
-                roundDescription.AppendLine(PlayerNextMove(competitor));
-                
-                if (IsPlayerWon(competitor))
-                {
-                    roundDescription.AppendFormat("{0} has won!\n", competitor.Name);
-                    return roundDescription.ToString();
-                }
+                TicTacToeViewModel.Board[move.X, move.Y] = competitor.PlayerSign;
+                moveDescription = string.Format("{0} has marked field [{1},{2}] with {3}", competitor.Name, move.X, move.Y, competitor.PlayerSign);
+            }
+            else
+            {
+                moveDescription = string.Format("{0} has performed an illegal move {{{1}, {2}}. No action was performed\n", competitor.Name, move.X, move.Y);
             }
 
-            if (IsBoardFull())
+            return new RoundPartialHistory()
             {
-                roundDescription.AppendLine("Tie! Beginning new round.");
-                ClearTheBoard();
-            }
-
-            return roundDescription.ToString();
+                Caption = moveDescription,
+                BoardState = ExportBoardState()
+            };
         }
 
-
-        private string PlayerNextMove(ITicTacToeBot player)
+        private BoardFieldSign[,] ExportBoardState()
         {
-            while (!IsBoardFull())
+            var result = new BoardFieldSign[3, 3];
+            for (int i = 0; i < 3; i++)
             {
-                var move = player.NextMove(TicTacToeViewModel.Board);
-                if (IsNextMoveValid(move))
+                for (int j = 0; j < 3; j++)
                 {
-                    TicTacToeViewModel.Board[move.X, move.Y] = player.PlayerSign;
-                    DelayHelper.Delay(250);
-                    return string.Format("{0} has marked field [{1},{2}] with {3}", player.Name, move.X, move.Y, player.PlayerSign);
+                    result[i, j] = TicTacToeViewModel.Board[i, j];
                 }
             }
-            return string.Empty;
+
+            return result;
         }
 
         private bool IsNextMoveValid(Point movePoint)

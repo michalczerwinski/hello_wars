@@ -36,9 +36,19 @@ namespace Game.PickTheWinner
             return string.Format("{0} has won!", _result.Single(pair => pair.Value == 1.0).Key.Name);
         }
 
-        public UserControl GetVisualisation()
+        RoundResult IGame.PerformNextRound()
+        {
+            throw new NotImplementedException();
+        }
+
+        public UserControl GetVisualisationControl()
         {
             return new PickTheWinnerControl();
+        }
+
+        public void SetupNewGame(IEnumerable<ICompetitor> competitors)
+        {
+            throw new NotImplementedException();
         }
 
         public IDictionary<ICompetitor, double> GetResults()
@@ -59,6 +69,11 @@ namespace Game.PickTheWinner
         {
             RoundNumber = 0;
             _competitors = new List<ICompetitor>();
+        }
+
+        public void SetPreview(object boardState)
+        {
+            throw new NotImplementedException();
         }
 
         public bool IsGameFinished()

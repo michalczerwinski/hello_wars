@@ -60,6 +60,8 @@
     <Compile Include="Models\BotClientBase.cs" />
     <Compile Include="Models\Competitor.cs" />
     <Compile Include="Models\CompetitorInfo.cs" />
+    <Compile Include="Models\RoundPartialHistory.cs" />
+    <Compile Include="Models\RoundResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>

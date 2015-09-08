@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Hello Wars Main Window" 
-        Width="1200" Height="600" 
+        Width="800" Height="600" 
         Background="DimGray"
         Loaded="MainWindow_OnLoaded">
 
@@ -35,7 +35,6 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
                 <Viewbox VerticalAlignment="Top">
@@ -44,7 +43,6 @@
                 <Viewbox Grid.Column="1" VerticalAlignment="Top">
                     <Grid x:Name="GameTypeGrid"  HorizontalAlignment="Center"/>
                 </Viewbox>
-                <TextBox Grid.Column="2" HorizontalAlignment="Stretch" Margin="0,0,10,0" Height="520" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" x:Name="GameLog" IsReadOnly="True" VerticalAlignment="Top" Text="{Binding Path=GameLog}"/>
             </Grid>
         </ScrollViewer>
     </Grid>

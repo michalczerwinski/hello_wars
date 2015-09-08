@@ -19,7 +19,6 @@ namespace Arena.ViewModels
         private ArenaConfiguration _arenaConfiguration;
         private UserControl _gameTypeControl;
         private UserControl _eliminationTypeControl;
-        private string _gameLog;
         private List<ICompetitor> _competitors;
         private ICommand _autoPlayCommand;
 
@@ -37,12 +36,6 @@ namespace Arena.ViewModels
         {
             get { return _gameTypeControl; }
             set { SetProperty(ref _gameTypeControl, value); }
-        }
-
-        public string GameLog
-        {
-            get { return _gameLog; }
-            set { SetProperty(ref _gameLog, value); }
         }
 
         public UserControl EliminationTypeControl
@@ -80,7 +73,7 @@ namespace Arena.ViewModels
 
             Elimination.Bots = Competitors;
             _eliminationTypeControl = Elimination.GetVisualization();
-            _gameTypeControl = Game.GetVisualisation();
+            _gameTypeControl = Game.GetVisualisationControl();
         }
 
         private void AskForCompetitors(string gameTypeName)

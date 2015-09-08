@@ -1,19 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
+using Common.Models;
 
 namespace Common.Interfaces
 {
     public interface IGame
     {
-        List<ICompetitor> Competitors { get; }
-        long RoundNumber { get; set; }
-        string PerformNextRound();
-        UserControl GetVisualisation();
-        IDictionary<ICompetitor, double> GetResults();
-        void AddCompetitor(ICompetitor competitor);
-        void Start();
+        RoundResult PerformNextRound();
+        UserControl GetVisualisationControl();
+        void SetupNewGame(IEnumerable<ICompetitor> competitors);
         void Reset();
-        bool IsGameFinished();
-
+        void SetPreview(object boardState);
     }
 }
