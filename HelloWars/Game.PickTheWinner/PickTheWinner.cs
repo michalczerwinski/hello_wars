@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
-using Common.Attributes;
 using Common.Interfaces;
 using Common.Models;
 using Game.PickTheWinner.UserControls;
 
 namespace Game.PickTheWinner
 {
-    [GameType("PickTheWinner")]
     public class PickTheWinner : IGame
     {
         private readonly Random _rand = new Random(DateTime.Now.Millisecond);

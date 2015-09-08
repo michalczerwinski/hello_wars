@@ -4,7 +4,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         Title="Hello Wars Main Window" 
         Width="1200" Height="600" 
-        >
+        Background="DeepSkyBlue">
        
 
     <i:Interaction.Triggers>

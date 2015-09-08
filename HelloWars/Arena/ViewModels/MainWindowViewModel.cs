@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,12 +15,8 @@ namespace Arena.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        [ImportMany((typeof(IGame)))]
-        private IEnumerable<IGame> _gamePlugins;
-        [ImportMany((typeof(IElimination)))]
-        private IEnumerable<IElimination> _eliminationPlugins;
         private string _headerText;
-        private ArenaConfiguration _arenaConfiguration;
+        private ArenaConfiguration _arenaConfiguration { get; set; }
         private UserControl _gameTypeControl;
         private UserControl _eliminationTypeControl;
         private string _gameLog;
@@ -81,10 +73,16 @@ namespace Arena.ViewModels
             get { return _onLoadedCommand ?? (_onLoadedCommand = new CommandBase(OnLoaded())); }
         }
 
+        public MainWindowViewModel()
+        {
+            ScoreList = new ScoreList();
+            HeaderText = "Hello Wars();";
+        }
+
         private Predicate<object> OnLoaded()
         {
-            Game = _gamePlugins.FirstOrDefault(f => (f.GetType().Name == _arenaConfiguration.GameType));
-            Elimination = _eliminationPlugins.FirstOrDefault(f => (f.GetType().Name == _arenaConfiguration.EliminationType));
+            Elimination = _arenaConfiguration.Elimination;
+            Game = _arenaConfiguration.Game;
 
             if (Elimination != null)
             {
@@ -104,24 +102,10 @@ namespace Arena.ViewModels
             return true;
         }
 
-        public void Init(ArenaConfiguration arenaConfiguration)
+        public void ReadConfiguration(ArenaConfiguration arenaConfiguration)
         {
-            ScoreList = new ScoreList();
-            HeaderText = "Hello Wars();";
             _arenaConfiguration = arenaConfiguration;
-            InitMef();
             AskForCompetitors(arenaConfiguration.GameType);
-        }
-
-        private void InitMef()
-        {
-            var catalog = new AggregateCatalog();
-            var assembly = Assembly.GetExecutingAssembly().Location;
-            var path = Path.GetDirectoryName(assembly);
-            var dictionary = new DirectoryCatalog(path);
-            catalog.Catalogs.Add(dictionary);
-            var container = new CompositionContainer(catalog);
-            container.ComposeParts(this);
         }
 
         private void AskForCompetitors(string gameTypeName)
