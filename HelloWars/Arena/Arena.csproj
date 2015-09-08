@@ -72,6 +72,7 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\PlayDuelCommand.cs" />
     <Compile Include="Configuration\ArenaConfiguration.cs" />
+    <Compile Include="ViewModels\GameHistoryEntryViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

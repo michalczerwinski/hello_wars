@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -10,6 +11,7 @@ using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
 using Common.Utilities;
+using Game.TicTacToe;
 
 namespace Arena.ViewModels
 {
@@ -20,6 +22,7 @@ namespace Arena.ViewModels
         private UserControl _gameTypeControl;
         private UserControl _eliminationTypeControl;
         private List<ICompetitor> _competitors;
+        private ObservableCollection<GameHistoryEntryViewModel> _gameHistory; 
         private ICommand _autoPlayCommand;
         private ICommand _onLoadedCommand;
 
@@ -31,6 +34,12 @@ namespace Arena.ViewModels
         {
             get { return _headerText; }
             set { SetProperty(ref _headerText, value); }
+        }
+
+        public ObservableCollection<GameHistoryEntryViewModel> GameHistory
+        {
+            get { return _gameHistory ?? (_gameHistory = new ObservableCollection<GameHistoryEntryViewModel>()); }
+            set { SetProperty(ref _gameHistory, value); }
         }
 
         public UserControl GameTypeControl

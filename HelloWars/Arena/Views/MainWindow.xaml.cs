@@ -1,4 +1,7 @@
-﻿using Arena.ViewModels;
+﻿using System.Windows;
+using System.Windows.Controls;
+using Arena.ViewModels;
+using Common.Models;
 
 namespace Arena.Views
 {
@@ -17,6 +20,15 @@ namespace Arena.Views
         {
             _viewModel = viewModel;
             InitializeComponent();
+        }
+
+        private void GameHistoryTree_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var roundPartial = ((TreeView)sender).SelectedItem as RoundPartialHistory;
+            if (roundPartial != null)
+            {
+                _viewModel.Game.SetPreview(roundPartial.BoardState);
+            }
         }
     }
 }
