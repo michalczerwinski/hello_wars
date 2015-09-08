@@ -1,4 +1,5 @@
-﻿using Arena.ViewModels;
+﻿using System.Collections.Generic;
+using Arena.ViewModels;
 using Common.Models;
 
 namespace Arena.Commands
@@ -17,6 +18,12 @@ namespace Arena.Commands
             var nextCompetitors = _viewModel.Elimination.GetNextCompetitors();
             if (nextCompetitors != null)
             {
+                var gameHistoryEntry = new GameHistoryEntryViewModel()
+                {
+                    GameDescription = _viewModel.Elimination.GetGameDescription(),
+                    History = new List<RoundPartialHistory>()
+                };
+
                 _viewModel.Game.SetupNewGame(nextCompetitors);
 
                 RoundResult result;
@@ -24,10 +31,13 @@ namespace Arena.Commands
                 do
                 {
                     result = _viewModel.Game.PerformNextRound();
-                } while (!result.IsFinished);
+                    gameHistoryEntry.History.AddRange(result.History);
+                }
+                while (!result.IsFinished);
 
                 _viewModel.Elimination.SetLastDuelResult(result.FinalResult);
                 _viewModel.ScoreList.SaveScore(result.FinalResult);
+                _viewModel.GameHistory.Add(gameHistoryEntry);
             }
         }
     }
