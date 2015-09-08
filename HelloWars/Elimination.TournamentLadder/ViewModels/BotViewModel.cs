@@ -1,7 +1,7 @@
 ﻿using Common.Interfaces;
 using Common.Models;
 
-namespace Arena.Eliminations.TournamentLadder.ViewModels
+namespace Elimination.TournamentLadder.ViewModels
 {
     public class BotViewModel : BindableBase
     {

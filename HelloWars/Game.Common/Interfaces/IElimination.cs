@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Windows.Controls;
-using Common.Interfaces;
 
-namespace Arena.Interfaces
+namespace Common.Interfaces
 {
+    [InheritedExport(typeof(IElimination))]
     public interface IElimination
     {
         List<ICompetitor> Bots { get; set; }

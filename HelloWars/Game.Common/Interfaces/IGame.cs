@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Windows.Controls;
 
 namespace Common.Interfaces
 {
+    [InheritedExport(typeof(IGame))]
     public interface IGame
     {
         List<ICompetitor> Competitors { get; }

@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Arena.Commands;
 using Arena.Configuration;
-using Arena.Interfaces;
 using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
@@ -16,12 +16,13 @@ namespace Arena.ViewModels
     public class MainWindowViewModel : BindableBase
     {
         private string _headerText;
-        private ArenaConfiguration _arenaConfiguration;
+        private ArenaConfiguration _arenaConfiguration { get; set; }
         private UserControl _gameTypeControl;
         private UserControl _eliminationTypeControl;
         private string _gameLog;
         private List<ICompetitor> _competitors;
         private ICommand _autoPlayCommand;
+        private ICommand _onLoadedCommand;
 
         public IElimination Elimination { get; set; }
         public IGame Game { get; set; }
@@ -67,20 +68,44 @@ namespace Arena.ViewModels
             get { return _autoPlayCommand ?? (_autoPlayCommand = new AutoPlayCommand(this)); }
         }
 
-        public void Init(ArenaConfiguration arenaConfiguration)
+        public ICommand OnLoadedCommand
+        {
+            get { return _onLoadedCommand ?? (_onLoadedCommand = new CommandBase(OnLoaded())); }
+        }
+
+        public MainWindowViewModel()
         {
             ScoreList = new ScoreList();
             HeaderText = "Hello Wars();";
+        }
+
+        private Predicate<object> OnLoaded()
+        {
+            Elimination = _arenaConfiguration.Elimination;
+            Game = _arenaConfiguration.Game;
+
+            if (Elimination != null)
+            {
+                Elimination.Bots = Competitors;
+                EliminationTypeControl = Elimination.GetVisualization();
+            }
+            if (Game != null)
+            {
+                GameTypeControl = Game.GetVisualisation();
+            }
+
+            return DefaultCanExecute;
+        }
+
+        private static bool DefaultCanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void ReadConfiguration(ArenaConfiguration arenaConfiguration)
+        {
             _arenaConfiguration = arenaConfiguration;
-            Elimination = arenaConfiguration.Elimination;
-            var gameType = TypeHelper<IGame>.GetGameType(arenaConfiguration.GameType);
-            Game = TypeHelper<IGame>.CreateInstance(gameType);
-
             AskForCompetitors(arenaConfiguration.GameType);
-
-            Elimination.Bots = Competitors;
-            _eliminationTypeControl = Elimination.GetVisualization();
-            _gameTypeControl = Game.GetVisualisation();
         }
 
         private void AskForCompetitors(string gameTypeName)
@@ -89,9 +114,9 @@ namespace Arena.ViewModels
             {
                 var loader = new CompetitorLoadService();
 
-            var competitorsTasks = _arenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitorAsync(botUrl, gameTypeName)).ToList();
+                var competitorsTasks = _arenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitorAsync(botUrl, gameTypeName)).ToList();
 
-            Competitors = (await Task.WhenAll(competitorsTasks)).Where(competitor => competitor != null).ToList();
+                Competitors = (await Task.WhenAll(competitorsTasks)).Where(competitor => competitor != null).ToList();
             }).Wait();
         }
     }
