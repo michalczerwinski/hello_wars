@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Common;
 using Game.TicTacToe.Interfaces;
 using Game.TicTacToe.Models;
 using Game.TicTacToe.UserControls;
@@ -74,7 +75,7 @@ namespace Game.TicTacToe
 
                 result.History.Add(PerformNextMove(competitor));
 
-                DelayHelper.Delay(150);
+                DelayHelper.Delay(int.Parse(Resources.TimeBerweenRounds));
 
                 if (IsPlayerWon(competitor))
                 {
@@ -191,14 +192,14 @@ namespace Game.TicTacToe
                 {
                     TicTacToeViewModel.ArrayOfDiagonalLines[0, 0] = Visibility.Visible;
                     player.IsWinner = true;
-                    DelayHelper.Delay(300);
+                    DelayHelper.Delay(int.Parse(Resources.TimeAfterCompleatedDuel));
                     return true;
                 }
                 if (diagonal2 == 3)
                 {
                     TicTacToeViewModel.ArrayOfDiagonalLines[1, 0] = Visibility.Visible;
                     player.IsWinner = true;
-                    DelayHelper.Delay(300);
+                    DelayHelper.Delay(int.Parse(Resources.TimeAfterCompleatedDuel));
                     return true;
                 }
                 for (int j = 0; j < 3; j++)
@@ -207,14 +208,14 @@ namespace Game.TicTacToe
                     {
                         TicTacToeViewModel.ArrayOfHorizontalLines[j, 0] = Visibility.Visible;
                         player.IsWinner = true;
-                        DelayHelper.Delay(300);
+                        DelayHelper.Delay(int.Parse(Resources.TimeAfterCompleatedDuel));
                         return true;
                     }
                     if (yLine[j] == 3)
                     {
                         TicTacToeViewModel.ArrayOfVerticalLines[j, 0] = Visibility.Visible;
                         player.IsWinner = true;
-                        DelayHelper.Delay(300);
+                        DelayHelper.Delay(int.Parse(Resources.TimeAfterCompleatedDuel));
                         return true;
                     }
                 }

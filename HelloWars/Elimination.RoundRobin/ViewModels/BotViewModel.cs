@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common.Interfaces;
 using Common.Models;
 
@@ -11,6 +8,7 @@ namespace Elimination.RoundRobin.ViewModels
     public class BotViewModel : BindableBase
     {
         private ICompetitor _competitor;
+        public HashSet<Guid> PlayAgainstId;
         private int _wins;
         private int _loses;
 
@@ -37,6 +35,7 @@ namespace Elimination.RoundRobin.ViewModels
             Competitor = competitor;
             Wins = 0;
             Loses = 0;
+            PlayAgainstId = new HashSet<Guid>();
         }
     }
 }

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using Common.Interfaces;
 using Elimination.RoundRobin.UserControls;
@@ -14,43 +11,45 @@ namespace Elimination.RoundRobin
     {
         public List<ICompetitor> Bots { get; set; }
         private RoundRobinViewModel _viewModel;
-        private Stack<Tuple<ICompetitor, ICompetitor>> _duelPairs;
 
         public UserControl GetVisualization()
         {
             _viewModel = new RoundRobinViewModel(Bots);
-            CreateDualPairs();
             return new RoundRobinUserControl(_viewModel);
-        }
-
-        private void CreateDualPairs()
-        {
-            _duelPairs = new Stack<Tuple<ICompetitor, ICompetitor>>();
-
-            foreach (var bot1 in _viewModel.Bots)
-            {
-                foreach (var bot2 in _viewModel.Bots)
-                {
-                    if (bot1 != bot2)
-                    {
-                        var tuple = new Tuple<ICompetitor, ICompetitor>(bot1.Competitor, bot2.Competitor);
-                        _duelPairs.Push(tuple);
-                    }
-                }
-            }
         }
 
         public IList<ICompetitor> GetNextCompetitors()
         {
             var result = new List<ICompetitor>();
-
-            if (_duelPairs.Count != 0)
+            if (_viewModel.NumberOfRepeat < 0)
             {
-                var duelPair = _duelPairs.Pop();
-                result.Add(duelPair.Item1);
-                result.Add(duelPair.Item2);
-                return result;
+                _viewModel.NumberOfRepeat = 0;
+                return null;
             }
+
+            do
+            {
+                foreach (var bot1 in Bots)
+                {
+                    var bot1ViewModel = ReturnWrappedBot(bot1);
+
+                    foreach (var bot2 in Bots.Where(bot2 => (bot1.Id != bot2.Id) && !bot1ViewModel.PlayAgainstId.Contains(bot2.Id)))
+                    {
+                        result.Add(bot1);
+                        result.Add(bot2);
+                        return result;
+                    }
+                }
+
+                _viewModel.NumberOfRepeat--;
+
+                foreach (var bot in Bots)
+                {
+                    ReturnWrappedBot(bot).PlayAgainstId.Clear();
+                }
+
+            } while (_viewModel.NumberOfRepeat > 0);
+
             return null;
         }
 
@@ -58,18 +57,27 @@ namespace Elimination.RoundRobin
         {
             if (resultDictionary != null)
             {
-                foreach (var singleResult in resultDictionary)
+                foreach (var resultFirstBot in resultDictionary)
                 {
-                    var botViewModel = ReturnWrappedBot(singleResult.Key);
+                    var botViewModel1 = ReturnWrappedBot(resultFirstBot.Key);
 
-                    if ((int)singleResult.Value == 1)
+                    if ((int)resultFirstBot.Value == 1)
                     {
-                        botViewModel.Wins++;
+                        botViewModel1.Wins++;
                     }
 
-                    if ((int)singleResult.Value == 0)
+                    if ((int)resultFirstBot.Value == 0)
                     {
-                        botViewModel.Loses++;
+                        botViewModel1.Loses++;
+                    }
+
+                    var collection = resultDictionary.Where(f => f.Key.Id != resultFirstBot.Key.Id);
+                    foreach (var resultSecondBot in collection)
+                    {
+                        var botViewModel2 = ReturnWrappedBot(resultSecondBot.Key);
+
+                        botViewModel1.PlayAgainstId.Add(resultSecondBot.Key.Id);
+                        botViewModel2.PlayAgainstId.Add(resultFirstBot.Key.Id);
                     }
                 }
             }
