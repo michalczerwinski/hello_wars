@@ -23,7 +23,7 @@ namespace SampleWebBotClient.Controllers
             {
                 Name = Names[_rand.Next(Names.Length)],
                 AvatarUrl = "http://localhost:53886/Content/BotImg.png",
-                GameType = "TicTacToe"
+                GameType = "CubeClash"
             };
 
             return bot;

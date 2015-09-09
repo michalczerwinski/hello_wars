@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elimination.TournamentLadde
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elimination.RoundRobin", "Elimination.RoundRobin\Elimination.RoundRobin.csproj", "{7E34827F-DD0B-42D7-8766-5C4D06A6D652}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.CubeClash", "Game.CubeClash\Game.CubeClash.csproj", "{559C3C3A-F7CB-4F67-8800-D5C8ECED9E08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{7E34827F-DD0B-42D7-8766-5C4D06A6D652}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E34827F-DD0B-42D7-8766-5C4D06A6D652}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E34827F-DD0B-42D7-8766-5C4D06A6D652}.Release|Any CPU.Build.0 = Release|Any CPU
+		{559C3C3A-F7CB-4F67-8800-D5C8ECED9E08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{559C3C3A-F7CB-4F67-8800-D5C8ECED9E08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{559C3C3A-F7CB-4F67-8800-D5C8ECED9E08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{559C3C3A-F7CB-4F67-8800-D5C8ECED9E08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,5 +61,6 @@ Global
 		{EE3BBF9D-A0BF-4F11-91BC-21A5B5099730} = {D0E63415-844A-413F-9A67-05F602EB2B10}
 		{5963818B-9CFD-4F59-88E0-15E0DFE36315} = {D0E63415-844A-413F-9A67-05F602EB2B10}
 		{7E34827F-DD0B-42D7-8766-5C4D06A6D652} = {D0E63415-844A-413F-9A67-05F602EB2B10}
+		{559C3C3A-F7CB-4F67-8800-D5C8ECED9E08} = {D0E63415-844A-413F-9A67-05F602EB2B10}
 	EndGlobalSection
 EndGlobal

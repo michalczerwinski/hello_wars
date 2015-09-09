@@ -2,7 +2,7 @@
 
 <ArenaConfiguration>
   <EliminationType>RoundRobin</EliminationType>
-  <GameType>TicTacToe</GameType>
+  <GameType>CubeClash</GameType>
   <BotUrls>
     <Url>http://localhost:53886/SampleBot/</Url>
     <Url>http://localhost:53886/SampleBot/</Url>

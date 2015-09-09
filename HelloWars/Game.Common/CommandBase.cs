@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Arena.Commands
+namespace Common
 {
     public class CommandBase : ICommand
     {

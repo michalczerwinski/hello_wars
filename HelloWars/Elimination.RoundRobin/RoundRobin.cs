@@ -80,7 +80,6 @@ namespace Elimination.RoundRobin
             return _viewModel.Bots.FirstOrDefault(bot => bot.Competitor.Id == competitor.Id);
         }
 
-
         public string GetGameDescription()
         {
             return "Round-Robin Elimination";

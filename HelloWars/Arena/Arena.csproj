@@ -62,7 +62,6 @@
     </ApplicationDefinition>
     <Compile Include="Annotations.cs" />
     <Compile Include="Commands\AutoPlayCommand.cs" />
-    <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\PlayDuelCommand.cs" />
     <Compile Include="Configuration\ArenaConfiguration.cs" />
     <Compile Include="ViewModels\GameHistoryEntryViewModel.cs" />

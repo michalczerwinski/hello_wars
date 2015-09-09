@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Arena.ViewModels;
+using Common;
 using Common.Models;
 
 namespace Arena.Commands

@@ -15,8 +15,6 @@ namespace Elimination.RoundRobin.ViewModels
             Bots = WrapBots(competitors);
         }
 
-
-
         private List<BotViewModel> WrapBots(List<ICompetitor> bots)
         {
             var result = new List<BotViewModel>();
