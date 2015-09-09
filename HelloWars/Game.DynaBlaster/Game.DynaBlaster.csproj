@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A40D2185-D837-4773-8DD7-3830F0C9E3FF}</ProjectGuid>
+    <ProjectGuid>{8EB50EEF-B103-4A14-B5B1-2DAC34268D0F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Common</RootNamespace>
-    <AssemblyName>Common</AssemblyName>
+    <RootNamespace>Game.DynaBlaster</RootNamespace>
+    <AssemblyName>Game.DynaBlaster</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,18 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.ComponentModel.Composition.CodePlex">
-      <HintPath>..\..\..\System.ComponentModel.Composition.CodePlex.dll</HintPath>
-    </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,43 +45,27 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Converters\BoolToOpacityConverter.cs" />
-    <Compile Include="Helpers\CompetitorLoadService.cs" />
-    <Compile Include="Helpers\DelayHelper.cs" />
-    <Compile Include="Helpers\JsonHelper.cs" />
-    <Compile Include="Helpers\WebClientHelper.cs" />
-    <Compile Include="Interfaces\IBotClient.cs" />
-    <Compile Include="Interfaces\ICompetitor.cs" />
-    <Compile Include="Interfaces\IElimination.cs" />
-    <Compile Include="Interfaces\IGame.cs" />
-    <Compile Include="Models\BindableBase.cs" />
-    <Compile Include="Models\BotClientBase.cs" />
-    <Compile Include="Models\Competitor.cs" />
-    <Compile Include="Models\CompetitorInfo.cs" />
-    <Compile Include="Models\RoundPartialHistory.cs" />
-    <Compile Include="Models\RoundResult.cs" />
+    <Compile Include="Converters\BoardViewConverter.cs" />
+    <Compile Include="DynaBlaster.cs" />
+    <Compile Include="Models\DynaBlasterControlViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
+    <Compile Include="UserControls\DynaBlasterUserControl.xaml.cs">
+      <DependentUpon>DynaBlasterUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Serialization\XmlSerializer.cs" />
-    <Compile Include="Utilities\BindableArray.cs" />
-    <Compile Include="Utilities\Score.cs" />
-    <Compile Include="Utilities\ScoreList.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <ProjectReference Include="..\Game.Common\Common.csproj">
+      <Project>{A40D2185-D837-4773-8DD7-3830F0C9E3FF}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Page Include="UserControls\DynaBlasterUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

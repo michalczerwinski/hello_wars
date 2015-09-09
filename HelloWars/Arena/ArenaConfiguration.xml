@@ -2,7 +2,7 @@
 
 <ArenaConfiguration>
   <EliminationType>TournamentLadder</EliminationType>
-  <GameType>TicTacToe</GameType>
+  <GameType>DynaBlaster</GameType>
   <BotUrls>
     <Url>http://localhost:53886/SampleBot/</Url>
     <Url>http://localhost:53886/SampleBot/</Url>
