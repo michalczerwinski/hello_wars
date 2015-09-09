@@ -123,4 +123,10 @@
   <data name="PerformNextMoveUrlSuffix" xml:space="preserve">
     <value>PerformNextMove</value>
   </data>
+  <data name="TimeAfterCompleatedDuel" xml:space="preserve">
+    <value>400</value>
+  </data>
+  <data name="TimeBerweenRounds" xml:space="preserve">
+    <value>200</value>
+  </data>
 </root>
