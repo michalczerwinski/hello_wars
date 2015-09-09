@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Common;
 using Game.TicTacToe.Interfaces;
 using Game.TicTacToe.Models;
 using Game.TicTacToe.UserControls;
@@ -21,14 +20,16 @@ namespace Game.TicTacToe
         private ITicTacToeBot _player2 { get { return _competitors[1]; } }
         private List<ITicTacToeBot> _competitors;
         protected TicTacToeViewModel TicTacToeViewModel;
+        private IConfigurable _configuration;
 
         public TicTacToe()
         {
             Reset();
         }
 
-        public UserControl GetVisualisationUserControl()
+        public UserControl GetVisualisationUserControl(IConfigurable configuration)
         {
+            _configuration = configuration;
             TicTacToeViewModel = new TicTacToeViewModel();
             return new TicTacToeUserControl(TicTacToeViewModel);
         }
@@ -75,7 +76,7 @@ namespace Game.TicTacToe
 
                 result.History.Add(PerformNextMove(competitor));
 
-                DelayHelper.Delay(int.Parse(Resources.TimeBerweenRounds));
+                DelayHelper.Delay(_configuration.NextMoveDelay);
 
                 if (IsPlayerWon(competitor))
                 {
@@ -192,14 +193,14 @@ namespace Game.TicTacToe
                 {
                     TicTacToeViewModel.ArrayOfDiagonalLines[0, 0] = Visibility.Visible;
                     player.IsWinner = true;
-                    DelayHelper.Delay(int.Parse(Resources.TimeAfterCompleatedDuel));
+                    DelayHelper.Delay(_configuration.NextMatchDelay);
                     return true;
                 }
                 if (diagonal2 == 3)
                 {
                     TicTacToeViewModel.ArrayOfDiagonalLines[1, 0] = Visibility.Visible;
                     player.IsWinner = true;
-                    DelayHelper.Delay(int.Parse(Resources.TimeAfterCompleatedDuel));
+                    DelayHelper.Delay(_configuration.NextMatchDelay);
                     return true;
                 }
                 for (int j = 0; j < 3; j++)
@@ -208,14 +209,14 @@ namespace Game.TicTacToe
                     {
                         TicTacToeViewModel.ArrayOfHorizontalLines[j, 0] = Visibility.Visible;
                         player.IsWinner = true;
-                        DelayHelper.Delay(int.Parse(Resources.TimeAfterCompleatedDuel));
+                        DelayHelper.Delay(_configuration.NextMatchDelay);
                         return true;
                     }
                     if (yLine[j] == 3)
                     {
                         TicTacToeViewModel.ArrayOfVerticalLines[j, 0] = Visibility.Visible;
                         player.IsWinner = true;
-                        DelayHelper.Delay(int.Parse(Resources.TimeAfterCompleatedDuel));
+                        DelayHelper.Delay(_configuration.NextMatchDelay);
                         return true;
                     }
                 }
@@ -256,6 +257,12 @@ namespace Game.TicTacToe
 
             TicTacToeViewModel.ArrayOfDiagonalLines[0, 0] = Visibility.Collapsed;
             TicTacToeViewModel.ArrayOfDiagonalLines[1, 0] = Visibility.Collapsed;
+        }
+
+
+        public UserControl GetVisualisationUserControl()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -88,11 +88,11 @@ namespace Arena.ViewModels
             if (Elimination != null)
             {
                 Elimination.Bots = Competitors;
-                EliminationTypeControl = Elimination.GetVisualization();
+                EliminationTypeControl = Elimination.GetVisualization(_arenaConfiguration.EliminationConfiguration);
             }
             if (Game != null)
             {
-                GameTypeControl = Game.GetVisualisationUserControl();
+                GameTypeControl = Game.GetVisualisationUserControl(_arenaConfiguration.GameConfiguration);
             }
 
             return DefaultCanExecute;
@@ -106,7 +106,7 @@ namespace Arena.ViewModels
         public void ReadConfiguration(ArenaConfiguration arenaConfiguration)
         {
             _arenaConfiguration = arenaConfiguration;
-            AskForCompetitors(arenaConfiguration.GameType);
+            AskForCompetitors(arenaConfiguration.GameConfiguration.Type);
         }
 
         private void AskForCompetitors(string gameTypeName)

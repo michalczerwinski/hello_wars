@@ -1,10 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <ArenaConfiguration>
-  <EliminationType>RoundRobin</EliminationType>
-  <GameType>TicTacToe</GameType>
+  <EliminationConfiguration>
+    <Type>TournamentLadder</Type>
+  </EliminationConfiguration>
+
+  <GameConfiguration>
+    <Type>TicTacToe</Type>
+    <NextMoveDelay>500</NextMoveDelay>
+    <NextMatchDelay>400</NextMatchDelay>
+  </GameConfiguration>
+
   <BotUrls>
-    <Url>http://localhost:53886/SampleBot/</Url>
-    <Url>http://localhost:53886/SampleBot/</Url>
+    <Url>http://localhost:53886/TicTacToeBot/</Url>
+    <Url>http://localhost:53886/TicTacToeBot/</Url>
+    <Url>http://localhost:53886/TicTacToeBot/</Url>
+    <Url>http://localhost:53886/TicTacToeBot/</Url>
   </BotUrls>
 </ArenaConfiguration>

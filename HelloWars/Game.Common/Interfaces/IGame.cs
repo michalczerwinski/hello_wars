@@ -9,7 +9,7 @@ namespace Common.Interfaces
     public interface IGame
     {
         RoundResult PerformNextRound();
-        UserControl GetVisualisationUserControl();
+        UserControl GetVisualisationUserControl(IConfigurable configuration);
         void SetupNewGame(IEnumerable<ICompetitor> competitors);
         void Reset();
         void SetPreview(object boardState);

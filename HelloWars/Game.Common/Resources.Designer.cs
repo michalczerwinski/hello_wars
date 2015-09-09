@@ -77,23 +77,5 @@ namespace Common {
                 return ResourceManager.GetString("PerformNextMoveUrlSuffix", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 400.
-        /// </summary>
-        public static string TimeAfterCompleatedDuel {
-            get {
-                return ResourceManager.GetString("TimeAfterCompleatedDuel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 200.
-        /// </summary>
-        public static string TimeBerweenRounds {
-            get {
-                return ResourceManager.GetString("TimeBerweenRounds", resourceCulture);
-            }
-        }
     }
 }
