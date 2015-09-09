@@ -11,7 +11,6 @@ using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
 using Common.Utilities;
-using Game.TicTacToe;
 
 namespace Arena.ViewModels
 {

@@ -6,15 +6,27 @@
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="200">
 
-    <Grid ShowGridLines="True">
-        <ListView ItemsSource="{Binding Bots}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Competitor" Width="100" DisplayMemberBinding="{Binding Competitor.Name}"/>
-                    <GridViewColumn Header="Wins" Width="50" DisplayMemberBinding="{Binding Wins}"/>
-                    <GridViewColumn Header="Loses" Width="50" DisplayMemberBinding="{Binding Loses}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Repeat: " Background="Transparent" FontWeight="Bold"/>
+            <TextBox Width="40" Text="{Binding NumberOfRepeat, Mode=TwoWay}" HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1" ShowGridLines="True">
+            <ListView ItemsSource="{Binding Bots}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Competitor" Width="100" DisplayMemberBinding="{Binding Competitor.Name}"/>
+                        <GridViewColumn Header="Wins" Width="50" DisplayMemberBinding="{Binding Wins}"/>
+                        <GridViewColumn Header="Loses" Width="50" DisplayMemberBinding="{Binding Loses}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
     </Grid>
 </UserControl>

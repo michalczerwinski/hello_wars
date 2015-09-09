@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Common.Interfaces;
 using Common.Models;
 
@@ -6,6 +7,8 @@ namespace Elimination.RoundRobin.ViewModels
 {
     public class RoundRobinViewModel : BindableBase
     {
+        private int _numberOfRepeat;
+        private bool _clearScoreBoard;
         public List<BotViewModel> Bots { get; set; }
         public List<ICompetitor> Competitors { get; set; }
 
@@ -13,20 +16,24 @@ namespace Elimination.RoundRobin.ViewModels
         {
             Competitors = competitors;
             Bots = WrapBots(competitors);
+            NumberOfRepeat = 1;
         }
 
-
-
-        private List<BotViewModel> WrapBots(List<ICompetitor> bots)
+        public int NumberOfRepeat
         {
-            var result = new List<BotViewModel>();
-            foreach (var bot in bots)
-            {
-                var newBot = new BotViewModel(bot);
-                result.Add(newBot);
-            }
+            get { return _numberOfRepeat; }
+            set { SetProperty(ref _numberOfRepeat, value); }
+        }
 
-            return result;
+        public bool ClearScoreBoard
+        {
+            get { return _clearScoreBoard; }
+            set { SetProperty(ref _clearScoreBoard, value); }
+        }
+
+        private List<BotViewModel> WrapBots(IEnumerable<ICompetitor> bots)
+        {
+            return bots.Select(bot => new BotViewModel(bot)).ToList();
         }
     }
 }
