@@ -43,14 +43,14 @@
             <Grid x:Name="Grid1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="1" />
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
 
                 <TabControl Background="DimGray" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <TabItem Header="Game" MaxWidth="100">
                         <Viewbox VerticalAlignment="Top">
-                            <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}"
-                                         HorizontalAlignment="Center" />
+                            <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}" HorizontalAlignment="Center" />
                         </Viewbox>
                     </TabItem>
                     <TabItem Header="History" MaxWidth="100" >
@@ -66,9 +66,11 @@
                         </TreeView>
                     </TabItem>
                 </TabControl>
-
-                <Viewbox Grid.Column="1" VerticalAlignment="Top">
-                    <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}" HorizontalAlignment="Center" />
+                
+                <GridSplitter Grid.Column="1" Width="25" HorizontalAlignment="Stretch" />
+                
+                <Viewbox Grid.Column="2" VerticalAlignment="Top">
+                    <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                 </Viewbox>
             </Grid>
         </ScrollViewer>
