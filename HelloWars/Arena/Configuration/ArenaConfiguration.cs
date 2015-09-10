@@ -3,17 +3,19 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Xml.Serialization;
 using Common.Interfaces;
+using Common.Models;
 
 namespace Arena.Configuration
 {
     [XmlRoot(ElementName = "ArenaConfiguration")]
     public class ArenaConfiguration
     {
-        public string EliminationType { get; set; }
-        public string GameType { get; set; }
-
         [XmlArrayItem(ElementName = "Url")]
         public List<string> BotUrls { get; set; }
+        
+        public GameConfiguration GameConfiguration { get; set; }
+
+        public EliminationConfiguration EliminationConfiguration { get; set; }
 
         [XmlIgnore]
         [ImportMany((typeof(IGame)))]
@@ -28,7 +30,7 @@ namespace Arena.Configuration
         {
             get
             {
-                return GamePlugins.FirstOrDefault(f => (f.GetType().Name == GameType));
+                return GamePlugins.FirstOrDefault(f => (f.GetType().Name == GameConfiguration.Type));
             }
         }
 
@@ -37,7 +39,7 @@ namespace Arena.Configuration
         {
             get
             {
-                return EliminationPlugins.FirstOrDefault(f => (f.GetType().Name == EliminationType));
+                return EliminationPlugins.FirstOrDefault(f => (f.GetType().Name == EliminationConfiguration.Type));
             }
         }
     }

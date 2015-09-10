@@ -5,7 +5,7 @@ using SampleWebBotClient.Models;
 
 namespace SampleWebBotClient.Controllers
 {
-    public class SampleBotController : ApiController
+    public class TicTacToeBotController : ApiController
     {
         private readonly Random _rand = new Random(DateTime.Now.Millisecond);
 
