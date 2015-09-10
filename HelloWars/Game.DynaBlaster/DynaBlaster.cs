@@ -44,7 +44,7 @@ namespace Game.DynaBlaster
 
             foreach (var dynaBlasterBot in _arena.Bots)
             {
-                var move = dynaBlasterBot.NextMove(null);
+                var move = dynaBlasterBot.NextMove(GetBotArenaInfo(dynaBlasterBot));
                 if (IsMoveValid(dynaBlasterBot, move))
                 {
                     PerformMove(dynaBlasterBot, move);
@@ -167,21 +167,41 @@ namespace Game.DynaBlaster
         private void SetExplosion(Point location)
         {
             _arena.Explosions.Add(location);
+            foreach (var explosionLocation in GetExplosionLocations(location))
+            {
+                _arena.Board[explosionLocation.X, explosionLocation.Y] = false;
+            }
+        }
+
+        private IEnumerable<Point> GetExplosionLocations(Point centerLocation)
+        {
             for (int i = 1; i <= _explosionRadius; i++)
             {
                 var locations = new[]
                 {
-                    new Point(location.X, location.Y + i),
-                    new Point(location.X, location.Y - i),
-                    new Point(location.X + i, location.Y),
-                    new Point(location.X - i, location.Y)
+                    new Point(centerLocation.X, centerLocation.Y + i),
+                    new Point(centerLocation.X, centerLocation.Y - i),
+                    new Point(centerLocation.X + i, centerLocation.Y),
+                    new Point(centerLocation.X - i, centerLocation.Y)
                 };
 
                 foreach (var point in locations.Where(IsLocationValid))
                 {
-                    _arena.Board[point.X, point.Y] = false;
+                    yield return point;
                 }
             }
+        }
+
+        private BotArenaInfo GetBotArenaInfo(DynaBlasterBot bot)
+        {
+            return new BotArenaInfo()
+            {
+                Board = _arena.Board,
+                Bombs = _arena.Bombs,
+                Explosions = _arena.Explosions.SelectMany(GetExplosionLocations).ToList(),
+                BotLocation = bot.Location,
+                OponentLocations = _arena.Bots.Where(blasterBot => blasterBot.Id != bot.Id && !blasterBot.IsDead).Select(blasterBot => blasterBot.Location).ToList()
+            };
         }
     }
 }

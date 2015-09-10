@@ -13,6 +13,7 @@ namespace Game.DynaBlaster.UserControls
         public void Init(int xSize, int ySize)
         {
             SetValue(ShowGridLinesProperty, true);
+
             for (int i = 0; i < xSize; i++)
             {
                 ColumnDefinitions.Add(new ColumnDefinition());
@@ -21,22 +22,6 @@ namespace Game.DynaBlaster.UserControls
             for (int i = 0; i < ySize; i++)
             {
                 RowDefinitions.Add(new RowDefinition());
-            }
-        }
-
-        public void SetElement(UIElement element, int x, int y)
-        {
-            ClearElements(x, y);
-            AddElement(element,x,y);
-        }
-
-        public void ClearElements(int x, int y)
-        {
-            var elements = Children.OfType<UIElement>().Where(uiElement => (int)uiElement.GetValue(ColumnProperty) == x && (int)uiElement.GetValue(RowProperty) == y);
-            var uiElements = elements.ToList();
-            if (uiElements.Any())
-            {
-                uiElements.ToList().ForEach(element => Children.Remove(element));
             }
         }
 

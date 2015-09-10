@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Game.DynaBlaster.Models
+namespace SampleWebBotClient.Models.DynaBlaster
 {
     public class Bomb
     {

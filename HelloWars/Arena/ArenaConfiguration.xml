@@ -4,13 +4,15 @@
   <EliminationType>TournamentLadder</EliminationType>
   <GameType>DynaBlaster</GameType>
   <BotUrls>
-    <Url>http://localhost:53886/SampleBot/</Url>
-    <Url>http://localhost:53886/SampleBot/</Url>
-    <Url>http://localhost:53886/SampleBot/</Url>
-    <Url>http://localhost:53886/SampleBot/</Url>
-    <Url>http://localhost:53886/SampleBot/</Url>
-    <Url>http://localhost:53886/SampleBot/</Url>
-    <Url>http://localhost:53886/SampleBot/</Url>
-    <Url>http://localhost:53886/SampleBot/</Url>
+<!--    <Url>http://localhost:53886/SampleBot/</Url>-->
+<!--    <Url>http://localhost:53886/SampleBot/</Url>-->
+<!--    <Url>http://localhost:53886/SampleBot/</Url>-->
+<!--    <Url>http://localhost:53886/SampleBot/</Url>-->
+<!--    <Url>http://localhost:53886/SampleBot/</Url>-->
+<!--    <Url>http://localhost:53886/SampleBot/</Url>-->
+<!--    <Url>http://localhost:53886/SampleBot/</Url>-->
+<!--    <Url>http://localhost:53886/SampleBot/</Url>-->
+      <Url>http://localhost:53886/DynaBlasterBot/</Url>
+      <Url>http://localhost:53886/DynaBlasterBot/</Url>
   </BotUrls>
 </ArenaConfiguration>

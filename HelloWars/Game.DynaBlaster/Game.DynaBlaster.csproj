@@ -50,7 +50,7 @@
     <Compile Include="Models\BotMove.cs" />
     <Compile Include="Models\DynaBlasterBot.cs" />
     <Compile Include="Models\GameArena.cs" />
-    <Compile Include="Models\GameState.cs" />
+    <Compile Include="Models\BotArenaInfo.cs" />
     <Compile Include="Models\MoveDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserControls\DynaBlasterGridControl.cs" />

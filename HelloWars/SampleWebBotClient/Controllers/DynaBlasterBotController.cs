@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Drawing;
 using System.Web.Http;
 using SampleWebBotClient.Helpers;
 using SampleWebBotClient.Models;
+using SampleWebBotClient.Models.DynaBlaster;
 
 namespace SampleWebBotClient.Controllers
 {
-    public class SampleBotController : ApiController
+    public class DynaBlasterBotController : ApiController
     {
-        private readonly Random _rand = new Random(DateTime.Now.Millisecond);
+        private static readonly Random _rand = new Random(DateTime.Now.Millisecond);
 
         [HttpGet]
         public BotInfo Info()
@@ -24,17 +24,13 @@ namespace SampleWebBotClient.Controllers
         }
 
         [HttpPost]
-        public Point PerformNextMove(TicTacToeBoardFieldType[,] board)
+        public BotMove PerformNextMove(BotArenaInfo arenaInfo)
         {
-            var point = new Point();
-            do
+            return new BotMove()
             {
-                point.X = _rand.Next(0, 3);
-                point.Y = _rand.Next(0, 3);
-            }
-            while (board[point.X, point.Y] != TicTacToeBoardFieldType.Empty);
-
-            return point;
+                Direction = (MoveDirection)_rand.Next(4),
+                ShouldDropBomb = _rand.Next(7) == 0
+            };
         }
     }
 }

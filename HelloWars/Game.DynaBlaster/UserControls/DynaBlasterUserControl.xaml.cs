@@ -30,7 +30,6 @@ namespace Game.DynaBlaster.UserControls
         public DynaBlasterUserControl(GameArena arena)
         {
             InitializeComponent();
-            DataContext = arena;
             _arena = arena;
 
             BoardGrid = new DynaBlasterGridControl();
@@ -38,53 +37,24 @@ namespace Game.DynaBlaster.UserControls
             
             AddChild(BoardGrid);
 
-            arena.BoardChanged += OnBoardChange;
+            arena.ArenaChanged += OnArenaChange;
         }
 
-        public void OnBoardChange(object sender, EventArgs args)
+        public void OnArenaChange(object sender, EventArgs args)
         {
             BoardGrid.Children.Clear();
 
-            for (int i = 0; i < _arena.Board.GetLength(0); i++)
-            {
-                for (int j = 0; j < _arena.Board.GetLength(0); j++)
-                {
-                    if (_arena.Board[i, j])
-                    {
-                        var elementToAdd = new Rectangle()
-                        {
-                            Fill = new SolidColorBrush(Colors.SaddleBrown)
-                        };
-                        BoardGrid.AddElement(elementToAdd, i, j);
-                    }
-                }
-            }
+            DisplayBoard();
 
-            foreach (var bot in _arena.Bots)
-            {
-                var elementToAdd = new Ellipse
-                {
-                    Fill = new SolidColorBrush(bot.Color)
-                };
-                BoardGrid.AddElement(elementToAdd, bot.Location.X, bot.Location.Y);
-            }
+            DisplayBots();
 
-            foreach (var bomb in _arena.Bombs)
-            {
-                var elementToAdd = new Ellipse
-                {
-                    Width = 10,
-                    Height = 10,
-                    Fill = new SolidColorBrush(Colors.Black)
-                };
-                var textToAdd = new TextBlock()
-                {
-                    Text = bomb.RoundsUntilExplodes.ToString()
-                };
-                BoardGrid.AddElement(elementToAdd, bomb.Location.X, bomb.Location.Y);
-                BoardGrid.AddElement(textToAdd, bomb.Location.X, bomb.Location.Y);
-            }
+            DisplayBombs();
 
+            DisplayExplosions();
+        }
+
+        private void DisplayExplosions()
+        {
             foreach (var explosion in _arena.Explosions)
             {
                 var xRayLocation = new Point(explosion.X - 2, explosion.Y);
@@ -120,9 +90,55 @@ namespace Game.DynaBlaster.UserControls
                 BoardGrid.AddElement(xExplosion, xRayLocation.X, xRayLocation.Y);
                 BoardGrid.AddElement(yExplosion, yRayLocation.X, yRayLocation.Y);
             }
-
         }
 
+        private void DisplayBombs()
+        {
+            foreach (var bomb in _arena.Bombs)
+            {
+                var elementToAdd = new Ellipse
+                {
+                    Width = 10,
+                    Height = 10,
+                    Fill = new SolidColorBrush(Colors.Black)
+                };
+                var textToAdd = new TextBlock()
+                {
+                    Text = bomb.RoundsUntilExplodes.ToString()
+                };
+                BoardGrid.AddElement(elementToAdd, bomb.Location.X, bomb.Location.Y);
+                BoardGrid.AddElement(textToAdd, bomb.Location.X, bomb.Location.Y);
+            }
+        }
 
+        private void DisplayBots()
+        {
+            foreach (var bot in _arena.Bots)
+            {
+                var elementToAdd = new Ellipse
+                {
+                    Fill = new SolidColorBrush(bot.Color)
+                };
+                BoardGrid.AddElement(elementToAdd, bot.Location.X, bot.Location.Y);
+            }
+        }
+
+        private void DisplayBoard()
+        {
+            for (int i = 0; i < _arena.Board.GetLength(0); i++)
+            {
+                for (int j = 0; j < _arena.Board.GetLength(0); j++)
+                {
+                    if (_arena.Board[i, j])
+                    {
+                        var elementToAdd = new Rectangle()
+                        {
+                            Fill = new SolidColorBrush(Colors.SaddleBrown)
+                        };
+                        BoardGrid.AddElement(elementToAdd, i, j);
+                    }
+                }
+            }
+        }
     }
 }

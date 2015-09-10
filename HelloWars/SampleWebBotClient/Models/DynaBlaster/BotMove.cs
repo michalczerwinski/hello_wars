@@ -1,4 +1,4 @@
-﻿namespace Game.DynaBlaster.Models
+﻿namespace SampleWebBotClient.Models.DynaBlaster
 {
     public class BotMove
     {
