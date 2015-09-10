@@ -6,7 +6,7 @@ using SampleWebBotClient.Models;
 
 namespace SampleWebBotClient.Controllers
 {
-    public class SampleBotController : ApiController
+    public class TicTacToeBotController : ApiController
     {
         private readonly Random _rand = new Random(DateTime.Now.Millisecond);
 
@@ -17,7 +17,7 @@ namespace SampleWebBotClient.Controllers
             {
                 Name = NameHelper.GetRandomName(),
                 AvatarUrl = "http://localhost:53886/Content/BotImg.png",
-                GameType = "DynaBlaster"
+                GameType = "TicTacToe"
             };
 
             return bot;

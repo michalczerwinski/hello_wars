@@ -56,12 +56,15 @@
     <Compile Include="Helpers\WebClientHelper.cs" />
     <Compile Include="Interfaces\IBotClient.cs" />
     <Compile Include="Interfaces\ICompetitor.cs" />
+    <Compile Include="Interfaces\IConfigurable.cs" />
     <Compile Include="Interfaces\IElimination.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Models\BindableBase.cs" />
     <Compile Include="Models\BotClientBase.cs" />
     <Compile Include="Models\Competitor.cs" />
     <Compile Include="Models\CompetitorInfo.cs" />
+    <Compile Include="Models\EliminationConfiguration.cs" />
+    <Compile Include="Models\GameConfiguration.cs" />
     <Compile Include="Models\RoundPartialHistory.cs" />
     <Compile Include="Models\RoundResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 using Common.Interfaces;
+using Common.Models;
 using Elimination.TournamentLadder.UserControls;
 using Elimination.TournamentLadder.ViewModels;
 
@@ -13,7 +14,7 @@ namespace Elimination.TournamentLadder
         private TournamentLadderViewModel _tournamentLadderViewModel;
         public List<ICompetitor> Bots { get; set; }
 
-        public UserControl GetVisualization()
+        public UserControl GetVisualization(IConfigurable configuration)
         {
             if (Bots != null)
             {

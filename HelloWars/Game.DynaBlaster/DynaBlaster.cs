@@ -16,6 +16,7 @@ namespace Game.DynaBlaster
     {
         private readonly Random _rand = new Random(DateTime.Now.Millisecond);
         private static int _explosionRadius = 2;
+        private static int _delayTime;
         private GameArena _arena;
         private int roundNumber;
 
@@ -39,8 +40,8 @@ namespace Game.DynaBlaster
 
             _arena.Bombs.RemoveAll(bomb => bomb.RoundsUntilExplodes == 0);
 
-            DelayHelper.Delay(300);
-            _arena.OnBoardChanged();
+            DelayHelper.Delay(_delayTime);
+            _arena.OnArenaChanged();
 
             foreach (var dynaBlasterBot in _arena.Bots)
             {
@@ -48,9 +49,9 @@ namespace Game.DynaBlaster
                 if (IsMoveValid(dynaBlasterBot, move))
                 {
                     PerformMove(dynaBlasterBot, move);
-                    _arena.OnBoardChanged();
+                    _arena.OnArenaChanged();
                 }
-                DelayHelper.Delay(300);
+                DelayHelper.Delay(_delayTime);
             }
             roundNumber++;
 
@@ -62,8 +63,9 @@ namespace Game.DynaBlaster
             };
         }
 
-        public UserControl GetVisualisationUserControl()
+        public UserControl GetVisualisationUserControl(IConfigurable configurable)
         {
+            _delayTime = configurable.NextMoveDelay;
             return new DynaBlasterUserControl(_arena ?? (_arena = new GameArena()));
         }
 
@@ -84,19 +86,19 @@ namespace Game.DynaBlaster
             }
 
             _arena.Bots.ForEach(bot => bot.Location = GetRandomEmptyPointOnBoard());
-            _arena.OnBoardChanged();
+            _arena.OnArenaChanged();
         }
 
         public void Reset()
         {
             _arena.Bots.Clear();
             _arena.Board = new bool[15, 15];
-            _arena.OnBoardChanged();
+            _arena.OnArenaChanged();
         }
 
         public void SetPreview(object boardState)
         {
-            _arena.OnBoardChanged();
+            _arena.OnArenaChanged();
         }
 
         private Point GetRandomEmptyPointOnBoard()

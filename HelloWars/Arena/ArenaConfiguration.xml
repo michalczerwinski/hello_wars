@@ -1,18 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <ArenaConfiguration>
-  <EliminationType>TournamentLadder</EliminationType>
-  <GameType>DynaBlaster</GameType>
+  <EliminationConfiguration>
+    <Type>TournamentLadder</Type>
+  </EliminationConfiguration>
+
+  <GameConfiguration>
+    <Type>DynaBlaster</Type>
+    <NextMoveDelay>200</NextMoveDelay>
+    <NextMatchDelay>400</NextMatchDelay>
+  </GameConfiguration>
+
   <BotUrls>
-<!--    <Url>http://localhost:53886/SampleBot/</Url>-->
-<!--    <Url>http://localhost:53886/SampleBot/</Url>-->
-<!--    <Url>http://localhost:53886/SampleBot/</Url>-->
-<!--    <Url>http://localhost:53886/SampleBot/</Url>-->
-<!--    <Url>http://localhost:53886/SampleBot/</Url>-->
-<!--    <Url>http://localhost:53886/SampleBot/</Url>-->
-<!--    <Url>http://localhost:53886/SampleBot/</Url>-->
-<!--    <Url>http://localhost:53886/SampleBot/</Url>-->
-      <Url>http://localhost:53886/DynaBlasterBot/</Url>
-      <Url>http://localhost:53886/DynaBlasterBot/</Url>
+<!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
+<!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
+<!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
+<!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
+    <Url>http://localhost:53886/DynaBlasterBot/</Url>
+    <Url>http://localhost:53886/DynaBlasterBot/</Url>
+    <Url>http://localhost:53886/DynaBlasterBot/</Url>
+    <Url>http://localhost:53886/DynaBlasterBot/</Url>
   </BotUrls>
 </ArenaConfiguration>
