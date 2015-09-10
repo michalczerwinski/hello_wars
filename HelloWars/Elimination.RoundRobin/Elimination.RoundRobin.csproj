@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8EB50EEF-B103-4A14-B5B1-2DAC34268D0F}</ProjectGuid>
+    <ProjectGuid>{7E34827F-DD0B-42D7-8766-5C4D06A6D652}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Game.DynaBlaster</RootNamespace>
-    <AssemblyName>Game.DynaBlaster</AssemblyName>
+    <RootNamespace>Elimination.RoundRobin</RootNamespace>
+    <AssemblyName>Elimination.RoundRobin</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\Arena\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -35,6 +35,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -45,18 +46,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DynaBlaster.cs" />
-    <Compile Include="Models\Bomb.cs" />
-    <Compile Include="Models\BotMove.cs" />
-    <Compile Include="Models\DynaBlasterBot.cs" />
-    <Compile Include="Models\GameArena.cs" />
-    <Compile Include="Models\GameState.cs" />
-    <Compile Include="Models\MoveDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControls\DynaBlasterGridControl.cs" />
-    <Compile Include="UserControls\DynaBlasterUserControl.xaml.cs">
-      <DependentUpon>DynaBlasterUserControl.xaml</DependentUpon>
+    <Compile Include="RoundRobin.cs" />
+    <Compile Include="UserControls\RoundRobinUserControl.xaml.cs">
+      <DependentUpon>RoundRobinUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\BotViewModel.cs" />
+    <Compile Include="ViewModels\RoundRobinViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game.Common\Common.csproj">
@@ -66,7 +62,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Page Include="UserControls\DynaBlasterUserControl.xaml">
+    <Page Include="UserControls\RoundRobinUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
