@@ -12,7 +12,7 @@ namespace Elimination.RoundRobin
         public List<ICompetitor> Bots { get; set; }
         private RoundRobinViewModel _viewModel;
 
-        public UserControl GetVisualization()
+        public UserControl GetVisualization(IConfigurable configuration)
         {
             _viewModel = new RoundRobinViewModel(Bots);
             return new RoundRobinUserControl(_viewModel);

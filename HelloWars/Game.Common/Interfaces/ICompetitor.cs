@@ -8,5 +8,7 @@ namespace Common.Interfaces
         string Name { get; }
         string AvatarUrl { get; }
         string Url { get; }
+
+        // TODO: Verify Method
     }
 }

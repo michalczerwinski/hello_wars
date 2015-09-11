@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Data;
 
-namespace Game.TicTacToe
+namespace Common.Models
 {
     /// <summary>
     /// This class is a bindable encapsulation of a 2D array.

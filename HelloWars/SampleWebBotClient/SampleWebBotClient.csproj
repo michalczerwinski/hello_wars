@@ -118,11 +118,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\SampleBotController.cs" />
+    <Compile Include="Controllers\DynaBlasterBotController.cs" />
+    <Compile Include="Controllers\TicTacToeBotController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\NameHelper.cs" />
+    <Compile Include="Models\DynaBlaster\Bomb.cs" />
+    <Compile Include="Models\DynaBlaster\BotArenaInfo.cs" />
     <Compile Include="Models\BotInfo.cs" />
+    <Compile Include="Models\DynaBlaster\BotMove.cs" />
+    <Compile Include="Models\DynaBlaster\MoveDirection.cs" />
     <Compile Include="Models\TicTacToeBoardFieldType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

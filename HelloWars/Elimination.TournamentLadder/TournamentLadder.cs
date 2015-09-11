@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 using Common.Interfaces;
+using Common.Models;
 using Elimination.TournamentLadder.UserControls;
 using Elimination.TournamentLadder.ViewModels;
 
@@ -12,7 +14,7 @@ namespace Elimination.TournamentLadder
         private TournamentLadderViewModel _tournamentLadderViewModel;
         public List<ICompetitor> Bots { get; set; }
 
-        public UserControl GetVisualization()
+        public UserControl GetVisualization(IConfigurable configuration)
         {
             if (Bots != null)
             {
@@ -83,7 +85,7 @@ namespace Elimination.TournamentLadder
         public string GetGameDescription()
         {
             var competitors = GetNextCompetitors();
-            return string.Format("Duel: {0} vs {1}", competitors[0].Name, competitors[1].Name);
+            return string.Format("Duel: {0} vs {1} {2}", competitors[0].Name, competitors[1].Name, DateTime.Now);
         }
 
         private BotUserControl ReturnBotControl(ICompetitor botClient)
