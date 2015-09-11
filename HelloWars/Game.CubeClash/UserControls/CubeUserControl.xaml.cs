@@ -10,19 +10,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Game.CubeClash.ViewModels;
 
 namespace Game.CubeClash.UserControls
 {
     /// <summary>
     /// Interaction logic for CubeUserControl.xaml
     /// </summary>
-    public partial class CubeUserControl : UserControl
+    public partial class CubeUserControl
     {
+        private CubeViewModel _viewModel
+        {
+            get { return (CubeViewModel) DataContext; }
+            set { DataContext = value; }
+        }
+
         public CubeUserControl()
         {
             InitializeComponent();
+        }
+
+        private void CubeUserControl_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            //_viewModel.Color = new SolidColorBrush( Colors.BlueViolet);
         }
     }
 }

@@ -20,12 +20,17 @@ namespace Game.CubeClash.Commands
 
         public override void Execute(object parameter = null)
         {
-            do
-            {
-                _viewModel.PlayersCollection.First().X++ ;
-                _viewModel.PlayersCollection.First().Y = 1;
-                DelayHelper.Delay(100);
-            } while (_viewModel.PlayersCollection.First().X < 50);
+            //do
+            //{
+            //    _viewModel.PlayersCollection.First().X++ ;
+            //    _viewModel.PlayersCollection.First().Y = 1;
+            //    DelayHelper.Delay(100);
+            //} while (_viewModel.PlayersCollection.First().X < 50);
+
+            _viewModel.PlayersCollection.First().MovementShadowRotate += 90;
+
+
+
         }
     }
 }

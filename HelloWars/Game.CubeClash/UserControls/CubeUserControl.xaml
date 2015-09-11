@@ -3,15 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d">
+             mc:Ignorable="d" Loaded="CubeUserControl_OnLoaded">
 
     <Grid>
-        <Canvas>
-            <Rectangle Canvas.Top="-70" Canvas.Left="-35" Width="90" Height="110" Fill="White" Opacity="0.2" Visibility="Collapsed"/>
-            <Rectangle Canvas.Top="-20" Canvas.Left="-35" Width="90" Height="110" Fill="White" Opacity="0.2" Visibility="Collapsed"/>
-            <Rectangle Canvas.Top="-35" Canvas.Left="-70" Width="110" Height="90" Fill="White" Opacity="0.2" Visibility="Visible"/>
-            <Rectangle Canvas.Top="-35" Canvas.Left="-20" Width="110" Height="90" Fill="White" Opacity="0.2" Visibility="Visible"/>
+        <Canvas >
+            <Rectangle Canvas.Top="{Binding MovementShadowTopDistance}" Canvas.Left="{Binding MovementShadowLeftDistance}" Width="{Binding MovementShadowWidth}" Height="{Binding MovementShadowHeight}" Fill="{Binding Color, Mode=TwoWay}" Opacity="0.1" Visibility="{Binding MovementShadowVisibility}"/>
         </Canvas>
-        <Rectangle Width="8" Height="8" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="DarkRed" StrokeThickness="0.5" Stroke="Black"/>
+        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Color,Mode=TwoWay}" StrokeThickness="0.5" Stroke="Black"/>
+        <Grid.RenderTransform>
+            <RotateTransform Angle="{Binding MovementShadowRotate}" CenterX="{Binding CenterX}" CenterY="{Binding CenterY}"/>
+        </Grid.RenderTransform>
     </Grid>
+
 </UserControl>

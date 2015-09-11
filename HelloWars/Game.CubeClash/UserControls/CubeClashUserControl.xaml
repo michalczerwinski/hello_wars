@@ -7,7 +7,7 @@
              xmlns:viewModels="clr-namespace:Game.CubeClash.ViewModels"
              xmlns:resoures="clr-namespace:Game.CubeClash.UserControls.Resoures"
              xmlns:userControls="clr-namespace:Game.CubeClash.UserControls"
-             mc:Ignorable="d" Width="200" Height="200"
+             mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=viewModels:CubeClashViewModel}">
 
     <Grid>
@@ -15,13 +15,13 @@
             <RowDefinition Height="20"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
         <Button Content="DoSomething" Command="{Binding DoMoveCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
 
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding GridCollection}">
+        <ItemsControl Width="{Binding BattlegroundWidth}" Height="{Binding BattlegroundHeigth}" Grid.Row="1" ItemsSource="{Binding GridCollection}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Grid Width="{Binding}" Height="{Binding}" helpers:GridHelper.RowCount="{Binding BattlegroundHeigth}" helpers:GridHelper.ColumnCount="{Binding BattlegroundWidth}"/>
+                    <Grid helpers:GridHelper.RowCount="{Binding RowCount}" helpers:GridHelper.ColumnCount="{Binding ColumnCount}"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -40,7 +40,7 @@
         <ItemsControl Grid.Row="1" ItemsSource="{Binding PlayersCollection}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Grid Width="{Binding}" Height="{Binding}" helpers:GridHelper.RowCount="{Binding BattlegroundHeigth}" helpers:GridHelper.ColumnCount="{Binding BattlegroundWidth}"/>
+                    <Grid  helpers:GridHelper.RowCount="{Binding RowCount}" helpers:GridHelper.ColumnCount="{Binding ColumnCount}"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>

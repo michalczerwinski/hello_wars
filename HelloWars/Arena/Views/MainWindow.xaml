@@ -69,7 +69,7 @@
                 
                 <GridSplitter Grid.Column="1" Width="25" HorizontalAlignment="Stretch" />
                 
-                <Viewbox Grid.Column="2" VerticalAlignment="Top">
+                <Viewbox Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                 </Viewbox>
             </Grid>

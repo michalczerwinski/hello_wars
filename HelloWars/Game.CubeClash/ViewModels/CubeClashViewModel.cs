@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 using Common;
 using Common.Models;
 using Game.CubeClash.Commands;
@@ -31,6 +33,22 @@ namespace Game.CubeClash.ViewModels
             set { SetProperty(ref _battlegroundHeigth, value); }
         }
 
+        private int _columnCount;
+        private int _rowCount;
+
+        public int ColumnCount
+        {
+            get { return _columnCount; }
+            set { SetProperty(ref _columnCount, value); }
+        }
+
+        public int RowCount
+        {
+            get { return _rowCount; }
+            set { SetProperty(ref _rowCount, value); }
+        }
+
+
         public ICommand DoMoveCommand
         {
             get { return _doMoveCommand ?? (_doMoveCommand = new DoMoveCommand(this)); }
@@ -38,27 +56,35 @@ namespace Game.CubeClash.ViewModels
 
         public CubeClashViewModel()
         {
-            BattlegroundWidth = 100;
-            BattlegroundHeigth = 100;
+            RowCount = 40;
+            ColumnCount = 40;
+
+            BattlegroundWidth = RowCount * 10;
+            BattlegroundHeigth = ColumnCount * 10;
+
+            var cubeWidth = 10;
+            var cubeHeight = 10;
 
             GridCollection = new ObservableCollection<GridUnitViewModel>();
-            for (int i = 0; i < BattlegroundWidth; i++)
-                for (int j = 0; j < BattlegroundHeigth; j++)
+            for (int i = 0; i < RowCount; i++)
+                for (int j = 0; j < ColumnCount; j++)
                 {
                     var ccc = new GridUnitViewModel();
                     ccc.X = i;
                     ccc.Y = j;
-                   
+
                     GridCollection.Add(ccc);
                 }
 
             PlayersCollection = new ObservableCollection<CubeViewModel>();
             for (int i = 0; i < 1; i++)
             {
-                var ccc = new CubeViewModel();
-                ccc.X = 1;
-                ccc.Y = 1;
-               
+                var ccc = new CubeViewModel(cubeWidth, cubeHeight);
+                ccc.X = 10;
+                ccc.Y = 10;
+                ccc.Color = new SolidColorBrush(Colors.BlueViolet);
+
+
                 PlayersCollection.Add(ccc);
             }
         }

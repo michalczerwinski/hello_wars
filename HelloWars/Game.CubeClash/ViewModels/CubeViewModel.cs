@@ -1,20 +1,64 @@
 ﻿using System.Windows;
+using System.Windows.Media;
 using Common.Models;
+using Game.CubeClash.Models;
 
 namespace Game.CubeClash.ViewModels
 {
     public class CubeViewModel : BindableBase
     {
-        private Point _position;
         private int _x;
         private int _y;
         private int _xSpan;
         private int _ySpan;
+        private SolidColorBrush _color;
 
-        public Point Position
+        public SolidColorBrush Color
         {
-            get { return _position; }
-            set { SetProperty(ref _position, value); }
+            get { return _color; }
+            set { SetProperty(ref _color, value); }
+        }
+
+        public double MovementShadowTopDistance
+        {
+            get { return _movementShadowTopDistance; }
+            set { SetProperty(ref _movementShadowTopDistance, value); }
+        }
+
+        public int MovementShadowRotate
+        {
+            get { return _movementShadowRotate; }
+            set { SetProperty(ref _movementShadowRotate, value); }
+        }
+
+        public double MovementShadowLeftDistance
+        {
+            get { return _movementShadowLeftDistance; }
+            set { SetProperty(ref _movementShadowLeftDistance, value); }
+        }
+
+        public double CenterX
+        {
+            get { return _centerX; }
+            set { SetProperty(ref _centerX, value); }
+        }
+
+        public double CenterY
+        {
+            get { return _centerY; }
+            set { SetProperty(ref _centerY, value); }
+        }
+
+        public double MovementShadowWidth
+        {
+            get { return _movementShadowWidth; }
+            set { SetProperty(ref _movementShadowWidth, value); }
+        }
+
+        public double MovementShadowHeight
+        {
+            get { return _movementShadowHeight; }
+            set { SetProperty(ref _movementShadowHeight, value); }
         }
 
         public MoveDirection MoveDirection { get; set; }
@@ -22,37 +66,40 @@ namespace Game.CubeClash.ViewModels
         public int X
         {
             get { return _x; }
-            set
-            {
-                var csc = value - (XSpan / 2);
-                SetProperty(ref _x, csc);
-            }
+            set { SetProperty(ref _x, value); }
         }
 
         public int Y
         {
             get { return _y; }
-            set
-            {
-                var sss = value - (YSpan / 2);
-                SetProperty(ref _y, sss);
-            }
+            set { SetProperty(ref _y, value); }
         }
 
-        public int YSpan
+        private Visibility _movementShadowVisibility;
+        public Visibility MovementShadowVisibility
         {
-            get { return _ySpan; }
-            set { SetProperty(ref _ySpan, value); }
+            get { return _movementShadowVisibility; }
+            set { SetProperty(ref _movementShadowVisibility, value); }
         }
 
-        public int XSpan
-        {
-            get { return _xSpan; }
-            set { SetProperty(ref _xSpan, value); }
-        }
+        private double _movementShadowTopDistance;
+        private int _movementShadowRotate;
+        private double _movementShadowLeftDistance;
+        private double _movementShadowWidth;
+        private double _movementShadowHeight;
+        private double _centerX;
+        private double _centerY;
 
-        public CubeViewModel()
+        public CubeViewModel(int width, int heigth)
         {
+            MovementShadowTopDistance = -(4 * heigth);
+            MovementShadowLeftDistance = -(2 * width);
+            CenterX = (double)width / 2;
+            CenterY = (double)heigth / 2;
+            MovementShadowRotate = 0;
+            MovementShadowWidth = 11 * width;
+            MovementShadowHeight = 9 * heigth;
+            MovementShadowVisibility = Visibility.Visible;
         }
     }
 }
