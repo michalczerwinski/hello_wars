@@ -6,7 +6,7 @@ using SampleWebBotClient.Models;
 
 namespace SampleWebBotClient.Controllers
 {
-    public class TicTacToeBotController : ApiController
+    public class CubeClashBotController : ApiController
     {
         private readonly Random _rand = new Random(DateTime.Now.Millisecond);
 
@@ -17,22 +17,20 @@ namespace SampleWebBotClient.Controllers
             {
                 Name = NameHelper.GetRandomName(),
                 AvatarUrl = "http://localhost:53886/Content/BotImg.png",
-                GameType = "TicTacToe"
+                GameType = "CubeClash"
             };
 
             return bot;
         }
 
         [HttpPost]
-        public Point PerformNextMove(TicTacToeBoardFieldType[,] board)
+        public Point PerformNextMove(Point currentPoint)
         {
-            var point = new Point();
-            do
+            var point = new Point
             {
-                point.X = _rand.Next(0, 3);
-                point.Y = _rand.Next(0, 3);
-            }
-            while (board[point.X, point.Y] != TicTacToeBoardFieldType.Empty);
+                X = currentPoint.X + _rand.Next(0, 2),
+                Y = currentPoint.Y + _rand.Next(0, 2)
+            };
 
             return point;
         }

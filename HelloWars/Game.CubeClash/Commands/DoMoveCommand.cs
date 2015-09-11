@@ -27,7 +27,8 @@ namespace Game.CubeClash.Commands
             //    DelayHelper.Delay(100);
             //} while (_viewModel.PlayersCollection.First().X < 50);
 
-            _viewModel.PlayersCollection.First().MovementShadowRotate += 90;
+           // _viewModel.PlayersCollection.First().MovementShadowRotate += 90;
+             _viewModel.PlayersCollection.First().Attack();
 
 
 

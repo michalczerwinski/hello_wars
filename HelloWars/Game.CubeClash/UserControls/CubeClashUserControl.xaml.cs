@@ -19,7 +19,7 @@ namespace Game.CubeClash.UserControls
     /// <summary>
     /// Interaction logic for CubeClashUserControl.xaml
     /// </summary>
-    public partial class CubeClashUserControl : UserControl
+    public partial class CubeClashUserControl 
     {
         private CubeClashViewModel _viewModel
         {

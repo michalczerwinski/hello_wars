@@ -83,9 +83,25 @@ namespace Game.CubeClash.ViewModels
                 ccc.X = 10;
                 ccc.Y = 10;
                 ccc.Color = new SolidColorBrush(Colors.BlueViolet);
-
-
                 PlayersCollection.Add(ccc);
+
+
+                var sss = new CubeViewModel(cubeWidth, cubeHeight);
+                sss.X = 10;
+                sss.Y = 20;
+                sss.Color = new SolidColorBrush(Colors.Aqua);
+
+                PlayersCollection.Add(sss);
+
+
+                var ddd = new CubeViewModel(cubeWidth, cubeHeight);
+                ddd.X = 10;
+                ddd.Y = 30;
+                ddd.Color = new SolidColorBrush(Colors.Lime);
+
+
+                PlayersCollection.Add(ddd);
+
             }
         }
     }

@@ -25,14 +25,30 @@ namespace Game.CubeClash.UserControls
             set { DataContext = value; }
         }
 
+        public static readonly RoutedEvent CustomTestEvent = EventManager.RegisterRoutedEvent(
+            "CustomTest", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(CubeUserControl));
+
+        public event RoutedEventHandler CustomTest
+        {
+            add { AddHandler(CustomTestEvent, value); }
+            remove { RemoveHandler(CustomTestEvent, value); }
+        }
+
         public CubeUserControl()
         {
             InitializeComponent();
+            
+        }
+
+        public void RaiseMyEvent()
+        {
+            RoutedEventArgs newEventArgs = new RoutedEventArgs(CustomTestEvent);
+            Rectangle1.RaiseEvent(newEventArgs); // This change fixes the issue.
         }
 
         private void CubeUserControl_OnLoaded(object sender, RoutedEventArgs e)
         {
-            //_viewModel.Color = new SolidColorBrush( Colors.BlueViolet);
+            RaiseMyEvent();
         }
     }
 }

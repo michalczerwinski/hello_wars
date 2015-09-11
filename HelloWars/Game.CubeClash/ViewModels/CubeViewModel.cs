@@ -101,5 +101,13 @@ namespace Game.CubeClash.ViewModels
             MovementShadowHeight = 9 * heigth;
             MovementShadowVisibility = Visibility.Visible;
         }
+
+        public void Attack()
+        {
+
+
+            X += 4;
+            Y += 4;
+        }
     }
 }
