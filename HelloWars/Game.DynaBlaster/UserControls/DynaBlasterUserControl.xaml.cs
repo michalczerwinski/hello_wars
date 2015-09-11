@@ -55,7 +55,7 @@ namespace Game.DynaBlaster.UserControls
 
         private void DisplayExplosions()
         {
-            foreach (var explosion in _arena.Explosions)
+            foreach (var explosion in _arena.ExplosionCenters)
             {
                 var xRayLocation = new Point(explosion.X - 2, explosion.Y);
                 var yRayLocation = new Point(explosion.X, explosion.Y - 2);
