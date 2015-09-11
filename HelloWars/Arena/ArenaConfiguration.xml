@@ -6,15 +6,19 @@
   </EliminationConfiguration>
 
   <GameConfiguration>
-    <Type>TicTacToe</Type>
-    <NextMoveDelay>500</NextMoveDelay>
+    <Type>DynaBlaster</Type>
+    <NextMoveDelay>200</NextMoveDelay>
     <NextMatchDelay>400</NextMatchDelay>
   </GameConfiguration>
 
   <BotUrls>
-    <Url>http://localhost:53886/TicTacToeBot/</Url>
-    <Url>http://localhost:53886/TicTacToeBot/</Url>
-    <Url>http://localhost:53886/TicTacToeBot/</Url>
-    <Url>http://localhost:53886/TicTacToeBot/</Url>
+<!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
+<!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
+<!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
+<!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
+    <Url>http://localhost:53886/DynaBlasterBot/</Url>
+    <Url>http://localhost:53886/DynaBlasterBot/</Url>
+    <Url>http://localhost:53886/DynaBlasterBot/</Url>
+    <Url>http://localhost:53886/DynaBlasterBot/</Url>
   </BotUrls>
 </ArenaConfiguration>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Web.Http;
+using SampleWebBotClient.Helpers;
 using SampleWebBotClient.Models;
 
 namespace SampleWebBotClient.Controllers
@@ -9,19 +10,12 @@ namespace SampleWebBotClient.Controllers
     {
         private readonly Random _rand = new Random(DateTime.Now.Millisecond);
 
-        private static readonly string[] Names = 
-        {
-            "Czesiek", "Wiesiek", "Michal", "Mateusz", "Robert", "Tomek", "Przemek",
-            "Dominik", "Bartek", "Romek", "Asia", "Kasia", "Magda", "Grazyna", "Danuta",
-            "Genowefa"
-        };
-
         [HttpGet]
         public BotInfo Info()
         {
             var bot = new BotInfo()
             {
-                Name = Names[_rand.Next(Names.Length)],
+                Name = NameHelper.GetRandomName(),
                 AvatarUrl = "http://localhost:53886/Content/BotImg.png",
                 GameType = "TicTacToe"
             };
