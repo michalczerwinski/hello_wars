@@ -54,6 +54,14 @@ namespace Game.CubeClash.ViewModels
             get { return _doMoveCommand ?? (_doMoveCommand = new DoMoveCommand(this)); }
         }
 
+        private ICommand _class1Command;
+        public ICommand Class1Command
+        {
+            get { return _class1Command ?? (_class1Command = new Class1Command(this)); }
+        }
+
+
+
         public CubeClashViewModel()
         {
             RowCount = 40;
@@ -99,6 +107,7 @@ namespace Game.CubeClash.ViewModels
                 ddd.Y = 30;
                 ddd.Color = new SolidColorBrush(Colors.Lime);
 
+               
 
                 PlayersCollection.Add(ddd);
 

@@ -37,18 +37,15 @@ namespace Game.CubeClash.UserControls
         public CubeUserControl()
         {
             InitializeComponent();
-            
         }
 
-        public void RaiseMyEvent()
+        private void ConnectAnimationEffect_OnLoaded(object sender, RoutedEventArgs e)
         {
-            RoutedEventArgs newEventArgs = new RoutedEventArgs(CustomTestEvent);
-            Rectangle1.RaiseEvent(newEventArgs); // This change fixes the issue.
-        }
-
-        private void CubeUserControl_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            RaiseMyEvent();
+            _viewModel.zdazenie = () =>
+            {
+                var newEventArgs = new RoutedEventArgs(CustomTestEvent);
+                Rectangle1.RaiseEvent(newEventArgs);
+            };
         }
     }
 }

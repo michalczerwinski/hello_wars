@@ -89,6 +89,17 @@ namespace Game.CubeClash.ViewModels
         private double _movementShadowHeight;
         private double _centerX;
         private double _centerY;
+        private string _isGlowing;
+
+        public delegate void delegatZdazenia();
+
+        public delegatZdazenia zdazenie { get; set; }
+
+        public string IsGlowing
+        {
+            get { return _isGlowing; }
+            set { SetProperty(ref _isGlowing, value); }
+        }
 
         public CubeViewModel(int width, int heigth)
         {
@@ -104,10 +115,18 @@ namespace Game.CubeClash.ViewModels
 
         public void Attack()
         {
+            zdazenie();
+            X += 7;
+        }
 
+        public void Rotate()
+        {
+            
+        }
 
-            X += 4;
-            Y += 4;
+        public void Move()
+        {
+            
         }
     }
 }
