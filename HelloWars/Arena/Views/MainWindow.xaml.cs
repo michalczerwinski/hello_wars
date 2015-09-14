@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using Arena.ViewModels;
 using Common.Models;
@@ -20,6 +23,7 @@ namespace Arena.Views
         {
             _viewModel = viewModel;
             InitializeComponent();
+            ContentRendered += OnContentRendered;
         }
 
         private void GameHistoryTree_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -30,5 +34,17 @@ namespace Arena.Views
                 _viewModel.Game.SetPreview(roundPartial.BoardState);
             }
         }
+
+        private void OutputWindow_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            OutputWindow.ScrollToEnd();
+        }
+
+        private void OnContentRendered(object sender, EventArgs e)
+        {
+            _viewModel.OnRendered();
+        }
+
+
     }
 }

@@ -18,7 +18,7 @@
         </StackPanel>
 
         <Grid Grid.Row="1" ShowGridLines="True">
-            <ListView ItemsSource="{Binding Bots}">
+            <ListView Name="Bots" ItemsSource="{Binding Bots}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Competitor" Width="100" DisplayMemberBinding="{Binding Competitor.Name}"/>

@@ -18,5 +18,10 @@ namespace Elimination.RoundRobin.UserControls
             _viewModel = viewModel;
             InitializeComponent();
         }
+
+        public void Refresh()
+        {
+            _viewModel.Refresh();
+        }
     }
 }

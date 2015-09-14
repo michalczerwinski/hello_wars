@@ -13,5 +13,6 @@ namespace Common.Interfaces
         IList<ICompetitor> GetNextCompetitors();
         void SetLastDuelResult(IDictionary<ICompetitor, double> result);
         string GetGameDescription();
+        void UpdateControl();
     }
 }

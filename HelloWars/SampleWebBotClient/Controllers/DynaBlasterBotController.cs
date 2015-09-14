@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using SampleWebBotClient.Helpers;
@@ -20,7 +22,6 @@ namespace SampleWebBotClient.Controllers
                 AvatarUrl = "http://localhost:53886/Content/BotImg.png",
                 GameType = "DynaBlaster"
             };
-
             return bot;
         }
 

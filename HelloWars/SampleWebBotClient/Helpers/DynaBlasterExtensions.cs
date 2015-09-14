@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Web;
-using Microsoft.Ajax.Utilities;
 using SampleWebBotClient.Models.DynaBlaster;
 
 namespace SampleWebBotClient.Helpers
@@ -38,10 +34,11 @@ namespace SampleWebBotClient.Helpers
         }
 
         /// <summary>
-        /// Determines if points are on the same axis (either X or Y). Basically it checks if either their X or Y coordinates are matching
+        /// Determines if points are on the same axis (either X or Y). Basically it checks if either their X or Y coordinates
+        /// are matching
         /// </summary>
-        /// <param name="testinPoint"></param>
-        /// <param name="referencePoint"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
         /// <returns></returns>
         public static bool IsOnSameAxis(this Point a, Point b)
         {

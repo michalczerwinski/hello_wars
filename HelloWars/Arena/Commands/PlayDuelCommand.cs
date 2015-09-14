@@ -26,6 +26,8 @@ namespace Arena.Commands
 
                 _viewModel.Game.SetupNewGame(nextCompetitors);
 
+                _viewModel.Output += "Game starting: " + gameHistoryEntry.GameDescription;
+
                 RoundResult result;
 
                 do

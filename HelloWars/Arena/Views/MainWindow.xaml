@@ -19,6 +19,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="20" />
+            <RowDefinition MinHeight="400"/>
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -49,12 +50,12 @@
                 <TabControl Background="DimGray" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <TabItem Header="Game" MaxWidth="100">
                         <Viewbox VerticalAlignment="Top">
-                            <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}"
+                            <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}" Name="EliminationControl"
                                          HorizontalAlignment="Center" />
                         </Viewbox>
                     </TabItem>
                     <TabItem Header="History" MaxWidth="100" >
-                        <TreeView HorizontalAlignment="Left" Height="400" Width="300" Name="GameHistoryTree" ItemsSource="{Binding GameHistory}" SelectedItemChanged="GameHistoryTree_OnSelectedItemChanged">
+                        <TreeView HorizontalAlignment="Left" MinHeight="350" Width="300" Name="GameHistoryTree" ItemsSource="{Binding GameHistory}" SelectedItemChanged="GameHistoryTree_OnSelectedItemChanged">
                             <TreeView.Resources>
                                 <HierarchicalDataTemplate DataType="{x:Type arena:GameHistoryEntryViewModel}" ItemsSource="{Binding History}">
                                     <TextBlock Text="{Binding GameDescription}" />
@@ -72,5 +73,7 @@
                 </Viewbox>
             </Grid>
         </ScrollViewer>
+        
+        <TextBox Grid.Row="3" IsReadOnly="True" Name="OutputWindow" Text="{Binding Output}" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextChanged="OutputWindow_TextChanged"></TextBox>
     </Grid>
 </Window>

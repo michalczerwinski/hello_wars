@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup.Localizer;
+using System.Windows.Threading;
 using Arena.Commands;
 using Arena.Configuration;
 using Common.Helpers;
@@ -24,6 +27,8 @@ namespace Arena.ViewModels
         private ObservableCollection<GameHistoryEntryViewModel> _gameHistory; 
         private ICommand _autoPlayCommand;
         private ICommand _onLoadedCommand;
+        private string _output;
+        private static object _lock = new object();
 
         public IElimination Elimination { get; set; }
         public IGame Game { get; set; }
@@ -33,6 +38,12 @@ namespace Arena.ViewModels
         {
             get { return _headerText; }
             set { SetProperty(ref _headerText, value); }
+        }
+
+        public string Output
+        {
+            get { return _output; }
+            set { SetProperty(ref _output, value); }
         }
 
         public ObservableCollection<GameHistoryEntryViewModel> GameHistory
@@ -85,6 +96,11 @@ namespace Arena.ViewModels
             Elimination = _arenaConfiguration.Elimination;
             Game = _arenaConfiguration.Game;
 
+            Output += "Elimination loaded: " + _arenaConfiguration.EliminationConfiguration.Type + "\n";
+            Output += "Game loaded: " + _arenaConfiguration.GameConfiguration.Type + "\n";
+
+            Competitors = _arenaConfiguration.BotUrls.Select(s => new Competitor() {Id = Guid.NewGuid(), Name = "Connecting...", Url = s} as ICompetitor).ToList();
+
             if (Elimination != null)
             {
                 Elimination.Bots = Competitors;
@@ -98,6 +114,11 @@ namespace Arena.ViewModels
             return DefaultCanExecute;
         }
 
+        public void OnRendered()
+        {
+            AskForCompetitors(_arenaConfiguration.GameConfiguration.Type, Competitors); 
+        }
+
         private static bool DefaultCanExecute(object parameter)
         {
             return true;
@@ -106,19 +127,40 @@ namespace Arena.ViewModels
         public void ReadConfiguration(ArenaConfiguration arenaConfiguration)
         {
             _arenaConfiguration = arenaConfiguration;
-            AskForCompetitors(arenaConfiguration.GameConfiguration.Type);
         }
 
-        private void AskForCompetitors(string gameTypeName)
+        private void AskForCompetitors(string gameTypeName, List<ICompetitor> emptyCompetitors)
         {
-            Task.Run(async () =>
+            Output += string.Format("Waiting for players ({0})\n", emptyCompetitors.Count);
+            var dispatcher = _eliminationTypeControl.Dispatcher;
+            
+            Task.Run(() =>
             {
                 var loader = new CompetitorLoadService();
 
-                var competitorsTasks = _arenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitorAsync(botUrl, gameTypeName)).ToList();
+                var competitorsTasks = emptyCompetitors.Select(async bot =>
+                {
+                    var competitor = await loader.LoadCompetitorAsync(bot.Url, gameTypeName);
 
-                Competitors = (await Task.WhenAll(competitorsTasks)).Where(competitor => competitor != null).ToList();
-            }).Wait();
+                    bot.Name = competitor.Name;
+                    bot.AvatarUrl = competitor.AvatarUrl;
+
+                    lock (_lock)
+                    {
+                        Output += string.Format("Bot \"{0}\" connected!\n", bot.Name);
+
+                        dispatcher.Invoke(Elimination.UpdateControl);
+                    }
+
+                    return bot;
+                }).ToList();
+
+                Task.WhenAll(competitorsTasks).ContinueWith(task =>
+                {
+                    Output += "All players connected!\n";
+                });
+
+            });
         }
     }
 }
