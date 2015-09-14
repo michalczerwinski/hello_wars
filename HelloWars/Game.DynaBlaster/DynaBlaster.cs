@@ -42,11 +42,23 @@ namespace Game.DynaBlaster
 
             _arena.Bombs.RemoveAll(bomb => bomb.RoundsUntilExplodes == 0);
 
-            DelayHelper.Delay(_delayTime);
-
             _arena.OnArenaChanged();
 
-            foreach (var dynaBlasterBot in _arena.Bots)
+            DelayHelper.Delay(_delayTime);
+
+            _arena.ExplosionCenters.Clear();
+
+            if (_arena.Bots.Count(bot => !bot.IsDead) < 2)
+            {
+                return new RoundResult
+                {
+                    FinalResult = _arena.Bots.ToDictionary(competitor => competitor as ICompetitor, competitor => competitor.IsDead ? 0.0 : 1.0),
+                    IsFinished = true,
+                    History = new List<RoundPartialHistory>()
+                };
+            }
+
+            foreach (var dynaBlasterBot in _arena.Bots.Where(bot => !bot.IsDead))
             {
                 var move = dynaBlasterBot.NextMove(GetBotArenaInfo(dynaBlasterBot));
 
@@ -63,9 +75,8 @@ namespace Game.DynaBlaster
 
             return new RoundResult
             {
-                //TODO: calculate 
-                FinalResult = _arena.Bots.ToDictionary(competitor => competitor as ICompetitor, competitor => 1.0),
-                IsFinished = _roundNumber == 50,
+                FinalResult = null,
+                IsFinished = false,
                 History = new List<RoundPartialHistory>()
             };
         }
@@ -101,6 +112,8 @@ namespace Game.DynaBlaster
         public void Reset()
         {
             _arena.Bots.Clear();
+            _arena.Bombs.Clear();
+            _arena.ExplosionCenters.Clear();
             _arena.Board = new bool[15, 15];
             _arena.OnArenaChanged();
             _roundNumber = 0;
@@ -135,7 +148,7 @@ namespace Game.DynaBlaster
         {
             var newLocation = GetNewLocation(bot.Location, move.Direction);
             return IsLocationValid(newLocation) && !_arena.Board[newLocation.X, newLocation.Y]
-                   && _arena.Bots.All(blasterBot => blasterBot.Location != newLocation);
+                   && !_arena.Bots.Any(blasterBot => blasterBot.Id != bot.Id && blasterBot.Location == newLocation);
         }
 
         private void PerformMove(DynaBlasterBot bot, BotMove move)
@@ -152,21 +165,27 @@ namespace Game.DynaBlaster
 
         }
 
-        private Point GetNewLocation(Point oldLocation, MoveDirection direction)
+        private Point GetNewLocation(Point oldLocation, MoveDirection? direction)
         {
             var newLocation = new Point(oldLocation.X, oldLocation.Y);
+
+            if (direction == null)
+            {
+                return newLocation;
+            }
+                
             switch (direction)
             {
-                case MoveDirection.North:
-                    newLocation.Y++;
-                    break;
-                case MoveDirection.South:
+                case MoveDirection.Up:
                     newLocation.Y--;
                     break;
-                case MoveDirection.East:
+                case MoveDirection.Down:
+                    newLocation.Y++;
+                    break;
+                case MoveDirection.Right:
                     newLocation.X++;
                     break;
-                case MoveDirection.West:
+                case MoveDirection.Left:
                     newLocation.X--;
                     break;
             }
@@ -185,14 +204,24 @@ namespace Game.DynaBlaster
         private void SetExplosion(Point location)
         {
             _arena.ExplosionCenters.Add(location);
+            
             foreach (var explosionLocation in GetExplosionLocations(location))
             {
                 _arena.Board[explosionLocation.X, explosionLocation.Y] = false;
+                _arena.Bots.ForEach(bot =>
+                {
+                    if (bot.Location == explosionLocation)
+                    {
+                        bot.IsDead = true;
+                    }
+                });
             }
         }
 
         private IEnumerable<Point> GetExplosionLocations(Point centerLocation)
         {
+            yield return centerLocation;
+
             for (int i = 1; i <= _explosionRadius; i++)
             {
                 var locations = new[]
@@ -214,11 +243,12 @@ namespace Game.DynaBlaster
         {
             return new BotArenaInfo()
             {
+                BotId = bot.Id,
                 Board = _arena.Board,
                 Bombs = _arena.Bombs,
                 Explosions = _arena.ExplosionCenters.SelectMany(GetExplosionLocations).ToList(),
                 BotLocation = bot.Location,
-                OponentLocations = _arena.Bots.Where(blasterBot => blasterBot.Id != bot.Id && !blasterBot.IsDead).Select(blasterBot => blasterBot.Location).ToList()
+                OpponentLocations = _arena.Bots.Where(blasterBot => blasterBot.Id != bot.Id && !blasterBot.IsDead).Select(blasterBot => blasterBot.Location).ToList()
             };
         }
 
