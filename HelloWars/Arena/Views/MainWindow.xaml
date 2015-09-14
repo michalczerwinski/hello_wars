@@ -5,8 +5,22 @@
         xmlns:arena="clr-namespace:Arena.ViewModels"
         xmlns:models="clr-namespace:Common.Models;assembly=Common"
         Title="Hello Wars Main Window"
-        Width="800" Height="600"
-        Background="DimGray">
+        Width="800" Height="600">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary 
+                Source="pack://application:,,,/Selen.Wpf.SystemStyles;component/Styles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Selen.Wpf.Core;component/MetroWindowResources.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.Tooltip.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.Buttons.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Selen.Wpf.Core;component/Resources.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Selen.Wpf.SystemStyles;component/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -17,14 +31,14 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="40" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
         <Menu IsMainMenu="True" >
             <MenuItem Header="_File">
                 <MenuItem Header="_Open" Command="{Binding OpenCommand}">
-                    <MenuItem.Icon >
+                    <MenuItem.Icon>
                         <Image Source="/Icons/Open.png" Style="{StaticResource MenuItemIconStyle}"/>
                     </MenuItem.Icon>
                 </MenuItem>
@@ -67,24 +81,34 @@
             </MenuItem>
         </Menu>
 
-        <ToolBarTray Grid.Row="1">
-            <ToolBar>
-                <Button Command="{Binding OpenCommand}" Style="{StaticResource ToolBarTryButtonStyle}">
+        <Grid Grid.Row="1" Background="#2D2D30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource BorderPretendingToolBarStyle}">
+                <Button Command="{Binding OpenCommand}">
                     <Button.ToolTip >Open Arena Configuration File</Button.ToolTip>
                     <Image Source="/Icons/Open.png" />
                 </Button>
-            </ToolBar>
-            <ToolBar>
-                <Button Command="{Binding PlayDuelCommand}" Style="{StaticResource ToolBarTryButtonStyle}" >
+            </Border>
+
+            <Border Grid.Column="1" Style="{StaticResource BorderPretendingToolBarStyle}">
+                <Button Command="{Binding PlayDuelCommand}">
                     <Button.ToolTip >Play Single Duel</Button.ToolTip>
                     <Image Source="/Icons/PlayDuel.png" />
                 </Button>
-                <Button Command="{Binding AutoPlayCommand}" Style="{StaticResource ToolBarTryButtonStyle}">
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource BorderPretendingToolBarStyle}">
+                <Button Command="{Binding AutoPlayCommand}">
                     <Button.ToolTip >Play Duels To The End Of Tournament</Button.ToolTip>
                     <Image Source="/Icons/AutoPlay.png" />
                 </Button>
-            </ToolBar>
-        </ToolBarTray>
+            </Border>
+        </Grid>
 
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <Grid x:Name="Grid1">
@@ -94,13 +118,13 @@
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
 
-                <TabControl Background="DimGray" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <TabControl Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource StandardTabControl}">
                     <TabItem Header="Game" MaxWidth="100">
                         <Viewbox VerticalAlignment="Top">
-                            <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}" HorizontalAlignment="Center" />
+                            <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}" HorizontalAlignment="Center"/>
                         </Viewbox>
                     </TabItem>
-                    <TabItem Header="History" MaxWidth="100" >
+                    <TabItem Header="History" MaxWidth="100">
                         <TreeView HorizontalAlignment="Left" Height="400" Width="300" Name="GameHistoryTree" ItemsSource="{Binding GameHistory}" SelectedItemChanged="GameHistoryTree_OnSelectedItemChanged">
                             <TreeView.Resources>
                                 <HierarchicalDataTemplate DataType="{x:Type arena:GameHistoryEntryViewModel}" ItemsSource="{Binding History}">
@@ -117,7 +141,7 @@
                 <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" ShowsPreview="True"/>
 
                 <Viewbox Grid.Column="2" VerticalAlignment="Top">
-                    <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}" HorizontalAlignment="Center" />
+                    <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}" HorizontalAlignment="Center"/>
                 </Viewbox>
             </Grid>
         </ScrollViewer>
