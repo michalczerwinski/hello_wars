@@ -177,10 +177,10 @@ namespace Game.DynaBlaster
             switch (direction)
             {
                 case MoveDirection.Up:
-                    newLocation.Y++;
+                    newLocation.Y--;
                     break;
                 case MoveDirection.Down:
-                    newLocation.Y--;
+                    newLocation.Y++;
                     break;
                 case MoveDirection.Right:
                     newLocation.X++;

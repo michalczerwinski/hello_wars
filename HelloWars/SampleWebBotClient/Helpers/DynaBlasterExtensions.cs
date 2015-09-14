@@ -16,10 +16,10 @@ namespace SampleWebBotClient.Helpers
             switch (direction)
             {
                 case MoveDirection.Up:
-                    result.Y++;
+                    result.Y--;
                     break;
                 case MoveDirection.Down:
-                    result.Y--;
+                    result.Y++;
                     break;
                 case MoveDirection.Right:
                     result.X++;
