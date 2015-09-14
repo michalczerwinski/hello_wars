@@ -124,6 +124,14 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\About.png" />
+    <Resource Include="Icons\Rules.png" />
+    <Resource Include="Icons\VerifyPlayers.png" />
+    <Resource Include="Icons\Settings.png" />
+    <Resource Include="Icons\Close.png" />
+    <Resource Include="Icons\AutoPlay.png" />
+    <Resource Include="Icons\Open.png" />
+    <Resource Include="Icons\PlayDuel.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game.Common\Common.csproj">
