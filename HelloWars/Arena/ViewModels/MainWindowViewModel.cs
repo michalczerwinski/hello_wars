@@ -1,39 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Arena.Commands;
+using Arena.Commands.MenuItemCommands;
 using Arena.Configuration;
+using Common;
 using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
+using Common.Serialization;
 using Common.Utilities;
 
 namespace Arena.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        private string _headerText;
-        private ArenaConfiguration _arenaConfiguration { get; set; }
         private UserControl _gameTypeControl;
         private UserControl _eliminationTypeControl;
         private List<ICompetitor> _competitors;
-        private ObservableCollection<GameHistoryEntryViewModel> _gameHistory; 
+        private ObservableCollection<GameHistoryEntryViewModel> _gameHistory;
         private ICommand _autoPlayCommand;
         private ICommand _onLoadedCommand;
+        private ICommand _openCommand;
+        private ICommand _closeCommand;
+        private ICommand _verifyPlayersCommand;
+        private ICommand _gameRulesCommand;
+        private ICommand _aboutCommand;
 
+        public ArenaConfiguration ArenaConfiguration { get; set; }
         public IElimination Elimination { get; set; }
         public IGame Game { get; set; }
         public ScoreList ScoreList { get; set; }
-
-        public string HeaderText
-        {
-            get { return _headerText; }
-            set { SetProperty(ref _headerText, value); }
-        }
 
         public ObservableCollection<GameHistoryEntryViewModel> GameHistory
         {
@@ -59,6 +64,23 @@ namespace Arena.ViewModels
             set { SetProperty(ref _competitors, value); }
         }
 
+        public ICommand OnLoadedCommand
+        {
+            get { return _onLoadedCommand ?? (_onLoadedCommand = new LoadGameAndEliminationUserControlsOnLoadedControl(this)); }
+        }
+
+        #region MenuItems
+
+        public ICommand OpenCommand
+        {
+            get { return _openCommand ?? (_openCommand = new OpenCommand(this)); }
+        }
+
+        public ICommand CloseCommand
+        {
+            get { return _closeCommand ?? (_closeCommand = new CloseCommand()); }
+        }
+
         public ICommand PlayDuelCommand
         {
             get { return new PlayDuelCommand(this); }
@@ -69,56 +91,61 @@ namespace Arena.ViewModels
             get { return _autoPlayCommand ?? (_autoPlayCommand = new AutoPlayCommand(this)); }
         }
 
-        public ICommand OnLoadedCommand
+        public ICommand VerifyPlayersCommand
         {
-            get { return _onLoadedCommand ?? (_onLoadedCommand = new CommandBase(OnLoaded())); }
+            get { return _verifyPlayersCommand ?? (_verifyPlayersCommand = new VerifyPlayersCommand(this)); }
         }
+
+        public ICommand GameRulesCommand
+        {
+            get { return _gameRulesCommand ?? (_gameRulesCommand = new GameRulesCommand(this)); }
+        }
+
+        public ICommand AboutCommand
+        {
+            get { return _aboutCommand ?? (_aboutCommand = new AboutCommand(this)); }
+        }
+
+        #endregion
 
         public MainWindowViewModel()
         {
             ScoreList = new ScoreList();
-            HeaderText = "Hello Wars();";
+            ArenaConfiguration = ReadConfigurationFromXML(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Resources.DefaultArenaConfigurationName);
+            InitiateManagedExtensibilityFramework();
+            AskForCompetitors(ArenaConfiguration.GameConfiguration.Type);
         }
 
-        private Predicate<object> OnLoaded()
-        {
-            Elimination = _arenaConfiguration.Elimination;
-            Game = _arenaConfiguration.Game;
-
-            if (Elimination != null)
-            {
-                Elimination.Bots = Competitors;
-                EliminationTypeControl = Elimination.GetVisualization(_arenaConfiguration.EliminationConfiguration);
-            }
-            if (Game != null)
-            {
-                GameTypeControl = Game.GetVisualisationUserControl(_arenaConfiguration.GameConfiguration);
-            }
-
-            return DefaultCanExecute;
-        }
-
-        private static bool DefaultCanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public void ReadConfiguration(ArenaConfiguration arenaConfiguration)
-        {
-            _arenaConfiguration = arenaConfiguration;
-            AskForCompetitors(arenaConfiguration.GameConfiguration.Type);
-        }
-
-        private void AskForCompetitors(string gameTypeName)
+        public void AskForCompetitors(string gameTypeName)
         {
             Task.Run(async () =>
             {
                 var loader = new CompetitorLoadService();
 
-                var competitorsTasks = _arenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitorAsync(botUrl, gameTypeName)).ToList();
+                var competitorsTasks = ArenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitorAsync(botUrl, gameTypeName)).ToList();
 
                 Competitors = (await Task.WhenAll(competitorsTasks)).Where(competitor => competitor != null).ToList();
             }).Wait();
+        }
+
+        public ArenaConfiguration ReadConfigurationFromXML(string path)
+        {
+            var xmlStream = new StreamReader(path);
+            var configurationFile = xmlStream.ReadToEnd();
+            var serializer = new XmlSerializer<ArenaConfiguration>();
+
+            return serializer.Deserialize(configurationFile);
+        }
+
+        public void InitiateManagedExtensibilityFramework()
+        {
+            var catalog = new AggregateCatalog();
+            var assembly = Assembly.GetExecutingAssembly().Location;
+            var path = Path.GetDirectoryName(assembly);
+            var dictionary = new DirectoryCatalog(path);
+            catalog.Catalogs.Add(dictionary);
+            var container = new CompositionContainer(catalog);
+            container.ComposeParts(ArenaConfiguration);
         }
     }
 }

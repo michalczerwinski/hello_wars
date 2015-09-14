@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web;
 using System.Web.Http;
 using SampleWebBotClient.Helpers;
 using SampleWebBotClient.Models;

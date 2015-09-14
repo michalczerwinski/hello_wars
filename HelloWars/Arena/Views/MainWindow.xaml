@@ -8,7 +8,6 @@
         Width="800" Height="600"
         Background="DimGray">
 
-
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding OnLoadedCommand}" />
@@ -18,39 +17,39 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
-            <RowDefinition Height="20" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Viewbox>
-            <TextBlock Text="{Binding TempText}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" />
-        </Viewbox>
+        <Menu IsMainMenu="True" >
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open" Command="{Binding OpenCommand}"/>
+                <MenuItem Header="_Close" Command="{Binding CloseCommand}"/>
+            </MenuItem>
+            <MenuItem Header="_Game" >
+                <MenuItem Header="_Auto Play" Command="{Binding AutoPlayCommand}"/>
+                <MenuItem Header="_Play Duel" Command="{Binding PlayDuelCommand}"/>
+            </MenuItem>
+            <MenuItem Header="_Diagnostics">
+                <MenuItem Header="_Verify Players" Command="{Binding VerifyPlayersCommand}"/>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_Game Rules" Command="{Binding GameRulesCommand}"/>
+                <MenuItem Header="_About" Command="{Binding AboutCommand}"/>
+            </MenuItem>
+        </Menu>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button Width="100" Height="20" HorizontalAlignment="Left" Command="{Binding PlayDuelCommand}">
-                <Viewbox>
-                    <TextBlock Text="PlayDuel!" />
-                </Viewbox>
-            </Button>
-            <Button Width="100" Height="20" Command="{Binding AutoPlayCommand}">
-                <Viewbox>
-                    <TextBlock Text="AutoPlay!" />
-                </Viewbox>
-            </Button>
-        </StackPanel>
-
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <Grid x:Name="Grid1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="5" />
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
 
                 <TabControl Background="DimGray" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <TabItem Header="Game" MaxWidth="100">
                         <Viewbox VerticalAlignment="Top">
-                            <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}"
-                                         HorizontalAlignment="Center" />
+                            <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}" HorizontalAlignment="Center" />
                         </Viewbox>
                     </TabItem>
                     <TabItem Header="History" MaxWidth="100" >
@@ -67,7 +66,9 @@
                     </TabItem>
                 </TabControl>
 
-                <Viewbox Grid.Column="1" VerticalAlignment="Top">
+                <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" ShowsPreview="True"/>
+
+                <Viewbox Grid.Column="2" VerticalAlignment="Top">
                     <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}" HorizontalAlignment="Center" />
                 </Viewbox>
             </Grid>

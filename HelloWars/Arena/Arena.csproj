@@ -61,9 +61,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Annotations.cs" />
-    <Compile Include="Commands\AutoPlayCommand.cs" />
+    <Compile Include="Commands\LoadGameAndEliminationUserControlsOnLoadedControl.cs" />
+    <Compile Include="Commands\MenuItemCommands\AboutCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\AutoPlayCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
-    <Compile Include="Commands\PlayDuelCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\CloseCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\GameRulesCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\OpenCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\PlayDuelCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\VerifyPlayersCommand.cs" />
     <Compile Include="Configuration\ArenaConfiguration.cs" />
     <Compile Include="ViewModels\GameHistoryEntryViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
