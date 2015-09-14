@@ -123,7 +123,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DynaBlasterAIService.cs" />
+    <Compile Include="Helpers\DynaBlasterExtensions.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
+    <Compile Include="Helpers\DynaBlasterStorageHelper.cs" />
     <Compile Include="Models\DynaBlaster\Bomb.cs" />
     <Compile Include="Models\DynaBlaster\BotArenaInfo.cs" />
     <Compile Include="Models\BotInfo.cs" />

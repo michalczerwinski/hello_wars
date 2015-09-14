@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.Http;
 using SampleWebBotClient.Helpers;
 using SampleWebBotClient.Models;
@@ -26,11 +27,13 @@ namespace SampleWebBotClient.Controllers
         [HttpPost]
         public BotMove PerformNextMove(BotArenaInfo arenaInfo)
         {
-            return new BotMove()
-            {
-                Direction = (MoveDirection)_rand.Next(4),
-                ShouldDropBomb = _rand.Next(7) == 0
-            };
+            var aiService = new DynaBlasterAiService();
+            var previousLocations = DynaBlasterStorageHelper.GetBotLocationHistory(arenaInfo.BotId);
+            var result = aiService.CalculateNextMove(arenaInfo, previousLocations);
+
+            previousLocations.Add(result.Direction != null ? arenaInfo.BotLocation.AddDirectionMove(result.Direction.Value) : arenaInfo.BotLocation);
+
+            return result;
         }
     }
 }
