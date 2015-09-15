@@ -161,7 +161,7 @@ namespace Elimination.TournamentLadder.UserControls
         {
             var line = new Polyline
             {
-                Stroke = Brushes.BlueViolet,
+                Stroke = Brushes.Tomato,
                 StrokeThickness = 8
             };
             TournamentLadderCanvas.Children.Add(line);
@@ -190,7 +190,7 @@ namespace Elimination.TournamentLadder.UserControls
 
             line = new Polyline
             {
-                Stroke = Brushes.BlueViolet, 
+                Stroke = Brushes.Tomato, 
                 StrokeThickness = 8
             };
             TournamentLadderCanvas.Children.Add(line);
