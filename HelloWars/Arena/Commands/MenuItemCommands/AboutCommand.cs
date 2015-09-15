@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Arena.ViewModels;
+using Arena.Views;
 
 namespace Arena.Commands.MenuItemCommands
 {
@@ -18,7 +19,7 @@ namespace Arena.Commands.MenuItemCommands
 
         public override void Execute(object parameter = null)
         {
-
+            new About().ShowDialog();
         }
     }
 }
