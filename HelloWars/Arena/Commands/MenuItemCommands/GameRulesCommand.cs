@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,12 @@ namespace Arena.Commands.MenuItemCommands
 
         public override void Execute(object parameter = null)
         {
+            using (StreamWriter sw = new StreamWriter("GameRules.html"))
+            {
+                sw.Write(_viewModel.Game.GetGameRules());
+            }
 
+            System.Diagnostics.Process.Start("GameRules.html");
         }
     }
 }
