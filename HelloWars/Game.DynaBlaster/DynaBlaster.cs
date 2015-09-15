@@ -125,6 +125,11 @@ namespace Game.DynaBlaster
             _arena.OnArenaChanged();
         }
 
+        public string GetGameRules()
+        {
+            return Properties.Resources.GameRules;
+        }
+
         #endregion
 
         #region Private methods

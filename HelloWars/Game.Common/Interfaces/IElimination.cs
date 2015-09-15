@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Windows.Controls;
-using Common.Models;
 
 namespace Common.Interfaces
 {

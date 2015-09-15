@@ -13,5 +13,6 @@ namespace Common.Interfaces
         void SetupNewGame(IEnumerable<ICompetitor> competitors);
         void Reset();
         void SetPreview(object boardState);
+        string GetGameRules();
     }
 }

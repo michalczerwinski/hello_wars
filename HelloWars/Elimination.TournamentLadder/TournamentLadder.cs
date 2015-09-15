@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 using Common.Interfaces;
-using Common.Models;
 using Elimination.TournamentLadder.UserControls;
 using Elimination.TournamentLadder.ViewModels;
 

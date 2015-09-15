@@ -35,8 +35,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -61,9 +61,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Annotations.cs" />
-    <Compile Include="Commands\AutoPlayCommand.cs" />
+    <Compile Include="Commands\LoadGameAndEliminationUserControlsOnLoadedControl.cs" />
+    <Compile Include="Commands\MenuItemCommands\AboutCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\AutoPlayCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
-    <Compile Include="Commands\PlayDuelCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\CloseCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\GameRulesCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\OpenCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\PlayDuelCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\VerifyPlayersCommand.cs" />
     <Compile Include="Configuration\ArenaConfiguration.cs" />
     <Compile Include="ViewModels\GameHistoryEntryViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -118,6 +124,14 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\About.png" />
+    <Resource Include="Icons\Rules.png" />
+    <Resource Include="Icons\VerifyPlayers.png" />
+    <Resource Include="Icons\Settings.png" />
+    <Resource Include="Icons\Close.png" />
+    <Resource Include="Icons\AutoPlay.png" />
+    <Resource Include="Icons\Open.png" />
+    <Resource Include="Icons\PlayDuel.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game.Common\Common.csproj">

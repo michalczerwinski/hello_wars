@@ -8,7 +8,6 @@
         Width="800" Height="600"
         Background="DimGray">
 
-
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding OnLoadedCommand}" />
@@ -18,40 +17,88 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
-            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
             <RowDefinition MinHeight="400"/>
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Viewbox>
-            <TextBlock Text="{Binding TempText}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" />
-        </Viewbox>
+        <Menu IsMainMenu="True" >
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open" Command="{Binding OpenCommand}">
+                    <MenuItem.Icon >
+                        <Image Source="/Icons/Open.png" Style="{StaticResource MenuItemIconStyle}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Close" Command="{Binding CloseCommand}">
+                    <MenuItem.Icon >
+                        <Image Source="/Icons/Close.png" Style="{StaticResource MenuItemIconStyle}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Game" >
+                <MenuItem Header="_Play Duel" Command="{Binding PlayDuelCommand}">
+                    <MenuItem.Icon >
+                        <Image Source="/Icons/PlayDuel.png" Style="{StaticResource MenuItemIconStyle}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Auto Play" Command="{Binding AutoPlayCommand}">
+                    <MenuItem.Icon >
+                        <Image Source="/Icons/AutoPlay.png" Style="{StaticResource MenuItemIconStyle}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Diagnostics">
+                <MenuItem Header="_Verify Players" Command="{Binding VerifyPlayersCommand}">
+                    <MenuItem.Icon >
+                        <Image Source="/Icons/VerifyPlayers.png" Style="{StaticResource MenuItemIconStyle}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_Game Rules" Command="{Binding GameRulesCommand}">
+                    <MenuItem.Icon >
+                        <Image Source="/Icons/Rules.png" Style="{StaticResource MenuItemIconStyle}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_About" Command="{Binding AboutCommand}">
+                    <MenuItem.Icon >
+                        <Image Source="/Icons/About.png" Style="{StaticResource MenuItemIconStyle}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button Width="100" Height="20" HorizontalAlignment="Left" Command="{Binding PlayDuelCommand}">
-                <Viewbox>
-                    <TextBlock Text="PlayDuel!" />
-                </Viewbox>
-            </Button>
-            <Button Width="100" Height="20" Command="{Binding AutoPlayCommand}">
-                <Viewbox>
-                    <TextBlock Text="AutoPlay!" />
-                </Viewbox>
-            </Button>
-        </StackPanel>
+        <ToolBarTray Grid.Row="1">
+            <ToolBar>
+                <Button Command="{Binding OpenCommand}" Style="{StaticResource ToolBarTryButtonStyle}">
+                    <Button.ToolTip >Open Arena Configuration File</Button.ToolTip>
+                    <Image Source="/Icons/Open.png" />
+                </Button>
+            </ToolBar>
+            <ToolBar>
+                <Button Command="{Binding PlayDuelCommand}" Style="{StaticResource ToolBarTryButtonStyle}" >
+                    <Button.ToolTip >Play Single Duel</Button.ToolTip>
+                    <Image Source="/Icons/PlayDuel.png" />
+                </Button>
+                <Button Command="{Binding AutoPlayCommand}" Style="{StaticResource ToolBarTryButtonStyle}">
+                    <Button.ToolTip >Play Duels To The End Of Tournament</Button.ToolTip>
+                    <Image Source="/Icons/AutoPlay.png" />
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
 
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <Grid x:Name="Grid1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="5" />
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
 
                 <TabControl Background="DimGray" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <TabItem Header="Game" MaxWidth="100">
                         <Viewbox VerticalAlignment="Top">
-                            <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}" Name="EliminationControl"
-                                         HorizontalAlignment="Center" />
+                            <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}" HorizontalAlignment="Center" />
                         </Viewbox>
                     </TabItem>
                     <TabItem Header="History" MaxWidth="100" >
@@ -68,12 +115,14 @@
                     </TabItem>
                 </TabControl>
 
-                <Viewbox Grid.Column="1" VerticalAlignment="Top">
+                <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" ShowsPreview="True"/>
+
+                <Viewbox Grid.Column="2" VerticalAlignment="Top">
                     <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}" HorizontalAlignment="Center" />
                 </Viewbox>
             </Grid>
         </ScrollViewer>
         
-        <TextBox Grid.Row="3" IsReadOnly="True" Name="OutputWindow" Text="{Binding Output}" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextChanged="OutputWindow_TextChanged"></TextBox>
+        <TextBox Grid.Row="3" IsReadOnly="True" Name="OutputWindow" Text="{Binding OutputText}" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextChanged="OutputWindow_TextChanged"></TextBox>
     </Grid>
 </Window>

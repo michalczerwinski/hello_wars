@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Common {
+namespace Game.DynaBlaster.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Common {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Common.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Game.DynaBlaster.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,20 @@ namespace Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /ArenaConfiguration.xml.
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///&lt;/head&gt;
+        ///
+        ///&lt;body&gt;
+        ///&lt;h1&gt;DynaBlaster game info&lt;/h1&gt;
+        ///&lt;/body&gt;
+        ///&lt;/html&gt;
+        ///.
         /// </summary>
-        public static string DefaultArenaConfigurationName {
+        public static string GameRules {
             get {
-                return ResourceManager.GetString("DefaultArenaConfigurationName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to info.
-        /// </summary>
-        public static string InfoUrlSuffix {
-            get {
-                return ResourceManager.GetString("InfoUrlSuffix", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PerformNextMove.
-        /// </summary>
-        public static string PerformNextMoveUrlSuffix {
-            get {
-                return ResourceManager.GetString("PerformNextMoveUrlSuffix", resourceCulture);
+                return ResourceManager.GetString("GameRules", resourceCulture);
             }
         }
     }
