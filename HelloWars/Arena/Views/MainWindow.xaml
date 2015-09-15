@@ -4,11 +4,13 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:arena="clr-namespace:Arena.ViewModels"
         xmlns:models="clr-namespace:Common.Models;assembly=Common"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         Title="Hello Wars Main Window"
         Width="800" Height="600">
 
     <Window.Resources>
         <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Selen.Wpf.SystemStyles;component/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
@@ -47,6 +49,10 @@
                             <Image Source="/Icons/Close.png" Style="{StaticResource MenuItemIconStyle}"/>
                         </MenuItem.Icon>
                     </MenuItem>
+                </MenuItem>
+                <MenuItem Header="_View">
+                    <MenuItem Header="_History" IsCheckable="True" IsChecked="{Binding Path=IsHistoryVisible, Mode=TwoWay}" Command="{Binding ToggleHistoryCommand}"/>
+                    <MenuItem Header="_Output" IsCheckable="True" IsChecked="{Binding Path=IsOutputVisible, Mode=TwoWay}"/>
                 </MenuItem>
                 <MenuItem Header="_Game" >
                     <MenuItem Header="_Play Duel" Command="{Binding PlayDuelCommand}">
@@ -110,7 +116,7 @@
                 </Border>
             </Grid>
 
-            <TabControl Grid.Row="2" >
+            <TabControl Grid.Row="2" SelectedIndex="{Binding Path=SelectedTabIndex, Mode=TwoWay}">
                 <TabItem Header="Game">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Viewbox HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -118,7 +124,7 @@
                         </Viewbox>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem Header="History">
+                <TabItem Header="History" Name="HistoryTab" Visibility="{Binding Path=IsHistoryVisible, Converter= {StaticResource BooleanToVisibilityConverter}, ConverterParameter=null}">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <TreeView Name="GameHistoryTree" ItemsSource="{Binding GameHistory}" Margin="10" Background="{StaticResource BackgroundHighlighted}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  SelectedItemChanged="GameHistoryTree_OnSelectedItemChanged">
                             <TreeView.Resources>
@@ -141,6 +147,8 @@
             <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}" />
         </Viewbox>
 
-        <TextBox Grid.Column="0" VerticalAlignment="Bottom" Height="150" IsReadOnly="True" Name="OutputWindow" Text="{Binding OutputText}" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextChanged="OutputWindow_TextChanged"/>
+        <TextBox Grid.Column="0" VerticalAlignment="Bottom" Height="150" IsReadOnly="True" Name="OutputWindow" Text="{Binding OutputText}"
+                 ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextChanged="OutputWindow_TextChanged"
+                 Visibility="{Binding Path=IsOutputVisible, Converter= {StaticResource BooleanToVisibilityConverter}, ConverterParameter=null}"/>
     </Grid>
 </Window>
