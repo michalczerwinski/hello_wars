@@ -6,7 +6,9 @@
         xmlns:models="clr-namespace:Common.Models;assembly=Common"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         Title="Hello Wars Main Window"
-        Width="800" Height="600">
+        Width="800" Height="600"
+        WindowState="{Binding WindowState}"
+        WindowStyle="{Binding WindowStyle}">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -23,7 +25,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid Background="{StaticResource Background}">
+    <Grid Background="#2D2D30">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="5"/>
@@ -35,6 +37,7 @@
                 <RowDefinition Height="20" />
                 <RowDefinition Height="40" />
                 <RowDefinition />
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <Menu IsMainMenu="True">
@@ -87,7 +90,7 @@
                 </MenuItem>
             </Menu>
 
-            <Grid Grid.Row="1" Background="#2D2D30">
+            <Grid Grid.Row="1" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
@@ -139,12 +142,14 @@
                     </ScrollViewer>
                 </TabItem>
             </TabControl>
+            
+            <TextBox Grid.Row="3" VerticalAlignment="Bottom" Height="150" IsReadOnly="True" Name="OutputWindow" Text="{Binding OutputText}" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextChanged="OutputWindow_TextChanged"/>
         </Grid>
 
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" ShowsPreview="True"/>
 
-        <Viewbox Grid.Column="2" Stretch="Uniform">
-            <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}" />
+        <Viewbox Grid.Column="2" Stretch="Uniform" >
+            <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}"/>
         </Viewbox>
 
         <TextBox Grid.Column="0" VerticalAlignment="Bottom" Height="150" IsReadOnly="True" Name="OutputWindow" Text="{Binding OutputText}"

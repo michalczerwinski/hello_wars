@@ -5,13 +5,11 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Markup.Localizer;
-using System.Windows.Threading;
 using Arena.Commands;
 using Arena.Commands.MenuItemCommands;
 using Arena.Configuration;
@@ -44,6 +42,10 @@ namespace Arena.ViewModels
         private ICommand _gameRulesCommand;
         private ICommand _aboutCommand;
         private ICommand _toggleHistoryCommand;
+        private ICommand _fullScreenWindowCommand;
+        private ICommand _normalScreenWindowCommand;
+        private WindowState _windowState;
+        private WindowStyle _windowStyle;
 
         public ArenaConfiguration ArenaConfiguration { get; set; }
         public IElimination Elimination { get; set; }
@@ -103,6 +105,18 @@ namespace Arena.ViewModels
             get { return _onLoadedCommand ?? (_onLoadedCommand = new LoadGameAndEliminationUserControlsOnLoadedControl(this)); }
         }
 
+        public WindowStyle WindowStyle
+        {
+            get { return _windowStyle; }
+            set { SetProperty(ref _windowStyle, value);  }
+        }
+
+        public WindowState WindowState
+        {
+            get { return _windowState; }
+            set { SetProperty(ref _windowState, value); }
+        }
+
         #region MenuItems
 
         public ICommand OpenCommand
@@ -133,6 +147,16 @@ namespace Arena.ViewModels
         public ICommand GameRulesCommand
         {
             get { return _gameRulesCommand ?? (_gameRulesCommand = new GameRulesCommand(this)); }
+        }
+
+        public ICommand FullScreenWindowCommand
+        {
+            get { return _fullScreenWindowCommand ?? (_fullScreenWindowCommand = new FullScreenWindowCommand(this)); }
+        }
+
+        public ICommand NormalScreenWindowCommand
+        {
+            get { return _fullScreenWindowCommand ?? (_fullScreenWindowCommand = new FullScreenWindowCommand(this)); }
         }
 
         public ICommand AboutCommand
