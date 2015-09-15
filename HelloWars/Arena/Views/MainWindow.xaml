@@ -21,104 +21,105 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
-            <RowDefinition Height="40" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+    <Grid Background="{StaticResource Background}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-        <Menu IsMainMenu="True">
-            <MenuItem Header="_File">
-                <MenuItem Header="_Open" Command="{Binding OpenCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Icons/Open.png" Style="{StaticResource MenuItemIconStyle}"/>
-                    </MenuItem.Icon>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="40" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Menu IsMainMenu="True">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Open" Command="{Binding OpenCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Icons/Open.png" Style="{StaticResource MenuItemIconStyle}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Close" Command="{Binding CloseCommand}">
+                        <MenuItem.Icon >
+                            <Image Source="/Icons/Close.png" Style="{StaticResource MenuItemIconStyle}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
-                <MenuItem Header="_Close" Command="{Binding CloseCommand}">
-                    <MenuItem.Icon >
-                        <Image Source="/Icons/Close.png" Style="{StaticResource MenuItemIconStyle}"/>
-                    </MenuItem.Icon>
+                <MenuItem Header="_Game" >
+                    <MenuItem Header="_Play Duel" Command="{Binding PlayDuelCommand}">
+                        <MenuItem.Icon >
+                            <Image Source="/Icons/PlayDuel.png" Style="{StaticResource MenuItemIconStyle}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Auto Play" Command="{Binding AutoPlayCommand}">
+                        <MenuItem.Icon >
+                            <Image Source="/Icons/AutoPlay.png" Style="{StaticResource MenuItemIconStyle}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
-            </MenuItem>
-            <MenuItem Header="_Game" >
-                <MenuItem Header="_Play Duel" Command="{Binding PlayDuelCommand}">
-                    <MenuItem.Icon >
-                        <Image Source="/Icons/PlayDuel.png" Style="{StaticResource MenuItemIconStyle}"/>
-                    </MenuItem.Icon>
+                <MenuItem Header="_Diagnostics">
+                    <MenuItem Header="_Verify Players" Command="{Binding VerifyPlayersCommand}">
+                        <MenuItem.Icon >
+                            <Image Source="/Icons/VerifyPlayers.png" Style="{StaticResource MenuItemIconStyle}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
-                <MenuItem Header="_Auto Play" Command="{Binding AutoPlayCommand}">
-                    <MenuItem.Icon >
-                        <Image Source="/Icons/AutoPlay.png" Style="{StaticResource MenuItemIconStyle}"/>
-                    </MenuItem.Icon>
+                <MenuItem Header="_Help">
+                    <MenuItem Header="_Game Rules" Command="{Binding GameRulesCommand}">
+                        <MenuItem.Icon >
+                            <Image Source="/Icons/Rules.png" Style="{StaticResource MenuItemIconStyle}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_About" Command="{Binding AboutCommand}">
+                        <MenuItem.Icon >
+                            <Image Source="/Icons/About.png" Style="{StaticResource MenuItemIconStyle}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
-            </MenuItem>
-            <MenuItem Header="_Diagnostics">
-                <MenuItem Header="_Verify Players" Command="{Binding VerifyPlayersCommand}">
-                    <MenuItem.Icon >
-                        <Image Source="/Icons/VerifyPlayers.png" Style="{StaticResource MenuItemIconStyle}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-            <MenuItem Header="_Help">
-                <MenuItem Header="_Game Rules" Command="{Binding GameRulesCommand}">
-                    <MenuItem.Icon >
-                        <Image Source="/Icons/Rules.png" Style="{StaticResource MenuItemIconStyle}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="_About" Command="{Binding AboutCommand}">
-                    <MenuItem.Icon >
-                        <Image Source="/Icons/About.png" Style="{StaticResource MenuItemIconStyle}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-        </Menu>
+            </Menu>
 
-        <Grid Grid.Row="1" Background="#2D2D30">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="1" Background="#2D2D30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" Style="{StaticResource BorderPretendingToolBarStyle}">
-                <Button Command="{Binding OpenCommand}">
-                    <Button.ToolTip >Open Arena Configuration File</Button.ToolTip>
-                    <Image Source="/Icons/Open.png" />
-                </Button>
-            </Border>
+                <Border Grid.Column="0" Style="{StaticResource BorderPretendingToolBarStyle}">
+                    <Button Command="{Binding OpenCommand}">
+                        <Button.ToolTip >Open Arena Configuration File</Button.ToolTip>
+                        <Image Source="/Icons/Open.png" />
+                    </Button>
+                </Border>
 
-            <Border Grid.Column="1" Style="{StaticResource BorderPretendingToolBarStyle}">
-                <Button Command="{Binding PlayDuelCommand}">
-                    <Button.ToolTip >Play Single Duel</Button.ToolTip>
-                    <Image Source="/Icons/PlayDuel.png" />
-                </Button>
-            </Border>
+                <Border Grid.Column="1" Style="{StaticResource BorderPretendingToolBarStyle}">
+                    <Button Command="{Binding PlayDuelCommand}">
+                        <Button.ToolTip >Play Single Duel</Button.ToolTip>
+                        <Image Source="/Icons/PlayDuel.png" />
+                    </Button>
+                </Border>
 
-            <Border Grid.Column="2" Style="{StaticResource BorderPretendingToolBarStyle}">
-                <Button Command="{Binding AutoPlayCommand}">
-                    <Button.ToolTip >Play Duels To The End Of Tournament</Button.ToolTip>
-                    <Image Source="/Icons/AutoPlay.png" />
-                </Button>
-            </Border>
-        </Grid>
+                <Border Grid.Column="2" Style="{StaticResource BorderPretendingToolBarStyle}">
+                    <Button Command="{Binding AutoPlayCommand}">
+                        <Button.ToolTip >Play Duels To The End Of Tournament</Button.ToolTip>
+                        <Image Source="/Icons/AutoPlay.png" />
+                    </Button>
+                </Border>
+            </Grid>
 
-
-        <Grid x:Name="Grid1" Grid.Row="2" Background="{StaticResource Background}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="3*" />
-            </Grid.ColumnDefinitions>
-
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <TabControl>
-                    <TabItem Header="Game">
+            <TabControl Grid.Row="2" >
+                <TabItem Header="Game">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Viewbox HorizontalAlignment="Left" VerticalAlignment="Top">
                             <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}" />
                         </Viewbox>
-                    </TabItem>
-                    <TabItem Header="History">
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="History">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <TreeView Name="GameHistoryTree" ItemsSource="{Binding GameHistory}" Margin="10" Background="{StaticResource BackgroundHighlighted}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  SelectedItemChanged="GameHistoryTree_OnSelectedItemChanged">
                             <TreeView.Resources>
                                 <HierarchicalDataTemplate DataType="{x:Type arena:GameHistoryEntryViewModel}" ItemsSource="{Binding History}">
@@ -129,15 +130,15 @@
                                 </DataTemplate>
                             </TreeView.Resources>
                         </TreeView>
-                    </TabItem>
-                </TabControl>
-            </ScrollViewer>
-
-            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" ShowsPreview="True"/>
-
-            <Viewbox Grid.Column="2" Stretch="Uniform">
-                <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}" />
-            </Viewbox>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
         </Grid>
+
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" ShowsPreview="True"/>
+
+        <Viewbox Grid.Column="2" Stretch="Uniform">
+            <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}" />
+        </Viewbox>
     </Grid>
 </Window>
