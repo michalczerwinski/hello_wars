@@ -4,18 +4,18 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:arena="clr-namespace:Arena.ViewModels"
         xmlns:models="clr-namespace:Common.Models;assembly=Common"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
         Title="Hello Wars Main Window"
         Width="800" Height="600"
         WindowState="{Binding WindowState}"
-        WindowStyle="{Binding WindowStyle}">
+        WindowStyle="{Binding WindowStyle}"
+        KeyDown="MainWindow_OnKeyDown">
 
     <Window.Resources>
-        <ResourceDictionary>
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Selen.Wpf.SystemStyles;component/Styles.xaml"/>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="Styles/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -44,47 +44,48 @@
                 <MenuItem Header="_File">
                     <MenuItem Header="_Open" Command="{Binding OpenCommand}">
                         <MenuItem.Icon>
-                            <Image Source="/Icons/Open.png" Style="{StaticResource MenuItemIconStyle}"/>
+                            <Image Source="/Icons/Open.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="_Close" Command="{Binding CloseCommand}">
                         <MenuItem.Icon >
-                            <Image Source="/Icons/Close.png" Style="{StaticResource MenuItemIconStyle}"/>
+                            <Image Source="/Icons/Close.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="_View">
-                    <MenuItem Header="_History" IsCheckable="True" IsChecked="{Binding Path=IsHistoryVisible, Mode=TwoWay}" Command="{Binding ToggleHistoryCommand}"/>
-                    <MenuItem Header="_Output" IsCheckable="True" IsChecked="{Binding Path=IsOutputVisible, Mode=TwoWay}"/>
+                    <MenuItem Header="_History" IsCheckable="True" IsChecked="{Binding IsHistoryVisible, Mode=TwoWay}" Command="{Binding ToggleHistoryCommand}"/>
+                    <MenuItem Header="_Output" IsCheckable="True" IsChecked="{Binding IsOutputVisible, Mode=TwoWay}"/>
+                    <MenuItem Header="_Full Screen" IsCheckable="True" IsChecked="{Binding IsFullScreenApplied, Mode=TwoWay}"/>
                 </MenuItem>
                 <MenuItem Header="_Game" >
                     <MenuItem Header="_Play Duel" Command="{Binding PlayDuelCommand}">
                         <MenuItem.Icon >
-                            <Image Source="/Icons/PlayDuel.png" Style="{StaticResource MenuItemIconStyle}"/>
+                            <Image Source="/Icons/PlayDuel.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="_Auto Play" Command="{Binding AutoPlayCommand}">
                         <MenuItem.Icon >
-                            <Image Source="/Icons/AutoPlay.png" Style="{StaticResource MenuItemIconStyle}"/>
+                            <Image Source="/Icons/AutoPlay.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="_Diagnostics">
                     <MenuItem Header="_Verify Players" Command="{Binding VerifyPlayersCommand}">
                         <MenuItem.Icon >
-                            <Image Source="/Icons/VerifyPlayers.png" Style="{StaticResource MenuItemIconStyle}"/>
+                            <Image Source="/Icons/VerifyPlayers.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="_Help">
                     <MenuItem Header="_Game Rules" Command="{Binding GameRulesCommand}">
                         <MenuItem.Icon >
-                            <Image Source="/Icons/Rules.png" Style="{StaticResource MenuItemIconStyle}"/>
+                            <Image Source="/Icons/Rules.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="_About" Command="{Binding AboutCommand}">
                         <MenuItem.Icon >
-                            <Image Source="/Icons/About.png" Style="{StaticResource MenuItemIconStyle}"/>
+                            <Image Source="/Icons/About.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
@@ -119,7 +120,7 @@
                 </Border>
             </Grid>
 
-            <TabControl Grid.Row="2" SelectedIndex="{Binding Path=SelectedTabIndex, Mode=TwoWay}">
+            <TabControl Grid.Row="2" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}" Margin="2,10,2,10">
                 <TabItem Header="Game">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Viewbox HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -127,7 +128,7 @@
                         </Viewbox>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem Header="History" Name="HistoryTab" Visibility="{Binding Path=IsHistoryVisible, Converter= {StaticResource BooleanToVisibilityConverter}, ConverterParameter=null}">
+                <TabItem Header="History" Name="HistoryTab" Visibility="{Binding IsHistoryVisible, Converter= {StaticResource BooleanToVisibilityConverter}, ConverterParameter=null}">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <TreeView Name="GameHistoryTree" ItemsSource="{Binding GameHistory}" Margin="10" Background="{StaticResource BackgroundHighlighted}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  SelectedItemChanged="GameHistoryTree_OnSelectedItemChanged">
                             <TreeView.Resources>
@@ -142,18 +143,14 @@
                     </ScrollViewer>
                 </TabItem>
             </TabControl>
-            
-            <TextBox Grid.Row="3" VerticalAlignment="Bottom" Height="150" IsReadOnly="True" Name="OutputWindow" Text="{Binding OutputText}" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextChanged="OutputWindow_TextChanged"/>
+
+            <TextBox Grid.Row="3" VerticalAlignment="Bottom" Height="150" IsReadOnly="True" Name="OutputWindow" Text="{Binding OutputText}" Visibility="{Binding IsOutputVisible, Converter= {StaticResource BooleanToVisibilityConverter}}" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextChanged="OutputWindow_TextChanged"/>
         </Grid>
 
-        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" ShowsPreview="True"/>
+        <GridSplitter Grid.Column="1" Width="5" Background="DimGray"  HorizontalAlignment="Stretch" ShowsPreview="True"/>
 
         <Viewbox Grid.Column="2" Stretch="Uniform" >
             <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}"/>
         </Viewbox>
-
-        <TextBox Grid.Column="0" VerticalAlignment="Bottom" Height="150" IsReadOnly="True" Name="OutputWindow" Text="{Binding OutputText}"
-                 ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextChanged="OutputWindow_TextChanged"
-                 Visibility="{Binding Path=IsOutputVisible, Converter= {StaticResource BooleanToVisibilityConverter}, ConverterParameter=null}"/>
     </Grid>
 </Window>

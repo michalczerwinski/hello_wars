@@ -14,8 +14,16 @@ namespace Arena.Commands.MenuItemCommands
 
         public override void Execute(object parameter = null)
         {
-            _viewModel.WindowState = WindowState.Maximized;
-            _viewModel.WindowStyle = WindowStyle.None;
+            if (_viewModel.IsFullScreenApplied)
+            {
+                _viewModel.WindowState = WindowState.Maximized;
+                _viewModel.WindowStyle = WindowStyle.None;
+            }
+            else
+            {
+                _viewModel.WindowState = WindowState.Normal;
+                _viewModel.WindowStyle = WindowStyle.SingleBorderWindow;
+            }
         }
     }
 }

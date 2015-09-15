@@ -33,7 +33,8 @@ namespace Arena.ViewModels
         private int _selectedTabIndex;
         private string _outputText;
         private static readonly object _lock = new object();
-        
+        private bool _isFullScreenApplied;
+
         private ICommand _autoPlayCommand;
         private ICommand _onLoadedCommand;
         private ICommand _openCommand;
@@ -43,7 +44,6 @@ namespace Arena.ViewModels
         private ICommand _aboutCommand;
         private ICommand _toggleHistoryCommand;
         private ICommand _fullScreenWindowCommand;
-        private ICommand _normalScreenWindowCommand;
         private WindowState _windowState;
         private WindowStyle _windowStyle;
 
@@ -108,7 +108,7 @@ namespace Arena.ViewModels
         public WindowStyle WindowStyle
         {
             get { return _windowStyle; }
-            set { SetProperty(ref _windowStyle, value);  }
+            set { SetProperty(ref _windowStyle, value); }
         }
 
         public WindowState WindowState
@@ -154,11 +154,6 @@ namespace Arena.ViewModels
             get { return _fullScreenWindowCommand ?? (_fullScreenWindowCommand = new FullScreenWindowCommand(this)); }
         }
 
-        public ICommand NormalScreenWindowCommand
-        {
-            get { return _fullScreenWindowCommand ?? (_fullScreenWindowCommand = new FullScreenWindowCommand(this)); }
-        }
-
         public ICommand AboutCommand
         {
             get { return _aboutCommand ?? (_aboutCommand = new AboutCommand(this)); }
@@ -169,6 +164,16 @@ namespace Arena.ViewModels
             get { return _toggleHistoryCommand ?? (_toggleHistoryCommand = new ToggleHistoryCommand(this)); }
         }
 
+        public bool IsFullScreenApplied
+        {
+            get { return _isFullScreenApplied; }
+            set
+            {
+                SetProperty(ref _isFullScreenApplied, value);
+                FullScreenWindowCommand.Execute(null);
+            }
+        }
+
         #endregion
 
         public MainWindowViewModel()
@@ -176,6 +181,7 @@ namespace Arena.ViewModels
             ScoreList = new ScoreList();
             IsHistoryVisible = true;
             IsOutputVisible = true;
+            IsFullScreenApplied = false;
             ApplyConfiguration(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Resources.DefaultArenaConfigurationName);
         }
 
@@ -183,7 +189,7 @@ namespace Arena.ViewModels
         {
             OutputText += string.Format("Waiting for players ({0})\n", emptyCompetitors.Count);
             var dispatcher = _eliminationTypeControl.Dispatcher;
-            
+
             Task.Run(() =>
             {
                 var loader = new CompetitorLoadService();
@@ -224,7 +230,7 @@ namespace Arena.ViewModels
                 Url = url
             } as ICompetitor).ToList();
 
-         //   AskForCompetitors(ArenaConfiguration.GameConfiguration.Type, Competitors);
+            //   AskForCompetitors(ArenaConfiguration.GameConfiguration.Type, Competitors);
         }
 
         public ArenaConfiguration ReadConfigurationFromXML(string path)
