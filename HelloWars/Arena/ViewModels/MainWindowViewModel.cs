@@ -32,16 +32,18 @@ namespace Arena.ViewModels
         private ObservableCollection<GameHistoryEntryViewModel> _gameHistory;
         private bool _isHistoryVisible;
         private bool _isOutputVisible;
+        private int _selectedTabIndex;
         private string _outputText;
         private static readonly object _lock = new object();
+        
         private ICommand _autoPlayCommand;
         private ICommand _onLoadedCommand;
-        
         private ICommand _openCommand;
         private ICommand _closeCommand;
         private ICommand _verifyPlayersCommand;
         private ICommand _gameRulesCommand;
         private ICommand _aboutCommand;
+        private ICommand _toggleHistoryCommand;
 
         public ArenaConfiguration ArenaConfiguration { get; set; }
         public IElimination Elimination { get; set; }
@@ -64,6 +66,12 @@ namespace Arena.ViewModels
         {
             get { return _isOutputVisible; }
             set { SetProperty(ref _isOutputVisible, value); }
+        }
+
+        public int SelectedTabIndex
+        {
+            get { return _selectedTabIndex; }
+            set { SetProperty(ref _selectedTabIndex, value); }
         }
 
         public ObservableCollection<GameHistoryEntryViewModel> GameHistory
@@ -132,11 +140,18 @@ namespace Arena.ViewModels
             get { return _aboutCommand ?? (_aboutCommand = new AboutCommand(this)); }
         }
 
+        public ICommand ToggleHistoryCommand
+        {
+            get { return _toggleHistoryCommand ?? (_toggleHistoryCommand = new ToggleHistoryCommand(this)); }
+        }
+
         #endregion
 
         public MainWindowViewModel()
         {
             ScoreList = new ScoreList();
+            IsHistoryVisible = true;
+            IsOutputVisible = true;
             ApplyConfiguration(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Resources.DefaultArenaConfigurationName);
         }
 

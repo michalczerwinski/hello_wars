@@ -13,7 +13,10 @@ namespace Arena.Commands.MenuItemCommands
 
         public override void Execute(object parameter = null)
         {
-            base.Execute(parameter);
+            if (!_viewModel.IsHistoryVisible)
+            {
+                _viewModel.SelectedTabIndex = 0;
+            }
         }
     }
 }
