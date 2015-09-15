@@ -101,6 +101,12 @@ namespace Game.TicTacToe
             }
         }
 
+        public string GetGameRules()
+        {
+            //TODO: implement
+            return "";
+        }
+
         private Dictionary<ICompetitor, double> GetResults()
         {
             return _competitors.ToDictionary(toeBot => toeBot as ICompetitor, toeBot => toeBot.IsWinner ? 1.0 : 0.0);
