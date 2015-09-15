@@ -10,13 +10,6 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary 
-                Source="pack://application:,,,/Selen.Wpf.SystemStyles;component/Styles.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Selen.Wpf.Core;component/MetroWindowResources.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.Tooltip.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.Buttons.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Selen.Wpf.Core;component/Resources.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Selen.Wpf.SystemStyles;component/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -35,7 +28,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Menu IsMainMenu="True" >
+        <Menu IsMainMenu="True">
             <MenuItem Header="_File">
                 <MenuItem Header="_Open" Command="{Binding OpenCommand}">
                     <MenuItem.Icon>
@@ -110,22 +103,23 @@
             </Border>
         </Grid>
 
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
-            <Grid x:Name="Grid1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="5" />
-                    <ColumnDefinition Width="3*" />
-                </Grid.ColumnDefinitions>
 
-                <TabControl Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource StandardTabControl}">
-                    <TabItem Header="Game" MaxWidth="100">
-                        <Viewbox VerticalAlignment="Top">
-                            <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}" HorizontalAlignment="Center"/>
+        <Grid x:Name="Grid1" Grid.Row="2" Background="{StaticResource Background}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <TabControl>
+                    <TabItem Header="Game">
+                        <Viewbox HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}" />
                         </Viewbox>
                     </TabItem>
-                    <TabItem Header="History" MaxWidth="100">
-                        <TreeView HorizontalAlignment="Left" Height="400" Width="300" Name="GameHistoryTree" ItemsSource="{Binding GameHistory}" SelectedItemChanged="GameHistoryTree_OnSelectedItemChanged">
+                    <TabItem Header="History">
+                        <TreeView Name="GameHistoryTree" ItemsSource="{Binding GameHistory}" Margin="10" Background="{StaticResource BackgroundHighlighted}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  SelectedItemChanged="GameHistoryTree_OnSelectedItemChanged">
                             <TreeView.Resources>
                                 <HierarchicalDataTemplate DataType="{x:Type arena:GameHistoryEntryViewModel}" ItemsSource="{Binding History}">
                                     <TextBlock Text="{Binding GameDescription}" />
@@ -137,13 +131,13 @@
                         </TreeView>
                     </TabItem>
                 </TabControl>
+            </ScrollViewer>
 
-                <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" ShowsPreview="True"/>
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" ShowsPreview="True"/>
 
-                <Viewbox Grid.Column="2" VerticalAlignment="Top">
-                    <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}" HorizontalAlignment="Center"/>
-                </Viewbox>
-            </Grid>
-        </ScrollViewer>
+            <Viewbox Grid.Column="2" Stretch="Uniform">
+                <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}" />
+            </Viewbox>
+        </Grid>
     </Grid>
 </Window>
