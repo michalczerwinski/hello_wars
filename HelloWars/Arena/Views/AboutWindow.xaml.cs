@@ -15,16 +15,16 @@ using System.Windows.Shapes;
 namespace Arena.Views
 {
     /// <summary>
-    /// Interaction logic for About.xaml
+    /// Interaction logic for AboutWindow.xaml
     /// </summary>
-    public partial class About : Window
+    public partial class AboutWindow : Window
     {
-        public About()
+        public AboutWindow()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CloseButton_OnClick(object sender, RoutedEventArgs e)
         {
             Close();
         }
