@@ -140,5 +140,7 @@
         <Viewbox Grid.Column="2" Stretch="Uniform">
             <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}" />
         </Viewbox>
+
+        <TextBox Grid.Column="0" VerticalAlignment="Bottom" Height="150" IsReadOnly="True" Name="OutputWindow" Text="{Binding OutputText}" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextChanged="OutputWindow_TextChanged"/>
     </Grid>
 </Window>

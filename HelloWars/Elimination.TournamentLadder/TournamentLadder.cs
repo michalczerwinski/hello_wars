@@ -11,6 +11,7 @@ namespace Elimination.TournamentLadder
     public class TournamentLadder : IElimination
     {
         private TournamentLadderViewModel _tournamentLadderViewModel;
+        private TournamentLadderControl _control;
         public List<ICompetitor> Bots { get; set; }
 
         public UserControl GetVisualization(IConfigurable configuration)
@@ -18,7 +19,7 @@ namespace Elimination.TournamentLadder
             if (Bots != null)
             {
                 _tournamentLadderViewModel = new TournamentLadderViewModel(Bots);
-                return new TournamentLadderControl(_tournamentLadderViewModel);
+                return _control = new TournamentLadderControl(_tournamentLadderViewModel);
             }
 
             return null;
@@ -85,6 +86,11 @@ namespace Elimination.TournamentLadder
         {
             var competitors = GetNextCompetitors();
             return string.Format("Duel: {0} vs {1} {2}", competitors[0].Name, competitors[1].Name, DateTime.Now);
+        }
+
+        public void UpdateControl()
+        {
+            _control.Refresh();
         }
 
         private BotUserControl ReturnBotControl(ICompetitor botClient)

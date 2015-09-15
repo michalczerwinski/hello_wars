@@ -33,9 +33,7 @@ namespace Arena.Commands.MenuItemCommands
             if (result == true)
             {
                 var filePath = dlg.FileName;
-                _viewModel.ArenaConfiguration = _viewModel.ReadConfigurationFromXML(filePath);
-                _viewModel.InitiateManagedExtensibilityFramework();
-                _viewModel.AskForCompetitors(_viewModel.ArenaConfiguration.GameConfiguration.Type);
+                _viewModel.ApplyConfiguration(filePath);
                 _viewModel.OnLoadedCommand.Execute(null);
             }
         }

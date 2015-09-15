@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -25,12 +26,17 @@ namespace Elimination.TournamentLadder.UserControls
             _viewModel = viewModel;
             _startingNumberOfBots = _viewModel.Bots.Count;
             _numberOfStages = (int)Math.Ceiling(Math.Log(_startingNumberOfBots, 2)) + 1;
-
-            CreateEmptyTournamentLadderView();
-            AddBotsToTournamentList();
-            SetCanvasSize();
+            
+            Refresh();
         }
 
+        public void Refresh()
+        {
+                TournamentLadderCanvas.Children.Clear();
+                CreateEmptyTournamentLadderView();
+                AddBotsToTournamentList();
+                SetCanvasSize();
+        }
         private void SetCanvasSize()
         {
             TournamentLadderCanvas.Height = _startingNumberOfBots * 60;
@@ -87,6 +93,7 @@ namespace Elimination.TournamentLadder.UserControls
         private void CreateEmptyTournamentLadderView()
         {
             _viewModel.StageLists = new List<List<BotUserControl>>();
+
             var numberOfBots = _startingNumberOfBots;
             var stageNumber = 1;
 

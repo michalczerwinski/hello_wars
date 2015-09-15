@@ -26,6 +26,8 @@ namespace Arena.Commands.MenuItemCommands
 
                 _viewModel.Game.SetupNewGame(nextCompetitors);
 
+                _viewModel.OutputText += "Game starting: " + gameHistoryEntry.GameDescription;
+
                 RoundResult result;
 
                 do
