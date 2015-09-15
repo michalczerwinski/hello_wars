@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using Common.Interfaces;
 using Elimination.RoundRobin.UserControls;
@@ -11,11 +12,12 @@ namespace Elimination.RoundRobin
     {
         public List<ICompetitor> Bots { get; set; }
         private RoundRobinViewModel _viewModel;
+        private RoundRobinUserControl _control;
 
         public UserControl GetVisualization(IConfigurable configuration)
         {
             _viewModel = new RoundRobinViewModel(Bots);
-            return new RoundRobinUserControl(_viewModel);
+            return _control = new RoundRobinUserControl(_viewModel);
         }
 
         public IList<ICompetitor> GetNextCompetitors()
@@ -91,6 +93,11 @@ namespace Elimination.RoundRobin
         public string GetGameDescription()
         {
             return "Round-Robin Elimination";
+        }
+
+        public void UpdateControl()
+        {
+            _control.Refresh();
         }
     }
 }

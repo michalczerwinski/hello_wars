@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using Arena.ViewModels;
 using Common.Models;
@@ -29,6 +32,11 @@ namespace Arena.Views
             {
                 _viewModel.Game.SetPreview(roundPartial.BoardState);
             }
+        }
+
+        private void OutputWindow_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            OutputWindow.ScrollToEnd();
         }
     }
 }

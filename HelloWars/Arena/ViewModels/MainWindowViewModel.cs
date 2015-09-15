@@ -5,10 +5,13 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup.Localizer;
+using System.Windows.Threading;
 using Arena.Commands;
 using Arena.Commands.MenuItemCommands;
 using Arena.Configuration;
@@ -27,8 +30,11 @@ namespace Arena.ViewModels
         private UserControl _eliminationTypeControl;
         private List<ICompetitor> _competitors;
         private ObservableCollection<GameHistoryEntryViewModel> _gameHistory;
+        private string _outputText;
+        private static readonly object _lock = new object();
         private ICommand _autoPlayCommand;
         private ICommand _onLoadedCommand;
+        
         private ICommand _openCommand;
         private ICommand _closeCommand;
         private ICommand _verifyPlayersCommand;
@@ -39,6 +45,12 @@ namespace Arena.ViewModels
         public IElimination Elimination { get; set; }
         public IGame Game { get; set; }
         public ScoreList ScoreList { get; set; }
+
+        public string OutputText
+        {
+            get { return _outputText; }
+            set { SetProperty(ref _outputText, value); }
+        }
 
         public ObservableCollection<GameHistoryEntryViewModel> GameHistory
         {
@@ -111,21 +123,55 @@ namespace Arena.ViewModels
         public MainWindowViewModel()
         {
             ScoreList = new ScoreList();
-            ArenaConfiguration = ReadConfigurationFromXML(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Resources.DefaultArenaConfigurationName);
-            InitiateManagedExtensibilityFramework();
-            AskForCompetitors(ArenaConfiguration.GameConfiguration.Type);
+            ApplyConfiguration(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Resources.DefaultArenaConfigurationName);
         }
 
-        public void AskForCompetitors(string gameTypeName)
+        public void AskForCompetitors(string gameTypeName, List<ICompetitor> emptyCompetitors)
         {
-            Task.Run(async () =>
+            OutputText += string.Format("Waiting for players ({0})\n", emptyCompetitors.Count);
+            var dispatcher = _eliminationTypeControl.Dispatcher;
+            
+            Task.Run(() =>
             {
                 var loader = new CompetitorLoadService();
 
-                var competitorsTasks = ArenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitorAsync(botUrl, gameTypeName)).ToList();
+                var competitorsTasks = emptyCompetitors.Select(async bot =>
+                {
+                    var competitor = await loader.LoadCompetitorAsync(bot.Url, gameTypeName);
 
-                Competitors = (await Task.WhenAll(competitorsTasks)).Where(competitor => competitor != null).ToList();
-            }).Wait();
+                    bot.Name = competitor.Name;
+                    bot.AvatarUrl = competitor.AvatarUrl;
+
+                    lock (_lock)
+                    {
+                        OutputText += string.Format("Bot \"{0}\" connected!\n", bot.Name);
+
+                        dispatcher.Invoke(Elimination.UpdateControl);
+                    }
+
+                    return bot;
+                }).ToList();
+
+                Task.WhenAll(competitorsTasks).ContinueWith(task =>
+                {
+                    OutputText += "All players connected!\n";
+                });
+
+            });
+        }
+
+        public void ApplyConfiguration(string configFilePath)
+        {
+            ArenaConfiguration = ReadConfigurationFromXML(configFilePath);
+            InitiateManagedExtensibilityFramework();
+            Competitors = ArenaConfiguration.BotUrls.Select(url => new Competitor()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Connecting...",
+                Url = url
+            } as ICompetitor).ToList();
+
+         //   AskForCompetitors(ArenaConfiguration.GameConfiguration.Type, Competitors);
         }
 
         public ArenaConfiguration ReadConfigurationFromXML(string path)
