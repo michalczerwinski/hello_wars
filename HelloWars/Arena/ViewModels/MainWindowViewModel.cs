@@ -30,6 +30,8 @@ namespace Arena.ViewModels
         private UserControl _eliminationTypeControl;
         private List<ICompetitor> _competitors;
         private ObservableCollection<GameHistoryEntryViewModel> _gameHistory;
+        private bool _isHistoryVisible;
+        private bool _isOutputVisible;
         private string _outputText;
         private static readonly object _lock = new object();
         private ICommand _autoPlayCommand;
@@ -50,6 +52,18 @@ namespace Arena.ViewModels
         {
             get { return _outputText; }
             set { SetProperty(ref _outputText, value); }
+        }
+
+        public bool IsHistoryVisible
+        {
+            get { return _isHistoryVisible; }
+            set { SetProperty(ref _isHistoryVisible, value); }
+        }
+
+        public bool IsOutputVisible
+        {
+            get { return _isOutputVisible; }
+            set { SetProperty(ref _isOutputVisible, value); }
         }
 
         public ObservableCollection<GameHistoryEntryViewModel> GameHistory

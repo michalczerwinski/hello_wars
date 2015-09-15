@@ -69,6 +69,7 @@
     <Compile Include="Commands\MenuItemCommands\GameRulesCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\OpenCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\PlayDuelCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\ToggleHistoryCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\VerifyPlayersCommand.cs" />
     <Compile Include="Configuration\ArenaConfiguration.cs" />
     <Compile Include="ViewModels\GameHistoryEntryViewModel.cs" />

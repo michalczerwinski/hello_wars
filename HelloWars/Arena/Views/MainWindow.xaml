@@ -24,7 +24,7 @@
 
         <Menu IsMainMenu="True" >
             <MenuItem Header="_File">
-                <MenuItem Header="_Open" Command="{Binding OpenCommand}">
+                <MenuItem Header="_Load config..." Command="{Binding OpenCommand}">
                     <MenuItem.Icon >
                         <Image Source="/Icons/Open.png" Style="{StaticResource MenuItemIconStyle}"/>
                     </MenuItem.Icon>
@@ -33,6 +33,12 @@
                     <MenuItem.Icon >
                         <Image Source="/Icons/Close.png" Style="{StaticResource MenuItemIconStyle}"/>
                     </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Header="_History tab" IsCheckable="True"  Command="{Binding ToggleHistoryCommand}">
+                </MenuItem>
+                <MenuItem Header="_Output window" IsCheckable="True" Command="{Binding ToggleOutputCommand}">
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Game" >
