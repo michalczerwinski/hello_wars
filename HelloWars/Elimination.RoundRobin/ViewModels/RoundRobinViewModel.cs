@@ -9,7 +9,7 @@ namespace Elimination.RoundRobin.ViewModels
     {
         private int _numberOfRepeat;
         private bool _clearScoreBoard;
-        public List<BotViewModel> Bots { get; set; }
+        private List<BotViewModel> _bots;
         public List<ICompetitor> Competitors { get; set; }
 
         public RoundRobinViewModel(List<ICompetitor> competitors)
@@ -18,6 +18,12 @@ namespace Elimination.RoundRobin.ViewModels
             Bots = WrapBots(competitors);
             NumberOfRepeat = 1;
         }
+
+        public List<BotViewModel> Bots
+        {
+            get{ return _bots; }
+            set { SetProperty(ref _bots, value); }
+        } 
 
         public int NumberOfRepeat
         {
@@ -34,6 +40,11 @@ namespace Elimination.RoundRobin.ViewModels
         private List<BotViewModel> WrapBots(IEnumerable<ICompetitor> bots)
         {
             return bots.Select(bot => new BotViewModel(bot)).ToList();
+        }
+
+        public void Refresh()
+        {
+            Bots = WrapBots(Competitors);
         }
     }
 }

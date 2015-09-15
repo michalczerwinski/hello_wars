@@ -24,6 +24,8 @@ namespace Arena.Commands
             {
                 _viewModel.GameTypeControl = _viewModel.Game.GetVisualisationUserControl(_viewModel.ArenaConfiguration.GameConfiguration);
             }
+
+            _viewModel.AskForCompetitors(_viewModel.ArenaConfiguration.GameConfiguration.Type, _viewModel.Competitors);
         }
     }
 }

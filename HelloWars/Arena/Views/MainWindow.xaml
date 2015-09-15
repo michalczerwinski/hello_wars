@@ -18,6 +18,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="auto" />
+            <RowDefinition MinHeight="400"/>
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -101,7 +102,7 @@
                         </Viewbox>
                     </TabItem>
                     <TabItem Header="History" MaxWidth="100" >
-                        <TreeView HorizontalAlignment="Left" Height="400" Width="300" Name="GameHistoryTree" ItemsSource="{Binding GameHistory}" SelectedItemChanged="GameHistoryTree_OnSelectedItemChanged">
+                        <TreeView HorizontalAlignment="Left" MinHeight="350" Width="300" Name="GameHistoryTree" ItemsSource="{Binding GameHistory}" SelectedItemChanged="GameHistoryTree_OnSelectedItemChanged">
                             <TreeView.Resources>
                                 <HierarchicalDataTemplate DataType="{x:Type arena:GameHistoryEntryViewModel}" ItemsSource="{Binding History}">
                                     <TextBlock Text="{Binding GameDescription}" />
@@ -121,5 +122,7 @@
                 </Viewbox>
             </Grid>
         </ScrollViewer>
+        
+        <TextBox Grid.Row="3" IsReadOnly="True" Name="OutputWindow" Text="{Binding OutputText}" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextChanged="OutputWindow_TextChanged"></TextBox>
     </Grid>
 </Window>
