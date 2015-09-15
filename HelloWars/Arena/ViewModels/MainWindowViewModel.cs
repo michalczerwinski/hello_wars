@@ -30,10 +30,11 @@ namespace Arena.ViewModels
         private UserControl _eliminationTypeControl;
         private List<ICompetitor> _competitors;
         private ObservableCollection<GameHistoryEntryViewModel> _gameHistory;
+        private string _outputText;
+        private static readonly object _lock = new object();
         private ICommand _autoPlayCommand;
         private ICommand _onLoadedCommand;
-        private string _outputText;
-        private static object _lock = new object();
+        
         private ICommand _openCommand;
         private ICommand _closeCommand;
         private ICommand _verifyPlayersCommand;
@@ -123,11 +124,6 @@ namespace Arena.ViewModels
         {
             ScoreList = new ScoreList();
             ApplyConfiguration(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Resources.DefaultArenaConfigurationName);
-        }
-
-        public void OnRendered()
-        {
-           // AskForCompetitors(ArenaConfiguration.GameConfiguration.Type, Competitors);
         }
 
         public void AskForCompetitors(string gameTypeName, List<ICompetitor> emptyCompetitors)

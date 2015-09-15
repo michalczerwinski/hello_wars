@@ -105,7 +105,5 @@ namespace Elimination.TournamentLadder
 
             return botUserControl;
         }
-
-
     }
 }
