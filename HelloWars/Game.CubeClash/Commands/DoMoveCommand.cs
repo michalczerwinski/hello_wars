@@ -29,9 +29,6 @@ namespace Game.CubeClash.Commands
 
            // _viewModel.PlayersCollection.First().MovementShadowRotate += 90;
              _viewModel.PlayersCollection.First().Attack();
-
-
-
         }
     }
 }

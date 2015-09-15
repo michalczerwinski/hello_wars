@@ -29,8 +29,8 @@ namespace Game.CubeClash.UserControls
 
         public CubeClashUserControl(CubeClashViewModel viewModel)
         {
-            _viewModel = viewModel;
             InitializeComponent();
+            _viewModel = viewModel;
         }
     }
 }

@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <Button Content="DoSomething" Command="{Binding DoMoveCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
-        <Button Content="Rotate" Command="{Binding Class1Command}" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
+        <Button Content="Rotate" Command="{Binding Class1Command}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
 
         <ItemsControl Width="{Binding BattlegroundWidth}" Height="{Binding BattlegroundHeigth}" Grid.Row="1" ItemsSource="{Binding GridCollection}">
             <ItemsControl.ItemsPanel>

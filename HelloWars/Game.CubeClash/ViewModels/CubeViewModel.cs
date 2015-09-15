@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 using System.Windows.Media;
 using Common.Models;
 using Game.CubeClash.Models;
@@ -91,9 +93,25 @@ namespace Game.CubeClash.ViewModels
         private double _centerY;
         private string _isGlowing;
 
-        public delegate void delegatZdazenia();
+        public delegate void AnimationCompleatedDelegate();
 
-        public delegatZdazenia zdazenie { get; set; }
+        public AnimationCompleatedDelegate AnimationCompleatedHandler { get; set; }
+
+        public string _animationCompleated;
+        public string AnimationCompleated
+        {
+            get { return _animationCompleated; }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    
+                if (value == "") { }
+
+                }
+            }
+        }
+
 
         public string IsGlowing
         {
@@ -115,18 +133,39 @@ namespace Game.CubeClash.ViewModels
 
         public void Attack()
         {
-            zdazenie();
+            IsAttacking = "True";
+
             X += 7;
         }
 
         public void Rotate()
         {
-            
+
         }
 
-        public void Move()
+        public void Up()
         {
-            
+
+        }
+
+        public void Down()
+        {
+
+        }
+        public void Left()
+        {
+
+        }
+        public void Right()
+        {
+
+        }
+
+        private string _isAttacking;
+        public string IsAttacking
+        {
+            get { return _isAttacking; }
+            set { SetProperty(ref _isAttacking, value); }
         }
     }
 }

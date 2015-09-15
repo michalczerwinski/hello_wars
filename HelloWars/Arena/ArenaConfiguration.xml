@@ -22,5 +22,6 @@
     <Url>http://localhost:53886/DynaBlasterBot/</Url>-->
 
     <Url>http://localhost:53886/CubeClashBot/</Url>
+    <Url>http://localhost:53886/CubeClashBot/</Url>
   </BotUrls>
 </ArenaConfiguration>

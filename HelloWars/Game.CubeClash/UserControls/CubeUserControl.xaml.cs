@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using Game.CubeClash.ViewModels;
 
@@ -41,11 +42,17 @@ namespace Game.CubeClash.UserControls
 
         private void ConnectAnimationEffect_OnLoaded(object sender, RoutedEventArgs e)
         {
-            _viewModel.zdazenie = () =>
-            {
-                var newEventArgs = new RoutedEventArgs(CustomTestEvent);
-                Rectangle1.RaiseEvent(newEventArgs);
-            };
+            //_viewModel.zdazenie = () =>
+            //{
+            //    var newEventArgs = new RoutedEventArgs(CustomTestEvent);
+            //    Rectangle1.RaiseEvent(newEventArgs);
+            //};
+        }
+
+        private void Timeline_OnCompleted(object sender, EventArgs e)
+        {
+            var sss = sender as Storyboard;
+            _viewModel.AnimationCompleated = sss.Name;
         }
     }
 }

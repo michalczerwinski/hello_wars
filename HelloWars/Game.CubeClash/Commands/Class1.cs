@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using Common;
 using Common.Helpers;
 using Game.CubeClash.ViewModels;
@@ -28,10 +29,8 @@ namespace Game.CubeClash.Commands
             //} while (_viewModel.PlayersCollection.First().X < 50);
 
             _viewModel.PlayersCollection.First().MovementShadowRotate += 90;
+            _viewModel.PlayersCollection.First().IsAttacking = _viewModel.PlayersCollection.First().IsAttacking == "False" ? "True" : "False";
             //_viewModel.PlayersCollection.First().Attack();
-
-
-
         }
     }
 }
