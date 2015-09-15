@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows;
 using Arena.ViewModels;
+using Arena.Views;
 
 namespace Arena.Commands.MenuItemCommands
 {
@@ -18,7 +15,11 @@ namespace Arena.Commands.MenuItemCommands
 
         public override void Execute(object parameter = null)
         {
-
+            var window = new AboutWindow()
+            {
+                Owner = Application.Current.MainWindow
+            };
+            window.ShowDialog();
         }
     }
 }
