@@ -61,6 +61,15 @@ namespace Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /ArenaConfiguration.xml.
+        /// </summary>
+        public static string DefaultArenaConfigurationName {
+            get {
+                return ResourceManager.GetString("DefaultArenaConfigurationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to info.
         /// </summary>
         public static string InfoUrlSuffix {

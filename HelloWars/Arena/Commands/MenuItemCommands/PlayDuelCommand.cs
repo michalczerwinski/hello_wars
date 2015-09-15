@@ -2,7 +2,7 @@
 using Arena.ViewModels;
 using Common.Models;
 
-namespace Arena.Commands
+namespace Arena.Commands.MenuItemCommands
 {
     public class PlayDuelCommand : CommandBase
     {
