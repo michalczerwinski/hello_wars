@@ -1,12 +1,6 @@
-﻿using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
-using System.IO;
-using System.Reflection;
-using System.Windows;
-using Arena.Configuration;
+﻿using System.Windows;
 using Arena.ViewModels;
 using Arena.Views;
-using Common.Serialization;
 
 namespace Arena
 {

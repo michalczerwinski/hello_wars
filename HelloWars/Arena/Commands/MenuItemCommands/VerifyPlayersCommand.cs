@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Arena.ViewModels;
+﻿using Arena.ViewModels;
 
 namespace Arena.Commands.MenuItemCommands
 {
@@ -19,7 +14,6 @@ namespace Arena.Commands.MenuItemCommands
         public override void Execute(object parameter = null)
         {
             _viewModel.Competitors.ForEach(competitor => competitor.Name = "Verifying...");
-            _viewModel.Elimination.UpdateControl();
             _viewModel.AskForCompetitors(_viewModel.ArenaConfiguration.GameConfiguration.Type, _viewModel.Competitors);
         }
     }
