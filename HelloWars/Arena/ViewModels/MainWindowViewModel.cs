@@ -188,7 +188,6 @@ namespace Arena.ViewModels
         public void AskForCompetitors(string gameTypeName, List<ICompetitor> emptyCompetitors)
         {
             OutputText += string.Format("Waiting for players ({0})\n", emptyCompetitors.Count);
-            var dispatcher = _eliminationTypeControl.Dispatcher;
 
             Task.Run(() =>
             {
@@ -204,8 +203,7 @@ namespace Arena.ViewModels
                     lock (_lock)
                     {
                         OutputText += string.Format("Bot \"{0}\" connected!\n", bot.Name);
-
-                        dispatcher.Invoke(Elimination.UpdateControl);
+                        Elimination.Bots.First(f => f.Id == bot.Id).Name = bot.Name;
                     }
 
                     return bot;
@@ -215,7 +213,6 @@ namespace Arena.ViewModels
                 {
                     OutputText += "All players connected!\n";
                 });
-
             });
         }
 
@@ -229,8 +226,6 @@ namespace Arena.ViewModels
                 Name = "Connecting...",
                 Url = url
             } as ICompetitor).ToList();
-
-            //   AskForCompetitors(ArenaConfiguration.GameConfiguration.Type, Competitors);
         }
 
         public ArenaConfiguration ReadConfigurationFromXML(string path)
