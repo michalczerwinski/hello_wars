@@ -55,7 +55,7 @@ namespace Elimination.TournamentLadder
 
         public void SetLastDuelResult(IDictionary<ICompetitor, double> resultDictionary)
         {
-            if (resultDictionary != null)
+            if (resultDictionary != null && resultDictionary.Any(pair => pair.Value > 0))
             {
                 foreach (var singleResult in resultDictionary)
                 {
