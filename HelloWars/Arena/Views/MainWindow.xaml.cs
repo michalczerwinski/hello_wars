@@ -1,8 +1,6 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Arena.ViewModels;
 using Common.Models;
 
@@ -37,6 +35,14 @@ namespace Arena.Views
         private void OutputWindow_TextChanged(object sender, TextChangedEventArgs e)
         {
             OutputWindow.ScrollToEnd();
+        }
+
+        private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                _viewModel.IsFullScreenApplied = false;
+            }
         }
     }
 }

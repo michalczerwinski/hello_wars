@@ -5,13 +5,11 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Markup.Localizer;
-using System.Windows.Threading;
 using Arena.Commands;
 using Arena.Commands.MenuItemCommands;
 using Arena.Configuration;
@@ -35,7 +33,8 @@ namespace Arena.ViewModels
         private int _selectedTabIndex;
         private string _outputText;
         private static readonly object _lock = new object();
-        
+        private bool _isFullScreenApplied;
+
         private ICommand _autoPlayCommand;
         private ICommand _onLoadedCommand;
         private ICommand _openCommand;
@@ -44,6 +43,9 @@ namespace Arena.ViewModels
         private ICommand _gameRulesCommand;
         private ICommand _aboutCommand;
         private ICommand _toggleHistoryCommand;
+        private ICommand _fullScreenWindowCommand;
+        private WindowState _windowState;
+        private WindowStyle _windowStyle;
 
         public ArenaConfiguration ArenaConfiguration { get; set; }
         public IElimination Elimination { get; set; }
@@ -103,6 +105,18 @@ namespace Arena.ViewModels
             get { return _onLoadedCommand ?? (_onLoadedCommand = new LoadGameAndEliminationUserControlsOnLoadedControl(this)); }
         }
 
+        public WindowStyle WindowStyle
+        {
+            get { return _windowStyle; }
+            set { SetProperty(ref _windowStyle, value); }
+        }
+
+        public WindowState WindowState
+        {
+            get { return _windowState; }
+            set { SetProperty(ref _windowState, value); }
+        }
+
         #region MenuItems
 
         public ICommand OpenCommand
@@ -135,6 +149,11 @@ namespace Arena.ViewModels
             get { return _gameRulesCommand ?? (_gameRulesCommand = new GameRulesCommand(this)); }
         }
 
+        public ICommand FullScreenWindowCommand
+        {
+            get { return _fullScreenWindowCommand ?? (_fullScreenWindowCommand = new FullScreenWindowCommand(this)); }
+        }
+
         public ICommand AboutCommand
         {
             get { return _aboutCommand ?? (_aboutCommand = new AboutCommand(this)); }
@@ -145,6 +164,16 @@ namespace Arena.ViewModels
             get { return _toggleHistoryCommand ?? (_toggleHistoryCommand = new ToggleHistoryCommand(this)); }
         }
 
+        public bool IsFullScreenApplied
+        {
+            get { return _isFullScreenApplied; }
+            set
+            {
+                SetProperty(ref _isFullScreenApplied, value);
+                FullScreenWindowCommand.Execute(null);
+            }
+        }
+
         #endregion
 
         public MainWindowViewModel()
@@ -152,14 +181,14 @@ namespace Arena.ViewModels
             ScoreList = new ScoreList();
             IsHistoryVisible = true;
             IsOutputVisible = true;
+            IsFullScreenApplied = false;
             ApplyConfiguration(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Resources.DefaultArenaConfigurationName);
         }
 
         public void AskForCompetitors(string gameTypeName, List<ICompetitor> emptyCompetitors)
         {
             OutputText += string.Format("Waiting for players ({0})\n", emptyCompetitors.Count);
-            var dispatcher = _eliminationTypeControl.Dispatcher;
-            
+
             Task.Run(() =>
             {
                 var loader = new CompetitorLoadService();
@@ -174,8 +203,7 @@ namespace Arena.ViewModels
                     lock (_lock)
                     {
                         OutputText += string.Format("Bot \"{0}\" connected!\n", bot.Name);
-
-                        dispatcher.Invoke(Elimination.UpdateControl);
+                        Elimination.Bots.First(f => f.Id == bot.Id).Name = bot.Name;
                     }
 
                     return bot;
@@ -185,7 +213,6 @@ namespace Arena.ViewModels
                 {
                     OutputText += "All players connected!\n";
                 });
-
             });
         }
 
@@ -199,8 +226,6 @@ namespace Arena.ViewModels
                 Name = "Connecting...",
                 Url = url
             } as ICompetitor).ToList();
-
-         //   AskForCompetitors(ArenaConfiguration.GameConfiguration.Type, Competitors);
         }
 
         public ArenaConfiguration ReadConfigurationFromXML(string path)

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Arena.Configuration;
-using Arena.ViewModels;
-using Common.Serialization;
+﻿using Arena.ViewModels;
 using Microsoft.Win32;
 
 namespace Arena.Commands.MenuItemCommands
