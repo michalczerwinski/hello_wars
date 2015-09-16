@@ -48,16 +48,15 @@ namespace Game.CubeClash.ViewModels
             set { SetProperty(ref _rowCount, value); }
         }
 
-
         public ICommand DoMoveCommand
         {
             get { return _doMoveCommand ?? (_doMoveCommand = new DoMoveCommand(this)); }
         }
 
-        private ICommand _class1Command;
-        public ICommand Class1Command
+        private ICommand _watchCommand;
+        public ICommand WatchCommand
         {
-            get { return _class1Command ?? (_class1Command = new Class1Command(this)); }
+            get { return _watchCommand ?? (_watchCommand = new WatchCommand(this)); }
         }
 
         public ICommand GoLeftCommand

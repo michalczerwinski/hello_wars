@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Models;
+using Game.CubeClash.Models;
 
 namespace Game.CubeClash.ViewModels
 {
@@ -11,6 +12,13 @@ namespace Game.CubeClash.ViewModels
     {
         private int _x;
         private int _y;
+        private LandTypes _landType;
+
+        public LandTypes LandType
+        {
+            get { return _landType; }
+            set { SetProperty(ref _landType, value); }
+        }
 
         public int X
         {

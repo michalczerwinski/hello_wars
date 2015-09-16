@@ -7,128 +7,79 @@
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d" Loaded="ConnectAnimationEffect_OnLoaded">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <BooleanToVisibilityConverter x:Key="BoolToStringConverter"/>
-
-            <Storyboard x:Key="AttackAnimation" TargetName="Rectangle1" Completed="AttackAnimation_OnCompleted">
-                <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
-                             To="7" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
-                <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleY" 
-                             To="0.5" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
-                <DoubleAnimation Storyboard.TargetName="RotateTransform1" Storyboard.TargetProperty="Angle" 
-                             To="180" BeginTime="0:0:0.5" Duration="0:0:0" />
-            </Storyboard >
-            <Storyboard x:Key="ExplodeAnimation" TargetName="Rectangle1" Completed="ExplodeAnimation_OnCompleted">
-                <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
-                             To="7" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
-                <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleY" 
-                             To="0.5" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
-                <DoubleAnimation Storyboard.TargetName="RotateTransform1" Storyboard.TargetProperty="Angle" 
-                             To="180" BeginTime="0:0:0.5" Duration="0:0:0" />
-            </Storyboard >
-            <Storyboard x:Key="MoveAnimation" TargetName="Rectangle1" Completed="MoveAnimation_OnCompleted">
-                <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
-                             To="7" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
-                <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleY" 
-                             To="0.5" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
-                <DoubleAnimation Storyboard.TargetName="RotateTransform1" Storyboard.TargetProperty="Angle" 
-                             To="180" BeginTime="0:0:0.5" Duration="0:0:0" />
-            </Storyboard >
-
-
-            <Storyboard x:Key="ShadowMoveAnimation" TargetName="Rectangle0" Completed="ShadowMoveAnimation_OnCompleted">
-                <DoubleAnimation Storyboard.TargetName="TranslateTransform1" Storyboard.TargetProperty="ScaleX" 
-                             To="7" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
-            </Storyboard >
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <Grid>
-        <Canvas >
-            <Rectangle x:Name="Rectangle0" Canvas.Top="{Binding MovementShadowTopDistance}" Canvas.Left="{Binding MovementShadowLeftDistance, NotifyOnTargetUpdated=True}" Width="{Binding MovementShadowWidth}" Height="{Binding MovementShadowHeight}" Fill="{Binding Color, Mode=TwoWay}" Opacity="0.05" Visibility="{Binding MovementShadowVisibility}">
-                <Rectangle.RenderTransform>
-                    <TransformGroup>
-                        <TranslateTransform x:Name="TranslateTransform1"/>
-                    </TransformGroup>
-                </Rectangle.RenderTransform>
+        <Canvas>
+            <Rectangle x:Name="Rectangle0" Canvas.Top="{Binding MovementShadowTopDistance}" Canvas.Left="{Binding MovementShadowLeftDistance, NotifyOnTargetUpdated=True}" 
+                       Width="{Binding MovementShadowWidth}" Height="{Binding MovementShadowHeight}" Fill="{Binding Color, Mode=TwoWay}" Opacity="0.05" Visibility="{Binding MovementShadowVisibility}">
+                <Rectangle.Resources>
+                </Rectangle.Resources>
             </Rectangle>
-
         </Canvas>
         <Rectangle x:Name="Rectangle1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Color,Mode=TwoWay, NotifyOnTargetUpdated=True}" StrokeThickness="0.5" Stroke="Black">
+            <Rectangle.Resources>
+                <Storyboard x:Key="AttackAnimation" TargetName="Rectangle1" Completed="AttackAnimation_OnCompleted">
+
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
+                             To="5" BeginTime="0:0:0" Duration="0:0:0.5" />
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleY" 
+                             To="0.5" BeginTime="0:0:0" Duration="0:0:0.5" />
+
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform2" Storyboard.TargetProperty="CenterX" 
+                             To="50" BeginTime="0:0:0.5" Duration="0:0:0.0"/>
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform2" Storyboard.TargetProperty="CenterY" 
+                             To="0" BeginTime="0:0:0.5" Duration="0:0:0.0" />
+
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform2" Storyboard.TargetProperty="ScaleX" 
+                             To="0.2" BeginTime="0:0:0.5" Duration="0:0:0.5" />
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform2" Storyboard.TargetProperty="ScaleY" 
+                             To="2" BeginTime="0:0:0.5" Duration="0:0:0.5" />
+
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform2" Storyboard.TargetProperty="CenterX" 
+                             To="0" BeginTime="0:0:1" Duration="0:0:0.0"/>
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="CenterY" 
+                             To="0" BeginTime="0:0:1" Duration="0:0:0.0" />
+
+                </Storyboard >
+
+                <Storyboard x:Key="ExplodeAnimation" TargetName="Rectangle1" Completed="ExplodeAnimation_OnCompleted">
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
+                             To="7" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleY" 
+                             To="0.5" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
+                    <DoubleAnimation Storyboard.TargetName="RotateTransform1" Storyboard.TargetProperty="Angle" 
+                             To="180" BeginTime="0:0:0.5" Duration="0:0:0" />
+                </Storyboard >
+                <Storyboard x:Key="MoveAnimation" TargetName="Rectangle1" Completed="MoveAnimation_OnCompleted">
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
+                             To="7" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleY" 
+                             To="0.5" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
+                    <DoubleAnimation Storyboard.TargetName="RotateTransform1" Storyboard.TargetProperty="Angle" 
+                             To="180" BeginTime="0:0:0.5" Duration="0:0:0" />
+                </Storyboard >
+
+                <Storyboard x:Key="ShadowMoveAnimation" TargetName="Rectangle0" Completed="ShadowMoveAnimation_OnCompleted">
+                    <DoubleAnimation Storyboard.TargetName="TranslateTransform1" Storyboard.TargetProperty="X" 
+                             To="7" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
+                </Storyboard >
+            </Rectangle.Resources>
+
             <Rectangle.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform x:Name="ScaleTransform1" CenterX="0" CenterY="5"/>
-                    <RotateTransform x:Name="RotateTransform1" CenterX="35" CenterY="5"/>
+                <TransformGroup >
+                    <ScaleTransform x:Name="ScaleTransform1" />
+                    <ScaleTransform x:Name="ScaleTransform2" />
                 </TransformGroup>
             </Rectangle.RenderTransform>
 
             <i:Interaction.Triggers>
-                <ei:DataTrigger Binding="{Binding IsAttacking, Mode=TwoWay}" Value="True">
+                <ei:DataTrigger Binding="{Binding IsAttacking}" Value="True" >
                     <ei:ControlStoryboardAction Storyboard="{StaticResource AttackAnimation}" ControlStoryboardOption="Play"/>
+                    <!--<ei:PlaySoundAction Source="Sound/attack1.mp3" Volume="100" />-->
                 </ei:DataTrigger>
-                <ei:DataTrigger Binding="{Binding FlashingBackground}" Value="False">
-                    <ei:ControlStoryboardAction Storyboard="{StaticResource ExplodeAnimation}" ControlStoryboardOption="Play"/>
+                <ei:DataTrigger Binding="{Binding IsAttacking}" Value="False">
+                    <ei:ControlStoryboardAction Storyboard="{StaticResource AttackAnimation}" ControlStoryboardOption="Stop"/>
                 </ei:DataTrigger>
             </i:Interaction.Triggers>
-
-            <!--<Rectangle.Triggers>
-                <EventTrigger RoutedEvent="MyRoutedEvent" >
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
-                             To="7" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
-                            <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleY" 
-                             To="0.5" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
-                            <DoubleAnimation Storyboard.TargetName="RotateTransform1" Storyboard.TargetProperty="Angle" 
-                             To="180" BeginTime="0:0:0.5" Duration="0:0:0"/>
-                        </Storyboard >
-                    </BeginStoryboard >
-                </EventTrigger>
-            </Rectangle.Triggers>-->
-
-
-
-            <!--<Rectangle.Style>
-                <Style>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsGlowing}" Value="True">
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetProperty="(Rectangle.RenderTransform).(ScaleTransform.ScaleX)" 
-                             To="7" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
-                                        <DoubleAnimation Storyboard.TargetProperty="(Rectangle.RenderTransform).(ScaleTransform.ScaleY)" 
-                             To="0.5" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
-
-                                        <DoubleAnimation Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)"
-                             To="180" BeginTime="0:0:0.5" Duration="0:0:0" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </DataTrigger.EnterActions>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Rectangle.Style>-->
-
-            <!--<Rectangle.Triggers>
-                <EventTrigger RoutedEvent="Binding.TargetUpdated" EnterActions="" >
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
-                             To="7" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
-                            <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleY" 
-                             To="0.5" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
-                            <DoubleAnimation Storyboard.TargetName="RotateTransform1" Storyboard.TargetProperty="Angle" 
-                             To="180" BeginTime="0:0:0.5" Duration="0:0:0"/>
-                        </Storyboard >
-                    </BeginStoryboard >
-                </EventTrigger>
-            </Rectangle.Triggers>-->
-
-
-
-
         </Rectangle>
 
         <Grid.RenderTransform>

@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace Game.CubeClash.Models
 {
-    enum AvailableMoves
+    public enum LandTypes
     {
-        Up,
-        Down,
-        Left,
-        Right,
-        Attack,
-        Scan
+        Solid,
+        Hole,
     }
 }

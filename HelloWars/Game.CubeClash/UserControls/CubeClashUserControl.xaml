@@ -17,11 +17,12 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal">
-        <Button Content="Jump" Command="{Binding DoMoveCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
-        <Button Content="GoUp" Command="{Binding GoUpCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-        <Button Content="GoDown" Command="{Binding GoDownCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-        <Button Content="GoLeft" Command="{Binding GoLeftCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-        <Button Content="GoRight" Command="{Binding GoRightCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+            <Button Content="Jump" Command="{Binding DoMoveCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
+            <Button Content="Watch" Command="{Binding WatchCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
+            <Button Content="GoUp" Command="{Binding GoUpCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+            <Button Content="GoDown" Command="{Binding GoDownCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+            <Button Content="GoLeft" Command="{Binding GoLeftCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+            <Button Content="GoRight" Command="{Binding GoRightCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
         </StackPanel>
         <ItemsControl Width="{Binding BattlegroundWidth}" Height="{Binding BattlegroundHeigth}" Grid.Row="1" ItemsSource="{Binding GridCollection}">
             <ItemsControl.ItemsPanel>
