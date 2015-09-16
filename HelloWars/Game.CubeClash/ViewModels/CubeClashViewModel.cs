@@ -60,7 +60,25 @@ namespace Game.CubeClash.ViewModels
             get { return _class1Command ?? (_class1Command = new Class1Command(this)); }
         }
 
+        public ICommand GoLeftCommand
+        {
+            get { return new GoLeftCommand(this); }
+        }
 
+        public ICommand GoRightCommand
+        {
+            get { return new GoRightCommand(this); }
+        }
+
+        public ICommand GoUpCommand
+        {
+            get { return new GoUpCommand(this); }
+        }
+
+        public ICommand GoDownCommand
+        {
+            get { return new GoDownCommand(this); }
+        }
 
         public CubeClashViewModel()
         {
@@ -106,11 +124,9 @@ namespace Game.CubeClash.ViewModels
                 ddd.X = 10;
                 ddd.Y = 30;
                 ddd.Color = new SolidColorBrush(Colors.Lime);
-
                
 
                 PlayersCollection.Add(ddd);
-
             }
         }
     }

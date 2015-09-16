@@ -42,17 +42,24 @@ namespace Game.CubeClash.UserControls
 
         private void ConnectAnimationEffect_OnLoaded(object sender, RoutedEventArgs e)
         {
-            //_viewModel.zdazenie = () =>
-            //{
-            //    var newEventArgs = new RoutedEventArgs(CustomTestEvent);
-            //    Rectangle1.RaiseEvent(newEventArgs);
-            //};
+           
         }
 
-        private void Timeline_OnCompleted(object sender, EventArgs e)
+  
+
+        private void MoveAnimation_OnCompleted(object sender, EventArgs e)
         {
-            var sss = sender as Storyboard;
-            _viewModel.AnimationCompleated = sss.Name;
+            throw new NotImplementedException();
+        }
+
+        private void ExplodeAnimation_OnCompleted(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AttackAnimation_OnCompleted(object sender, EventArgs e)
+        {
+            _viewModel.IsAttackingAnimationCompleated = true;
         }
     }
 }

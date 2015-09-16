@@ -91,7 +91,6 @@ namespace Game.CubeClash.ViewModels
         private double _movementShadowHeight;
         private double _centerX;
         private double _centerY;
-        private string _isGlowing;
 
         public delegate void AnimationCompleatedDelegate();
 
@@ -112,13 +111,6 @@ namespace Game.CubeClash.ViewModels
             }
         }
 
-
-        public string IsGlowing
-        {
-            get { return _isGlowing; }
-            set { SetProperty(ref _isGlowing, value); }
-        }
-
         public CubeViewModel(int width, int heigth)
         {
             MovementShadowTopDistance = -(4 * heigth);
@@ -134,31 +126,28 @@ namespace Game.CubeClash.ViewModels
         public void Attack()
         {
             IsAttacking = "True";
-
-            X += 7;
-        }
-
-        public void Rotate()
-        {
-
         }
 
         public void Up()
         {
-
+            Y--;
+            MovementShadowRotate = 270 ;
         }
 
         public void Down()
         {
-
+            Y++;
+            MovementShadowRotate = 90;
         }
         public void Left()
         {
-
+            X--;
+            MovementShadowRotate = 180;
         }
         public void Right()
         {
-
+            X++;
+            MovementShadowRotate = 0;
         }
 
         private string _isAttacking;
@@ -167,5 +156,19 @@ namespace Game.CubeClash.ViewModels
             get { return _isAttacking; }
             set { SetProperty(ref _isAttacking, value); }
         }
+
+        private bool _isAttackingAnimationCompleated;
+        public bool IsAttackingAnimationCompleated
+        {
+            get { return _isAttackingAnimationCompleated; }
+            set
+            {
+                _isAttackingAnimationCompleated= value;
+
+                _y += 7;
+
+            }
+        }
+
     }
 }

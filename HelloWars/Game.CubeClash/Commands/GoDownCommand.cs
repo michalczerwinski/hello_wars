@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common;
-using Common.Helpers;
 using Game.CubeClash.ViewModels;
 
 namespace Game.CubeClash.Commands
 {
-    public class DoMoveCommand : CommandBase
+    internal class GoDownCommand : CommandBase
     {
         private CubeClashViewModel _viewModel;
-        public DoMoveCommand(CubeClashViewModel viewModel)
+
+        public GoDownCommand(CubeClashViewModel viewModel)
             : base()
         {
             _viewModel = viewModel;
@@ -20,8 +20,8 @@ namespace Game.CubeClash.Commands
 
         public override void Execute(object parameter = null)
         {
-       
-             _viewModel.PlayersCollection.First().Attack();
+            _viewModel.PlayersCollection.First().Down();
+
         }
     }
 }

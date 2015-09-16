@@ -10,16 +10,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BoolToStringConverter"/>
-            
-            <Storyboard x:Key="AttackAnimation" TargetName="Rectangle1">
-                <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
-                             To="7" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
-                <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleY" 
-                             To="0.5" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
-                <DoubleAnimation Storyboard.TargetName="RotateTransform1" Storyboard.TargetProperty="Angle" 
-                             To="180" BeginTime="0:0:0.5" Duration="0:0:0" Completed="Timeline_OnCompleted"/>
-            </Storyboard >
-            <Storyboard x:Key="ExplodeAnimation" TargetName="Rectangle1" >
+
+            <Storyboard x:Key="AttackAnimation" TargetName="Rectangle1" Completed="AttackAnimation_OnCompleted">
                 <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
                              To="7" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
                 <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleY" 
@@ -27,7 +19,7 @@
                 <DoubleAnimation Storyboard.TargetName="RotateTransform1" Storyboard.TargetProperty="Angle" 
                              To="180" BeginTime="0:0:0.5" Duration="0:0:0" />
             </Storyboard >
-            <Storyboard x:Key="MoveAnimation" TargetName="Rectangle1" >
+            <Storyboard x:Key="ExplodeAnimation" TargetName="Rectangle1" Completed="ExplodeAnimation_OnCompleted">
                 <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
                              To="7" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
                 <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleY" 
@@ -35,15 +27,33 @@
                 <DoubleAnimation Storyboard.TargetName="RotateTransform1" Storyboard.TargetProperty="Angle" 
                              To="180" BeginTime="0:0:0.5" Duration="0:0:0" />
             </Storyboard >
-           
+            <Storyboard x:Key="MoveAnimation" TargetName="Rectangle1" Completed="MoveAnimation_OnCompleted">
+                <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
+                             To="7" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
+                <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleY" 
+                             To="0.5" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
+                <DoubleAnimation Storyboard.TargetName="RotateTransform1" Storyboard.TargetProperty="Angle" 
+                             To="180" BeginTime="0:0:0.5" Duration="0:0:0" />
+            </Storyboard >
+
+
+            <Storyboard x:Key="ShadowMoveAnimation" TargetName="Rectangle0" Completed="ShadowMoveAnimation_OnCompleted">
+                <DoubleAnimation Storyboard.TargetName="TranslateTransform1" Storyboard.TargetProperty="ScaleX" 
+                             To="7" BeginTime="0:0:0" Duration="0:0:0.5" AutoReverse="True" />
+            </Storyboard >
         </ResourceDictionary>
-
     </UserControl.Resources>
-
 
     <Grid>
         <Canvas >
-            <Rectangle Canvas.Top="{Binding MovementShadowTopDistance}" Canvas.Left="{Binding MovementShadowLeftDistance, NotifyOnTargetUpdated=True}" Width="{Binding MovementShadowWidth}" Height="{Binding MovementShadowHeight}" Fill="{Binding Color, Mode=TwoWay}" Opacity="0.05" Visibility="{Binding MovementShadowVisibility}"/>
+            <Rectangle x:Name="Rectangle0" Canvas.Top="{Binding MovementShadowTopDistance}" Canvas.Left="{Binding MovementShadowLeftDistance, NotifyOnTargetUpdated=True}" Width="{Binding MovementShadowWidth}" Height="{Binding MovementShadowHeight}" Fill="{Binding Color, Mode=TwoWay}" Opacity="0.05" Visibility="{Binding MovementShadowVisibility}">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform x:Name="TranslateTransform1"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+
         </Canvas>
         <Rectangle x:Name="Rectangle1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Color,Mode=TwoWay, NotifyOnTargetUpdated=True}" StrokeThickness="0.5" Stroke="Black">
             <Rectangle.RenderTransform>
@@ -63,7 +73,7 @@
             </i:Interaction.Triggers>
 
             <!--<Rectangle.Triggers>
-                <EventTrigger RoutedEvent="Binding.TargetUpdated" EnterActions="" >
+                <EventTrigger RoutedEvent="MyRoutedEvent" >
                     <BeginStoryboard>
                         <Storyboard>
                             <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
@@ -115,10 +125,10 @@
                     </BeginStoryboard >
                 </EventTrigger>
             </Rectangle.Triggers>-->
-            
-            
-            
-            
+
+
+
+
         </Rectangle>
 
         <Grid.RenderTransform>
