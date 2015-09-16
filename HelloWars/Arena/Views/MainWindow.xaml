@@ -4,13 +4,12 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:arena="clr-namespace:Arena.ViewModels"
         xmlns:models="clr-namespace:Common.Models;assembly=Common"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
         Title="Hello Wars Main Window"
         Width="800" Height="600">
 
     <Window.Resources>
         <ResourceDictionary>
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Selen.Wpf.SystemStyles;component/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
