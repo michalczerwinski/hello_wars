@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -43,40 +45,37 @@ namespace Game.DynaBlaster.UserControls
 
         private void DisplayExplosions()
         {
-            foreach (var explosion in _arena.ExplosionCenters)
+            foreach (var explosion in _arena.Explosions)
             {
-                var xRayLocation = new Point(explosion.X - 2, explosion.Y);
-                var yRayLocation = new Point(explosion.X, explosion.Y - 2);
+                //do not display blast ray on top of tiles that survived explosion
+                var displayBlastLocations = explosion.BlastLocations.Where(point => _arena.Board[point.X, point.Y] == BoardTile.Empty).ToList();
 
-                var xRadius = 5;
-                var yRadius = 5;
+                var xRadius = displayBlastLocations.Count(point => point.Y == explosion.Center.Y);
+                var yRadius = displayBlastLocations.Count(point => point.X == explosion.Center.X);
 
-                if (xRayLocation.X < 0)
+                var xExplosion = new Ellipse()
                 {
-                    xRadius += xRayLocation.X;
-                    xRayLocation.X = 0;
-                }
-
-                if (yRayLocation.Y < 0)
-                {
-                    yRadius += yRayLocation.Y;
-                    yRayLocation.Y = 0;
-                }
-
-                var xExplosion = new Ellipse
-                {
-                    Fill = new SolidColorBrush(Colors.Yellow)
+                    Fill = new SolidColorBrush(Colors.Yellow),
+                    Height = 15
                 };
                 xExplosion.SetValue(Grid.ColumnSpanProperty, xRadius);
 
                 var yExplosion = new Ellipse
                 {
-                    Fill = new SolidColorBrush(Colors.Yellow)
+                    Fill = new SolidColorBrush(Colors.Yellow),
+                    Width = 15
                 };
                 yExplosion.SetValue(Grid.RowSpanProperty, yRadius);
 
-                BoardGrid.AddElement(xExplosion, xRayLocation.X, xRayLocation.Y);
-                BoardGrid.AddElement(yExplosion, yRayLocation.X, yRayLocation.Y);
+                BoardGrid.AddElement(xExplosion, displayBlastLocations.Min(point => point.X), explosion.Center.Y);
+                BoardGrid.AddElement(yExplosion, explosion.Center.X, displayBlastLocations.Min(point => point.Y));
+
+                //all regular tiles in blast locations are firtified tiles that have been reduced by explosion.
+                //paint them orange during explosion animation so it is visible to user
+                foreach (var point in explosion.BlastLocations.Where(point => _arena.Board[point.X, point.Y] == BoardTile.Regular))
+                {
+                    BoardGrid.AddElement(new Rectangle(){ Fill = new SolidColorBrush(Colors.DarkOrange) }, point.X, point.Y);
+                }
             }
         }
 
@@ -117,14 +116,37 @@ namespace Game.DynaBlaster.UserControls
             {
                 for (int j = 0; j < _arena.Board.GetLength(0); j++)
                 {
-                    if (_arena.Board[i, j])
+                    UIElement elementToAdd = null;
+
+                    switch (_arena.Board[i,j])
                     {
-                        var elementToAdd = new Rectangle()
-                        {
-                            Fill = new SolidColorBrush(Colors.SaddleBrown)
-                        };
+                        case BoardTile.Empty:
+                            break;
+                        case BoardTile.Regular:
+                            elementToAdd = new Rectangle()
+                            {
+                                Fill = new SolidColorBrush(Colors.SaddleBrown)
+                            };
+                            break;
+                        case BoardTile.Fortified:
+                            elementToAdd = new Rectangle()
+                            {
+                                Fill = new SolidColorBrush(Colors.Brown)
+                            };
+                            break;
+                        case BoardTile.Indestructible:
+                            elementToAdd = new Rectangle()
+                            {
+                                Fill = new SolidColorBrush(Colors.Gray)
+                            };
+                            break;
+                    }
+
+                    if (elementToAdd != null)
+                    {
                         BoardGrid.AddElement(elementToAdd, i, j);
                     }
+                    
                 }
             }
         }

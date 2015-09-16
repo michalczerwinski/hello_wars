@@ -10,14 +10,17 @@ namespace Game.DynaBlaster.Models
         {
             Bots = new List<DynaBlasterBot>();
             Bombs = new List<Bomb>();
-            ExplosionCenters = new List<Point>();
-            Board = new bool[15, 15];
+            Explosions = new List<Explosion>();
+            Missiles = new List<Missile>();
+            Board = new BoardTile[15, 15];
         }
 
-        public bool[,] Board { get; set; }
+        public BoardTile[,] Board { get; set; }
         public List<DynaBlasterBot> Bots { get; set; }
         public List<Bomb> Bombs { get; set; }
-        public List<Point> ExplosionCenters { get; set; }
+        public List<Missile> Missiles { get; set; }
+        public List<Explosion> Explosions { get; set; }
+
         public event EventHandler ArenaChanged;
 
         public void OnArenaChanged()

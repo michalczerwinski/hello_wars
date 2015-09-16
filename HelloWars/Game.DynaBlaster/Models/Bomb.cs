@@ -2,9 +2,8 @@
 
 namespace Game.DynaBlaster.Models
 {
-    public class Bomb
+    public class Bomb : ExplodableBase
     {
-        public Point Location { get; set; }
         public int RoundsUntilExplodes { get; set; }
     }
 }

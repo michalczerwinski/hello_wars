@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -29,24 +30,24 @@ namespace Game.DynaBlaster
 
         public RoundResult PerformNextRound()
         {
-            _arena.ExplosionCenters.Clear();
-
+            _arena.Explosions.Clear();
+           
             foreach (var bomb in _arena.Bombs)
             {
                 bomb.RoundsUntilExplodes--;
-                if (bomb.RoundsUntilExplodes == 0)
+                if (!bomb.IsExploded && bomb.RoundsUntilExplodes == 0)
                 {
-                    SetExplosion(bomb.Location);
+                    SetExplosion(bomb);
                 }
             }
 
-            _arena.Bombs.RemoveAll(bomb => bomb.RoundsUntilExplodes == 0);
+            _arena.Bombs.RemoveAll(bomb => bomb.IsExploded);
 
             _arena.OnArenaChanged();
 
             DelayHelper.Delay(_delayTime);
 
-            _arena.ExplosionCenters.Clear();
+            _arena.Explosions.Clear();
 
             if (_arena.Bots.Count(bot => !bot.IsDead) < 2)
             {
@@ -95,7 +96,8 @@ namespace Game.DynaBlaster
             {
                 for (var j = 0; j < _arena.Board.GetLength(1); j++)
                 {
-                    _arena.Board[i, j] = _rand.Next() % 2 == 0;
+                    var tileType = _rand.Next(2) == 0 ? BoardTile.Empty : (BoardTile) (_rand.Next(3) + 1);
+                    _arena.Board[i, j] = tileType;
                 }
             }
 
@@ -113,8 +115,8 @@ namespace Game.DynaBlaster
         {
             _arena.Bots.Clear();
             _arena.Bombs.Clear();
-            _arena.ExplosionCenters.Clear();
-            _arena.Board = new bool[15, 15];
+            _arena.Explosions.Clear();
+            _arena.Board = new BoardTile[15, 15];
             _arena.OnArenaChanged();
             _roundNumber = 0;
         }
@@ -142,7 +144,7 @@ namespace Game.DynaBlaster
                 result.X = _rand.Next(_arena.Board.GetLength(0));
                 result.Y = _rand.Next(_arena.Board.GetLength(1));
 
-                if (!_arena.Board[result.X, result.Y] && _arena.Bots.All(bot => bot.Location != result))
+                if (_arena.Board[result.X, result.Y] == BoardTile.Empty && _arena.Bots.All(bot => bot.Location != result))
                 {
                     return result;
                 }
@@ -152,18 +154,19 @@ namespace Game.DynaBlaster
         private bool IsMoveValid(DynaBlasterBot bot, BotMove move)
         {
             var newLocation = GetNewLocation(bot.Location, move.Direction);
-            return IsLocationValid(newLocation) && !_arena.Board[newLocation.X, newLocation.Y]
+            return IsLocationValid(newLocation) && _arena.Board[newLocation.X, newLocation.Y] == BoardTile.Empty
                    && !_arena.Bots.Any(blasterBot => blasterBot.Id != bot.Id && blasterBot.Location == newLocation);
         }
 
         private void PerformMove(DynaBlasterBot bot, BotMove move)
         {
-            if (move.ShouldDropBomb)
+            if (move.Action == BotAction.DropBomb)
             {
                 _arena.Bombs.Add(new Bomb()
                 {
                     Location = bot.Location,
-                    RoundsUntilExplodes = 5
+                    RoundsUntilExplodes = 5,
+                    ExplosionRadius = _explosionRadius
                 });
             }
             bot.Location = GetNewLocation(bot.Location, move.Direction);
@@ -206,13 +209,30 @@ namespace Game.DynaBlaster
                 && location.Y < _arena.Board.GetLength(1);
         }
 
-        private void SetExplosion(Point location)
+        private void SetExplosion(ExplodableBase explodable)
         {
-            _arena.ExplosionCenters.Add(location);
-            
-            foreach (var explosionLocation in GetExplosionLocations(location))
+            var explosion = new Explosion()
             {
-                _arena.Board[explosionLocation.X, explosionLocation.Y] = false;
+                Center = explodable.Location,
+                BlastLocations = GetExplosionLocations(explodable)
+            };
+
+            _arena.Explosions.Add(explosion);
+
+            explodable.IsExploded = true;
+
+            foreach (var explosionLocation in explosion.BlastLocations)
+            {
+                switch (_arena.Board[explosionLocation.X, explosionLocation.Y])
+                {
+                    case BoardTile.Regular:
+                        _arena.Board[explosionLocation.X, explosionLocation.Y] = BoardTile.Empty;
+                        break;
+                    case BoardTile.Fortified:
+                        _arena.Board[explosionLocation.X, explosionLocation.Y] = BoardTile.Regular;
+                        break;
+                }
+
                 _arena.Bots.ForEach(bot =>
                 {
                     if (bot.Location == explosionLocation)
@@ -221,28 +241,62 @@ namespace Game.DynaBlaster
                     }
                 });
             }
+
+            SetChainedExplosions(explosion);
         }
 
-        private IEnumerable<Point> GetExplosionLocations(Point centerLocation)
+
+        private void SetChainedExplosions(Explosion explosion)
         {
-            yield return centerLocation;
-
-            for (int i = 1; i <= _explosionRadius; i++)
+            foreach (var bomb in _arena.Bombs)
             {
-                var locations = new[]
+                if (explosion.BlastLocations.Any(point => point == bomb.Location) && !bomb.IsExploded)
                 {
-                    new Point(centerLocation.X, centerLocation.Y + i),
-                    new Point(centerLocation.X, centerLocation.Y - i),
-                    new Point(centerLocation.X + i, centerLocation.Y),
-                    new Point(centerLocation.X - i, centerLocation.Y)
-                };
+                    SetExplosion(bomb);
+                }
+            }
 
-                foreach (var point in locations.Where(IsLocationValid))
+            foreach (var missile in _arena.Missiles)
+            {
+                if (explosion.BlastLocations.Any(point => point == missile.Location) && !missile.IsExploded)
                 {
-                    yield return point;
+                    SetExplosion(missile);
                 }
             }
         }
+
+        private IEnumerable<Point> GetExplosionLocations(ExplodableBase explodable)
+        {
+            var result = new List<Point> {explodable.Location};
+
+            result.AddRange(CalculateExplosionRay(explodable, MoveDirection.Up));
+            result.AddRange(CalculateExplosionRay(explodable, MoveDirection.Down));
+            result.AddRange(CalculateExplosionRay(explodable, MoveDirection.Right));
+            result.AddRange(CalculateExplosionRay(explodable, MoveDirection.Left));
+
+            return result;
+        }
+
+        private IEnumerable<Point> CalculateExplosionRay(ExplodableBase explodable, MoveDirection direction)
+        {
+            var currentPoint = explodable.Location;
+            for (int i = 1; i <= explodable.ExplosionRadius; i++)
+            {
+                currentPoint = GetNewLocation(currentPoint, direction);
+
+                if (!IsLocationValid(currentPoint))
+                {
+                    yield break;
+                }
+
+                yield return currentPoint;
+
+                if (_arena.Board[currentPoint.X, currentPoint.Y] != BoardTile.Empty)
+                {
+                    yield break;
+                }
+            }
+        } 
 
         private BotArenaInfo GetBotArenaInfo(DynaBlasterBot bot)
         {
@@ -251,7 +305,6 @@ namespace Game.DynaBlaster
                 BotId = bot.Id,
                 Board = _arena.Board,
                 Bombs = _arena.Bombs,
-                Explosions = _arena.ExplosionCenters.SelectMany(GetExplosionLocations).ToList(),
                 BotLocation = bot.Location,
                 OpponentLocations = _arena.Bots.Where(blasterBot => blasterBot.Id != bot.Id && !blasterBot.IsDead).Select(blasterBot => blasterBot.Location).ToList()
             };

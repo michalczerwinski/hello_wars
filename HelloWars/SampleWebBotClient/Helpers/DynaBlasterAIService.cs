@@ -22,7 +22,7 @@ namespace SampleWebBotClient.Helpers
 
             var result = new BotMove()
             {
-                ShouldDropBomb = _rand.Next(5) == 0
+                Action = _rand.Next(5) == 0 ? BotAction.DropBomb : BotAction.None
             };
 
             var closestOpponent = _arena.OpponentLocations.OrderBy(point => point.DistanceFrom(_arena.BotLocation)).First();
@@ -85,7 +85,7 @@ namespace SampleWebBotClient.Helpers
 
         private bool IsBlocked(Point location)
         {
-            return _arena.Board[location.X, location.Y];
+            return _arena.Board[location.X, location.Y] != BoardTile.Empty;
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace SampleWebBotClient.Helpers
             {
                 for (int j = 0; j < result.GetLength(1); j++)
                 {
-                    result[i, j] = _arena.Board[i, j] ? int.MaxValue : 0;
+                    result[i, j] = _arena.Board[i, j] == BoardTile.Empty ? 0 : int.MaxValue;
                 }
             }
 

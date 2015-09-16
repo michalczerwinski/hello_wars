@@ -46,11 +46,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DynaBlaster.cs" />
+    <Compile Include="Models\BoardTile.cs" />
     <Compile Include="Models\Bomb.cs" />
+    <Compile Include="Models\BotAction.cs" />
     <Compile Include="Models\BotMove.cs" />
     <Compile Include="Models\DynaBlasterBot.cs" />
+    <Compile Include="Models\ExplodableBase.cs" />
+    <Compile Include="Models\Explosion.cs" />
     <Compile Include="Models\GameArena.cs" />
     <Compile Include="Models\BotArenaInfo.cs" />
+    <Compile Include="Models\Missile.cs" />
     <Compile Include="Models\MoveDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
