@@ -53,6 +53,7 @@
     <Compile Include="Helpers\CompetitorLoadService.cs" />
     <Compile Include="Helpers\DelayHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
+    <Compile Include="Helpers\MultiDimArrayExtensions.cs" />
     <Compile Include="Helpers\WebClientHelper.cs" />
     <Compile Include="Interfaces\IBotClient.cs" />
     <Compile Include="Interfaces\ICompetitor.cs" />
