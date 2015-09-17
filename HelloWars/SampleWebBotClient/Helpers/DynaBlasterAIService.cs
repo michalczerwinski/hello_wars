@@ -44,6 +44,8 @@ namespace SampleWebBotClient.Helpers
             return result;
         }
 
+        #region Movement methods
+
         private List<MoveDirection> ObjectiveDirections(Point botLocation, Point opponentLocation)
         {
             if (botLocation.DistanceFrom(opponentLocation) < _desiredDistanceFromOpponent)
@@ -79,6 +81,29 @@ namespace SampleWebBotClient.Helpers
             return bestDestinations.SelectMany(destination => MatchingDirections(startingPoint, destination));
         }
 
+        #endregion
+
+        #region Location methods
+
+        private IEnumerable<Point> GetSurroundingPoints(Point centerLocation, int radius)
+        {
+            for (int i = 1; i <= radius; i++)
+            {
+                var locations = new[]
+                {
+                    new Point(centerLocation.X, centerLocation.Y + i),
+                    new Point(centerLocation.X, centerLocation.Y - i),
+                    new Point(centerLocation.X + i, centerLocation.Y),
+                    new Point(centerLocation.X - i, centerLocation.Y)
+                };
+
+                foreach (var point in locations.Where(IsValidLocation))
+                {
+                    yield return point;
+                }
+            }
+        }
+
         private bool IsValidLocation(Point location)
         {
             return location.X >= 0 && location.Y >= 0 && location.X < _arena.Board.GetLength(0) && location.Y < _arena.Board.GetLength(1);
@@ -88,6 +113,10 @@ namespace SampleWebBotClient.Helpers
         {
             return _arena.Board[location.X, location.Y] != BoardTile.Empty;
         }
+
+        #endregion
+
+        #region Danger calculation methods
 
         /// <summary>
         /// Calculates map of danger zones. Each tile is assigned with a number.
@@ -108,7 +137,7 @@ namespace SampleWebBotClient.Helpers
                     result[i, j] = _arena.Board[i, j] == BoardTile.Empty ? 0 : int.MaxValue;
                 }
             }
-            
+
             var dangerLocations = _arena.Bombs.SelectMany(bomb => GetBombDangerZone(bomb.Location)).Where(point => !IsBlocked(point)).ToList();
             dangerLocations.AddRange(_arena.Missiles.SelectMany(missile => GetBombDangerZone(missile.Location)).Where(point => !IsBlocked(point)));
 
@@ -140,25 +169,6 @@ namespace SampleWebBotClient.Helpers
             return result;
         }
 
-        private IEnumerable<Point> GetSurroundingPoints(Point centerLocation, int radius)
-        {
-            for (int i = 1; i <= radius; i++)
-            {
-                var locations = new[]
-                {
-                    new Point(centerLocation.X, centerLocation.Y + i),
-                    new Point(centerLocation.X, centerLocation.Y - i),
-                    new Point(centerLocation.X + i, centerLocation.Y),
-                    new Point(centerLocation.X - i, centerLocation.Y)
-                };
-
-                foreach (var point in locations.Where(IsValidLocation))
-                {
-                    yield return point;
-                }
-            }
-        }
-
         private List<Point> GetBombDangerZone(Point centerLocation)
         {
             var result = GetSurroundingPoints(centerLocation, _explosionRadius).ToList();
@@ -166,5 +176,7 @@ namespace SampleWebBotClient.Helpers
 
             return result;
         }
+
+        #endregion
     }
 }

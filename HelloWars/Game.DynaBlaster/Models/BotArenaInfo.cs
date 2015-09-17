@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Net;
+using Game.DynaBlaster.Interfaces;
 
 namespace Game.DynaBlaster.Models
 {
@@ -12,7 +13,7 @@ namespace Game.DynaBlaster.Models
         public Point BotLocation { get; set; }
         public bool IsMissileAvailable { get; set; }
         public List<Point> OpponentLocations { get; set; }
-        public List<Bomb> Bombs { get; set; }
-        public List<Missile> Missiles { get; set; }
+        public List<IBomb> Bombs { get; set; }
+        public List<IMissile> Missiles { get; set; }
     }
 }

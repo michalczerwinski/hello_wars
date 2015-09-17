@@ -47,6 +47,8 @@
   <ItemGroup>
     <Compile Include="DynaBlaster.cs" />
     <Compile Include="Helpers\ResourceImageHelper.cs" />
+    <Compile Include="Interfaces\IBomb.cs" />
+    <Compile Include="Interfaces\IMissile.cs" />
     <Compile Include="Models\BoardTile.cs" />
     <Compile Include="Models\Bomb.cs" />
     <Compile Include="Models\BotAction.cs" />
@@ -90,9 +92,7 @@
   <ItemGroup>
     <None Include="Resources\index.html" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\bomb.png" />
   </ItemGroup>

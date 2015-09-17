@@ -6,13 +6,13 @@ namespace Game.DynaBlaster.Models
 {
     public class GameArena
     {
-        public GameArena()
+        public GameArena(int boardWidth, int boardHeight)
         {
             Bots = new List<DynaBlasterBot>();
             Bombs = new List<Bomb>();
             Explosions = new List<Explosion>();
             Missiles = new List<Missile>();
-            Board = new BoardTile[15, 15];
+            Board = new BoardTile[boardWidth, boardHeight];
         }
 
         public BoardTile[,] Board { get; set; }
@@ -29,6 +29,16 @@ namespace Game.DynaBlaster.Models
             {
                 ArenaChanged(this, EventArgs.Empty);
             }
+        }
+
+        public void Reset()
+        {
+            Bots.Clear();
+            Bombs.Clear();
+            Missiles.Clear();
+            Explosions.Clear();
+            Board = new BoardTile[Board.GetLength(0), Board.GetLength(1)];
+            OnArenaChanged();
         }
     }
 }

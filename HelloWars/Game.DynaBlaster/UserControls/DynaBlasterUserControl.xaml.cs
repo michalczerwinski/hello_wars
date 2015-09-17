@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Game.DynaBlaster.Helpers;
 using Game.DynaBlaster.Models;
 using Image = System.Windows.Controls.Image;
-using Point = System.Drawing.Point;
-using Rectangle = System.Windows.Shapes.Rectangle;
 
 namespace Game.DynaBlaster.UserControls
 {
@@ -31,12 +26,16 @@ namespace Game.DynaBlaster.UserControls
         private readonly BitmapImage _mapBackgroundImgSource;
         private readonly BitmapImage _bombExplVerImgSource;
         private readonly BitmapImage _bombExplHorImgSource;
+        private readonly MediaPlayer _mediaPlayer;
+
+        private readonly int _tileSize;
 
         public DynaBlasterUserControl(GameArena arena)
         {
             InitializeComponent();
-            _arena = arena;
 
+            _arena = arena;
+            
             _bombImgSource = ResourceImageHelper.LoadImage(Properties.Resources.bomb);
             _missileImgSource = ResourceImageHelper.LoadImage(Properties.Resources.missile);
             _regularTileImgSource = ResourceImageHelper.LoadImage(Properties.Resources.regularTile);
@@ -48,14 +47,15 @@ namespace Game.DynaBlaster.UserControls
             _bombExplVerImgSource = ResourceImageHelper.LoadImage(Properties.Resources.bomb_expl_mid_vert);
 
             BoardGrid = new DynaBlasterGridControl();
-            BoardGrid.Init(15,15);
+            BoardGrid.Init(_arena.Board.GetLength(0), _arena.Board.GetLength(1));
             BoardGrid.Background = new ImageBrush(_mapBackgroundImgSource);
-            
+
             AddChild(BoardGrid);
 
-            arena.ArenaChanged += OnArenaChange;
+            _tileSize = (int) Height/_arena.Board.GetLength(1);
+            Width = _tileSize*_arena.Board.GetLength(0);
 
-            
+            arena.ArenaChanged += OnArenaChange;
         }
 
         public void OnArenaChange(object sender, EventArgs args)
@@ -88,8 +88,6 @@ namespace Game.DynaBlaster.UserControls
                     var xExplosion = new Image()
                     {
                         Source = _bombExplHorImgSource,
-                        Height = 20,
-                        Width = 20
                     };
                     BoardGrid.AddElement(xExplosion, xLocation.X, xLocation.Y);
                 }
@@ -99,13 +97,11 @@ namespace Game.DynaBlaster.UserControls
                     var yExplosion = new Image
                     {
                         Source = _bombExplVerImgSource,
-                        Width = 20,
-                        Height = 20
                     };
                     BoardGrid.AddElement(yExplosion, yLocation.X, yLocation.Y);
                 }
                 
-                //all regular tiles in blast locations are firtified tiles that have been reduced by explosion.
+                //all regular tiles in blast locations are actually fortified tiles that have been reduced by explosion.
                 //paint them orange during explosion animation so it is visible to user
                 foreach (var point in explosion.BlastLocations.Where(point => _arena.Board[point.X, point.Y] == BoardTile.Regular))
                 {
@@ -116,14 +112,12 @@ namespace Game.DynaBlaster.UserControls
 
         private void DisplayBombs()
         {
-            
             foreach (var bomb in _arena.Bombs)
             {
-
                 var elementToAdd = new Image()
                 {
-                    Width = 15,
-                    Height = 15,
+                    Width = _tileSize * 0.75,
+                    Height = _tileSize * 0.75,
                     Source = _bombImgSource
                 };
 
@@ -142,8 +136,8 @@ namespace Game.DynaBlaster.UserControls
             {
                 var elementToAdd = new Image()
                 {
-                    Width = 20,
-                    Height = 20,
+                    Width = _tileSize * 0.75,
+                    Height = _tileSize * 0.75,
                     Source = _missileImgSource,
                     RenderTransform = new RotateTransform(GetRotateAngle(missile.MoveDirection)),
                     RenderTransformOrigin = new System.Windows.Point(0.5, 0.5)
@@ -151,27 +145,6 @@ namespace Game.DynaBlaster.UserControls
 
                 BoardGrid.AddElement(elementToAdd, missile.Location.X, missile.Location.Y);
             }
-        }
-
-        /// <summary>
-        /// Gets angle to rotate image assuming that original image is facing up
-        /// </summary>
-        /// <param name="direction"></param>
-        /// <returns></returns>
-        private int GetRotateAngle(MoveDirection direction)
-        {
-            switch (direction)
-            {
-                case MoveDirection.Right:
-                    return 90;
-                case MoveDirection.Left:
-                    return 270;
-                case MoveDirection.Up:
-                    return 0;
-                case MoveDirection.Down:
-                    return 180;
-            }
-            return 0;
         }
 
         private void DisplayBots()
@@ -192,7 +165,7 @@ namespace Game.DynaBlaster.UserControls
         {
             for (int i = 0; i < _arena.Board.GetLength(0); i++)
             {
-                for (int j = 0; j < _arena.Board.GetLength(0); j++)
+                for (int j = 0; j < _arena.Board.GetLength(1); j++)
                 {
                     UIElement elementToAdd = null;
 
@@ -227,6 +200,27 @@ namespace Game.DynaBlaster.UserControls
                     
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets angle to rotate image assuming that original image is facing up
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <returns></returns>
+        private int GetRotateAngle(MoveDirection direction)
+        {
+            switch (direction)
+            {
+                case MoveDirection.Right:
+                    return 90;
+                case MoveDirection.Left:
+                    return 270;
+                case MoveDirection.Up:
+                    return 0;
+                case MoveDirection.Down:
+                    return 180;
+            }
+            return 0;
         }
     }
 }
