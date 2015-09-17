@@ -7,7 +7,8 @@ using Game.CubeClash.ViewModels;
 
 namespace Game.CubeClash.Models
 {
-    public class CubeModel : BotClientBase<string, string>, IMovableObiects
+    //public class CubeModel : BotClientBase<SurroundingAreaInfo,TMove>, IMovableObiects
+    public class CubeModel : IMovableObiects
     {
         public CubeViewModel ViewModel { get; set; }
         private readonly int _cubeWidth;
@@ -36,6 +37,7 @@ namespace Game.CubeClash.Models
             _cubeWidth = width;
             _cubeHeigth = heigth;
             ViewModel = viewModel;
+            InitiateMovementShadow();
         }
 
         public void Attack()
