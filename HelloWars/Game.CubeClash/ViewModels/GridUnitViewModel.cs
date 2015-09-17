@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using Common.Models;
-using Game.CubeClash.Models;
+using Game.CubeClash.Enums;
 
 namespace Game.CubeClash.ViewModels
 {
@@ -13,11 +9,18 @@ namespace Game.CubeClash.ViewModels
         private int _x;
         private int _y;
         private LandTypes _landType;
+        private Image _image;
 
         public LandTypes LandType
         {
             get { return _landType; }
             set { SetProperty(ref _landType, value); }
+        }
+
+        public Image Image
+        {
+            get { return _image; }
+            set { SetProperty(ref _image, value); }
         }
 
         public int X

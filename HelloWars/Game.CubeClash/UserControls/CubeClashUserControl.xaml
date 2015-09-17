@@ -37,8 +37,8 @@
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemContainerStyle>
                 <Style>
-                    <Setter Property="Grid.Column" Value="{Binding X}" />
-                    <Setter Property="Grid.Row" Value="{Binding Y}" />
+                    <Setter Property="Grid.Column" Value="{Binding ViewModel.X}" />
+                    <Setter Property="Grid.Row" Value="{Binding ViewModel.Y}" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
@@ -56,8 +56,8 @@
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemContainerStyle>
                 <Style>
-                    <Setter Property="Grid.Column" Value="{Binding X}"/>
-                    <Setter Property="Grid.Row" Value="{Binding Y}"/>
+                    <Setter Property="Grid.Column" Value="{Binding ViewModel.X}"/>
+                    <Setter Property="Grid.Row" Value="{Binding ViewModel.Y}"/>
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>

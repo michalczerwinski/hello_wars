@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Common;
+using Game.CubeClash.Models;
 using Game.CubeClash.ViewModels;
 
 namespace Game.CubeClash.Commands
@@ -20,8 +17,8 @@ namespace Game.CubeClash.Commands
 
         public override void Execute(object parameter = null)
         {
-            _viewModel.PlayersCollection.First().Down();
-
+            var ooo = _viewModel.PlayersCollection.First() as CubeModel;
+            ooo.Down();
         }
     }
 }

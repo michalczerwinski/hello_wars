@@ -5,10 +5,11 @@ using Game.CubeClash.ViewModels;
 
 namespace Game.CubeClash.Commands
 {
-    class GoUpCommand : CommandBase
+    internal class FireMissleCommand : CommandBase
     {
         private CubeClashViewModel _viewModel;
-        public GoUpCommand(CubeClashViewModel viewModel)
+
+        public FireMissleCommand(CubeClashViewModel viewModel)
             : base()
         {
             _viewModel = viewModel;
@@ -17,7 +18,6 @@ namespace Game.CubeClash.Commands
         public override void Execute(object parameter = null)
         {
             var ooo = _viewModel.PlayersCollection.First() as CubeModel;
-            ooo.Up();
         }
     }
 }

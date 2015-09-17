@@ -9,8 +9,8 @@
 
     <Grid>
         <Canvas>
-            <Rectangle x:Name="Rectangle0" Canvas.Top="{Binding MovementShadowTopDistance}" Canvas.Left="{Binding MovementShadowLeftDistance, NotifyOnTargetUpdated=True}" 
-                       Width="{Binding MovementShadowWidth}" Height="{Binding MovementShadowHeight}" Fill="{Binding Color, Mode=TwoWay}" Opacity="0.05" Visibility="{Binding MovementShadowVisibility}">
+            <Rectangle x:Name="Rectangle0" Canvas.Top="{Binding ViewModel.MovementShadowTopDistance}" Canvas.Left="{Binding ViewModel.MovementShadowLeftDistance}" 
+                       Width="{Binding ViewModel.MovementShadowWidth}" Height="{Binding ViewModel.MovementShadowHeight}" Fill="{Binding ViewModel.Color, Mode=TwoWay}" Opacity="0.05" Visibility="{Binding ViewModel.MovementShadowVisibility}">
                 <Rectangle.Resources>
                 </Rectangle.Resources>
             </Rectangle>
@@ -72,18 +72,18 @@
             </Rectangle.RenderTransform>
 
             <i:Interaction.Triggers>
-                <ei:DataTrigger Binding="{Binding IsAttacking}" Value="True" >
+                <ei:DataTrigger Binding="{Binding ViewModel.IsAttacking}" Value="True" >
                     <ei:ControlStoryboardAction Storyboard="{StaticResource AttackAnimation}" ControlStoryboardOption="Play"/>
                     <!--<ei:PlaySoundAction Source="Sound/attack1.mp3" Volume="100" />-->
                 </ei:DataTrigger>
-                <ei:DataTrigger Binding="{Binding IsAttacking}" Value="False">
+                <ei:DataTrigger Binding="{Binding ViewModel.IsAttacking}" Value="False">
                     <ei:ControlStoryboardAction Storyboard="{StaticResource AttackAnimation}" ControlStoryboardOption="Stop"/>
                 </ei:DataTrigger>
             </i:Interaction.Triggers>
         </Rectangle>
 
         <Grid.RenderTransform>
-            <RotateTransform Angle="{Binding MovementShadowRotate}" CenterX="{Binding CenterX}" CenterY="{Binding CenterY}"/>
+            <RotateTransform Angle="{Binding ViewModel.MovementShadowRotate}" CenterX="{Binding ViewModel.CenterX}" CenterY="{Binding ViewModel.CenterY}"/>
         </Grid.RenderTransform>
 
     </Grid>

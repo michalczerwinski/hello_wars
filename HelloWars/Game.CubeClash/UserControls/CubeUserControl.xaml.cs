@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using Game.CubeClash.Models;
 using Game.CubeClash.ViewModels;
 
 namespace Game.CubeClash.UserControls
@@ -8,8 +9,11 @@ namespace Game.CubeClash.UserControls
     {
         private CubeViewModel _viewModel
         {
-            get { return (CubeViewModel) DataContext; }
-            set { DataContext = value; }
+            get
+            {
+                var cubeModel = (CubeModel) DataContext;
+                return cubeModel.ViewModel;
+            }
         }
 
         public CubeUserControl()

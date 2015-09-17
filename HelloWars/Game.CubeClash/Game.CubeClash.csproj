@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Annotations.cs" />
+    <Compile Include="Commands\FireMissleCommand.cs" />
     <Compile Include="Commands\WatchCommand.cs" />
     <Compile Include="Commands\DoMoveCommand.cs" />
     <Compile Include="Commands\GoDownCommand.cs" />
@@ -55,9 +56,13 @@
     <Compile Include="Commands\GoRightCommand.cs" />
     <Compile Include="Commands\GoUpCommand.cs" />
     <Compile Include="CubeClash.cs" />
-    <Compile Include="Models\AvailableMoves.cs" />
+    <Compile Include="Interfaces\IMovableObiects.cs" />
+    <Compile Include="Interfaces\IUnmovableObjeect.cs" />
+    <Compile Include="Enums\AvailableMoves.cs" />
     <Compile Include="Models\CubeModel.cs" />
-    <Compile Include="Models\LandTypes.cs" />
+    <Compile Include="Models\GridUnitModel.cs" />
+    <Compile Include="Enums\LandTypes.cs" />
+    <Compile Include="Models\MissleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserControls\CubeClashUserControl.xaml.cs">
       <DependentUpon>CubeClashUserControl.xaml</DependentUpon>
@@ -71,7 +76,7 @@
     <Compile Include="ViewModels\CubeClashViewModel.cs" />
     <Compile Include="ViewModels\CubeViewModel.cs" />
     <Compile Include="ViewModels\GridUnitViewModel.cs" />
-    <Compile Include="Models\MoveDirection.cs" />
+    <Compile Include="ViewModels\MissleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game.Common\Common.csproj">
