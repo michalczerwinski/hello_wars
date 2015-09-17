@@ -41,7 +41,7 @@ namespace Game.DynaBlaster
                 };
             }
 
-            PlayBotMoves();
+            var partialResults = PlayBotMoves();
 
             _roundNumber++;
 
@@ -49,7 +49,7 @@ namespace Game.DynaBlaster
             {
                 FinalResult = null,
                 IsFinished = false,
-                History = new List<RoundPartialHistory>()
+                History = partialResults.ToList()
             };
         }
 
@@ -91,7 +91,7 @@ namespace Game.DynaBlaster
 
         public void SetPreview(object boardState)
         {
-            //TODO: implement
+            _arena.ImportState((GameArena)boardState);
             _arena.OnArenaChanged();
         }
 
@@ -207,7 +207,7 @@ namespace Game.DynaBlaster
             _arena.Explosions.Clear();
         }
 
-        private void PlayBotMoves()
+        private IEnumerable<RoundPartialHistory> PlayBotMoves()
         {
             foreach (var dynaBlasterBot in _arena.Bots.Where(bot => !bot.IsDead))
             {
@@ -215,7 +215,7 @@ namespace Game.DynaBlaster
 
                 if (IsMoveValid(dynaBlasterBot, move))
                 {
-                    PerformMove(dynaBlasterBot, move);
+                    yield return PerformMove(dynaBlasterBot, move);
                     _arena.OnArenaChanged();
                 }
 
@@ -230,8 +230,10 @@ namespace Game.DynaBlaster
                    && !_arena.Bots.Any(blasterBot => blasterBot.Id != bot.Id && blasterBot.Location == newLocation);
         }
 
-        private void PerformMove(DynaBlasterBot bot, BotMove move)
+        private RoundPartialHistory PerformMove(DynaBlasterBot bot, BotMove move)
         {
+            var actionDescription = move.Direction != null ? "move " + move.Direction.Value : "stay";
+
             if (move.Action == BotAction.DropBomb)
             {
                 _arena.Bombs.Add(new Bomb
@@ -240,22 +242,38 @@ namespace Game.DynaBlaster
                     RoundsUntilExplodes = 5,
                     ExplosionRadius = _explosionRadius
                 });
+
+                actionDescription += " & drop bomb";
             }
 
             bot.Location = GetNewLocation(bot.Location, move.Direction);
             bot.LastDirection = move.Direction ?? bot.LastDirection;
 
-            if (move.Action == BotAction.FireMissile && IsMissileAvailable(bot) && IsLocationAvailableForMissile(GetNewLocation(bot.Location, move.FireDirection)))
+            if (move.Action == BotAction.FireMissile)
             {
-                bot.LastMissileFiredRound = _roundNumber;
-                _arena.Missiles.Add(new Missile
+                if (IsMissileAvailable(bot) && IsLocationAvailableForMissile(GetNewLocation(bot.Location, move.FireDirection)))
                 {
-                    ExplosionRadius = _explosionRadius,
-                    MoveDirection = move.FireDirection,
-                    Location = GetNewLocation(bot.Location, move.FireDirection)
-                });
-                bot.LastDirection = move.FireDirection;
+                    bot.LastMissileFiredRound = _roundNumber;
+                    _arena.Missiles.Add(new Missile
+                    {
+                        ExplosionRadius = _explosionRadius,
+                        MoveDirection = move.FireDirection,
+                        Location = GetNewLocation(bot.Location, move.FireDirection)
+                    });
+                    bot.LastDirection = move.FireDirection;
+                    actionDescription += " & fire " + move.FireDirection;
+                }
+                else
+                {
+                    actionDescription += " & can't fire " + move.FireDirection;
+                }
             }
+
+            return new RoundPartialHistory()
+            {
+                Caption = string.Format("Bot \"{0}\": {1}", bot.Name, actionDescription),
+                BoardState = _arena.ExportState()
+            };
         }
 
         private bool IsMissileAvailable(DynaBlasterBot bot)
