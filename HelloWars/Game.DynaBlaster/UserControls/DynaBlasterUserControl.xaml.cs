@@ -1,11 +1,17 @@
 ﻿using System;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Game.DynaBlaster.Helpers;
 using Game.DynaBlaster.Models;
+using Image = System.Windows.Controls.Image;
 using Point = System.Drawing.Point;
+using Rectangle = System.Windows.Shapes.Rectangle;
 
 namespace Game.DynaBlaster.UserControls
 {
@@ -16,18 +22,40 @@ namespace Game.DynaBlaster.UserControls
     {
         public DynaBlasterGridControl BoardGrid;
         private readonly GameArena _arena;
+        private readonly BitmapImage _bombImgSource;
+        private readonly BitmapImage _missileImgSource;
+        private readonly BitmapImage _regularTileImgSource;
+        private readonly BitmapImage _fortifiedTileImgSource;
+        private readonly BitmapImage _fortifiedTileBlastImgSource;
+        private readonly BitmapImage _indestructibleTileImgSource;
+        private readonly BitmapImage _mapBackgroundImgSource;
+        private readonly BitmapImage _bombExplVerImgSource;
+        private readonly BitmapImage _bombExplHorImgSource;
 
         public DynaBlasterUserControl(GameArena arena)
         {
             InitializeComponent();
             _arena = arena;
 
+            _bombImgSource = ResourceImageHelper.LoadImage(Properties.Resources.bomb);
+            _missileImgSource = ResourceImageHelper.LoadImage(Properties.Resources.missile);
+            _regularTileImgSource = ResourceImageHelper.LoadImage(Properties.Resources.regularTile);
+            _fortifiedTileImgSource = ResourceImageHelper.LoadImage(Properties.Resources.fortifiedTile);
+            _fortifiedTileBlastImgSource = ResourceImageHelper.LoadImage(Properties.Resources.fortifiedTileBlast);
+            _indestructibleTileImgSource = ResourceImageHelper.LoadImage(Properties.Resources.indestructibleTile);
+            _mapBackgroundImgSource = ResourceImageHelper.LoadImage(Properties.Resources.grass);
+            _bombExplHorImgSource = ResourceImageHelper.LoadImage(Properties.Resources.bomb_expl_mid_hor);
+            _bombExplVerImgSource = ResourceImageHelper.LoadImage(Properties.Resources.bomb_expl_mid_vert);
+
             BoardGrid = new DynaBlasterGridControl();
             BoardGrid.Init(15,15);
+            BoardGrid.Background = new ImageBrush(_mapBackgroundImgSource);
             
             AddChild(BoardGrid);
 
             arena.ArenaChanged += OnArenaChange;
+
+            
         }
 
         public void OnArenaChange(object sender, EventArgs args)
@@ -40,6 +68,8 @@ namespace Game.DynaBlaster.UserControls
 
             DisplayBombs();
 
+            DisplayMissiles();
+
             DisplayExplosions();
         }
 
@@ -50,45 +80,53 @@ namespace Game.DynaBlaster.UserControls
                 //do not display blast ray on top of tiles that survived explosion
                 var displayBlastLocations = explosion.BlastLocations.Where(point => _arena.Board[point.X, point.Y] == BoardTile.Empty).ToList();
 
-                var xRadius = displayBlastLocations.Count(point => point.Y == explosion.Center.Y);
-                var yRadius = displayBlastLocations.Count(point => point.X == explosion.Center.X);
+                var xLocations = displayBlastLocations.Where(point => point.Y == explosion.Center.Y);
+                var yLocations = displayBlastLocations.Where(point => point.X == explosion.Center.X);
 
-                var xExplosion = new Ellipse()
+                foreach (var xLocation in xLocations)
                 {
-                    Fill = new SolidColorBrush(Colors.Yellow),
-                    Height = 15
-                };
-                xExplosion.SetValue(Grid.ColumnSpanProperty, xRadius);
+                    var xExplosion = new Image()
+                    {
+                        Source = _bombExplHorImgSource,
+                        Height = 20,
+                        Width = 20
+                    };
+                    BoardGrid.AddElement(xExplosion, xLocation.X, xLocation.Y);
+                }
 
-                var yExplosion = new Ellipse
+                foreach (var yLocation in yLocations)
                 {
-                    Fill = new SolidColorBrush(Colors.Yellow),
-                    Width = 15
-                };
-                yExplosion.SetValue(Grid.RowSpanProperty, yRadius);
-
-                BoardGrid.AddElement(xExplosion, displayBlastLocations.Min(point => point.X), explosion.Center.Y);
-                BoardGrid.AddElement(yExplosion, explosion.Center.X, displayBlastLocations.Min(point => point.Y));
-
+                    var yExplosion = new Image
+                    {
+                        Source = _bombExplVerImgSource,
+                        Width = 20,
+                        Height = 20
+                    };
+                    BoardGrid.AddElement(yExplosion, yLocation.X, yLocation.Y);
+                }
+                
                 //all regular tiles in blast locations are firtified tiles that have been reduced by explosion.
                 //paint them orange during explosion animation so it is visible to user
                 foreach (var point in explosion.BlastLocations.Where(point => _arena.Board[point.X, point.Y] == BoardTile.Regular))
                 {
-                    BoardGrid.AddElement(new Rectangle(){ Fill = new SolidColorBrush(Colors.DarkOrange) }, point.X, point.Y);
+                    BoardGrid.AddElement(new Image(){ Source = _fortifiedTileBlastImgSource }, point.X, point.Y);
                 }
             }
         }
 
         private void DisplayBombs()
         {
+            
             foreach (var bomb in _arena.Bombs)
             {
-                var elementToAdd = new Ellipse
+
+                var elementToAdd = new Image()
                 {
-                    Width = 10,
-                    Height = 10,
-                    Fill = new SolidColorBrush(Colors.Black)
+                    Width = 15,
+                    Height = 15,
+                    Source = _bombImgSource
                 };
+
                 var textToAdd = new TextBlock()
                 {
                     Text = bomb.RoundsUntilExplodes.ToString()
@@ -98,13 +136,53 @@ namespace Game.DynaBlaster.UserControls
             }
         }
 
+        private void DisplayMissiles()
+        {
+            foreach (var missile in _arena.Missiles)
+            {
+                var elementToAdd = new Image()
+                {
+                    Width = 20,
+                    Height = 20,
+                    Source = _missileImgSource,
+                    RenderTransform = new RotateTransform(GetRotateAngle(missile.MoveDirection)),
+                    RenderTransformOrigin = new System.Windows.Point(0.5, 0.5)
+                };
+
+                BoardGrid.AddElement(elementToAdd, missile.Location.X, missile.Location.Y);
+            }
+        }
+
+        /// <summary>
+        /// Gets angle to rotate image assuming that original image is facing up
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <returns></returns>
+        private int GetRotateAngle(MoveDirection direction)
+        {
+            switch (direction)
+            {
+                case MoveDirection.Right:
+                    return 90;
+                case MoveDirection.Left:
+                    return 270;
+                case MoveDirection.Up:
+                    return 0;
+                case MoveDirection.Down:
+                    return 180;
+            }
+            return 0;
+        }
+
         private void DisplayBots()
         {
             foreach (var bot in _arena.Bots)
             {
-                var elementToAdd = new Ellipse
+                var elementToAdd = new Image
                 {
-                    Fill = new SolidColorBrush(bot.Color)
+                    Source = bot.Image,
+                    RenderTransform = new RotateTransform(GetRotateAngle(bot.LastDirection)),
+                    RenderTransformOrigin = new System.Windows.Point(0.5, 0.5)
                 };
                 BoardGrid.AddElement(elementToAdd, bot.Location.X, bot.Location.Y);
             }
@@ -123,21 +201,21 @@ namespace Game.DynaBlaster.UserControls
                         case BoardTile.Empty:
                             break;
                         case BoardTile.Regular:
-                            elementToAdd = new Rectangle()
+                            elementToAdd = new Image()
                             {
-                                Fill = new SolidColorBrush(Colors.SaddleBrown)
+                                Source = _regularTileImgSource
                             };
                             break;
                         case BoardTile.Fortified:
-                            elementToAdd = new Rectangle()
+                            elementToAdd = new Image()
                             {
-                                Fill = new SolidColorBrush(Colors.Brown)
+                                Source = _fortifiedTileImgSource
                             };
                             break;
                         case BoardTile.Indestructible:
-                            elementToAdd = new Rectangle()
+                            elementToAdd = new Image()
                             {
-                                Fill = new SolidColorBrush(Colors.Gray)
+                                Source = _indestructibleTileImgSource
                             };
                             break;
                     }

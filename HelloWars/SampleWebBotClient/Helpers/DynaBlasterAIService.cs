@@ -22,7 +22,8 @@ namespace SampleWebBotClient.Helpers
 
             var result = new BotMove()
             {
-                Action = _rand.Next(5) == 0 ? BotAction.DropBomb : BotAction.None
+                Action = _rand.Next(5) == 0 ? (arena.IsMissileAvailable ? BotAction.FireMissile : BotAction.DropBomb) : BotAction.None,
+                FireDirection = _allDirections[_rand.Next(_allDirections.Count)]
             };
 
             var closestOpponent = _arena.OpponentLocations.OrderBy(point => point.DistanceFrom(_arena.BotLocation)).First();
@@ -107,8 +108,10 @@ namespace SampleWebBotClient.Helpers
                     result[i, j] = _arena.Board[i, j] == BoardTile.Empty ? 0 : int.MaxValue;
                 }
             }
-
+            
             var dangerLocations = _arena.Bombs.SelectMany(bomb => GetBombDangerZone(bomb.Location)).Where(point => !IsBlocked(point)).ToList();
+            dangerLocations.AddRange(_arena.Missiles.SelectMany(missile => GetBombDangerZone(missile.Location)).Where(point => !IsBlocked(point)));
+
             var certainDeathLocations =
                 _arena.Bombs.Where(bomb => bomb.RoundsUntilExplodes == 1).SelectMany(bomb => GetBombDangerZone(bomb.Location)).Where(point => !IsBlocked(point)).ToList();
 

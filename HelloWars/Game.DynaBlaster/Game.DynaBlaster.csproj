@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DynaBlaster.cs" />
+    <Compile Include="Helpers\ResourceImageHelper.cs" />
     <Compile Include="Models\BoardTile.cs" />
     <Compile Include="Models\Bomb.cs" />
     <Compile Include="Models\BotAction.cs" />
@@ -88,6 +89,42 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\index.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bomb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\missile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HardBlock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SoftBlock.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FortifiedBlock.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grass.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FortifiedBlock_blast.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tank1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tank2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bomb_expl_mid_hor.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bomb_expl_mid_vert.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

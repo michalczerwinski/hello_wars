@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
+using Game.DynaBlaster.Helpers;
 using Game.DynaBlaster.Models;
 using Game.DynaBlaster.UserControls;
 using Color = System.Windows.Media.Color;
@@ -17,6 +18,7 @@ namespace Game.DynaBlaster
     {
         private readonly Random _rand = new Random(DateTime.Now.Millisecond);
         private static int _explosionRadius = 2;
+        private static int _roundsBetweenMissiles = 5;
         private static int _delayTime;
         private GameArena _arena;
         private int _roundNumber;
@@ -41,7 +43,25 @@ namespace Game.DynaBlaster
                 }
             }
 
+            foreach (var missile in _arena.Missiles)
+            {
+                if (!missile.IsExploded)
+                {
+                    var newLocation = GetNewLocation(missile.Location, missile.MoveDirection);
+
+                    if (IsLocationAvailableForMissile(newLocation) && _arena.Bots.All(bot => bot.Location != missile.Location))
+                    {
+                        missile.Location = newLocation;
+                    }
+                    else
+                    {
+                        SetExplosion(missile);
+                    }
+                }
+            }
+
             _arena.Bombs.RemoveAll(bomb => bomb.IsExploded);
+            _arena.Missiles.RemoveAll(missile => missile.IsExploded);
 
             _arena.OnArenaChanged();
 
@@ -96,17 +116,18 @@ namespace Game.DynaBlaster
             {
                 for (var j = 0; j < _arena.Board.GetLength(1); j++)
                 {
-                    var tileType = _rand.Next(2) == 0 ? BoardTile.Empty : (BoardTile) (_rand.Next(3) + 1);
+                    var tileType = _rand.Next(3) != 0 ? BoardTile.Empty : (BoardTile) (_rand.Next(3) + 1);
                     _arena.Board[i, j] = tileType;
                 }
             }
 
             _arena.Bots = competitors.Select(competitor => new DynaBlasterBot(competitor)).ToList();
-            _arena.Bots.ForEach(bot =>
+
+            for (int i = 0; i < _arena.Bots.Count; i++)
             {
-                bot.Color = Color.FromRgb((byte) _rand.Next(256), (byte) _rand.Next(256), (byte) _rand.Next(256));
-                bot.Location = GetRandomEmptyPointOnBoard();
-            });
+                _arena.Bots[i].Location = GetRandomEmptyPointOnBoard();
+                _arena.Bots[i].Image = ResourceImageHelper.LoadImage(i%2 == 0 ? Properties.Resources.tank1 : Properties.Resources.tank2);
+            }
 
             _arena.OnArenaChanged();
         }
@@ -115,6 +136,7 @@ namespace Game.DynaBlaster
         {
             _arena.Bots.Clear();
             _arena.Bombs.Clear();
+            _arena.Missiles.Clear();
             _arena.Explosions.Clear();
             _arena.Board = new BoardTile[15, 15];
             _arena.OnArenaChanged();
@@ -151,6 +173,12 @@ namespace Game.DynaBlaster
             }
         }
 
+        private bool IsLocationAvailableForMissile(Point location)
+        {
+            return IsLocationValid(location) && _arena.Board[location.X, location.Y] == BoardTile.Empty && _arena.Bots.All(blasterBot => blasterBot.Location != location) &&
+                   _arena.Bombs.All(bomb => bomb.Location != location) && _arena.Missiles.All(m => m.Location != location);
+        }
+
         private bool IsMoveValid(DynaBlasterBot bot, BotMove move)
         {
             var newLocation = GetNewLocation(bot.Location, move.Direction);
@@ -169,8 +197,21 @@ namespace Game.DynaBlaster
                     ExplosionRadius = _explosionRadius
                 });
             }
+            
             bot.Location = GetNewLocation(bot.Location, move.Direction);
+            bot.LastDirection = move.Direction ?? bot.LastDirection;
 
+            if (move.Action == BotAction.FireMissile && IsMissileAvailable(bot) && IsLocationAvailableForMissile(GetNewLocation(bot.Location, move.FireDirection)))
+            {
+                bot.LastMissileFiredRound = _roundNumber;
+                _arena.Missiles.Add(new Missile()
+                {
+                    ExplosionRadius = _explosionRadius,
+                    MoveDirection = move.FireDirection,
+                    Location = GetNewLocation(bot.Location, move.FireDirection)
+                });
+                bot.LastDirection = move.FireDirection;
+            }
         }
 
         private Point GetNewLocation(Point oldLocation, MoveDirection? direction)
@@ -306,10 +347,16 @@ namespace Game.DynaBlaster
                 Board = _arena.Board,
                 Bombs = _arena.Bombs,
                 BotLocation = bot.Location,
-                OpponentLocations = _arena.Bots.Where(blasterBot => blasterBot.Id != bot.Id && !blasterBot.IsDead).Select(blasterBot => blasterBot.Location).ToList()
+                OpponentLocations = _arena.Bots.Where(blasterBot => blasterBot.Id != bot.Id && !blasterBot.IsDead).Select(blasterBot => blasterBot.Location).ToList(),
+                Missiles = _arena.Missiles,
+                IsMissileAvailable = IsMissileAvailable(bot)
             };
         }
 
+        private bool IsMissileAvailable(DynaBlasterBot bot)
+        {
+            return _roundNumber - _roundsBetweenMissiles > bot.LastMissileFiredRound;
+        }
         #endregion
     }
 }
