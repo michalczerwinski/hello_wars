@@ -85,5 +85,11 @@ namespace Game.CubeClash
             Reset();
             return new CubeClashUserControl(_cubeClashViewModel);
         }
+
+
+        public string GetGameRules()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

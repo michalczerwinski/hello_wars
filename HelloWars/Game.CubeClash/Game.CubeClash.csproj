@@ -47,7 +47,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Annotations.cs" />
     <Compile Include="Commands\FireMissleCommand.cs" />
     <Compile Include="Commands\WatchCommand.cs" />
     <Compile Include="Commands\DoMoveCommand.cs" />

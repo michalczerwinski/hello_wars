@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Media;
-using Common.Models;
 using Game.CubeClash.Enums;
 using Game.CubeClash.Interfaces;
 using Game.CubeClash.ViewModels;
