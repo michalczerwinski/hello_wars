@@ -7,7 +7,7 @@ namespace Game.DynaBlaster.UserControls
     {
         public void Init(int xSize, int ySize)
         {
-            SetValue(ShowGridLinesProperty, true);
+            SetValue(ShowGridLinesProperty, false);
 
             for (int i = 0; i < xSize; i++)
             {

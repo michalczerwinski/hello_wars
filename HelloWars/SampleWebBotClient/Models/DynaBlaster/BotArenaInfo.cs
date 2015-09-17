@@ -7,10 +7,11 @@ namespace SampleWebBotClient.Models.DynaBlaster
     public class BotArenaInfo
     {
         public Guid BotId { get; set; }
-        public bool[,] Board { get; set; }
+        public BoardTile[,] Board { get; set; }
         public Point BotLocation { get; set; }
+        public bool IsMissileAvailable { get; set; }
         public List<Point> OpponentLocations { get; set; }
         public List<Bomb> Bombs { get; set; }
-        public List<Point> Explosions { get; set; }
+        public List<Missile> Missiles { get; set; } 
     }
 }

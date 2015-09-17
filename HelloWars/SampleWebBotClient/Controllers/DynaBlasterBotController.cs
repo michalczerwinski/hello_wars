@@ -8,8 +8,6 @@ namespace SampleWebBotClient.Controllers
 {
     public class DynaBlasterBotController : ApiController
     {
-        private static readonly Random _rand = new Random(DateTime.Now.Millisecond);
-
         [HttpGet]
         public BotInfo Info()
         {
