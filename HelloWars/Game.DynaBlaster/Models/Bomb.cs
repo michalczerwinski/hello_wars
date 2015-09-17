@@ -1,10 +1,10 @@
 ﻿using System.Drawing;
+using Game.DynaBlaster.Interfaces;
 
 namespace Game.DynaBlaster.Models
 {
-    public class Bomb
+    public class Bomb : ExplodableBase, IBomb
     {
-        public Point Location { get; set; }
         public int RoundsUntilExplodes { get; set; }
     }
 }

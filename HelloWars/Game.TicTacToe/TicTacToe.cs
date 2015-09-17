@@ -10,7 +10,6 @@ using Game.TicTacToe.ViewModels;
 using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
-using Common.Utilities;
 using Point = System.Drawing.Point;
 
 namespace Game.TicTacToe
@@ -100,6 +99,12 @@ namespace Game.TicTacToe
                     TicTacToeViewModel.Board[i, j] = ((BoardFieldSign[,])boardState)[i, j];
                 }
             }
+        }
+
+        public string GetGameRules()
+        {
+            //TODO: implement
+            return "";
         }
 
         private Dictionary<ICompetitor, double> GetResults()
@@ -259,7 +264,6 @@ namespace Game.TicTacToe
             TicTacToeViewModel.ArrayOfDiagonalLines[0, 0] = Visibility.Collapsed;
             TicTacToeViewModel.ArrayOfDiagonalLines[1, 0] = Visibility.Collapsed;
         }
-
 
         public UserControl GetVisualisationUserControl()
         {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace Game.DynaBlaster.UserControls
@@ -12,7 +7,7 @@ namespace Game.DynaBlaster.UserControls
     {
         public void Init(int xSize, int ySize)
         {
-            SetValue(ShowGridLinesProperty, true);
+            SetValue(ShowGridLinesProperty, false);
 
             for (int i = 0; i < xSize; i++)
             {

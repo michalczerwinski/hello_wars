@@ -3,7 +3,7 @@ using Arena.ViewModels;
 using Common;
 using Common.Models;
 
-namespace Arena.Commands
+namespace Arena.Commands.MenuItemCommands
 {
     public class PlayDuelCommand : CommandBase
     {
@@ -26,6 +26,8 @@ namespace Arena.Commands
                 };
 
                 _viewModel.Game.SetupNewGame(nextCompetitors);
+
+                _viewModel.OutputText += "Game starting: " + gameHistoryEntry.GameDescription + "\n";
 
                 RoundResult result;
 

@@ -124,11 +124,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DynaBlasterAIService.cs" />
+    <Compile Include="Helpers\DynaBlasterExtensions.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
+    <Compile Include="Helpers\DynaBlasterStorageHelper.cs" />
+    <Compile Include="Models\DynaBlaster\BoardTile.cs" />
     <Compile Include="Models\DynaBlaster\Bomb.cs" />
+    <Compile Include="Models\DynaBlaster\BotAction.cs" />
     <Compile Include="Models\DynaBlaster\BotArenaInfo.cs" />
     <Compile Include="Models\BotInfo.cs" />
     <Compile Include="Models\DynaBlaster\BotMove.cs" />
+    <Compile Include="Models\DynaBlaster\Missile.cs" />
     <Compile Include="Models\DynaBlaster\MoveDirection.cs" />
     <Compile Include="Models\TicTacToeBoardFieldType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

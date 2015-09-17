@@ -27,7 +27,7 @@
             </Viewbox>
 
             <Viewbox Grid.Column="1" >
-                <TextBlock Padding="3" Text="{Binding BotClient.Name, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Padding="3" Text="{Binding BotClient.Name, Mode=TwoWay}" Foreground="WhiteSmoke" FontStretch="Medium" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Viewbox>
         </Grid>
     </Border>

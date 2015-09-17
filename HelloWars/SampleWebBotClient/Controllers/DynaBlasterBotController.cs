@@ -8,8 +8,6 @@ namespace SampleWebBotClient.Controllers
 {
     public class DynaBlasterBotController : ApiController
     {
-        private static readonly Random _rand = new Random(DateTime.Now.Millisecond);
-
         [HttpGet]
         public BotInfo Info()
         {
@@ -19,18 +17,19 @@ namespace SampleWebBotClient.Controllers
                 AvatarUrl = "http://localhost:53886/Content/BotImg.png",
                 GameType = "DynaBlaster"
             };
-
             return bot;
         }
 
         [HttpPost]
         public BotMove PerformNextMove(BotArenaInfo arenaInfo)
         {
-            return new BotMove()
-            {
-                Direction = (MoveDirection)_rand.Next(4),
-                ShouldDropBomb = _rand.Next(7) == 0
-            };
+            var aiService = new DynaBlasterAiService();
+            var previousLocations = DynaBlasterStorageHelper.GetBotLocationHistory(arenaInfo.BotId);
+            var result = aiService.CalculateNextMove(arenaInfo, previousLocations);
+
+            previousLocations.Add(result.Direction != null ? arenaInfo.BotLocation.AddDirectionMove(result.Direction.Value) : arenaInfo.BotLocation);
+
+            return result;
         }
     }
 }

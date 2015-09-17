@@ -9,9 +9,6 @@
 //------------------------------------------------------------------------------
 
 namespace Common {
-    using System;
-    
-    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -57,6 +54,15 @@ namespace Common {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /ArenaConfiguration.xml.
+        /// </summary>
+        public static string DefaultArenaConfigurationName {
+            get {
+                return ResourceManager.GetString("DefaultArenaConfigurationName", resourceCulture);
             }
         }
         

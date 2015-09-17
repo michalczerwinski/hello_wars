@@ -1,6 +1,6 @@
 ﻿using Arena.ViewModels;
 
-namespace Arena.Commands
+namespace Arena.Commands.MenuItemCommands
 {
     public class AutoPlayCommand : PlayDuelCommand
     {

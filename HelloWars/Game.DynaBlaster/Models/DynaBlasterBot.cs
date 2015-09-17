@@ -1,7 +1,8 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
+using System.Windows.Media;
 using Common.Interfaces;
 using Common.Models;
-using Color = System.Windows.Media.Color;
 
 namespace Game.DynaBlaster.Models
 {
@@ -9,10 +10,13 @@ namespace Game.DynaBlaster.Models
     {
         public DynaBlasterBot(ICompetitor competitor) : base(competitor)
         {
+            LastMissileFiredRound = Int32.MinValue;
         }
 
-        public Color Color { get; set; }
+        public ImageSource Image { get; set; }
         public Point Location { get; set; }
         public bool IsDead { get; set; }
+        public int LastMissileFiredRound { get; set; }
+        public MoveDirection LastDirection { get; set; }
     }
 }

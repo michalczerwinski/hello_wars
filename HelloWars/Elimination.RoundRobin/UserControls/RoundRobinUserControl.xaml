@@ -13,12 +13,12 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Repeat: " Background="Transparent" FontWeight="Bold"/>
+            <TextBlock Text="Repeat: " FontWeight="Bold"/>
             <TextBox Width="40" Text="{Binding NumberOfRepeat, Mode=TwoWay}" HorizontalAlignment="Left"/>
         </StackPanel>
 
         <Grid Grid.Row="1" ShowGridLines="True">
-            <ListView ItemsSource="{Binding Bots}">
+            <ListView Name="Bots" ItemsSource="{Binding Bots}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Competitor" Width="100" DisplayMemberBinding="{Binding Competitor.Name}"/>

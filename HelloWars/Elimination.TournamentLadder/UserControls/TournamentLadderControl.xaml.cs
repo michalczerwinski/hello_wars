@@ -25,12 +25,17 @@ namespace Elimination.TournamentLadder.UserControls
             _viewModel = viewModel;
             _startingNumberOfBots = _viewModel.Bots.Count;
             _numberOfStages = (int)Math.Ceiling(Math.Log(_startingNumberOfBots, 2)) + 1;
-
-            CreateEmptyTournamentLadderView();
-            AddBotsToTournamentList();
-            SetCanvasSize();
+            
+            Refresh();
         }
 
+        public void Refresh()
+        {
+                TournamentLadderCanvas.Children.Clear();
+                CreateEmptyTournamentLadderView();
+                AddBotsToTournamentList();
+                SetCanvasSize();
+        }
         private void SetCanvasSize()
         {
             TournamentLadderCanvas.Height = _startingNumberOfBots * 60;
@@ -87,6 +92,7 @@ namespace Elimination.TournamentLadder.UserControls
         private void CreateEmptyTournamentLadderView()
         {
             _viewModel.StageLists = new List<List<BotUserControl>>();
+
             var numberOfBots = _startingNumberOfBots;
             var stageNumber = 1;
 
@@ -154,7 +160,7 @@ namespace Elimination.TournamentLadder.UserControls
         {
             var line = new Polyline
             {
-                Stroke = Brushes.BlueViolet,
+                Stroke = Brushes.Tomato,
                 StrokeThickness = 8
             };
             TournamentLadderCanvas.Children.Add(line);
@@ -183,7 +189,7 @@ namespace Elimination.TournamentLadder.UserControls
 
             line = new Polyline
             {
-                Stroke = Brushes.BlueViolet, 
+                Stroke = Brushes.Tomato, 
                 StrokeThickness = 8
             };
             TournamentLadderCanvas.Children.Add(line);

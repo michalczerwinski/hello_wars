@@ -1,39 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Arena.Commands;
+using Arena.Commands.MenuItemCommands;
 using Arena.Configuration;
 using Common;
 using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
+using Common.Serialization;
 using Common.Utilities;
 
 namespace Arena.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        private string _headerText;
-        private ArenaConfiguration _arenaConfiguration { get; set; }
         private UserControl _gameTypeControl;
         private UserControl _eliminationTypeControl;
         private List<ICompetitor> _competitors;
-        private ObservableCollection<GameHistoryEntryViewModel> _gameHistory; 
+        private ObservableCollection<GameHistoryEntryViewModel> _gameHistory;
+        private bool _isHistoryVisible;
+        private bool _isOutputVisible;
+        private int _selectedTabIndex;
+        private string _outputText;
+        private static readonly object _lock = new object();
+        private bool _isFullScreenApplied;
+
         private ICommand _autoPlayCommand;
         private ICommand _onLoadedCommand;
+        private ICommand _openCommand;
+        private ICommand _closeCommand;
+        private ICommand _verifyPlayersCommand;
+        private ICommand _gameRulesCommand;
+        private ICommand _aboutCommand;
+        private ICommand _toggleHistoryCommand;
+        private ICommand _fullScreenWindowCommand;
+        private WindowState _windowState;
+        private WindowStyle _windowStyle;
 
+        public ArenaConfiguration ArenaConfiguration { get; set; }
         public IElimination Elimination { get; set; }
         public IGame Game { get; set; }
         public ScoreList ScoreList { get; set; }
 
-        public string HeaderText
+        public string OutputText
         {
-            get { return _headerText; }
-            set { SetProperty(ref _headerText, value); }
+            get { return _outputText; }
+            set { SetProperty(ref _outputText, value); }
+        }
+
+        public bool IsHistoryVisible
+        {
+            get { return _isHistoryVisible; }
+            set { SetProperty(ref _isHistoryVisible, value); }
+        }
+
+        public bool IsOutputVisible
+        {
+            get { return _isOutputVisible; }
+            set { SetProperty(ref _isOutputVisible, value); }
+        }
+
+        public int SelectedTabIndex
+        {
+            get { return _selectedTabIndex; }
+            set { SetProperty(ref _selectedTabIndex, value); }
         }
 
         public ObservableCollection<GameHistoryEntryViewModel> GameHistory
@@ -60,6 +100,35 @@ namespace Arena.ViewModels
             set { SetProperty(ref _competitors, value); }
         }
 
+        public ICommand OnLoadedCommand
+        {
+            get { return _onLoadedCommand ?? (_onLoadedCommand = new LoadGameAndEliminationUserControlsOnLoadedControl(this)); }
+        }
+
+        public WindowStyle WindowStyle
+        {
+            get { return _windowStyle; }
+            set { SetProperty(ref _windowStyle, value); }
+        }
+
+        public WindowState WindowState
+        {
+            get { return _windowState; }
+            set { SetProperty(ref _windowState, value); }
+        }
+
+        #region MenuItems
+
+        public ICommand OpenCommand
+        {
+            get { return _openCommand ?? (_openCommand = new OpenCommand(this)); }
+        }
+
+        public ICommand CloseCommand
+        {
+            get { return _closeCommand ?? (_closeCommand = new CloseCommand()); }
+        }
+
         public ICommand PlayDuelCommand
         {
             get { return new PlayDuelCommand(this); }
@@ -70,57 +139,113 @@ namespace Arena.ViewModels
             get { return _autoPlayCommand ?? (_autoPlayCommand = new AutoPlayCommand(this)); }
         }
 
-        public ICommand OnLoadedCommand
+        public ICommand VerifyPlayersCommand
         {
-            get { return _onLoadedCommand ?? (_onLoadedCommand = new CommandBase(OnLoaded())); }
+            get { return _verifyPlayersCommand ?? (_verifyPlayersCommand = new VerifyPlayersCommand(this)); }
         }
+
+        public ICommand GameRulesCommand
+        {
+            get { return _gameRulesCommand ?? (_gameRulesCommand = new GameRulesCommand(this)); }
+        }
+
+        public ICommand FullScreenWindowCommand
+        {
+            get { return _fullScreenWindowCommand ?? (_fullScreenWindowCommand = new FullScreenWindowCommand(this)); }
+        }
+
+        public ICommand AboutCommand
+        {
+            get { return _aboutCommand ?? (_aboutCommand = new AboutCommand(this)); }
+        }
+
+        public ICommand ToggleHistoryCommand
+        {
+            get { return _toggleHistoryCommand ?? (_toggleHistoryCommand = new ToggleHistoryCommand(this)); }
+        }
+
+        public bool IsFullScreenApplied
+        {
+            get { return _isFullScreenApplied; }
+            set
+            {
+                SetProperty(ref _isFullScreenApplied, value);
+                FullScreenWindowCommand.Execute(null);
+            }
+        }
+
+        #endregion
 
         public MainWindowViewModel()
         {
             ScoreList = new ScoreList();
-            HeaderText = "Hello Wars();";
+            IsHistoryVisible = true;
+            IsOutputVisible = true;
+            IsFullScreenApplied = false;
+            ApplyConfiguration(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Resources.DefaultArenaConfigurationName);
         }
 
-        //This works fine but onnly by accident.
-        private Predicate<object> OnLoaded()
+        public void AskForCompetitors(string gameTypeName, List<ICompetitor> emptyCompetitors)
         {
-            Elimination = _arenaConfiguration.Elimination;
-            Game = _arenaConfiguration.Game;
+            OutputText += string.Format("Waiting for players ({0})\n", emptyCompetitors.Count);
 
-            if (Elimination != null)
-            {
-                Elimination.Bots = Competitors;
-                EliminationTypeControl = Elimination.GetVisualization(_arenaConfiguration.EliminationConfiguration);
-            }
-            if (Game != null)
-            {
-                GameTypeControl = Game.GetVisualisationUserControl(_arenaConfiguration.GameConfiguration);
-            }
-
-            return DefaultCanExecute;
-        }
-
-        private static bool DefaultCanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public void ReadConfiguration(ArenaConfiguration arenaConfiguration)
-        {
-            _arenaConfiguration = arenaConfiguration;
-            AskForCompetitors(arenaConfiguration.GameConfiguration.Type);
-        }
-
-        private void AskForCompetitors(string gameTypeName)
-        {
-            Task.Run(async () =>
+            Task.Run(() =>
             {
                 var loader = new CompetitorLoadService();
 
-                var competitorsTasks = _arenaConfiguration.BotUrls.Select(botUrl => loader.LoadCompetitorAsync(botUrl, gameTypeName)).ToList();
+                var competitorsTasks = emptyCompetitors.Select(async bot =>
+                {
+                    var competitor = await loader.LoadCompetitorAsync(bot.Url, gameTypeName);
 
-                Competitors = (await Task.WhenAll(competitorsTasks)).Where(competitor => competitor != null).ToList();
-            }).Wait();
+                    bot.Name = competitor.Name;
+                    bot.AvatarUrl = competitor.AvatarUrl;
+
+                    lock (_lock)
+                    {
+                        OutputText += string.Format("Bot \"{0}\" connected!\n", bot.Name);
+                        Elimination.Bots.First(f => f.Id == bot.Id).Name = bot.Name;
+                    }
+
+                    return bot;
+                }).ToList();
+
+                Task.WhenAll(competitorsTasks).ContinueWith(task =>
+                {
+                    OutputText += "All players connected!\n";
+                });
+            });
+        }
+
+        public void ApplyConfiguration(string configFilePath)
+        {
+            ArenaConfiguration = ReadConfigurationFromXML(configFilePath);
+            InitiateManagedExtensibilityFramework();
+            Competitors = ArenaConfiguration.BotUrls.Select(url => new Competitor()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Connecting...",
+                Url = url
+            } as ICompetitor).ToList();
+        }
+
+        public ArenaConfiguration ReadConfigurationFromXML(string path)
+        {
+            var xmlStream = new StreamReader(path);
+            var configurationFile = xmlStream.ReadToEnd();
+            var serializer = new XmlSerializer<ArenaConfiguration>();
+
+            return serializer.Deserialize(configurationFile);
+        }
+
+        public void InitiateManagedExtensibilityFramework()
+        {
+            var catalog = new AggregateCatalog();
+            var assembly = Assembly.GetExecutingAssembly().Location;
+            var path = Path.GetDirectoryName(assembly);
+            var dictionary = new DirectoryCatalog(path);
+            catalog.Catalogs.Add(dictionary);
+            var container = new CompositionContainer(catalog);
+            container.ComposeParts(ArenaConfiguration);
         }
     }
 }

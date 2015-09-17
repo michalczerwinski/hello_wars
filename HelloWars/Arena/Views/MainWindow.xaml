@@ -6,8 +6,18 @@
         xmlns:models="clr-namespace:Common.Models;assembly=Common"
         Title="Hello Wars Main Window"
         Width="800" Height="600"
-        Background="DimGray">
+        WindowState="{Binding WindowState}"
+        WindowStyle="{Binding WindowStyle}"
+        KeyDown="MainWindow_OnKeyDown">
 
+    <Window.Resources>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="Styles/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        </ResourceDictionary>
+    </Window.Resources>
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -15,46 +25,112 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
-            <RowDefinition Height="20" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+    <Grid Background="#2D2D30">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-        <Viewbox>
-            <TextBlock Text="{Binding TempText}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" />
-        </Viewbox>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="40" />
+                <RowDefinition />
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button Width="100" Height="20" HorizontalAlignment="Left" Command="{Binding PlayDuelCommand}">
-                <Viewbox>
-                    <TextBlock Text="PlayDuel!" />
-                </Viewbox>
-            </Button>
-            <Button Width="100" Height="20" Command="{Binding AutoPlayCommand}">
-                <Viewbox>
-                    <TextBlock Text="AutoPlay!" />
-                </Viewbox>
-            </Button>
-        </StackPanel>
+            <Menu IsMainMenu="True">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Open" Command="{Binding OpenCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Icons/Open.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Close" Command="{Binding CloseCommand}">
+                        <MenuItem.Icon >
+                            <Image Source="/Icons/Close.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="_View">
+                    <MenuItem Header="_History" IsCheckable="True" IsChecked="{Binding IsHistoryVisible, Mode=TwoWay}" Command="{Binding ToggleHistoryCommand}"/>
+                    <MenuItem Header="_Output" IsCheckable="True" IsChecked="{Binding IsOutputVisible, Mode=TwoWay}"/>
+                    <MenuItem Header="_Full Screen" IsCheckable="True" IsChecked="{Binding IsFullScreenApplied, Mode=TwoWay}"/>
+                </MenuItem>
+                <MenuItem Header="_Game" >
+                    <MenuItem Header="_Play Duel" Command="{Binding PlayDuelCommand}">
+                        <MenuItem.Icon >
+                            <Image Source="/Icons/PlayDuel.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Auto Play" Command="{Binding AutoPlayCommand}">
+                        <MenuItem.Icon >
+                            <Image Source="/Icons/AutoPlay.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="_Diagnostics">
+                    <MenuItem Header="_Verify Players" Command="{Binding VerifyPlayersCommand}">
+                        <MenuItem.Icon >
+                            <Image Source="/Icons/VerifyPlayers.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Header="_Game Rules" Command="{Binding GameRulesCommand}">
+                        <MenuItem.Icon >
+                            <Image Source="/Icons/Rules.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_About" Command="{Binding AboutCommand}">
+                        <MenuItem.Icon >
+                            <Image Source="/Icons/About.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
 
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
-            <Grid x:Name="Grid1">
+            <Grid Grid.Row="1" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="1" />
-                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TabControl Background="DimGray" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <TabItem Header="Game" MaxWidth="100">
-                        <Viewbox VerticalAlignment="Top">
-                            <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}" HorizontalAlignment="Center" />
+                <Border Grid.Column="0" Style="{StaticResource BorderPretendingToolBarStyle}">
+                    <Button Command="{Binding OpenCommand}">
+                        <Button.ToolTip >Open Arena Configuration File</Button.ToolTip>
+                        <Image Source="/Icons/Open.png" />
+                    </Button>
+                </Border>
+
+                <Border Grid.Column="1" Style="{StaticResource BorderPretendingToolBarStyle}">
+                    <Button Command="{Binding PlayDuelCommand}">
+                        <Button.ToolTip >Play Single Duel</Button.ToolTip>
+                        <Image Source="/Icons/PlayDuel.png" />
+                    </Button>
+                </Border>
+
+                <Border Grid.Column="2" Style="{StaticResource BorderPretendingToolBarStyle}">
+                    <Button Command="{Binding AutoPlayCommand}">
+                        <Button.ToolTip >Play Duels To The End Of Tournament</Button.ToolTip>
+                        <Image Source="/Icons/AutoPlay.png" />
+                    </Button>
+                </Border>
+            </Grid>
+
+            <TabControl Grid.Row="2" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}" Margin="2,10,2,10">
+                <TabItem Header="Game">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Viewbox HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}" />
                         </Viewbox>
-                    </TabItem>
-                    <TabItem Header="History" MaxWidth="100" >
-                        <TreeView HorizontalAlignment="Left" Height="400" Width="300" Name="GameHistoryTree" ItemsSource="{Binding GameHistory}" SelectedItemChanged="GameHistoryTree_OnSelectedItemChanged">
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="History" Name="HistoryTab" Visibility="{Binding IsHistoryVisible, Converter= {StaticResource BooleanToVisibilityConverter}, ConverterParameter=null}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <TreeView Name="GameHistoryTree" ItemsSource="{Binding GameHistory}" Margin="10" Background="{StaticResource BackgroundHighlighted}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  SelectedItemChanged="GameHistoryTree_OnSelectedItemChanged">
                             <TreeView.Resources>
                                 <HierarchicalDataTemplate DataType="{x:Type arena:GameHistoryEntryViewModel}" ItemsSource="{Binding History}">
                                     <TextBlock Text="{Binding GameDescription}" />
@@ -64,15 +140,17 @@
                                 </DataTemplate>
                             </TreeView.Resources>
                         </TreeView>
-                    </TabItem>
-                </TabControl>
-                
-                <GridSplitter Grid.Column="1" Width="25" HorizontalAlignment="Stretch" />
-                
-                <Viewbox Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                    <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                </Viewbox>
-            </Grid>
-        </ScrollViewer>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+
+            <TextBox Grid.Row="3" VerticalAlignment="Bottom" Height="150" IsReadOnly="True" Name="OutputWindow" Text="{Binding OutputText}" Visibility="{Binding IsOutputVisible, Converter= {StaticResource BooleanToVisibilityConverter}}" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextChanged="OutputWindow_TextChanged"/>
+        </Grid>
+
+        <GridSplitter Grid.Column="1" Width="5" Background="DimGray"  HorizontalAlignment="Stretch" ShowsPreview="True"/>
+
+        <Viewbox Grid.Column="2" Stretch="Uniform" >
+            <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}"/>
+        </Viewbox>
     </Grid>
 </Window>

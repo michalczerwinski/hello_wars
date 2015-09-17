@@ -46,13 +46,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DynaBlaster.cs" />
+    <Compile Include="Helpers\ResourceImageHelper.cs" />
+    <Compile Include="Interfaces\IBomb.cs" />
+    <Compile Include="Interfaces\IMissile.cs" />
+    <Compile Include="Models\BoardTile.cs" />
     <Compile Include="Models\Bomb.cs" />
+    <Compile Include="Models\BotAction.cs" />
     <Compile Include="Models\BotMove.cs" />
     <Compile Include="Models\DynaBlasterBot.cs" />
+    <Compile Include="Models\ExplodableBase.cs" />
+    <Compile Include="Models\Explosion.cs" />
     <Compile Include="Models\GameArena.cs" />
     <Compile Include="Models\BotArenaInfo.cs" />
+    <Compile Include="Models\Missile.cs" />
     <Compile Include="Models\MoveDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\DynaBlasterGridControl.cs" />
     <Compile Include="UserControls\DynaBlasterUserControl.xaml.cs">
       <DependentUpon>DynaBlasterUserControl.xaml</DependentUpon>
@@ -64,12 +77,54 @@
       <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Page Include="UserControls\DynaBlasterUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\index.html" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\bomb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\missile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HardBlock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SoftBlock.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FortifiedBlock.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grass.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FortifiedBlock_blast.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tank1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tank2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bomb_expl_mid_hor.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bomb_expl_mid_vert.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
