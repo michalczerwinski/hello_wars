@@ -38,6 +38,7 @@ namespace Arena.ViewModels
         private ICommand _autoPlayCommand;
         private ICommand _onLoadedCommand;
         private ICommand _openCommand;
+        private ICommand _openGameConfigCommand;
         private ICommand _closeCommand;
         private ICommand _verifyPlayersCommand;
         private ICommand _gameRulesCommand;
@@ -122,6 +123,11 @@ namespace Arena.ViewModels
         public ICommand OpenCommand
         {
             get { return _openCommand ?? (_openCommand = new OpenCommand(this)); }
+        }
+
+        public ICommand OpenGameConfigCommand
+        {
+            get { return _openGameConfigCommand ?? (_openGameConfigCommand = new OpenGameConfigCommand(this)); }
         }
 
         public ICommand CloseCommand
@@ -228,13 +234,24 @@ namespace Arena.ViewModels
             } as ICompetitor).ToList();
         }
 
+        public void ApplyGameCustomConfiguration(string configFilePath)
+        {
+            Game.ApplyConfiguration(ReadFile(configFilePath));
+            GameTypeControl = Game.GetVisualisationUserControl(ArenaConfiguration.GameConfiguration);
+        }
+
         public ArenaConfiguration ReadConfigurationFromXML(string path)
         {
-            var xmlStream = new StreamReader(path);
-            var configurationFile = xmlStream.ReadToEnd();
+            var configurationFile = ReadFile(path);
             var serializer = new XmlSerializer<ArenaConfiguration>();
 
             return serializer.Deserialize(configurationFile);
+        }
+
+        private string ReadFile(string path)
+        {
+            var xmlStream = new StreamReader(path);
+            return xmlStream.ReadToEnd();
         }
 
         public void InitiateManagedExtensibilityFramework()

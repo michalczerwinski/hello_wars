@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
+using Common.Serialization;
 using Game.DynaBlaster.Helpers;
 using Game.DynaBlaster.Interfaces;
 using Game.DynaBlaster.Models;
@@ -16,19 +18,25 @@ namespace Game.DynaBlaster
 {
     public class DynaBlaster : IGame
     {
-        private int _explosionRadius = 2;
-        private int _roundsBetweenMissiles = 5;
         private int _delayTime;
         private readonly Random _rand = new Random(DateTime.Now.Millisecond);
         private GameArena _arena;
         private int _roundNumber;
-        private int _boardWidth = 17;
-        private int _boardHeight = 15;
+        private DynaBlasterConfig _gameConfig;
+
+        public DynaBlaster()
+        {
+            var xmlStream = new StreamReader("DynaBlaster.config.xml");
+            var configurationXml = xmlStream.ReadToEnd();
+            ApplyConfiguration(configurationXml);
+        }
 
         #region IGame members
 
         public RoundResult PerformNextRound()
         {
+            _roundNumber++;
+
             HandleExplodables();
 
             if (_arena.Bots.Count(bot => !bot.IsDead) < 2)
@@ -43,8 +51,6 @@ namespace Game.DynaBlaster
 
             var partialResults = PlayBotMoves();
 
-            _roundNumber++;
-
             return new RoundResult
             {
                 FinalResult = null,
@@ -56,7 +62,7 @@ namespace Game.DynaBlaster
         public UserControl GetVisualisationUserControl(IConfigurable configurable)
         {
             _delayTime = configurable.NextMoveDelay;
-            return new DynaBlasterUserControl(_arena ?? (_arena = new GameArena(_boardWidth, _boardHeight)));
+            return new DynaBlasterUserControl(_arena);
         }
 
         public void SetupNewGame(IEnumerable<ICompetitor> competitors)
@@ -98,6 +104,12 @@ namespace Game.DynaBlaster
         public string GetGameRules()
         {
             return Resources.GameRules;
+        }
+
+        public void ApplyConfiguration(string configurationXml)
+        {
+            _gameConfig = new XmlSerializer<DynaBlasterConfig>().Deserialize(configurationXml);
+            _arena = new GameArena(_gameConfig.MapWidth, _gameConfig.MapHeight);
         }
 
         #endregion
@@ -240,7 +252,7 @@ namespace Game.DynaBlaster
                 {
                     Location = bot.Location,
                     RoundsUntilExplodes = 5,
-                    ExplosionRadius = _explosionRadius
+                    ExplosionRadius = _gameConfig.BombBlastRadius
                 });
 
                 actionDescription += " & drop bomb";
@@ -256,11 +268,10 @@ namespace Game.DynaBlaster
                     bot.LastMissileFiredRound = _roundNumber;
                     _arena.Missiles.Add(new Missile
                     {
-                        ExplosionRadius = _explosionRadius,
+                        ExplosionRadius = _gameConfig.MissileBlastRadius,
                         MoveDirection = move.FireDirection,
                         Location = GetNewLocation(bot.Location, move.FireDirection)
                     });
-                    bot.LastDirection = move.FireDirection;
                     actionDescription += " & fire " + move.FireDirection;
                 }
                 else
@@ -271,14 +282,14 @@ namespace Game.DynaBlaster
 
             return new RoundPartialHistory()
             {
-                Caption = string.Format("Bot \"{0}\": {1}", bot.Name, actionDescription),
+                Caption = string.Format("Round {0} {1}: {2}", _roundNumber, bot.Name, actionDescription),
                 BoardState = _arena.ExportState()
             };
         }
 
         private bool IsMissileAvailable(DynaBlasterBot bot)
         {
-            return _roundNumber - _roundsBetweenMissiles > bot.LastMissileFiredRound;
+            return _roundNumber - _gameConfig.RoundsBetweenMissiles > bot.LastMissileFiredRound;
         }
 
         private BotArenaInfo GetBotArenaInfo(DynaBlasterBot bot)
@@ -386,6 +397,11 @@ namespace Game.DynaBlaster
                 }
             }
         }
+
+        #endregion
+
+        #region Configuration methods
+
 
         #endregion
 

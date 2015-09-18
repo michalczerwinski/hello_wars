@@ -155,7 +155,7 @@ namespace Game.DynaBlaster.UserControls
                 {
                     Source = bot.Image,
                     RenderTransform = new RotateTransform(GetRotateAngle(bot.LastDirection)),
-                    RenderTransformOrigin = new System.Windows.Point(0.5, 0.5)
+                    RenderTransformOrigin = new Point(0.5, 0.5)
                 };
                 BoardGrid.AddElement(elementToAdd, bot.Location.X, bot.Location.Y);
             }
