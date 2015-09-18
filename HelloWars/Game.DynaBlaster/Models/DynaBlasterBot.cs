@@ -13,6 +13,15 @@ namespace Game.DynaBlaster.Models
             LastMissileFiredRound = Int32.MinValue;
         }
 
+        public DynaBlasterBot(DynaBlasterBot bot) : base(bot)
+        {
+            Image = bot.Image;
+            Location = bot.Location;
+            LastDirection = bot.LastDirection;
+            IsDead = bot.IsDead;
+            LastMissileFiredRound = bot.LastMissileFiredRound;
+        }
+
         public ImageSource Image { get; set; }
         public Point Location { get; set; }
         public bool IsDead { get; set; }
