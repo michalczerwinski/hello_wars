@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DynaBlasterConfig>
+  <MapWidth>20</MapWidth>
+  <MapHeight>15</MapHeight>
+  <BombBlastRadius>1</BombBlastRadius>
+  <MissileBlastRadius>1</MissileBlastRadius>
+  <RoundsBetweenMissiles>10</RoundsBetweenMissiles>
+</DynaBlasterConfig>

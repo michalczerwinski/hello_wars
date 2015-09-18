@@ -14,5 +14,6 @@ namespace Common.Interfaces
         void Reset();
         void SetPreview(object boardState);
         string GetGameRules();
+        void ApplyConfiguration(string configurationXml);
     }
 }
