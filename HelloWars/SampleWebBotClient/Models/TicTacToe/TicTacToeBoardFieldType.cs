@@ -1,4 +1,4 @@
-﻿namespace SampleWebBotClient.Models
+﻿namespace SampleWebBotClient.Models.TicTacToe
 {
     public enum TicTacToeBoardFieldType
     {

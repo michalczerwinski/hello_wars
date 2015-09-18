@@ -20,24 +20,24 @@
                 <Storyboard x:Key="AttackAnimation" TargetName="Rectangle1" Completed="AttackAnimation_OnCompleted">
 
                     <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
-                             To="5" BeginTime="0:0:0" Duration="0:0:0.5" />
+                             To="5" BeginTime="0:0:0" Duration="0:0:0.1" />
                     <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleY" 
-                             To="0.5" BeginTime="0:0:0" Duration="0:0:0.5" />
+                             To="0.5" BeginTime="0:0:0" Duration="0:0:0.1" />
 
                     <DoubleAnimation Storyboard.TargetName="ScaleTransform2" Storyboard.TargetProperty="CenterX" 
-                             To="50" BeginTime="0:0:0.5" Duration="0:0:0.0"/>
+                             To="50" BeginTime="0:0:0.1" Duration="0:0:0.0"/>
                     <DoubleAnimation Storyboard.TargetName="ScaleTransform2" Storyboard.TargetProperty="CenterY" 
-                             To="0" BeginTime="0:0:0.5" Duration="0:0:0.0" />
+                             To="0" BeginTime="0:0:0.1" Duration="0:0:0.0" />
 
                     <DoubleAnimation Storyboard.TargetName="ScaleTransform2" Storyboard.TargetProperty="ScaleX" 
-                             To="0.2" BeginTime="0:0:0.5" Duration="0:0:0.5" />
+                             To="0.2" BeginTime="0:0:0.1" Duration="0:0:0.2" />
                     <DoubleAnimation Storyboard.TargetName="ScaleTransform2" Storyboard.TargetProperty="ScaleY" 
-                             To="2" BeginTime="0:0:0.5" Duration="0:0:0.5" />
+                             To="2" BeginTime="0:0:0.1" Duration="0:0:0.2" />
 
                     <DoubleAnimation Storyboard.TargetName="ScaleTransform2" Storyboard.TargetProperty="CenterX" 
-                             To="0" BeginTime="0:0:1" Duration="0:0:0.0"/>
+                             To="0" BeginTime="0:0:0.2" Duration="0:0:0.0"/>
                     <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="CenterY" 
-                             To="0" BeginTime="0:0:1" Duration="0:0:0.0" />
+                             To="0" BeginTime="0:0:0.2" Duration="0:0:0.0" />
 
                 </Storyboard >
 

@@ -55,12 +55,14 @@
     <Compile Include="Commands\GoRightCommand.cs" />
     <Compile Include="Commands\GoUpCommand.cs" />
     <Compile Include="CubeClash.cs" />
+    <Compile Include="Enums\UnmovableObjectTypes.cs" />
     <Compile Include="Interfaces\IMovableObiects.cs" />
     <Compile Include="Interfaces\IUnmovableObjeect.cs" />
     <Compile Include="Enums\AvailableMoves.cs" />
     <Compile Include="Models\CubeModel.cs" />
+    <Compile Include="Models\CubeMove.cs" />
     <Compile Include="Models\GridUnitModel.cs" />
-    <Compile Include="Enums\LandTypes.cs" />
+    <Compile Include="Enums\MovableObjectsTypes.cs" />
     <Compile Include="Models\MissleModel.cs" />
     <Compile Include="Models\SurroundingAreaInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

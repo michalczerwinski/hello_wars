@@ -8,10 +8,10 @@ namespace Game.CubeClash.ViewModels
     {
         private int _x;
         private int _y;
-        private LandTypes _landType;
+        private MovableObjectsTypes _landType;
         private Image _image;
 
-        public LandTypes LandType
+        public MovableObjectsTypes LandType
         {
             get { return _landType; }
             set { SetProperty(ref _landType, value); }

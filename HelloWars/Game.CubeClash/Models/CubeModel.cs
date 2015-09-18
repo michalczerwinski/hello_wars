@@ -1,14 +1,16 @@
 ﻿using System.Windows;
 using System.Windows.Media;
+using Common.Interfaces;
+using Common.Models;
 using Game.CubeClash.Enums;
 using Game.CubeClash.Interfaces;
 using Game.CubeClash.ViewModels;
 
 namespace Game.CubeClash.Models
 {
-    //public class CubeModel : BotClientBase<SurroundingAreaInfo,TMove>, IMovableObiects
-    public class CubeModel : IMovableObiects
+    public class CubeModel : BotClientBase<SurroundingAreaInfo, CubeMove>, IMovableObiects
     {
+        public ICompetitor Competitor { get; set; }
         public CubeViewModel ViewModel { get; set; }
         private readonly int _cubeWidth;
         private readonly int _cubeHeigth;
@@ -31,8 +33,10 @@ namespace Game.CubeClash.Models
             set { ViewModel.Color = value; }
         }
 
-        public CubeModel(CubeViewModel viewModel, int width, int heigth)
+        public CubeModel(CubeViewModel viewModel, ICompetitor competitor, int width, int heigth)
+            : base(competitor)
         {
+            Competitor = competitor;
             _cubeWidth = width;
             _cubeHeigth = heigth;
             ViewModel = viewModel;

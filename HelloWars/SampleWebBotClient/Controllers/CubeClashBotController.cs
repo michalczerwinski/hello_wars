@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Web.Http;
 using SampleWebBotClient.Helpers;
 using SampleWebBotClient.Models;
+using SampleWebBotClient.Models.CubeClash;
 
 namespace SampleWebBotClient.Controllers
 {
@@ -24,15 +25,15 @@ namespace SampleWebBotClient.Controllers
         }
 
         [HttpPost]
-        public Point PerformNextMove(Point currentPoint)
+        public CubeMove PerformNextMove(SurroundingAreaInfo arenaInfo)
         {
-            var point = new Point
+            var nextMove = EnumValueHelper<AvailableMoves>.RandomEnumValue();
+            var result = new CubeMove()
             {
-                X = currentPoint.X + _rand.Next(0, 2),
-                Y = currentPoint.Y + _rand.Next(0, 2)
+                Move = nextMove
             };
 
-            return point;
+            return result;
         }
     }
 }
