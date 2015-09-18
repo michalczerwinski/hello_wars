@@ -11,20 +11,7 @@
              d:DataContext="{d:DesignInstance Type=viewModels:CubeClashViewModel}">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-
-        <StackPanel Orientation="Horizontal">
-            <Button Content="Jump" Command="{Binding DoMoveCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
-            <Button Content="Watch" Command="{Binding WatchCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
-            <Button Content="GoUp" Command="{Binding GoUpCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-            <Button Content="GoDown" Command="{Binding GoDownCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-            <Button Content="GoLeft" Command="{Binding GoLeftCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-            <Button Content="GoRight" Command="{Binding GoRightCommand}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-        </StackPanel>
-        <ItemsControl Width="{Binding BattlegroundWidth}" Height="{Binding BattlegroundHeigth}" Grid.Row="1" ItemsSource="{Binding GridCollection}">
+        <ItemsControl Width="{Binding BattlegroundWidth}" Height="{Binding BattlegroundHeigth}" ItemsSource="{Binding GridCollection}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid helpers:GridHelper.RowCount="{Binding RowCount}" helpers:GridHelper.ColumnCount="{Binding ColumnCount}"/>
@@ -43,10 +30,10 @@
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
 
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding PlayersCollection}">
+        <ItemsControl ItemsSource="{Binding PlayersCollection}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Grid  helpers:GridHelper.RowCount="{Binding RowCount}" helpers:GridHelper.ColumnCount="{Binding ColumnCount}"/>
+                    <Grid helpers:GridHelper.RowCount="{Binding RowCount}" helpers:GridHelper.ColumnCount="{Binding ColumnCount}"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -61,6 +48,5 @@
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
-
     </Grid>
 </UserControl>

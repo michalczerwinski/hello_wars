@@ -130,6 +130,5 @@ namespace Game.CubeClash.ViewModels
                 _isAttackingAnimationCompleated = false;
             }
         }
-
     }
 }

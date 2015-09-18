@@ -1,7 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
 using Common.Models;
-using Game.CubeClash.Commands;
 using Game.CubeClash.Interfaces;
 
 namespace Game.CubeClash.ViewModels
@@ -52,41 +50,6 @@ namespace Game.CubeClash.ViewModels
         {
             get { return _cubeHeigth; }
             set { SetProperty(ref _cubeHeigth, value); }
-        }
-
-        public ICommand DoMoveCommand
-        {
-            get { return new DoMoveCommand(this); }
-        }
-
-        public ICommand WatchCommand
-        {
-            get { return new WatchCommand(this); }
-        }
-
-        public ICommand GoLeftCommand
-        {
-            get { return new GoLeftCommand(this); }
-        }
-
-        public ICommand GoRightCommand
-        {
-            get { return new GoRightCommand(this); }
-        }
-
-        public ICommand GoUpCommand
-        {
-            get { return new GoUpCommand(this); }
-        }
-
-        public ICommand GoDownCommand
-        {
-            get { return new GoDownCommand(this); }
-        }
-
-        public ICommand FireMisleCommand
-        {
-            get { return new FireMissleCommand(this); }
         }
     }
 }

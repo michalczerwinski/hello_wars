@@ -60,10 +60,8 @@ namespace Game.CubeClash
                             }
                     }
                 }
+                DelayHelper.Delay(200);
             }
-
-            DelayHelper.Delay(100);
-
 
             return new RoundResult
             {
@@ -100,8 +98,8 @@ namespace Game.CubeClash
             _cubeClashViewModel.CubeHeigth = 10;
             _cubeClashViewModel.CubeWidth = 10;
 
-            _cubeClashViewModel.RowCount =30;
-            _cubeClashViewModel.ColumnCount = 30;
+            _cubeClashViewModel.RowCount = 40;
+            _cubeClashViewModel.ColumnCount = 40;
 
             _cubeClashViewModel.BattlegroundWidth = _cubeClashViewModel.RowCount * _cubeClashViewModel.CubeHeigth;
             _cubeClashViewModel.BattlegroundHeigth = _cubeClashViewModel.ColumnCount * _cubeClashViewModel.CubeWidth;
