@@ -1,6 +1,6 @@
 ﻿namespace Game.CubeClash.Interfaces
 {
-    public interface IMovableObiects
+    public interface IMovableObject
     {
         int X { get; set; }
         int Y { get; set; }

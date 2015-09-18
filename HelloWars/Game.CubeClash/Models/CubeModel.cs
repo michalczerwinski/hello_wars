@@ -8,7 +8,7 @@ using Game.CubeClash.ViewModels;
 
 namespace Game.CubeClash.Models
 {
-    public class CubeModel : BotClientBase<SurroundingAreaInfo, CubeMove>, IMovableObiects
+    public class CubeModel : BotClientBase<SurroundingAreaInfo, CubeMove>, IMovableObject
     {
         public ICompetitor Competitor { get; set; }
         public CubeViewModel ViewModel { get; set; }

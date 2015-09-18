@@ -7,7 +7,7 @@
 
   <GameConfiguration>
     <Type>CubeClash</Type>
-    <NextMoveDelay>500</NextMoveDelay>
+    <NextMoveDelay>300</NextMoveDelay>
     <NextMatchDelay>400</NextMatchDelay>
   </GameConfiguration>
 

@@ -107,7 +107,7 @@ namespace Game.CubeClash
 
         private void InitiateBattlefield()
         {
-            _cubeClashViewModel.GridCollection = new ObservableCollection<IUnmovableObjeect>();
+            _cubeClashViewModel.GridCollection = new ObservableCollection<IUnmovableObject>();
 
             for (int i = 0; i < _cubeClashViewModel.RowCount; i++)
             {
@@ -145,7 +145,7 @@ namespace Game.CubeClash
 
         private void InitiatePlayersCollection()
         {
-            _cubeClashViewModel.PlayersCollection = new ObservableCollection<IMovableObiects>();
+            _cubeClashViewModel.PlayersCollection = new ObservableCollection<IMovableObject>();
         }
 
         public string GetGameRules()

@@ -3,7 +3,7 @@ using Game.CubeClash.ViewModels;
 
 namespace Game.CubeClash.Models
 {
-    class GridUnitModel: IUnmovableObjeect
+    class GridUnitModel: IUnmovableObject
     {
         public GridUnitViewModel ViewModel { get; set; }
 
