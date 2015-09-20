@@ -7,11 +7,12 @@
              xmlns:viewModels="clr-namespace:Game.CubeClash.ViewModels"
              xmlns:resoures="clr-namespace:Game.CubeClash.UserControls.Resoures"
              xmlns:userControls="clr-namespace:Game.CubeClash.UserControls"
+             xmlns:models="clr-namespace:Game.CubeClash.Models"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=viewModels:CubeClashViewModel}">
 
     <Grid>
-        <ItemsControl Width="{Binding BattlegroundWidth}" Height="{Binding BattlegroundHeigth}" ItemsSource="{Binding GridCollection}">
+        <ItemsControl Width="{Binding BattlegroundWidth}" Height="{Binding BattlegroundHeigth}" ItemsSource="{Binding BattlefieldObjectsCollection}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid helpers:GridHelper.RowCount="{Binding RowCount}" helpers:GridHelper.ColumnCount="{Binding ColumnCount}"/>
@@ -30,17 +31,20 @@
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
 
-        <ItemsControl ItemsSource="{Binding PlayersCollection}">
+        <ItemsControl ItemsSource="{Binding MovableObjectsCollection}">
+            <ItemsControl.Resources>
+                <DataTemplate DataType="{x:Type models:CubeModel}">
+                    <userControls:CubeUserControl/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type models:MissileModel}">
+                    <userControls:MissileUserControl/>
+                </DataTemplate> 
+            </ItemsControl.Resources>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid helpers:GridHelper.RowCount="{Binding RowCount}" helpers:GridHelper.ColumnCount="{Binding ColumnCount}"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <userControls:CubeUserControl/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
             <ItemsControl.ItemContainerStyle>
                 <Style>
                     <Setter Property="Grid.Column" Value="{Binding ViewModel.X}"/>

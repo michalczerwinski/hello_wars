@@ -47,18 +47,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\FireMissleCommand.cs" />
-    <Compile Include="Commands\WatchCommand.cs" />
-    <Compile Include="Commands\DoMoveCommand.cs" />
-    <Compile Include="Commands\GoDownCommand.cs" />
-    <Compile Include="Commands\GoLeftCommand.cs" />
-    <Compile Include="Commands\GoRightCommand.cs" />
-    <Compile Include="Commands\GoUpCommand.cs" />
     <Compile Include="CubeClash.cs" />
+    <Compile Include="Enums\ActionDirections.cs" />
     <Compile Include="Enums\UnmovableObjectTypes.cs" />
     <Compile Include="Interfaces\IMovableObject.cs" />
     <Compile Include="Interfaces\IUnmovableObject.cs" />
-    <Compile Include="Enums\AvailableMoves.cs" />
+    <Compile Include="Enums\AvailableActions.cs" />
     <Compile Include="Models\CubeModel.cs" />
     <Compile Include="Models\CubeMove.cs" />
     <Compile Include="Models\GridUnitModel.cs" />
@@ -71,6 +65,9 @@
     </Compile>
     <Compile Include="UserControls\CubeUserControl.xaml.cs">
       <DependentUpon>CubeUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MissileUserControl.xaml.cs">
+      <DependentUpon>MissileUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Resoures\GridUnit.xaml.cs">
       <DependentUpon>GridUnit.xaml</DependentUpon>
@@ -92,6 +89,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\CubeUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MissileUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

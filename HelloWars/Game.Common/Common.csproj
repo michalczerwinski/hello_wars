@@ -54,6 +54,7 @@
     <Compile Include="Converters\BoolToOpacityConverter.cs" />
     <Compile Include="Helpers\CompetitorLoadService.cs" />
     <Compile Include="Helpers\DelayHelper.cs" />
+    <Compile Include="Helpers\EnumValueHelper.cs" />
     <Compile Include="Helpers\GridHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\MultiDimArrayExtensions.cs" />

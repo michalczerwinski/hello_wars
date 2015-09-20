@@ -43,6 +43,8 @@ namespace Game.CubeClash.Models
             InitiateMovementShadow();
         }
 
+        #region actions
+
         public void Attack()
         {
             StopWatching();
@@ -67,7 +69,7 @@ namespace Game.CubeClash.Models
             StopWatching();
             Y--;
             ViewModel.MovementShadowRotate = 270;
-            ViewModel.LastMove = AvailableMoves.Up;
+            ViewModel.LastMove = ActionDirections.Up;
         }
 
         public void Down()
@@ -75,7 +77,7 @@ namespace Game.CubeClash.Models
             StopWatching();
             Y++;
             ViewModel.MovementShadowRotate = 90;
-            ViewModel.LastMove = AvailableMoves.Down;
+            ViewModel.LastMove = ActionDirections.Down;
         }
 
         public void Left()
@@ -83,7 +85,7 @@ namespace Game.CubeClash.Models
             StopWatching();
             X--;
             ViewModel.MovementShadowRotate = 180;
-            ViewModel.LastMove = AvailableMoves.Left;
+            ViewModel.LastMove = ActionDirections.Left;
         }
 
         public void Right()
@@ -91,20 +93,10 @@ namespace Game.CubeClash.Models
             StopWatching();
             X++;
             ViewModel.MovementShadowRotate = 0;
-            ViewModel.LastMove = AvailableMoves.Right;
+            ViewModel.LastMove = ActionDirections.Right;
         }
 
-        public MissleModel FireMissle()
-        {
-            var missle = new MissleModel(new MissleViewModel())
-            {
-                X = 10,
-                Y = 10,
-                Direction = ViewModel.LastMove,
-                Range = 10
-            };
-            return missle;
-        }
+        #endregion
 
         private void InitiateMovementShadow()
         {

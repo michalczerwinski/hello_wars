@@ -12,7 +12,7 @@ namespace Game.CubeClash.ViewModels
         private int _y;
         private SolidColorBrush _color;
         private Image _image;
-        private AvailableMoves _direction;
+        private ActionDirections _direction;
 
         public Image Image
         {
@@ -26,7 +26,7 @@ namespace Game.CubeClash.ViewModels
             set { SetProperty(ref _color, value); }
         }
 
-        public AvailableMoves Direction
+        public ActionDirections Direction
         {
             get { return _direction; }
             set { SetProperty(ref _direction, value); }

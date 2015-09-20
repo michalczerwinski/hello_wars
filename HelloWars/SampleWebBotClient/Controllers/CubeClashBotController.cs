@@ -1,6 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Web.Http;
+﻿using System.Web.Http;
 using SampleWebBotClient.Helpers;
 using SampleWebBotClient.Models;
 using SampleWebBotClient.Models.CubeClash;
@@ -9,8 +7,6 @@ namespace SampleWebBotClient.Controllers
 {
     public class CubeClashBotController : ApiController
     {
-        private readonly Random _rand = new Random(DateTime.Now.Millisecond);
-
         [HttpGet]
         public BotInfo Info()
         {
@@ -27,11 +23,25 @@ namespace SampleWebBotClient.Controllers
         [HttpPost]
         public CubeMove PerformNextMove(SurroundingAreaInfo arenaInfo)
         {
-            var nextMove = EnumValueHelper<AvailableMoves>.RandomEnumValue();
-            var result = new CubeMove()
+            var nextMove = EnumValueHelper<AvailableActions>.RandomEnumValue();
+
+            var result = new CubeMove();
+
+            result.AvailableActions = nextMove;
+            switch (nextMove)
             {
-                Move = nextMove
-            };
+                case AvailableActions.FireMissile:
+                case AvailableActions.Move:
+                    {
+                        result.ActionDirections = EnumValueHelper<ActionDirections>.RandomEnumValue();
+                        break;
+                    }
+
+                case AvailableActions.Watch:
+                {
+                    break;
+                }
+            }
 
             return result;
         }

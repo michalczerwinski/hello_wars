@@ -21,7 +21,7 @@ namespace Game.CubeClash.ViewModels
         private string _isAttacking;
         private bool _isAttackingAnimationCompleated;
         private SolidColorBrush _color;
-        public AvailableMoves LastMove;
+        public ActionDirections LastMove;
         private Visibility _movementShadowVisibility;
     
         public SolidColorBrush Color
@@ -104,22 +104,22 @@ namespace Game.CubeClash.ViewModels
                 _isAttackingAnimationCompleated = value;
                 switch (LastMove)
                 {
-                    case AvailableMoves.Up:
+                    case ActionDirections.Up:
                         {
                             Y -= 4;
                             break;
                         }
-                    case AvailableMoves.Left:
+                    case ActionDirections.Left:
                         {
                             X -= 4;
                             break;
                         }
-                    case AvailableMoves.Down:
+                    case ActionDirections.Down:
                         {
                             Y += 4;
                             break;
                         }
-                    case AvailableMoves.Right:
+                    case ActionDirections.Right:
                         {
                             X += 4;
                             break;

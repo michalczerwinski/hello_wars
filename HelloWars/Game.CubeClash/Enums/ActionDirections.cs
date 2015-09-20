@@ -1,12 +1,10 @@
 ﻿namespace Game.CubeClash.Enums
 {
-    public enum AvailableMoves
+    public enum ActionDirections
     {
         Up,
         Down,
         Left,
-        Right,
-        Attack,
-        Watch
+        Right
     }
 }

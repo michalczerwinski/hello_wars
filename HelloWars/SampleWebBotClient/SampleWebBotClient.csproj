@@ -129,7 +129,8 @@
     <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Helpers\DynaBlasterStorageHelper.cs" />
     <Compile Include="Helpers\EnumValueHelper.cs" />
-    <Compile Include="Models\CubeClash\AvailableMoves.cs" />
+    <Compile Include="Models\CubeClash\ActionDirections.cs" />
+    <Compile Include="Models\CubeClash\AvailableActions.cs" />
     <Compile Include="Models\CubeClash\CubeMove.cs" />
     <Compile Include="Models\CubeClash\ObjectTypes.cs" />
     <Compile Include="Models\CubeClash\SurroundingAreaInfo.cs" />

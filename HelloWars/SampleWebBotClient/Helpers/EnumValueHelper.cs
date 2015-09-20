@@ -6,8 +6,8 @@ namespace SampleWebBotClient.Helpers
     {
         public static T RandomEnumValue()
         {
-            var v = Enum.GetValues(typeof (T));
-            return (T) v.GetValue(new Random().Next(v.Length));
+            var value = Enum.GetValues(typeof (T));
+            return (T)value.GetValue(new Random(DateTime.Now.Millisecond).Next(value.Length));
         }
     }
 }

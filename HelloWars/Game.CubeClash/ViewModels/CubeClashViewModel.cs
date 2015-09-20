@@ -6,8 +6,8 @@ namespace Game.CubeClash.ViewModels
 {
     public class CubeClashViewModel : BindableBase
     {
-        public ObservableCollection<IMovableObject> PlayersCollection { get; set; }
-        public ObservableCollection<IUnmovableObject> GridCollection { get; set; }
+        public ObservableCollection<IMovableObject> MovableObjectsCollection { get; set; }
+        public ObservableCollection<IUnmovableObject> BattlefieldObjectsCollection { get; set; }
 
         private int _battlegroundWidth;
         private int _battlegroundHeigth;

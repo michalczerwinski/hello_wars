@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Media;
 using Common.Helpers;
 using Common.Interfaces;
@@ -12,6 +12,7 @@ using Game.CubeClash.Interfaces;
 using Game.CubeClash.Models;
 using Game.CubeClash.UserControls;
 using Game.CubeClash.ViewModels;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace Game.CubeClash
 {
@@ -23,45 +24,13 @@ namespace Game.CubeClash
 
         public RoundResult PerformNextRound()
         {
-            foreach (var competitor in _competitors)
-            {
-                var cubeModel = _cubeClashViewModel.PlayersCollection.First(bot => (bot as CubeModel).Competitor.Id == competitor.Id) as CubeModel;
+            PerformMisslesMove();
 
-                if (cubeModel != null)
-                {
-                    var move = cubeModel.NextMove(null);
+            DelayHelper.Delay(100);
 
-                    switch (move.Move)
-                    {
-                        case AvailableMoves.Down:
-                            {
-                                cubeModel.Down();
-                                break;
-                            }
-                        case AvailableMoves.Up:
-                            {
-                                cubeModel.Up();
-                                break;
-                            }
-                        case AvailableMoves.Left:
-                            {
-                                cubeModel.Left();
-                                break;
-                            }
-                        case AvailableMoves.Right:
-                            {
-                                cubeModel.Right();
-                                break;
-                            }
-                        case AvailableMoves.Attack:
-                            {
-                                cubeModel.Attack();
-                                break;
-                            }
-                    }
-                }
-                DelayHelper.Delay(200);
-            }
+            PerformCubesMove();
+
+            DelayHelper.Delay(100);
 
             return new RoundResult
             {
@@ -69,6 +38,141 @@ namespace Game.CubeClash
                 IsFinished = false,
                 History = new List<RoundPartialHistory>()
             };
+        }
+
+        private void PerformCubesMove()
+        {
+            var listOfMissilesToFire = new List<MissileModel>();
+
+            foreach (var movableObject in _cubeClashViewModel.MovableObjectsCollection.OfType<CubeModel>())
+            {
+                var move = movableObject.NextMove(null);
+
+                switch (move.AvailableActions)
+                {
+                    case AvailableActions.Move:
+                        {
+                            switch (move.ActionDirections)
+                            {
+                                case ActionDirections.Down:
+                                    {
+                                        movableObject.Down();
+                                        break;
+                                    }
+                                case ActionDirections.Up:
+                                    {
+                                        movableObject.Up();
+                                        break;
+                                    }
+                                case ActionDirections.Left:
+                                    {
+                                        movableObject.Left();
+                                        break;
+                                    }
+                                case ActionDirections.Right:
+                                    {
+                                        movableObject.Right();
+                                        break;
+                                    }
+                            }
+                            break;
+                        }
+                    case AvailableActions.Watch:
+                        {
+                            movableObject.Watch();
+                            break;
+                        }
+                    case AvailableActions.FireMissile:
+                        {
+                            listOfMissilesToFire.Add(MissileToLounch(movableObject.X, movableObject.Y, move.ActionDirections));
+                            break;
+                        }
+                }
+            }
+
+            foreach (var item in listOfMissilesToFire)
+            {
+                _cubeClashViewModel.MovableObjectsCollection.Add(item);
+            }
+        }
+
+        private void PerformMisslesMove()
+        {
+            var listOfMissilesToRemove = new List<MissileModel>();
+
+            foreach (var missileObject in _cubeClashViewModel.MovableObjectsCollection.OfType<MissileModel>())
+            {
+                switch (missileObject.Direction)
+                {
+                    case ActionDirections.Up:
+                        {
+                            missileObject.Y -= 1;
+                            break;
+                        }
+                    case ActionDirections.Left:
+                        {
+                            missileObject.X -= 1;
+                            break;
+                        }
+                    case ActionDirections.Down:
+                        {
+                            missileObject.Y += 1;
+                            break;
+                        }
+                    case ActionDirections.Right:
+                        {
+                            missileObject.X += 1;
+                            break;
+                        }
+                }
+                missileObject.Range--;
+                if (missileObject.Range < 0)
+                {
+                    listOfMissilesToRemove.Add(missileObject);
+                }
+            }
+
+            foreach (var item in listOfMissilesToRemove)
+            {
+                _cubeClashViewModel.MovableObjectsCollection.Remove(item);
+            }
+        }
+
+        private MissileModel MissileToLounch(int x, int y, ActionDirections actionDirection)
+        {
+            var missile = new MissileModel(new MissileViewModel())
+            {
+                X = x,
+                Y = y,
+                Range = 10,
+                Direction = actionDirection,
+            };
+
+            switch (actionDirection)
+            {
+                case ActionDirections.Up:
+                    {
+                        missile.Y -= 1;
+                        break;
+                    }
+                case ActionDirections.Left:
+                    {
+                        missile.X -= 1;
+                        break;
+                    }
+                case ActionDirections.Down:
+                    {
+                        missile.Y += 1;
+                        break;
+                    }
+                case ActionDirections.Right:
+                    {
+                        missile.X += 1;
+                        break;
+                    }
+            }
+
+            return missile;
         }
 
         public void SetupNewGame(IEnumerable<ICompetitor> competitors)
@@ -89,7 +193,7 @@ namespace Game.CubeClash
                     Color = new SolidColorBrush(Colors.BlueViolet)
                 };
 
-                _cubeClashViewModel.PlayersCollection.Add(cubeModel);
+                _cubeClashViewModel.MovableObjectsCollection.Add(cubeModel);
             }
         }
 
@@ -107,7 +211,7 @@ namespace Game.CubeClash
 
         private void InitiateBattlefield()
         {
-            _cubeClashViewModel.GridCollection = new ObservableCollection<IUnmovableObject>();
+            _cubeClashViewModel.BattlefieldObjectsCollection = new ObservableCollection<IUnmovableObject>();
 
             for (int i = 0; i < _cubeClashViewModel.RowCount; i++)
             {
@@ -119,14 +223,14 @@ namespace Game.CubeClash
                         Y = j
                     };
 
-                    _cubeClashViewModel.GridCollection.Add(gridUnit);
+                    _cubeClashViewModel.BattlefieldObjectsCollection.Add(gridUnit);
                 }
             }
         }
 
         public void Reset()
         {
-            _cubeClashViewModel.PlayersCollection.Clear();
+            _cubeClashViewModel.MovableObjectsCollection.Clear();
         }
 
         public void SetPreview(object boardState)
@@ -145,10 +249,16 @@ namespace Game.CubeClash
 
         private void InitiatePlayersCollection()
         {
-            _cubeClashViewModel.PlayersCollection = new ObservableCollection<IMovableObject>();
+            _cubeClashViewModel.MovableObjectsCollection = new ObservableCollection<IMovableObject>();
         }
 
         public string GetGameRules()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void ApplyConfiguration(string configurationXml)
         {
             throw new NotImplementedException();
         }

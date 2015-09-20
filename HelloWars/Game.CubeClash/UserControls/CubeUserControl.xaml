@@ -14,7 +14,7 @@
             </Rectangle>
         </Canvas>
         <Rectangle x:Name="Rectangle1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Color,Mode=TwoWay, NotifyOnTargetUpdated=True}" StrokeThickness="0.5" Stroke="Black">
-            <Rectangle.Resources>
+            <!--<Rectangle.Resources>
                 <Storyboard x:Key="AttackAnimation" TargetName="Rectangle1" Completed="AttackAnimation_OnCompleted">
 
                     <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
@@ -50,12 +50,11 @@
             <i:Interaction.Triggers>
                 <ei:DataTrigger Binding="{Binding ViewModel.IsAttacking}" Value="True" >
                     <ei:ControlStoryboardAction Storyboard="{StaticResource AttackAnimation}" ControlStoryboardOption="Play"/>
-                    <!--<ei:PlaySoundAction Source="Sound/attack1.mp3" Volume="100" />-->
                 </ei:DataTrigger>
                 <ei:DataTrigger Binding="{Binding ViewModel.IsAttacking}" Value="False">
                     <ei:ControlStoryboardAction Storyboard="{StaticResource AttackAnimation}" ControlStoryboardOption="Stop"/>
                 </ei:DataTrigger>
-            </i:Interaction.Triggers>
+            </i:Interaction.Triggers>-->
         </Rectangle>
 
         <Grid.RenderTransform>

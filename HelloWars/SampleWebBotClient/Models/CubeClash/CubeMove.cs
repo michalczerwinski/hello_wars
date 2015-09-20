@@ -2,6 +2,7 @@
 {
     public class CubeMove
     {
-        public AvailableMoves Move { get; set; }
+        public AvailableActions AvailableActions { get; set; }
+        public ActionDirections ActionDirections { get; set; }
     }
 }
