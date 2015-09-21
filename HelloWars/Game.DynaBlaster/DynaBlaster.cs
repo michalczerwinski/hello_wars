@@ -204,19 +204,7 @@ namespace Game.DynaBlaster
 
             foreach (var missile in _arena.Missiles)
             {
-                if (!missile.IsExploded)
-                {
-                    var newLocation = GetNewLocation(missile.Location, missile.MoveDirection);
-
-                    if (IsLocationAvailableForMissile(newLocation) && _arena.Bots.All(bot => bot.Location != missile.Location))
-                    {
-                        missile.Location = newLocation;
-                    }
-                    else
-                    {
-                        SetExplosion(missile);
-                    }
-                }
+                HandleMissileMovement(missile);
             }
 
             _arena.Bombs.RemoveAll(bomb => bomb.IsExploded);
@@ -227,6 +215,26 @@ namespace Game.DynaBlaster
             DelayHelper.Delay(_delayTime);
 
             _arena.Explosions.Clear();
+        }
+
+        private void HandleMissileMovement(Missile missile)
+        {
+            if (!missile.IsExploded)
+            {
+                var newLocation = GetNewLocation(missile.Location, missile.MoveDirection);
+
+                if (IsLocationAvailableForMissile(newLocation) && _arena.Bots.All(bot => bot.Location != missile.Location))
+                {
+                    missile.Location = newLocation;
+
+                    if (!_gameConfig.IsFastMissileModeEnabled || IsLocationAvailableForMissile(GetNewLocation(newLocation, missile.MoveDirection)))
+                    {
+                        return;
+                    }
+                }
+
+                SetExplosion(missile);
+            }
         }
 
         private IEnumerable<RoundPartialHistory> PlayBotMoves()

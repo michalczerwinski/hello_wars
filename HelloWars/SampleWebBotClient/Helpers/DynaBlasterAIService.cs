@@ -204,7 +204,7 @@ namespace SampleWebBotClient.Helpers
         private bool CanSafelyFire(Point location, MoveDirection direction)
         {
             var tempLocation = new Point(location.X, location.Y);
-            for (int i = 0; i < CurrentMissileBlastRadius; i++)
+            for (int i = 0; i <= Math.Min(CurrentMissileBlastRadius, 4); i++)
             {
                 tempLocation = tempLocation.AddDirectionMove(direction);
                 if (!IsValidLocation(tempLocation) || IsBlocked(tempLocation, true) || !IsSafe(tempLocation))
