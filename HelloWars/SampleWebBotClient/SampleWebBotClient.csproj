@@ -119,6 +119,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DynaBlasterBotController.cs" />
+    <Compile Include="Controllers\CubeClashBotController.cs" />
     <Compile Include="Controllers\TicTacToeBotController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -127,6 +128,11 @@
     <Compile Include="Helpers\DynaBlasterExtensions.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Helpers\DynaBlasterStorageHelper.cs" />
+    <Compile Include="Helpers\EnumValueHelper.cs" />
+    <Compile Include="Models\CubeClash\AvailableMoves.cs" />
+    <Compile Include="Models\CubeClash\CubeMove.cs" />
+    <Compile Include="Models\CubeClash\ObjectTypes.cs" />
+    <Compile Include="Models\CubeClash\SurroundingAreaInfo.cs" />
     <Compile Include="Models\DynaBlaster\BoardTile.cs" />
     <Compile Include="Models\DynaBlaster\Bomb.cs" />
     <Compile Include="Models\DynaBlaster\BotAction.cs" />
@@ -137,7 +143,7 @@
     <Compile Include="Models\DynaBlaster\Missile.cs" />
     <Compile Include="Models\DynaBlaster\Objective.cs" />
     <Compile Include="Models\DynaBlaster\MoveDirection.cs" />
-    <Compile Include="Models\TicTacToeBoardFieldType.cs" />
+    <Compile Include="Models\TicTacToe\TicTacToeBoardFieldType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using Game.DynaBlaster.Interfaces;
+﻿using Game.DynaBlaster.Interfaces;
 
 namespace Game.DynaBlaster.Models
 {

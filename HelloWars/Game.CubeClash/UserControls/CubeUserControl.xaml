@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="Game.CubeClash.UserControls.CubeUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             mc:Ignorable="d" Loaded="ConnectAnimationEffect_OnLoaded">
+
+    <Grid>
+        <Canvas>
+            <Rectangle x:Name="Rectangle0" Canvas.Top="{Binding ViewModel.MovementShadowTopDistance}" Canvas.Left="{Binding ViewModel.MovementShadowLeftDistance}" 
+                       Width="{Binding ViewModel.MovementShadowWidth}" Height="{Binding ViewModel.MovementShadowHeight}" Fill="{Binding ViewModel.Color, Mode=TwoWay}" Opacity="0.05" Visibility="{Binding ViewModel.MovementShadowVisibility}">
+            </Rectangle>
+        </Canvas>
+        <Rectangle x:Name="Rectangle1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Color,Mode=TwoWay, NotifyOnTargetUpdated=True}" StrokeThickness="0.5" Stroke="Black">
+            <Rectangle.Resources>
+                <Storyboard x:Key="AttackAnimation" TargetName="Rectangle1" Completed="AttackAnimation_OnCompleted">
+
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
+                             To="5" BeginTime="0:0:0" Duration="0:0:0.1" />
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleY" 
+                             To="0.5" BeginTime="0:0:0" Duration="0:0:0.1" />
+
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform2" Storyboard.TargetProperty="CenterX" 
+                             To="50" BeginTime="0:0:0.1" Duration="0:0:0.0"/>
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform2" Storyboard.TargetProperty="CenterY" 
+                             To="0" BeginTime="0:0:0.1" Duration="0:0:0.0" />
+
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform2" Storyboard.TargetProperty="ScaleX" 
+                             To="0.2" BeginTime="0:0:0.1" Duration="0:0:0.2" />
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform2" Storyboard.TargetProperty="ScaleY" 
+                             To="2" BeginTime="0:0:0.1" Duration="0:0:0.2" />
+
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform2" Storyboard.TargetProperty="CenterX" 
+                             To="0" BeginTime="0:0:0.2" Duration="0:0:0.0"/>
+                    <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="CenterY" 
+                             To="0" BeginTime="0:0:0.2" Duration="0:0:0.0" />
+
+                </Storyboard >
+            </Rectangle.Resources>
+
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform x:Name="ScaleTransform1" />
+                    <ScaleTransform x:Name="ScaleTransform2" />
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+
+            <i:Interaction.Triggers>
+                <ei:DataTrigger Binding="{Binding ViewModel.IsAttacking}" Value="True" >
+                    <ei:ControlStoryboardAction Storyboard="{StaticResource AttackAnimation}" ControlStoryboardOption="Play"/>
+                    <!--<ei:PlaySoundAction Source="Sound/attack1.mp3" Volume="100" />-->
+                </ei:DataTrigger>
+                <ei:DataTrigger Binding="{Binding ViewModel.IsAttacking}" Value="False">
+                    <ei:ControlStoryboardAction Storyboard="{StaticResource AttackAnimation}" ControlStoryboardOption="Stop"/>
+                </ei:DataTrigger>
+            </i:Interaction.Triggers>
+        </Rectangle>
+
+        <Grid.RenderTransform>
+            <RotateTransform Angle="{Binding ViewModel.MovementShadowRotate}" CenterX="{Binding ViewModel.CenterX}" CenterY="{Binding ViewModel.CenterY}"/>
+        </Grid.RenderTransform>
+
+    </Grid>
+</UserControl>

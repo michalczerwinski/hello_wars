@@ -6,23 +6,27 @@
   </EliminationConfiguration>
 
   <GameConfiguration>
-    <Type>DynaBlaster</Type>
+    <Type>CubeClash</Type>
     <NextMoveDelay>300</NextMoveDelay>
     <NextMatchDelay>400</NextMatchDelay>
   </GameConfiguration>
 
   <BotUrls>
-<!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
-<!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
-<!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
-<!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
+    <!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
+    <!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
+    <!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
+    <!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
+    <!--<Url>http://localhost:53886/DynaBlasterBot/</Url>
     <Url>http://localhost:53886/DynaBlasterBot/</Url>
     <Url>http://localhost:53886/DynaBlasterBot/</Url>
+    <Url>http://localhost:53886/DynaBlasterBot/</Url>-->
+
+    <Url>http://localhost:53886/CubeClashBot/</Url>
+    <Url>http://localhost:53886/CubeClashBot/</Url>
+    
+    <!--<Url>http://localhost:53886/DynaBlasterBot/</Url>
     <Url>http://localhost:53886/DynaBlasterBot/</Url>
     <Url>http://localhost:53886/DynaBlasterBot/</Url>
-    <Url>http://localhost:53886/DynaBlasterBot/</Url>
-    <Url>http://localhost:53886/DynaBlasterBot/</Url>
-    <Url>http://localhost:53886/DynaBlasterBot/</Url>
-    <Url>http://localhost:53886/DynaBlasterBot/</Url>
+    <Url>http://localhost:53886/DynaBlasterBot/</Url>-->
   </BotUrls>
 </ArenaConfiguration>

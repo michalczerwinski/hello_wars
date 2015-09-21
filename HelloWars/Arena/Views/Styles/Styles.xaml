@@ -531,4 +531,32 @@
         <Setter Property="Background" Value="{StaticResource LightBackground}"/>
         <Setter Property="Foreground" Value="{StaticResource Foreground}"/>
     </Style>
+    <Style x:Key="lineStyle" TargetType="Line">
+        <Setter Property="Stroke" Value="Gray" />
+        <Setter Property="Stretch" Value="Fill" />
+        <Setter Property="Grid.ZIndex" Value="100" />
+        <Setter Property="StrokeDashArray" Value="1,2" />
+    </Style>
+
+    <Style x:Key="horizontalLineStyle" TargetType="Line" BasedOn="{StaticResource lineStyle}">
+        <Setter Property="X2" Value="1" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+        <Setter Property="Grid.ColumnSpan" Value="{Binding 
+            Path=ColumnDefinitions.Count, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+    </Style>
+
+    <Style x:Key="verticalLineStyle" TargetType="Line" BasedOn="{StaticResource lineStyle}">
+        <Setter Property="Y2" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Grid.RowSpan" Value="{Binding 
+            Path=RowDefinitions.Count, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+    </Style>
+
+    <Style x:Key="verticalLineStyleLeft" TargetType="Line" BasedOn="{StaticResource verticalLineStyle}">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+
+    <Style x:Key="horizontalLineStyleTop" TargetType="Line" BasedOn="{StaticResource horizontalLineStyle}">
+        <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
 </ResourceDictionary>
