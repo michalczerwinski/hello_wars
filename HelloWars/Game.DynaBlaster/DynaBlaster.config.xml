@@ -1,8 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <DynaBlasterConfig>
   <MapWidth>20</MapWidth>
-  <MapHeight>15</MapHeight>
-  <BombBlastRadius>1</BombBlastRadius>
-  <MissileBlastRadius>1</MissileBlastRadius>
+  <MapHeight>20</MapHeight>
+  <BombBlastRadius>2</BombBlastRadius>
+  <MissileBlastRadius>2</MissileBlastRadius>
   <RoundsBetweenMissiles>10</RoundsBetweenMissiles>
+  
+  <!-- Increase explosion range every x rounds to increase difficulty -->
+  <RoundsBeforeIncreasingBlastRadius>50</RoundsBeforeIncreasingBlastRadius> <!-- set to 0 to disable this feature-->
 </DynaBlasterConfig>

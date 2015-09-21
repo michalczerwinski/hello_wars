@@ -24,6 +24,16 @@ namespace Game.DynaBlaster
         private int _roundNumber;
         private DynaBlasterConfig _gameConfig;
 
+        private int CurrentBombBlastRadius
+        {
+            get { return _gameConfig.BombBlastRadius + (_gameConfig.RoundsBeforeIncreasingBlastRadius == 0 ? 0 : (_roundNumber/_gameConfig.RoundsBeforeIncreasingBlastRadius)); }
+        }
+
+        private int CurrentMissileBlastRadius
+        {
+            get { return _gameConfig.MissileBlastRadius + (_gameConfig.RoundsBeforeIncreasingBlastRadius == 0 ? 0 : (_roundNumber / _gameConfig.RoundsBeforeIncreasingBlastRadius)); }
+        }
+
         public DynaBlaster()
         {
             var xmlStream = new StreamReader("DynaBlaster.config.xml");
@@ -252,7 +262,7 @@ namespace Game.DynaBlaster
                 {
                     Location = bot.Location,
                     RoundsUntilExplodes = 5,
-                    ExplosionRadius = _gameConfig.BombBlastRadius
+                    ExplosionRadius = CurrentBombBlastRadius
                 });
 
                 actionDescription += " & drop bomb";
@@ -268,7 +278,7 @@ namespace Game.DynaBlaster
                     bot.LastMissileFiredRound = _roundNumber;
                     _arena.Missiles.Add(new Missile
                     {
-                        ExplosionRadius = _gameConfig.MissileBlastRadius,
+                        ExplosionRadius = CurrentMissileBlastRadius,
                         MoveDirection = move.FireDirection,
                         Location = GetNewLocation(bot.Location, move.FireDirection)
                     });
@@ -296,6 +306,7 @@ namespace Game.DynaBlaster
         {
             return new BotArenaInfo
             {
+                RoundNumber = _roundNumber,
                 BotId = bot.Id,
                 Board = _arena.Board,
                 Bombs = _arena.Bombs.Cast<IBomb>().ToList(),

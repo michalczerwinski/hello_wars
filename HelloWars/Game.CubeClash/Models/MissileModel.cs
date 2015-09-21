@@ -4,7 +4,7 @@ using Game.CubeClash.ViewModels;
 
 namespace Game.CubeClash.Models
 {
-    public class MissileModel : IMovableObiects
+    public class MissileModel : IMovableObject
     {
         private MissileViewModel _viewModel;
         private AvailableMoves _direction;

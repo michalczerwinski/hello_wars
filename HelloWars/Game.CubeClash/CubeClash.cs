@@ -152,5 +152,9 @@ namespace Game.CubeClash
         {
             throw new NotImplementedException();
         }
+
+        public void ApplyConfiguration(string configurationXml)
+        {
+        }
     }
 }

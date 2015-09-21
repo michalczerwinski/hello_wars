@@ -16,10 +16,20 @@ namespace SampleWebBotClient.Helpers
         private Objective _currentObjective;
         private Point _closestOpponentLocation;
 
+        private int CurrentBombBlastRadius
+        {
+            get { return _arena.GameConfig.BombBlastRadius + (_arena.GameConfig.RoundsBeforeIncreasingBlastRadius == 0 ? 0 : (_arena.RoundNumber / _arena.GameConfig.RoundsBeforeIncreasingBlastRadius)); }
+        }
+
+        private int CurrentMissileBlastRadius
+        {
+            get { return _arena.GameConfig.MissileBlastRadius + (_arena.GameConfig.RoundsBeforeIncreasingBlastRadius == 0 ? 0 : (_arena.RoundNumber / _arena.GameConfig.RoundsBeforeIncreasingBlastRadius)); }
+        }
+
         public BotMove CalculateNextMove(BotArenaInfo arena, List<Point> previousLocations)
         {
             _arena = arena;
-            _desiredDistanceFromOpponent = _arena.GameConfig.MissileBlastRadius + 4;
+            _desiredDistanceFromOpponent = CurrentMissileBlastRadius + 4;
             _dangerMap = CalculateDangerMap();
 
             var result = new BotMove()
@@ -185,7 +195,7 @@ namespace SampleWebBotClient.Helpers
 
         private List<Point> GetBombDangerZone(Point centerLocation)
         {
-            var result = GetSurroundingPoints(centerLocation, _arena.GameConfig.BombBlastRadius).ToList();
+            var result = GetSurroundingPoints(centerLocation, CurrentBombBlastRadius).ToList();
             result.Add(centerLocation);
 
             return result;
@@ -194,7 +204,7 @@ namespace SampleWebBotClient.Helpers
         private bool CanSafelyFire(Point location, MoveDirection direction)
         {
             var tempLocation = new Point(location.X, location.Y);
-            for (int i = 0; i <= _arena.GameConfig.MissileBlastRadius; i++)
+            for (int i = 0; i < CurrentMissileBlastRadius; i++)
             {
                 tempLocation = tempLocation.AddDirectionMove(direction);
                 if (!IsValidLocation(tempLocation) || IsBlocked(tempLocation, true) || !IsSafe(tempLocation))

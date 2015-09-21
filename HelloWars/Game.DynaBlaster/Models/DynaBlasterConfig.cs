@@ -15,5 +15,6 @@ namespace Game.DynaBlaster.Models
         public int BombBlastRadius { get; set; }
         public int MissileBlastRadius { get; set; }
         public int RoundsBetweenMissiles { get; set; }
+        public int RoundsBeforeIncreasingBlastRadius { get; set; }
     }
 }

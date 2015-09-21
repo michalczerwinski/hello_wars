@@ -6,6 +6,7 @@ namespace SampleWebBotClient.Models.DynaBlaster
 {
     public class BotArenaInfo
     {
+        public int RoundNumber { get; set; }
         public Guid BotId { get; set; }
         public BoardTile[,] Board { get; set; }
         public Point BotLocation { get; set; }
