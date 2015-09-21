@@ -1,5 +1,4 @@
-﻿using System.Windows.Media;
-using Game.CubeClash.Enums;
+﻿using Game.CubeClash.Enums;
 using Game.CubeClash.Interfaces;
 using Game.CubeClash.ViewModels;
 
@@ -33,5 +32,5 @@ namespace Game.CubeClash.Models
         {
             ViewModel = viewModel;
         }
-            }
+    }
 }

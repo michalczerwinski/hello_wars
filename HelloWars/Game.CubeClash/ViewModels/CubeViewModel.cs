@@ -1,12 +1,15 @@
 ﻿using System.Windows;
 using System.Windows.Media;
+using Common.Helpers;
 using Common.Models;
 using Game.CubeClash.Enums;
+using Game.CubeClash.Properties;
 
 namespace Game.CubeClash.ViewModels
 {
     public class CubeViewModel : BindableBase
     {
+        
         private int _x;
         private int _y;
         private int _xSpan;
@@ -21,13 +24,34 @@ namespace Game.CubeClash.ViewModels
         private string _isAttacking;
         private bool _isAttackingAnimationCompleated;
         private SolidColorBrush _color;
+        private ImageSource _image;
         public ActionDirections LastMove;
         private Visibility _movementShadowVisibility;
-    
+        private int _heigth;
+        private int _width;
+
+        public int Width
+        {
+            get { return _width; }
+            set { SetProperty(ref _width, value); }
+        }
+
+        public int Heigth
+        {
+            get { return _heigth; }
+            set { SetProperty(ref _heigth, value); }
+        }
+
         public SolidColorBrush Color
         {
             get { return _color; }
             set { SetProperty(ref _color, value); }
+        }
+
+        public ImageSource Image
+        {
+            get { return _image; }
+            set { SetProperty(ref _image, value); }
         }
 
         public double MovementShadowTopDistance

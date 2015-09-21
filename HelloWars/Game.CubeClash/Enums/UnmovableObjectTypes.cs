@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Game.CubeClash.Enums
+﻿namespace Game.CubeClash.Enums
 {
     public enum UnmovableObjectTypes
     {
-        None,
-        SolidWall,
-        Hole
+        Lawn,
+        Wood,
+        Rock,
+        Explosion
     }
 }

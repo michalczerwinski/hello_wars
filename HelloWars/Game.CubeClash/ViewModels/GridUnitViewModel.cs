@@ -8,6 +8,9 @@ namespace Game.CubeClash.ViewModels
 {
     public class GridUnitViewModel : BindableBase
     {
+        private static ImageSource _lawnImage = ResourceImageHelper.LoadImage(Resources.lawn);
+        private static ImageSource _rockImage = ResourceImageHelper.LoadImage(Resources.rock);
+        private static ImageSource _woodImage = ResourceImageHelper.LoadImage(Resources.wood);
         private int _x;
         private int _y;
         private UnmovableObjectTypes _landType;
@@ -27,19 +30,19 @@ namespace Game.CubeClash.ViewModels
                 _landType = value;
                 switch (value)
                 {
-                    case UnmovableObjectTypes.None:
+                    case UnmovableObjectTypes.Lawn:
                         {
-                            Image = ResourceImageHelper.LoadImage(Resources.grass);
+                            Image = _lawnImage;
                             break;
                         }
-                    case UnmovableObjectTypes.SolidWall:
+                    case UnmovableObjectTypes.Rock:
                         {
-                            Image = ResourceImageHelper.LoadImage(Resources.HardBlock);
+                            Image = _rockImage;
                             break;
                         }
-                    case UnmovableObjectTypes.Hole:
+                    case UnmovableObjectTypes.Wood:
                         {
-                            Image = ResourceImageHelper.LoadImage(Resources.bomb);
+                            Image = _woodImage;
                             break;
                         }
                 }

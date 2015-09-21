@@ -59,6 +59,7 @@
     <Compile Include="Enums\MovableObjectsTypes.cs" />
     <Compile Include="Models\MissileModel.cs" />
     <Compile Include="Models\SurroundingAreaInfo.cs" />
+    <Compile Include="Models\UnmovableObjects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -74,11 +75,15 @@
     <Compile Include="UserControls\MissileUserControl.xaml.cs">
       <DependentUpon>MissileUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Resoures\ExplosionUserControl.xaml.cs">
+      <DependentUpon>ExplosionUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Resoures\GridUnit.xaml.cs">
       <DependentUpon>GridUnit.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CubeClashViewModel.cs" />
     <Compile Include="ViewModels\CubeViewModel.cs" />
+    <Compile Include="ViewModels\ExplosionViewModel.cs" />
     <Compile Include="ViewModels\GridUnitViewModel.cs" />
     <Compile Include="ViewModels\MissileViewModel.cs" />
   </ItemGroup>
@@ -101,6 +106,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Resoures\ExplosionUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Resoures\GridUnit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -113,21 +122,31 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\bomb.png" />
-    <None Include="Images\bomb_expl_mid_hor.PNG" />
-    <None Include="Images\bomb_expl_mid_vert.PNG" />
-    <None Include="Images\FortifiedBlock.PNG" />
-    <None Include="Images\FortifiedBlock_blast.PNG" />
-    <Resource Include="Images\grass.jpg" />
-    <None Include="Images\HardBlock.png" />
-    <None Include="Images\index.html" />
-    <None Include="Images\missile.png" />
-    <None Include="Images\SoftBlock.PNG" />
-    <None Include="Images\tank1.png" />
-    <None Include="Images\tank2.png" />
+    <None Include="Resources\rock.png" />
+    <None Include="Resources\wood.png" />
+    <None Include="Resources\ant.png" />
+    <None Include="Resources\lawn1.jpg" />
+    <Content Include="Images\explosion.png" />
+    <Content Include="Images\lawn.jpg" />
+    <Content Include="Images\redAnt.png" />
+    <Content Include="Images\redMissile.png" />
+    <Content Include="Images\rock.jpg" />
+    <Content Include="Images\wood.jpg" />
+    <Content Include="Images\yellowAnt.png" />
+    <Content Include="Images\yellowMissile.png" />
+    <None Include="Resources\explosion.png" />
+    <None Include="Resources\lawn.jpg" />
+    <None Include="Resources\redAnt.png" />
+    <None Include="Resources\redMissile.png" />
+    <None Include="Resources\rock.jpg" />
+    <None Include="Resources\wood.jpg" />
+    <None Include="Resources\X-Wing-02-icon.png" />
+    <None Include="Resources\yellowAnt.png" />
+    <None Include="Resources\yellowMissile.png" />
     <Content Include="Sound\attack1.mp3" />
     <Content Include="Sound\attack1.wav" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

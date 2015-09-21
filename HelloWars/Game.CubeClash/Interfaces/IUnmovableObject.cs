@@ -6,6 +6,6 @@ namespace Game.CubeClash.Interfaces
     {
         int X { get; set; }
         int Y { get; set; }
-        UnmovableObjectTypes Type { get; set; }
+        UnmovableObjectTypes Type { get; }
     } 
 }

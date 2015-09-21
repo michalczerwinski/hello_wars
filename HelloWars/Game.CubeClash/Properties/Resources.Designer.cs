@@ -63,9 +63,9 @@ namespace Game.CubeClash.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bomb {
+        internal static System.Drawing.Bitmap explosion {
             get {
-                object obj = ResourceManager.GetObject("bomb", resourceCulture);
+                object obj = ResourceManager.GetObject("explosion", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace Game.CubeClash.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bomb_expl_mid_hor {
+        internal static System.Drawing.Bitmap lawn {
             get {
-                object obj = ResourceManager.GetObject("bomb_expl_mid_hor", resourceCulture);
+                object obj = ResourceManager.GetObject("lawn", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace Game.CubeClash.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bomb_expl_mid_vert {
+        internal static System.Drawing.Bitmap redAnt {
             get {
-                object obj = ResourceManager.GetObject("bomb_expl_mid_vert", resourceCulture);
+                object obj = ResourceManager.GetObject("redAnt", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace Game.CubeClash.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap FortifiedBlock {
+        internal static System.Drawing.Bitmap redMissile {
             get {
-                object obj = ResourceManager.GetObject("FortifiedBlock", resourceCulture);
+                object obj = ResourceManager.GetObject("redMissile", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace Game.CubeClash.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap FortifiedBlock_blast {
+        internal static System.Drawing.Bitmap rock {
             get {
-                object obj = ResourceManager.GetObject("FortifiedBlock_blast", resourceCulture);
+                object obj = ResourceManager.GetObject("rock", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace Game.CubeClash.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap grass {
+        internal static System.Drawing.Bitmap wood {
             get {
-                object obj = ResourceManager.GetObject("grass", resourceCulture);
+                object obj = ResourceManager.GetObject("wood", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,46 +123,9 @@ namespace Game.CubeClash.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap HardBlock {
+        internal static System.Drawing.Bitmap yellowAnt {
             get {
-                object obj = ResourceManager.GetObject("HardBlock", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
-        ///&lt;html&gt;
-        ///&lt;head&gt;
-        ///	&lt;style&gt;
-        ///		body{
-        ///			font-family: Arial, Helvetica, sans-serif
-        ///		}
-        ///	&lt;/style&gt;
-        ///&lt;/head&gt;
-        ///&lt;body&gt;
-        ///&lt;h1&gt;Hello Wars: DynaBlaster&lt;/h1&gt;
-        ///
-        ///&lt;h2&gt;Game overview&lt;/h2&gt;
-        ///&lt;b&gt;Hello Wars: DynaBlaster&lt;/b&gt; is a game resembling popular Bomberman. It consists of game board divided into small tiles.
-        ///Each tile can be of different type:
-        ///&lt;ul&gt;
-        ///	&lt;li&gt;&lt;b&gt;Empty tile&lt;/b&gt; - self explanatory&lt;/li&gt;
-        ///	&lt;li&gt;
-        ///		&lt;b&gt;Regular tile (&lt;img src=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string index {
-            get {
-                return ResourceManager.GetString("index", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap missile {
-            get {
-                object obj = ResourceManager.GetObject("missile", resourceCulture);
+                object obj = ResourceManager.GetObject("yellowAnt", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -170,29 +133,9 @@ namespace Game.CubeClash.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SoftBlock {
+        internal static System.Drawing.Bitmap yellowMissile {
             get {
-                object obj = ResourceManager.GetObject("SoftBlock", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap tank1 {
-            get {
-                object obj = ResourceManager.GetObject("tank1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap tank2 {
-            get {
-                object obj = ResourceManager.GetObject("tank2", resourceCulture);
+                object obj = ResourceManager.GetObject("yellowMissile", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

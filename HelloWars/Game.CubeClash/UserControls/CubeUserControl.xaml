@@ -13,8 +13,8 @@
                        Width="{Binding ViewModel.MovementShadowWidth}" Height="{Binding ViewModel.MovementShadowHeight}" Fill="{Binding ViewModel.Color, Mode=TwoWay}" Opacity="0.05" Visibility="{Binding ViewModel.MovementShadowVisibility}">
             </Rectangle>
         </Canvas>
-        <Rectangle x:Name="Rectangle1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Color,Mode=TwoWay, NotifyOnTargetUpdated=True}" StrokeThickness="0.5" Stroke="Black">
-            <!--<Rectangle.Resources>
+            <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="{Binding ViewModel.Width}" Height="{Binding ViewModel.Heigth}" Source="{Binding ViewModel.Image}">
+                <!--<Rectangle.Resources>
                 <Storyboard x:Key="AttackAnimation" TargetName="Rectangle1" Completed="AttackAnimation_OnCompleted">
 
                     <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
@@ -55,7 +55,7 @@
                     <ei:ControlStoryboardAction Storyboard="{StaticResource AttackAnimation}" ControlStoryboardOption="Stop"/>
                 </ei:DataTrigger>
             </i:Interaction.Triggers>-->
-        </Rectangle>
+            </Image>
 
         <Grid.RenderTransform>
             <RotateTransform Angle="{Binding ViewModel.MovementShadowRotate}" CenterX="{Binding ViewModel.CenterX}" CenterY="{Binding ViewModel.CenterY}"/>

@@ -68,7 +68,7 @@ namespace Game.CubeClash.Models
         {
             StopWatching();
             Y--;
-            ViewModel.MovementShadowRotate = 270;
+            ViewModel.MovementShadowRotate = 0;
             ViewModel.LastMove = ActionDirections.Up;
         }
 
@@ -76,7 +76,7 @@ namespace Game.CubeClash.Models
         {
             StopWatching();
             Y++;
-            ViewModel.MovementShadowRotate = 90;
+            ViewModel.MovementShadowRotate = 180;
             ViewModel.LastMove = ActionDirections.Down;
         }
 
@@ -84,7 +84,7 @@ namespace Game.CubeClash.Models
         {
             StopWatching();
             X--;
-            ViewModel.MovementShadowRotate = 180;
+            ViewModel.MovementShadowRotate = 270;
             ViewModel.LastMove = ActionDirections.Left;
         }
 
@@ -92,7 +92,7 @@ namespace Game.CubeClash.Models
         {
             StopWatching();
             X++;
-            ViewModel.MovementShadowRotate = 0;
+            ViewModel.MovementShadowRotate = 90;
             ViewModel.LastMove = ActionDirections.Right;
         }
 
