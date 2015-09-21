@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Net;
 using Game.DynaBlaster.Interfaces;
 
 namespace Game.DynaBlaster.Models

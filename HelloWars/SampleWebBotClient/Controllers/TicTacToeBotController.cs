@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Web.Http;
 using SampleWebBotClient.Helpers;
 using SampleWebBotClient.Models;
+using SampleWebBotClient.Models.TicTacToe;
 
 namespace SampleWebBotClient.Controllers
 {

@@ -83,11 +83,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Annotations.cs" />
     <Compile Include="Commands\LoadGameAndEliminationUserControlsOnLoadedControl.cs" />
     <Compile Include="Commands\MenuItemCommands\AboutCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\AutoPlayCommand.cs" />
-    <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\MenuItemCommands\CloseCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\FullScreenWindowCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\GameRulesCommand.cs" />
