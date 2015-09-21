@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DynaBlaster.cs" />
-    <Compile Include="Helpers\ResourceImageHelper.cs" />
     <Compile Include="Interfaces\IBomb.cs" />
     <Compile Include="Interfaces\IMissile.cs" />
     <Compile Include="Models\BoardTile.cs" />

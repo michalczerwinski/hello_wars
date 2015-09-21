@@ -1,4 +1,5 @@
-﻿using Game.CubeClash.Interfaces;
+﻿using Game.CubeClash.Enums;
+using Game.CubeClash.Interfaces;
 using Game.CubeClash.ViewModels;
 
 namespace Game.CubeClash.Models
@@ -22,6 +23,12 @@ namespace Game.CubeClash.Models
         public GridUnitModel(GridUnitViewModel viewModel)
         {
             ViewModel = viewModel;
+        }
+
+        public UnmovableObjectTypes Type
+        {
+            get { return ViewModel.LandType; }
+            set { ViewModel.LandType = value; }
         }
     }
 }

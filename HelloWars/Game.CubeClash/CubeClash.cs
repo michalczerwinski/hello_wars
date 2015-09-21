@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Forms;
 using System.Windows.Media;
 using Common.Helpers;
 using Common.Interfaces;
@@ -43,6 +42,8 @@ namespace Game.CubeClash
         private void PerformCubesMove()
         {
             var listOfMissilesToFire = new List<MissileModel>();
+            var listOfCubesToRemove = new List<CubeModel>();
+
 
             foreach (var movableObject in _cubeClashViewModel.MovableObjectsCollection.OfType<CubeModel>())
             {
@@ -56,22 +57,34 @@ namespace Game.CubeClash
                             {
                                 case ActionDirections.Down:
                                     {
-                                        movableObject.Down();
+                                        if ((movableObject.Y < _cubeClashViewModel.BattlegroundHeigth) && (IfMoveIsValid(movableObject.X, movableObject.Y + 1)))
+                                        {
+                                            movableObject.Down();
+                                        }
                                         break;
                                     }
                                 case ActionDirections.Up:
                                     {
-                                        movableObject.Up();
+                                        if ((movableObject.Y > 0) && (IfMoveIsValid(movableObject.X, movableObject.Y - 1)))
+                                        {
+                                            movableObject.Up();
+                                        }
                                         break;
                                     }
                                 case ActionDirections.Left:
                                     {
-                                        movableObject.Left();
+                                        if ((movableObject.X > 0) && (IfMoveIsValid(movableObject.X - 1, movableObject.Y)))
+                                        {
+                                            movableObject.Left();
+                                        }
                                         break;
                                     }
                                 case ActionDirections.Right:
                                     {
-                                        movableObject.Right();
+                                        if ((movableObject.X < _cubeClashViewModel.BattlegroundWidth) && (IfMoveIsValid(movableObject.X + 1, movableObject.Y)))
+                                        {
+                                            movableObject.Right();
+                                        }
                                         break;
                                     }
                             }
@@ -88,12 +101,43 @@ namespace Game.CubeClash
                             break;
                         }
                 }
+                //if missile meet some cube
+                if (_cubeClashViewModel.MovableObjectsCollection.OfType<MissileModel>().Any(missile => missile.X == movableObject.X && missile.Y == movableObject.Y))
+                {
+                    listOfCubesToRemove.Add(movableObject);
+                }
             }
 
-            foreach (var item in listOfMissilesToFire)
+            foreach (var cube in listOfCubesToRemove)
             {
-                _cubeClashViewModel.MovableObjectsCollection.Add(item);
+                _cubeClashViewModel.MovableObjectsCollection.Remove(cube);
             }
+
+            foreach (var missile in listOfMissilesToFire)
+            {
+                _cubeClashViewModel.MovableObjectsCollection.Add(missile);
+            }
+
+
+
+            if (_cubeClashViewModel.MovableObjectsCollection.OfType<CubeModel>().Count() <= 1)
+            {
+
+
+            }
+
+        }
+
+        private bool IfMoveIsValid(int newPointX, int newPointY)
+        {
+            if (_cubeClashViewModel.MovableObjectsCollection.Any(cube => cube.X == newPointX && cube.Y == newPointY))
+            {
+                return false;
+            }
+            // if (_cubeClashViewModel.BattlefieldObjectsCollection.Where(f=>f.))
+
+
+            return true;
         }
 
         private void PerformMisslesMove()
@@ -129,6 +173,12 @@ namespace Game.CubeClash
                 if (missileObject.Range < 0)
                 {
                     listOfMissilesToRemove.Add(missileObject);
+                }
+
+                //if missile meet some missile
+                if (_cubeClashViewModel.MovableObjectsCollection.OfType<MissileModel>().Any(missile => missile.X == missileObject.X && missile.Y == missileObject.Y))
+                {
+                    //detonate missileObject and make chain reaction if there are some missiles near
                 }
             }
 
@@ -202,8 +252,8 @@ namespace Game.CubeClash
             _cubeClashViewModel.CubeHeigth = 10;
             _cubeClashViewModel.CubeWidth = 10;
 
-            _cubeClashViewModel.RowCount = 40;
-            _cubeClashViewModel.ColumnCount = 40;
+            _cubeClashViewModel.RowCount = 20;
+            _cubeClashViewModel.ColumnCount = 20;
 
             _cubeClashViewModel.BattlegroundWidth = _cubeClashViewModel.RowCount * _cubeClashViewModel.CubeHeigth;
             _cubeClashViewModel.BattlegroundHeigth = _cubeClashViewModel.ColumnCount * _cubeClashViewModel.CubeWidth;
@@ -220,7 +270,8 @@ namespace Game.CubeClash
                     var gridUnit = new GridUnitModel(new GridUnitViewModel())
                     {
                         X = i,
-                        Y = j
+                        Y = j,
+                        Type = EnumValueHelper<UnmovableObjectTypes>.RandomEnumValue()
                     };
 
                     _cubeClashViewModel.BattlefieldObjectsCollection.Add(gridUnit);

@@ -10,6 +10,6 @@ namespace Game.CubeClash.Enums
     {
         None,
         SolidWall,
-        Hole,
+        Hole
     }
 }

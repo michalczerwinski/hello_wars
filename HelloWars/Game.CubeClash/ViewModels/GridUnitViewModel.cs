@@ -1,6 +1,8 @@
-﻿using System.Drawing;
+﻿using System.Windows.Media;
+using Common.Helpers;
 using Common.Models;
 using Game.CubeClash.Enums;
+using Game.CubeClash.Properties;
 
 namespace Game.CubeClash.ViewModels
 {
@@ -8,19 +10,40 @@ namespace Game.CubeClash.ViewModels
     {
         private int _x;
         private int _y;
-        private MovableObjectsTypes _landType;
-        private Image _image;
+        private UnmovableObjectTypes _landType;
+        private ImageSource _image;
 
-        public MovableObjectsTypes LandType
-        {
-            get { return _landType; }
-            set { SetProperty(ref _landType, value); }
-        }
-
-        public Image Image
+        public ImageSource Image
         {
             get { return _image; }
             set { SetProperty(ref _image, value); }
+        }
+
+        public UnmovableObjectTypes LandType
+        {
+            get { return _landType; }
+            set
+            {
+                _landType = value;
+                switch (value)
+                {
+                    case UnmovableObjectTypes.None:
+                        {
+                            Image = ResourceImageHelper.LoadImage(Resources.grass);
+                            break;
+                        }
+                    case UnmovableObjectTypes.SolidWall:
+                        {
+                            Image = ResourceImageHelper.LoadImage(Resources.HardBlock);
+                            break;
+                        }
+                    case UnmovableObjectTypes.Hole:
+                        {
+                            Image = ResourceImageHelper.LoadImage(Resources.bomb);
+                            break;
+                        }
+                }
+            }
         }
 
         public int X

@@ -1,8 +1,8 @@
-﻿using System.Drawing;
-using System.IO;
+﻿using System.IO;
 using System.Windows.Media.Imaging;
+using System.Drawing;
 
-namespace Game.DynaBlaster.Helpers
+namespace Common.Helpers
 {
     public static class ResourceImageHelper
     {
