@@ -134,18 +134,16 @@
                     </ScrollViewer>
                 </TabItem>
                 <TabItem Header="History" Name="HistoryTab" Visibility="{Binding IsHistoryVisible, Converter= {StaticResource BooleanToVisibilityConverter}, ConverterParameter=null}">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <TreeView Name="GameHistoryTree" ItemsSource="{Binding GameHistory}" Margin="10" Background="{StaticResource BackgroundHighlighted}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  SelectedItemChanged="GameHistoryTree_OnSelectedItemChanged">
-                            <TreeView.Resources>
-                                <HierarchicalDataTemplate DataType="{x:Type arena:GameHistoryEntryViewModel}" ItemsSource="{Binding History}">
-                                    <TextBlock Text="{Binding GameDescription}" />
-                                </HierarchicalDataTemplate>
-                                <DataTemplate DataType="{x:Type models:RoundPartialHistory}">
-                                    <TextBlock Text="{Binding Caption}"/>
-                                </DataTemplate>
-                            </TreeView.Resources>
-                        </TreeView>
-                    </ScrollViewer>
+                    <TreeView Name="GameHistoryTree" ItemsSource="{Binding GameHistory}" Margin="10" Background="{StaticResource BackgroundHighlighted}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  SelectedItemChanged="GameHistoryTree_OnSelectedItemChanged">
+                        <TreeView.Resources>
+                            <HierarchicalDataTemplate DataType="{x:Type arena:GameHistoryEntryViewModel}" ItemsSource="{Binding History}">
+                                <TextBlock Text="{Binding GameDescription}" Foreground="White"/>
+                            </HierarchicalDataTemplate>
+                            <DataTemplate DataType="{x:Type models:RoundPartialHistory}">
+                                <TextBlock Text="{Binding Caption}" Foreground="White"/>
+                            </DataTemplate>
+                        </TreeView.Resources>
+                    </TreeView>
                 </TabItem>
             </TabControl>
 

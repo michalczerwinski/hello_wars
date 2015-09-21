@@ -33,6 +33,16 @@ namespace SampleWebBotClient.Helpers
             return Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y);
         }
 
+        public static int DistanceFromInDirection(this Point a, Point b, MoveDirection direction)
+        {
+            if (a.AddDirectionMove(direction).DistanceFrom(b) > a.DistanceFrom(b))
+            {
+                return int.MaxValue;
+            }
+
+            return (direction == MoveDirection.Down || direction == MoveDirection.Up) ? Math.Abs(a.Y - b.Y) : Math.Abs(a.X - b.X);
+        }
+
         /// <summary>
         /// Determines if points are on the same axis (either X or Y). Basically it checks if either their X or Y coordinates
         /// are matching

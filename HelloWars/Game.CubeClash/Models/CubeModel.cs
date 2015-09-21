@@ -94,9 +94,9 @@ namespace Game.CubeClash.Models
             ViewModel.LastMove = AvailableMoves.Right;
         }
 
-        public MissleModel FireMissle()
+        public MissileModel FireMissle()
         {
-            var missle = new MissleModel(new MissleViewModel())
+            var missle = new MissileModel(new MissileViewModel())
             {
                 X = 10,
                 Y = 10,

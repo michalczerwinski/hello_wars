@@ -139,7 +139,9 @@
     <Compile Include="Models\DynaBlaster\BotArenaInfo.cs" />
     <Compile Include="Models\BotInfo.cs" />
     <Compile Include="Models\DynaBlaster\BotMove.cs" />
+    <Compile Include="Models\DynaBlaster\DynaBlasterConfig.cs" />
     <Compile Include="Models\DynaBlaster\Missile.cs" />
+    <Compile Include="Models\DynaBlaster\Objective.cs" />
     <Compile Include="Models\DynaBlaster\MoveDirection.cs" />
     <Compile Include="Models\TicTacToe\TicTacToeBoardFieldType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
