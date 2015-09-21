@@ -15,5 +15,6 @@ namespace Game.DynaBlaster.Models
         public List<Point> OpponentLocations { get; set; }
         public List<IBomb> Bombs { get; set; }
         public List<IMissile> Missiles { get; set; }
+        public DynaBlasterConfig GameConfig { get; set; }
     }
 }

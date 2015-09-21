@@ -73,7 +73,7 @@ namespace Game.DynaBlaster
             {
                 for (var j = 0; j < _arena.Board.GetLength(1); j++)
                 {
-                    var tileType = _rand.Next(3) != 0 ? BoardTile.Empty : (BoardTile) (_rand.Next(3) + 1);
+                    var tileType = _rand.Next(4) != 0 ? BoardTile.Empty : (BoardTile) (_rand.Next(3) + 1);
                     _arena.Board[i, j] = tileType;
                 }
             }
@@ -302,7 +302,8 @@ namespace Game.DynaBlaster
                 BotLocation = bot.Location,
                 OpponentLocations = _arena.Bots.Where(blasterBot => blasterBot.Id != bot.Id && !blasterBot.IsDead).Select(blasterBot => blasterBot.Location).ToList(),
                 Missiles = _arena.Missiles.Cast<IMissile>().ToList(),
-                IsMissileAvailable = IsMissileAvailable(bot)
+                IsMissileAvailable = IsMissileAvailable(bot),
+                GameConfig = _gameConfig
             };
         }
 
