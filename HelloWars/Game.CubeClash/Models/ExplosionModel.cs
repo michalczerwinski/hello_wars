@@ -4,16 +4,9 @@ using Game.CubeClash.ViewModels;
 
 namespace Game.CubeClash.Models
 {
-    public class MissileModel : IMovableObject
+    public class ExplosionModel: IUnmovableObject
     {
-        public MissileViewModel ViewModel { get; set; }
-        public int Range;
-
-        public ActionDirections Direction
-        {
-            get { return ViewModel.Direction; }
-            set { ViewModel.Direction = value; }
-        }
+        public ExplosionViewModel ViewModel { get; set; }
 
         public int X
         {
@@ -27,7 +20,12 @@ namespace Game.CubeClash.Models
             set { ViewModel.Y = value; }
         }
 
-        public MissileModel(MissileViewModel viewModel)
+        public UnmovableObjectTypes Type
+        {
+            get { return UnmovableObjectTypes.Explosion; }
+        }
+
+        public ExplosionModel(ExplosionViewModel viewModel)
         {
             ViewModel = viewModel;
         }

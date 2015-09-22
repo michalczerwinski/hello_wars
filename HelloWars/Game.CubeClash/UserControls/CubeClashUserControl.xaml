@@ -13,16 +13,19 @@
 
     <Grid>
         <ItemsControl Width="{Binding BattlegroundWidth}" Height="{Binding BattlegroundHeigth}" ItemsSource="{Binding BattlefieldObjectsCollection}">
+            <ItemsControl.Resources>
+                <DataTemplate DataType="{x:Type models:ExplosionModel}">
+                    <userControls:MissileUserControl/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type models:GridUnitModel}">
+                    <resoures:GridUnit/>
+                </DataTemplate>
+            </ItemsControl.Resources>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid helpers:GridHelper.RowCount="{Binding RowCount}" helpers:GridHelper.ColumnCount="{Binding ColumnCount}"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <resoures:GridUnit/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
             <ItemsControl.ItemContainerStyle>
                 <Style>
                     <Setter Property="Grid.Column" Value="{Binding ViewModel.X}" />
@@ -31,14 +34,17 @@
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
 
-        <ItemsControl ItemsSource="{Binding MovableObjectsCollection}">
+        <ItemsControl Width="{Binding BattlegroundWidth}" Height="{Binding BattlegroundHeigth}" ItemsSource="{Binding MovableObjectsCollection}">
             <ItemsControl.Resources>
                 <DataTemplate DataType="{x:Type models:CubeModel}">
                     <userControls:CubeUserControl/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type models:MissileModel}">
                     <userControls:MissileUserControl/>
-                </DataTemplate> 
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:ExplosionViewModel}">
+                    <userControls:MissileUserControl/>
+                </DataTemplate>
             </ItemsControl.Resources>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

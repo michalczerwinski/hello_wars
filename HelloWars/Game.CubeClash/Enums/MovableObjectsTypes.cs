@@ -3,6 +3,6 @@
     public enum MovableObjectsTypes
     {
         Bot,
-        Missile
+        Missile,
     }
 }

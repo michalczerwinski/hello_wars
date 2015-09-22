@@ -27,13 +27,13 @@ namespace SampleWebBotClient.Controllers
 
             var result = new CubeMove();
 
-            result.AvailableActions = nextMove;
+            result.Action = nextMove;
             switch (nextMove)
             {
                 case AvailableActions.FireMissile:
                 case AvailableActions.Move:
                     {
-                        result.ActionDirections = EnumValueHelper<ActionDirections>.RandomEnumValue();
+                        result.ActionDirection = EnumValueHelper<ActionDirections>.RandomEnumValue();
                         break;
                     }
 

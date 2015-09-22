@@ -51,6 +51,11 @@ namespace Game.CubeClash.ViewModels
             get { return _cubeHeigth; }
             set { SetProperty(ref _cubeHeigth, value); }
         }
+
+        public CubeClashViewModel()
+        {
+            MovableObjectsCollection = new ObservableCollection<IMovableObject>();
+            BattlefieldObjectsCollection = new ObservableCollection<IUnmovableObject>();
+        }
     }
 }
-

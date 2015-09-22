@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using Common.Models;
 using Game.CubeClash.Enums;
 
@@ -13,22 +12,10 @@ namespace Game.CubeClash.ViewModels
         private SolidColorBrush _color;
         private ImageSource _image;
         private ActionDirections _direction;
-        private int _heigth;
-        private int _width;
         private int _angle;
-
-        public int Width
-        {
-            get { return _width; }
-            set { SetProperty(ref _width, value); }
-        }
-
-        public int Heigth
-        {
-            get { return _heigth; }
-            set { SetProperty(ref _heigth, value); }
-        }
-
+        private double _centerX;
+        private double _centerY;
+       
         public ImageSource Image
         {
             get { return _image; }
@@ -69,6 +56,18 @@ namespace Game.CubeClash.ViewModels
         {
             get { return _angle; }
             set { SetProperty(ref _angle, value); }
+        }
+
+        public double CenterX
+        {
+            get { return _centerX; }
+            set { SetProperty(ref _centerX, value); }
+        }
+
+        public double CenterY
+        {
+            get { return _centerY; }
+            set { SetProperty(ref _centerY, value); }
         }
     }
 }

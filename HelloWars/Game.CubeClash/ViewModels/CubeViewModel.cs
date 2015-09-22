@@ -9,11 +9,13 @@ namespace Game.CubeClash.ViewModels
 {
     public class CubeViewModel : BindableBase
     {
-        
+        public static ImageSource _redAntImage = ResourceImageHelper.LoadImage(Resources.redAnt);
+        private static bool _isRedAntAdded;
+        public static ImageSource _yellowAntImage = ResourceImageHelper.LoadImage(Resources.yellowAnt);
+        private static bool _isYellowAntAdded;
+
         private int _x;
         private int _y;
-        private int _xSpan;
-        private int _ySpan;
         private double _movementShadowTopDistance;
         private int _movementShadowRotate;
         private double _movementShadowLeftDistance;
@@ -24,23 +26,9 @@ namespace Game.CubeClash.ViewModels
         private string _isAttacking;
         private bool _isAttackingAnimationCompleated;
         private SolidColorBrush _color;
-        private ImageSource _image;
         public ActionDirections LastMove;
         private Visibility _movementShadowVisibility;
-        private int _heigth;
-        private int _width;
-
-        public int Width
-        {
-            get { return _width; }
-            set { SetProperty(ref _width, value); }
-        }
-
-        public int Heigth
-        {
-            get { return _heigth; }
-            set { SetProperty(ref _heigth, value); }
-        }
+        private ImageSource _image;
 
         public SolidColorBrush Color
         {
@@ -125,33 +113,47 @@ namespace Game.CubeClash.ViewModels
             get { return _isAttackingAnimationCompleated; }
             set
             {
-                _isAttackingAnimationCompleated = value;
-                switch (LastMove)
-                {
-                    case ActionDirections.Up:
-                        {
-                            Y -= 4;
-                            break;
-                        }
-                    case ActionDirections.Left:
-                        {
-                            X -= 4;
-                            break;
-                        }
-                    case ActionDirections.Down:
-                        {
-                            Y += 4;
-                            break;
-                        }
-                    case ActionDirections.Right:
-                        {
-                            X += 4;
-                            break;
-                        }
-                }
+                //_isAttackingAnimationCompleated = value;
+                //switch (LastMove)
+                //{
+                //    case ActionDirections.Up:
+                //        {
+                //            Y -= 4;
+                //            break;
+                //        }
+                //    case ActionDirections.Left:
+                //        {
+                //            X -= 4;
+                //            break;
+                //        }
+                //    case ActionDirections.Down:
+                //        {
+                //            Y += 4;
+                //            break;
+                //        }
+                //    case ActionDirections.Right:
+                //        {
+                //            X += 4;
+                //            break;
+                //        }
+                //}
 
                 IsAttacking = "False";
                 _isAttackingAnimationCompleated = false;
+            }
+        }
+
+        public CubeViewModel()
+        {
+            if (!_isRedAntAdded)
+            {
+                _isRedAntAdded = true;
+                Image = _redAntImage;
+            }
+            else if (!_isYellowAntAdded)
+            {
+                _isYellowAntAdded = true;
+                Image = _yellowAntImage;
             }
         }
     }

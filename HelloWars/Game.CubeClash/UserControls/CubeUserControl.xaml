@@ -8,13 +8,13 @@
              mc:Ignorable="d" Loaded="ConnectAnimationEffect_OnLoaded">
 
     <Grid>
-        <Canvas>
+        <!--<Canvas>
             <Rectangle x:Name="Rectangle0" Canvas.Top="{Binding ViewModel.MovementShadowTopDistance}" Canvas.Left="{Binding ViewModel.MovementShadowLeftDistance}" 
                        Width="{Binding ViewModel.MovementShadowWidth}" Height="{Binding ViewModel.MovementShadowHeight}" Fill="{Binding ViewModel.Color, Mode=TwoWay}" Opacity="0.05" Visibility="{Binding ViewModel.MovementShadowVisibility}">
             </Rectangle>
-        </Canvas>
-            <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="{Binding ViewModel.Width}" Height="{Binding ViewModel.Heigth}" Source="{Binding ViewModel.Image}">
-                <!--<Rectangle.Resources>
+        </Canvas>-->
+        <Image  Source="{Binding ViewModel.Image}" />
+        <!--  <Rectangle.Resources>
                 <Storyboard x:Key="AttackAnimation" TargetName="Rectangle1" Completed="AttackAnimation_OnCompleted">
 
                     <DoubleAnimation Storyboard.TargetName="ScaleTransform1" Storyboard.TargetProperty="ScaleX" 
@@ -55,11 +55,9 @@
                     <ei:ControlStoryboardAction Storyboard="{StaticResource AttackAnimation}" ControlStoryboardOption="Stop"/>
                 </ei:DataTrigger>
             </i:Interaction.Triggers>-->
-            </Image>
 
         <Grid.RenderTransform>
-            <RotateTransform Angle="{Binding ViewModel.MovementShadowRotate}" CenterX="{Binding ViewModel.CenterX}" CenterY="{Binding ViewModel.CenterY}"/>
+            <RotateTransform Angle="{Binding ViewModel.MovementShadowRotate}" CenterX="5" CenterY="5"/>
         </Grid.RenderTransform>
-
     </Grid>
 </UserControl>

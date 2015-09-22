@@ -2,7 +2,7 @@
 {
     public class CubeMove
     {
-        public AvailableActions AvailableActions { get; set; }
-        public ActionDirections ActionDirections { get; set; }
+        public AvailableActions Action { get; set; }
+        public ActionDirections ActionDirection { get; set; }
     }
 }

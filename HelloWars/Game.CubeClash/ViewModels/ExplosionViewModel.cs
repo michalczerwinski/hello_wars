@@ -1,29 +1,13 @@
 ﻿using System.Windows.Media;
 using Common.Models;
-using Game.CubeClash.Enums;
-using Game.CubeClash.Interfaces;
 
 namespace Game.CubeClash.ViewModels
 {
-   public  class ExplosionViewModel:BindableBase, IUnmovableObject
+    public class ExplosionViewModel : BindableBase
     {
         private int _x;
         private int _y;
         private ImageSource _image;
-        private int _heigth;
-        private int _width;
-
-        public int Width
-        {
-            get { return _width; }
-            set { SetProperty(ref _width, value); }
-        }
-
-        public int Heigth
-        {
-            get { return _heigth; }
-            set { SetProperty(ref _heigth, value); }
-        }
 
         public ImageSource Image
         {
@@ -42,13 +26,5 @@ namespace Game.CubeClash.ViewModels
             get { return _y; }
             set { SetProperty(ref _y, value); }
         }
-
-       public UnmovableObjectTypes Type
-       {
-           get
-           {
-               return UnmovableObjectTypes.Explosion;
-           }
-       }
     }
 }

@@ -26,7 +26,6 @@ namespace Game.DynaBlaster.UserControls
         private readonly BitmapImage _mapBackgroundImgSource;
         private readonly BitmapImage _bombExplVerImgSource;
         private readonly BitmapImage _bombExplHorImgSource;
-        private readonly MediaPlayer _mediaPlayer;
 
         private readonly int _tileSize;
 
