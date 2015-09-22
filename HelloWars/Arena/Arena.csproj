@@ -157,7 +157,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Icons\autoplay2.png" />
-    <Resource Include="Icons\pause.png" />
     <Resource Include="Icons\play.png" />
     <Resource Include="Icons\stop.png" />
     <Resource Include="Icons\About.png" />
@@ -165,7 +164,6 @@
     <Resource Include="Icons\VerifyPlayers.png" />
     <Resource Include="Icons\Settings.png" />
     <Resource Include="Icons\Close.png" />
-    <Resource Include="Icons\AutoPlay.png" />
     <Resource Include="Icons\Open.png" />
     <Resource Include="Icons\PlayDuel.png" />
   </ItemGroup>
