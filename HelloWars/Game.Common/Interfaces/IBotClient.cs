@@ -1,7 +1,10 @@
-﻿namespace Common.Interfaces
+﻿using System.Threading.Tasks;
+using Common.Models;
+
+namespace Common.Interfaces
 {
-    public interface IBotClient<in TArenaInfo, out TMove> : ICompetitor
+    public interface IBotClient<TArenaInfo, TMove> : ICompetitor
     {
-        TMove NextMove(TArenaInfo arenaInfo);
+        Task<TMove> NextMoveAsync(TArenaInfo arenaInfo);
     }
 }

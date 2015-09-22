@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Game.TicTacToe.Interfaces;
@@ -57,7 +58,7 @@ namespace Game.TicTacToe
             _competitors = new List<ITicTacToeBot>();
         }
 
-        public RoundResult PerformNextRound()
+        public async Task<RoundResult> PerformNextRoundAsync()
         {
             if (_player1 == null || _player2 == null) { throw new Exception("There are no players to perform next round."); }
 
@@ -74,7 +75,7 @@ namespace Game.TicTacToe
                     ClearTheBoard();
                 }
 
-                result.History.Add(PerformNextMove(competitor));
+                result.History.Add(await PerformNextMove(competitor));
 
                 DelayHelper.Delay(_configuration.NextMoveDelay);
 
@@ -128,9 +129,9 @@ namespace Game.TicTacToe
             }
         }
 
-        private RoundPartialHistory PerformNextMove(ITicTacToeBot competitor)
+        private async Task<RoundPartialHistory> PerformNextMove(ITicTacToeBot competitor)
         {
-            var move = competitor.NextMove(TicTacToeViewModel.Board);
+            var move = await competitor.NextMoveAsync(TicTacToeViewModel.Board);
             string moveDescription;
 
             if (IsNextMoveValid(move))

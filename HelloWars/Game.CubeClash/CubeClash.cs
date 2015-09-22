@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Common.Helpers;
@@ -21,7 +22,7 @@ namespace Game.CubeClash
         private IEnumerable<ICompetitor> _competitors;
         private Random _rand = new Random(DateTime.Now.Millisecond);
 
-        public RoundResult PerformNextRound()
+        public async Task<RoundResult> PerformNextRoundAsync()
         {
             foreach (var competitor in _competitors)
             {
@@ -29,7 +30,7 @@ namespace Game.CubeClash
 
                 if (cubeModel != null)
                 {
-                    var move = cubeModel.NextMove(null);
+                    var move = await cubeModel.NextMoveAsync(null);
 
                     switch (move.Move)
                     {

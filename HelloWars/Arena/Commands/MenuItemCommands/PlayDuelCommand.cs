@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Arena.ViewModels;
 using Common;
 using Common.Models;
@@ -14,7 +15,7 @@ namespace Arena.Commands.MenuItemCommands
             _viewModel = viewModel;
         }
 
-        public override void Execute(object parameter = null)
+        public async override void Execute(object parameter = null)
         {
             var nextCompetitors = _viewModel.Elimination.GetNextCompetitors();
             if (nextCompetitors != null)
@@ -29,18 +30,24 @@ namespace Arena.Commands.MenuItemCommands
 
                 _viewModel.OutputText += "Game starting: " + gameHistoryEntry.GameDescription + "\n";
 
-                RoundResult result;
+                RoundResult result = new RoundResult();
+
+                _viewModel.IsGameInProgress = true;
 
                 do
                 {
-                    result = _viewModel.Game.PerformNextRound();
+                    result = await _viewModel.Game.PerformNextRoundAsync();
                     gameHistoryEntry.History.AddRange(result.History);
-                }
-                while (!result.IsFinished);
+                } while (!result.IsFinished && _viewModel.IsGameInProgress);
 
-                _viewModel.Elimination.SetLastDuelResult(result.FinalResult);
-                _viewModel.ScoreList.SaveScore(result.FinalResult);
                 _viewModel.GameHistory.Add(gameHistoryEntry);
+
+                if (result.IsFinished)
+                {
+                    _viewModel.IsGameInProgress = false;
+                    _viewModel.Elimination.SetLastDuelResult(result.FinalResult);
+                    _viewModel.ScoreList.SaveScore(result.FinalResult);
+                }
             }
         }
     }
