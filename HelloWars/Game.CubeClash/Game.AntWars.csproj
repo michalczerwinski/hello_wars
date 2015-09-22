@@ -7,8 +7,8 @@
     <ProjectGuid>{559C3C3A-F7CB-4F67-8800-D5C8ECED9E08}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Game.CubeClash</RootNamespace>
-    <AssemblyName>Game.CubeClash</AssemblyName>
+    <RootNamespace>Game.AntWars</RootNamespace>
+    <AssemblyName>Game.AntWars</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -49,14 +49,14 @@
   <ItemGroup>
     <Compile Include="Utilities\BattlegroundBuilder.cs" />
     <Compile Include="Utilities\BotBuilder.cs" />
-    <Compile Include="CubeClash.cs" />
+    <Compile Include="AntWars.cs" />
     <Compile Include="Enums\ActionDirections.cs" />
     <Compile Include="Enums\UnmovableObjectTypes.cs" />
     <Compile Include="Interfaces\IMovableObject.cs" />
     <Compile Include="Interfaces\IUnmovableObject.cs" />
     <Compile Include="Enums\AvailableActions.cs" />
-    <Compile Include="Models\CubeModel.cs" />
-    <Compile Include="Models\CubeMove.cs" />
+    <Compile Include="Models\AntModel.cs" />
+    <Compile Include="Models\BotMove.cs" />
     <Compile Include="Models\ExplosionModel.cs" />
     <Compile Include="Models\GridUnitModel.cs" />
     <Compile Include="Enums\MovableObjectsTypes.cs" />
@@ -69,11 +69,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CubeClashUserControl.xaml.cs">
-      <DependentUpon>CubeClashUserControl.xaml</DependentUpon>
+    <Compile Include="UserControls\AntWarsUserControl.xaml.cs">
+      <DependentUpon>AntWarsUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CubeUserControl.xaml.cs">
-      <DependentUpon>CubeUserControl.xaml</DependentUpon>
+    <Compile Include="UserControls\AntUserControl.xaml.cs">
+      <DependentUpon>AntUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MissileUserControl.xaml.cs">
       <DependentUpon>MissileUserControl.xaml</DependentUpon>
@@ -85,8 +85,8 @@
       <DependentUpon>GridUnit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\MovementPerformer.cs" />
-    <Compile Include="ViewModels\CubeClashViewModel.cs" />
-    <Compile Include="ViewModels\CubeViewModel.cs" />
+    <Compile Include="ViewModels\AntWarsViewModel.cs" />
+    <Compile Include="ViewModels\AntViewModel.cs" />
     <Compile Include="ViewModels\ExplosionViewModel.cs" />
     <Compile Include="ViewModels\GridUnitViewModel.cs" />
     <Compile Include="ViewModels\MissileViewModel.cs" />
@@ -98,11 +98,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="UserControls\CubeClashUserControl.xaml">
+    <Page Include="UserControls\AntWarsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\CubeUserControl.xaml">
+    <Page Include="UserControls\AntUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -138,13 +138,13 @@
     <Content Include="Images\wood.jpg" />
     <Content Include="Images\yellowAnt.png" />
     <Content Include="Images\yellowMissile.png" />
+    <None Include="Resources\X-Wing-02-icon.png" />
     <None Include="Resources\explosion.png" />
     <None Include="Resources\lawn.jpg" />
     <None Include="Resources\redAnt.png" />
     <None Include="Resources\redMissile.png" />
     <None Include="Resources\rock.jpg" />
     <None Include="Resources\wood.jpg" />
-    <None Include="Resources\X-Wing-02-icon.png" />
     <None Include="Resources\yellowAnt.png" />
     <None Include="Resources\yellowMissile.png" />
     <Content Include="Sound\attack1.mp3" />

@@ -1,33 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common.Interfaces;
-using Game.CubeClash.Models;
-using Game.CubeClash.ViewModels;
+using Game.AntWars.Models;
+using Game.AntWars.ViewModels;
 
-namespace Game.CubeClash.Utilities
+namespace Game.AntWars.Utilities
 {
     public static class BotBuilder
     {
         private static Random _rand = new Random(DateTime.Now.Millisecond);
 
-        private static CubeClashViewModel _cubeClashViewModel;
+        private static AntWarsViewModel _antWarsViewModel;
 
-        public static void AddBots(IEnumerable<ICompetitor> competitors, CubeClashViewModel cubeClashViewModel)
+        public static void AddBots(IEnumerable<ICompetitor> competitors, AntWarsViewModel antWarsViewModel)
         {
-            _cubeClashViewModel = cubeClashViewModel;
+            _antWarsViewModel = antWarsViewModel;
 
             foreach (var competitor in competitors)
             {
-                var viewModel = new CubeViewModel();
+                var viewModel = new AntViewModel();
 
 
-                var cubeModel = new CubeModel(viewModel, competitor)
+                var antModel = new AntModel(viewModel, competitor)
                 {
-                    X = _rand.Next(0, _cubeClashViewModel.ColumnCount),
-                    Y = _rand.Next(0, _cubeClashViewModel.RowCount),
+                    X = _rand.Next(0, _antWarsViewModel.ColumnCount),
+                    Y = _rand.Next(0, _antWarsViewModel.RowCount),
                 };
 
-                _cubeClashViewModel.MovableObjectsCollection.Add(cubeModel);
+                _antWarsViewModel.MovableObjectsCollection.Add(antModel);
             }
         }
     }

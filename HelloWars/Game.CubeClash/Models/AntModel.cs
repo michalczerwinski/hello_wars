@@ -3,22 +3,22 @@ using System.Windows.Media;
 using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
-using Game.CubeClash.Enums;
-using Game.CubeClash.Interfaces;
-using Game.CubeClash.Properties;
-using Game.CubeClash.ViewModels;
+using Game.AntWars.Enums;
+using Game.AntWars.Interfaces;
+using Game.AntWars.Properties;
+using Game.AntWars.ViewModels;
 
-namespace Game.CubeClash.Models
+namespace Game.AntWars.Models
 {
-    public class CubeModel : BotClientBase<SurroundingAreaInfo, CubeMove>, IMovableObject
+    public class AntModel : BotClientBase<SurroundingAreaInfo, BotMove>, IMovableObject
     {
         private static ImageSource _yellowMissileImage = ResourceImageHelper.LoadImage(Resources.yellowMissile);
         private static ImageSource _redMissileImage = ResourceImageHelper.LoadImage(Resources.redMissile);
 
         public ICompetitor Competitor { get; set; }
-        public CubeViewModel ViewModel { get; set; }
-        private readonly int _cubeWidth;
-        private readonly int _cubeHeigth;
+        public AntViewModel ViewModel { get; set; }
+        private readonly int _antWidth;
+        private readonly int _antHeigth;
 
         public int X
         {
@@ -38,7 +38,7 @@ namespace Game.CubeClash.Models
             set { ViewModel.Color = value; }
         }
 
-        public CubeModel(CubeViewModel viewModel, ICompetitor competitor)
+        public AntModel(AntViewModel viewModel, ICompetitor competitor)
             : base(competitor)
         {
             Competitor = competitor;
@@ -61,11 +61,11 @@ namespace Game.CubeClash.Models
                 Direction = actionDirection,
             };
 
-            if (ViewModel.Image == CubeViewModel._redAntImage)
+            if (ViewModel.Image == AntViewModel._redAntImage)
             {
                 missile.ViewModel.Image = _redMissileImage;
             }
-            else if (ViewModel.Image == CubeViewModel._yellowAntImage)
+            else if (ViewModel.Image == AntViewModel._yellowAntImage)
             {
                 missile.ViewModel.Image = _yellowMissileImage;
             }
@@ -150,12 +150,12 @@ namespace Game.CubeClash.Models
 
         private void InitiateMovementShadow()
         {
-            ViewModel.MovementShadowTopDistance = -(4 * _cubeHeigth);
-            ViewModel.MovementShadowLeftDistance = -(2 * _cubeWidth);
-            ViewModel.CenterX = (double)_cubeWidth / 2;
-            ViewModel.CenterY = (double)_cubeHeigth / 2;
-            ViewModel.MovementShadowWidth = 11 * _cubeWidth;
-            ViewModel.MovementShadowHeight = 9 * _cubeHeigth;
+            ViewModel.MovementShadowTopDistance = -(4 * _antHeigth);
+            ViewModel.MovementShadowLeftDistance = -(2 * _antWidth);
+            ViewModel.CenterX = (double)_antWidth / 2;
+            ViewModel.CenterY = (double)_antHeigth / 2;
+            ViewModel.MovementShadowWidth = 11 * _antWidth;
+            ViewModel.MovementShadowHeight = 9 * _antHeigth;
             ViewModel.MovementShadowVisibility = Visibility.Visible;
         }
     }

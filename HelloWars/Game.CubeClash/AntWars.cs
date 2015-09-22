@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Controls;
 using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
-using Game.CubeClash.UserControls;
-using Game.CubeClash.Utilities;
-using Game.CubeClash.ViewModels;
-using UserControl = System.Windows.Controls.UserControl;
+using Game.AntWars.UserControls;
+using Game.AntWars.Utilities;
+using Game.AntWars.ViewModels;
 
-namespace Game.CubeClash
+namespace Game.AntWars
 {
-    public class CubeClash : IGame
+    public class AntWars : IGame
     {
-        private CubeClashViewModel _cubeClashViewModel;
+        private AntWarsViewModel _antWarsViewModel;
 
         private MovementPerformer _movementPerformer;
         #region IGameMembers
@@ -26,7 +26,7 @@ namespace Game.CubeClash
 
             DelayHelper.Delay(100);
 
-           _movementPerformer.PerformCubesMove();
+           _movementPerformer.PerformAntMove();
 
             DelayHelper.Delay(100);
 
@@ -51,21 +51,21 @@ namespace Game.CubeClash
         public void SetupNewGame(IEnumerable<ICompetitor> competitors)
         {
             Reset();
-            BotBuilder.AddBots(competitors, _cubeClashViewModel);
+            BotBuilder.AddBots(competitors, _antWarsViewModel);
         }
 
         public void Reset()
         {
-            _cubeClashViewModel.MovableObjectsCollection.Clear();
+            _antWarsViewModel.MovableObjectsCollection.Clear();
         }
 
         public UserControl GetVisualisationUserControl(IConfigurable configuration)
         {
-            _cubeClashViewModel = new CubeClashViewModel();
-            _movementPerformer = new MovementPerformer(_cubeClashViewModel);
+            _antWarsViewModel = new AntWarsViewModel();
+            _movementPerformer = new MovementPerformer(_antWarsViewModel);
 
-            BattlegroundBuilder.CreateBattleground(10, 10, _cubeClashViewModel);
-            return new CubeClashUserControl(_cubeClashViewModel);
+            BattlegroundBuilder.CreateBattleground(10, 10, _antWarsViewModel);
+            return new AntWarsUserControl(_antWarsViewModel);
         }
 
         public void SetPreview(object boardState)

@@ -2,12 +2,12 @@
 using System.Windows.Media;
 using Common.Helpers;
 using Common.Models;
-using Game.CubeClash.Enums;
-using Game.CubeClash.Properties;
+using Game.AntWars.Enums;
+using Game.AntWars.Properties;
 
-namespace Game.CubeClash.ViewModels
+namespace Game.AntWars.ViewModels
 {
-    public class CubeViewModel : BindableBase
+    public class AntViewModel : BindableBase
     {
         public static ImageSource _redAntImage = ResourceImageHelper.LoadImage(Resources.redAnt);
         private static bool _isRedAntAdded;
@@ -143,7 +143,7 @@ namespace Game.CubeClash.ViewModels
             }
         }
 
-        public CubeViewModel()
+        public AntViewModel()
         {
             if (!_isRedAntAdded)
             {

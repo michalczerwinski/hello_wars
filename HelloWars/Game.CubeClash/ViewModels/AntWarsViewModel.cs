@@ -1,18 +1,18 @@
 ﻿using System.Collections.ObjectModel;
 using Common.Models;
-using Game.CubeClash.Interfaces;
+using Game.AntWars.Interfaces;
 
-namespace Game.CubeClash.ViewModels
+namespace Game.AntWars.ViewModels
 {
-    public class CubeClashViewModel : BindableBase
+    public class AntWarsViewModel : BindableBase
     {
         public ObservableCollection<IMovableObject> MovableObjectsCollection { get; set; }
         public ObservableCollection<IUnmovableObject> BattlefieldObjectsCollection { get; set; }
 
         private int _battlegroundWidth;
         private int _battlegroundHeigth;
-        private int _cubeWidth;
-        private int _cubeHeigth;
+        private int _antWidth;
+        private int _antHeigth;
         private int _columnCount;
         private int _rowCount;
 
@@ -40,19 +40,19 @@ namespace Game.CubeClash.ViewModels
             set { SetProperty(ref _rowCount, value); }
         }
 
-        public int CubeWidth
+        public int AntWidth
         {
-            get { return _cubeWidth; }
-            set { SetProperty(ref _cubeWidth, value); }
+            get { return _antWidth; }
+            set { SetProperty(ref _antWidth, value); }
         }
 
-        public int CubeHeigth
+        public int AntHeigth
         {
-            get { return _cubeHeigth; }
-            set { SetProperty(ref _cubeHeigth, value); }
+            get { return _antHeigth; }
+            set { SetProperty(ref _antHeigth, value); }
         }
 
-        public CubeClashViewModel()
+        public AntWarsViewModel()
         {
             MovableObjectsCollection = new ObservableCollection<IMovableObject>();
             BattlefieldObjectsCollection = new ObservableCollection<IUnmovableObject>();

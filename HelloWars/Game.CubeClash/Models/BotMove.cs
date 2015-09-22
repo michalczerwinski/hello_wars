@@ -1,8 +1,8 @@
-﻿using Game.CubeClash.Enums;
+﻿using Game.AntWars.Enums;
 
-namespace Game.CubeClash.Models
+namespace Game.AntWars.Models
 {
-    public class CubeMove
+    public class BotMove
     {
         public AvailableActions Action { get; set; }
         public ActionDirections ActionDirection { get; set; }

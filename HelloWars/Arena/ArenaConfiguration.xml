@@ -6,7 +6,7 @@
   </EliminationConfiguration>
 
   <GameConfiguration>
-    <Type>CubeClash</Type>
+    <Type>AntWars</Type>
     <NextMoveDelay>300</NextMoveDelay>
     <NextMatchDelay>400</NextMatchDelay>
   </GameConfiguration>
@@ -21,8 +21,8 @@
     <Url>http://localhost:53886/DynaBlasterBot/</Url>
     <Url>http://localhost:53886/DynaBlasterBot/</Url>-->
 
-    <Url>http://localhost:53886/CubeClashBot/</Url>
-    <Url>http://localhost:53886/CubeClashBot/</Url>
+    <Url>http://localhost:53886/AntWarsBot/</Url>
+    <Url>http://localhost:53886/AntWarsBot/</Url>
     
     <!--<Url>http://localhost:53886/DynaBlasterBot/</Url>
     <Url>http://localhost:53886/DynaBlasterBot/</Url>

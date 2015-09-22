@@ -1,23 +1,23 @@
-﻿<UserControl x:Class="Game.CubeClash.UserControls.CubeClashUserControl"
+﻿<UserControl x:Class="Game.AntWars.UserControls.AntWarsUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:helpers="clr-namespace:Common.Helpers;assembly=Common"
-             xmlns:viewModels="clr-namespace:Game.CubeClash.ViewModels"
-             xmlns:resoures="clr-namespace:Game.CubeClash.UserControls.Resoures"
-             xmlns:userControls="clr-namespace:Game.CubeClash.UserControls"
-             xmlns:models="clr-namespace:Game.CubeClash.Models"
+             xmlns:models1="clr-namespace:Game.AntWars.Models"
+             xmlns:resoures="clr-namespace:Game.AntWars.UserControls.Resoures"
+             xmlns:userControls1="clr-namespace:Game.AntWars.UserControls"
+             xmlns:viewModels1="clr-namespace:Game.AntWars.ViewModels"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance Type=viewModels:CubeClashViewModel}">
+             d:DataContext="{d:DesignInstance Type=viewModels1:AntWarsViewModel}">
 
     <Grid>
         <ItemsControl Width="{Binding BattlegroundWidth}" Height="{Binding BattlegroundHeigth}" ItemsSource="{Binding BattlefieldObjectsCollection}">
             <ItemsControl.Resources>
-                <DataTemplate DataType="{x:Type models:ExplosionModel}">
-                    <userControls:MissileUserControl/>
+                <DataTemplate DataType="{x:Type models1:ExplosionModel}">
+                    <userControls1:MissileUserControl/>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type models:GridUnitModel}">
+                <DataTemplate DataType="{x:Type models1:GridUnitModel}">
                     <resoures:GridUnit/>
                 </DataTemplate>
             </ItemsControl.Resources>
@@ -36,14 +36,14 @@
 
         <ItemsControl Width="{Binding BattlegroundWidth}" Height="{Binding BattlegroundHeigth}" ItemsSource="{Binding MovableObjectsCollection}">
             <ItemsControl.Resources>
-                <DataTemplate DataType="{x:Type models:CubeModel}">
-                    <userControls:CubeUserControl/>
+                <DataTemplate DataType="{x:Type models1:AntModel}">
+                    <userControls1:AntUserControl/>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type models:MissileModel}">
-                    <userControls:MissileUserControl/>
+                <DataTemplate DataType="{x:Type models1:MissileModel}">
+                    <userControls1:MissileUserControl/>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewModels:ExplosionViewModel}">
-                    <userControls:MissileUserControl/>
+                <DataTemplate DataType="{x:Type viewModels1:ExplosionViewModel}">
+                    <userControls1:MissileUserControl/>
                 </DataTemplate>
             </ItemsControl.Resources>
             <ItemsControl.ItemsPanel>

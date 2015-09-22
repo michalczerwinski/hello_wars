@@ -1,6 +1,6 @@
-﻿using Game.CubeClash.Enums;
+﻿using Game.AntWars.Enums;
 
-namespace Game.CubeClash.Models
+namespace Game.AntWars.Models
 {
     public static class UnmovableObjects
     {

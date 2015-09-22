@@ -1,11 +1,11 @@
 ﻿using System.Windows.Controls;
 
-namespace Game.CubeClash.UserControls
+namespace Game.AntWars.UserControls
 {
     /// <summary>
     /// Interaction logic for MissileUserControl.xaml
     /// </summary>
-    public partial class MissileUserControl : UserControl
+    public partial class MissileUserControl
     {
         public MissileUserControl()
         {

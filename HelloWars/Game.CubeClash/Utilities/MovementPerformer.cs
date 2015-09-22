@@ -2,41 +2,41 @@
 using System.Linq;
 using System.Windows.Media;
 using Common.Helpers;
-using Game.CubeClash.Enums;
-using Game.CubeClash.Models;
-using Game.CubeClash.Properties;
-using Game.CubeClash.ViewModels;
+using Game.AntWars.Enums;
+using Game.AntWars.Models;
+using Game.AntWars.Properties;
+using Game.AntWars.ViewModels;
 
-namespace Game.CubeClash.Utilities
+namespace Game.AntWars.Utilities
 {
     public class MovementPerformer
     {
         private static ImageSource _explosionImage = ResourceImageHelper.LoadImage(Resources.explosion);
 
-        private CubeClashViewModel _cubeClashViewModel;
+        private AntWarsViewModel _antWarsViewModel;
 
-        public MovementPerformer(CubeClashViewModel cubeClashViewModel)
+        public MovementPerformer(AntWarsViewModel antWarsViewModel)
         {
-            _cubeClashViewModel = cubeClashViewModel;
+            _antWarsViewModel = antWarsViewModel;
 
         }
 
         public void KillExplosions()
         {
-            var explosionsToDelete = _cubeClashViewModel.BattlefieldObjectsCollection.Where(t => t.Type == UnmovableObjectTypes.Explosion).ToList();
+            var explosionsToDelete = _antWarsViewModel.BattlefieldObjectsCollection.Where(t => t.Type == UnmovableObjectTypes.Explosion).ToList();
 
             foreach (var explosion in explosionsToDelete)
             {
-                _cubeClashViewModel.BattlefieldObjectsCollection.Remove(explosion);
+                _antWarsViewModel.BattlefieldObjectsCollection.Remove(explosion);
             }
         }
 
-        public void PerformCubesMove()
+        public void PerformAntMove()
         {
             var listOfMissilesToFire = new List<MissileModel>();
-            var listOfCubesToRemove = new List<CubeModel>();
+            var listOfAntsToRemove = new List<AntModel>();
 
-            foreach (var movableObject in _cubeClashViewModel.MovableObjectsCollection.OfType<CubeModel>())
+            foreach (var movableObject in _antWarsViewModel.MovableObjectsCollection.OfType<AntModel>())
             {
                 var move = movableObject.NextMove(null);
 
@@ -48,7 +48,7 @@ namespace Game.CubeClash.Utilities
                             {
                                 case ActionDirections.Down:
                                     {
-                                        if ((movableObject.Y < _cubeClashViewModel.RowCount - 1) && (IfMoveIsValid(movableObject.X, movableObject.Y + 1)))
+                                        if ((movableObject.Y < _antWarsViewModel.RowCount - 1) && (IfMoveIsValid(movableObject.X, movableObject.Y + 1)))
                                         {
                                             movableObject.Down();
                                         }
@@ -72,7 +72,7 @@ namespace Game.CubeClash.Utilities
                                     }
                                 case ActionDirections.Right:
                                     {
-                                        if ((movableObject.X < _cubeClashViewModel.ColumnCount - 1) && (IfMoveIsValid(movableObject.X + 1, movableObject.Y)))
+                                        if ((movableObject.X < _antWarsViewModel.ColumnCount - 1) && (IfMoveIsValid(movableObject.X + 1, movableObject.Y)))
                                         {
                                             movableObject.Right();
                                         }
@@ -92,36 +92,36 @@ namespace Game.CubeClash.Utilities
                             break;
                         }
                 }
-                //if missile meet some cube
-                if (_cubeClashViewModel.MovableObjectsCollection.OfType<MissileModel>().Any(missile => missile.X == movableObject.X && missile.Y == movableObject.Y))
+                //if missile meet some ant
+                if (_antWarsViewModel.MovableObjectsCollection.OfType<MissileModel>().Any(missile => missile.X == movableObject.X && missile.Y == movableObject.Y))
                 {
-                    listOfCubesToRemove.Add(movableObject);
+                    listOfAntsToRemove.Add(movableObject);
                 }
             }
 
-            foreach (var cube in listOfCubesToRemove)
+            foreach (var ant in listOfAntsToRemove)
             {
-                _cubeClashViewModel.MovableObjectsCollection.Remove(cube);
+                _antWarsViewModel.MovableObjectsCollection.Remove(ant);
             }
 
             foreach (var missile in listOfMissilesToFire)
             {
-                _cubeClashViewModel.MovableObjectsCollection.Add(missile);
+                _antWarsViewModel.MovableObjectsCollection.Add(missile);
             }
 
-            if (_cubeClashViewModel.MovableObjectsCollection.OfType<CubeModel>().Count() <= 1)
+            if (_antWarsViewModel.MovableObjectsCollection.OfType<AntModel>().Count() <= 1)
             {
             }
         }
 
         public bool IfMoveIsValid(int newPointX, int newPointY)
         {
-            if (_cubeClashViewModel.MovableObjectsCollection.Any(cube => cube.X == newPointX && cube.Y == newPointY))
+            if (_antWarsViewModel.MovableObjectsCollection.Any(ant => ant.X == newPointX && ant.Y == newPointY))
             {
                 return false;
             }
 
-            if (_cubeClashViewModel.BattlefieldObjectsCollection.Where(type => type.Type == UnmovableObjectTypes.Wood || type.Type == UnmovableObjectTypes.Rock).Any(cube => cube.X == newPointX && cube.Y == newPointY))
+            if (_antWarsViewModel.BattlefieldObjectsCollection.Where(type => type.Type == UnmovableObjectTypes.Wood || type.Type == UnmovableObjectTypes.Rock).Any(ant => ant.X == newPointX && ant.Y == newPointY))
             {
                 return false;
             }
@@ -133,7 +133,7 @@ namespace Game.CubeClash.Utilities
         {
             var listOfMissilesToRemove = new List<MissileModel>();
 
-            foreach (var missileObject in _cubeClashViewModel.MovableObjectsCollection.OfType<MissileModel>())
+            foreach (var missileObject in _antWarsViewModel.MovableObjectsCollection.OfType<MissileModel>())
             {
                 switch (missileObject.Direction)
                 {
@@ -173,12 +173,12 @@ namespace Game.CubeClash.Utilities
                         }
                     };
 
-                    _cubeClashViewModel.BattlefieldObjectsCollection.Add(explosion);
+                    _antWarsViewModel.BattlefieldObjectsCollection.Add(explosion);
                     listOfMissilesToRemove.Add(missileObject);
                 }
 
                 //if missile meet some missile
-                if (_cubeClashViewModel.MovableObjectsCollection.OfType<MissileModel>().Any(missile => missile.X == missileObject.X && missile.Y == missileObject.Y))
+                if (_antWarsViewModel.MovableObjectsCollection.OfType<MissileModel>().Any(missile => missile.X == missileObject.X && missile.Y == missileObject.Y))
                 {
                     //detonate missileObject and make chain reaction if there are some missiles near
                 }
@@ -186,7 +186,7 @@ namespace Game.CubeClash.Utilities
 
             foreach (var item in listOfMissilesToRemove)
             {
-                _cubeClashViewModel.MovableObjectsCollection.Remove(item);
+                _antWarsViewModel.MovableObjectsCollection.Remove(item);
             }
         }
     }

@@ -1,8 +1,8 @@
 ﻿using System.Windows.Media;
 using Common.Models;
-using Game.CubeClash.Enums;
+using Game.AntWars.Enums;
 
-namespace Game.CubeClash.ViewModels
+namespace Game.AntWars.ViewModels
 {
     public class MissileViewModel : BindableBase
     {

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Media;
 using Common.Models;
 
-namespace Game.CubeClash.ViewModels
+namespace Game.AntWars.ViewModels
 {
     public class ExplosionViewModel : BindableBase
     {

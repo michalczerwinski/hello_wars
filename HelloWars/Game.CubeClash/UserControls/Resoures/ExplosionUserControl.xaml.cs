@@ -1,11 +1,9 @@
-﻿using System.Windows.Controls;
-
-namespace Game.CubeClash.UserControls.Resoures
+﻿namespace Game.AntWars.UserControls.Resoures
 {
     /// <summary>
     /// Interaction logic for ExplosionUserControl.xaml
     /// </summary>
-    public partial class ExplosionUserControl : UserControl
+    public partial class ExplosionUserControl
     {
         public ExplosionUserControl()
         {

@@ -1,8 +1,8 @@
-﻿using Game.CubeClash.Enums;
-using Game.CubeClash.Interfaces;
-using Game.CubeClash.ViewModels;
+﻿using Game.AntWars.Enums;
+using Game.AntWars.Interfaces;
+using Game.AntWars.ViewModels;
 
-namespace Game.CubeClash.Models
+namespace Game.AntWars.Models
 {
     public class ExplosionModel: IUnmovableObject
     {

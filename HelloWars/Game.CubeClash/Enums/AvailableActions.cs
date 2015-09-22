@@ -1,4 +1,4 @@
-﻿namespace Game.CubeClash.Enums
+﻿namespace Game.AntWars.Enums
 {
     public enum AvailableActions
     {

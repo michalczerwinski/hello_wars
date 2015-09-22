@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Windows;
-using Game.CubeClash.Models;
-using Game.CubeClash.ViewModels;
+using Game.AntWars.Models;
+using Game.AntWars.ViewModels;
 
-namespace Game.CubeClash.UserControls
+namespace Game.AntWars.UserControls
 {
-    public partial class CubeUserControl
+    public partial class AntUserControl
     {
-        private CubeViewModel _viewModel
+        private AntViewModel _viewModel
         {
             get
             {
-                var cubeModel = (CubeModel) DataContext;
-                return cubeModel.ViewModel;
+                var antModel = (AntModel) DataContext;
+                return antModel.ViewModel;
             }
         }
 
-        public CubeUserControl()
+        public AntUserControl()
         {
             InitializeComponent();
         }

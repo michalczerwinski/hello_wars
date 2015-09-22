@@ -1,11 +1,11 @@
 ﻿using System.Web.Http;
 using SampleWebBotClient.Helpers;
 using SampleWebBotClient.Models;
-using SampleWebBotClient.Models.CubeClash;
+using SampleWebBotClient.Models.AntWars;
 
 namespace SampleWebBotClient.Controllers
 {
-    public class CubeClashBotController : ApiController
+    public class AntWarsBotController : ApiController
     {
         [HttpGet]
         public BotInfo Info()
@@ -14,18 +14,18 @@ namespace SampleWebBotClient.Controllers
             {
                 Name = NameHelper.GetRandomName(),
                 AvatarUrl = "http://localhost:53886/Content/BotImg.png",
-                GameType = "CubeClash"
+                GameType = "AntWars"
             };
 
             return bot;
         }
 
         [HttpPost]
-        public CubeMove PerformNextMove(SurroundingAreaInfo arenaInfo)
+        public BotMove PerformNextMove(SurroundingAreaInfo arenaInfo)
         {
             var nextMove = EnumValueHelper<AvailableActions>.RandomEnumValue();
 
-            var result = new CubeMove();
+            var result = new BotMove();
 
             result.Action = nextMove;
             switch (nextMove)

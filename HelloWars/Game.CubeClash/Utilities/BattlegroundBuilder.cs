@@ -1,9 +1,9 @@
 ﻿using System;
-using Game.CubeClash.Enums;
-using Game.CubeClash.Models;
-using Game.CubeClash.ViewModels;
+using Game.AntWars.Enums;
+using Game.AntWars.Models;
+using Game.AntWars.ViewModels;
 
-namespace Game.CubeClash.Utilities
+namespace Game.AntWars.Utilities
 {
     public static class BattlegroundBuilder
     {
@@ -12,25 +12,25 @@ namespace Game.CubeClash.Utilities
         private const int BATTLEFIELD_UNIT_WIDTH = 10;
         private static Random _rand = new Random(DateTime.Now.Millisecond);
 
-        private static CubeClashViewModel _cubeClashViewModel;
+        private static AntWarsViewModel _antWarsViewModel;
 
-        public static void CreateBattleground(int rows, int collumns, CubeClashViewModel cubeClashViewModel)
+        public static void CreateBattleground(int rows, int collumns, AntWarsViewModel antWarsViewModel)
         {
-            _cubeClashViewModel = cubeClashViewModel;
+            _antWarsViewModel = antWarsViewModel;
 
-            _cubeClashViewModel.RowCount = rows;
-            _cubeClashViewModel.ColumnCount = collumns;
-            _cubeClashViewModel.BattlegroundWidth = _cubeClashViewModel.RowCount * BATTLEFIELD_UNIT_HEIGTH;
-            _cubeClashViewModel.BattlegroundHeigth = _cubeClashViewModel.ColumnCount * BATTLEFIELD_UNIT_WIDTH;
+            _antWarsViewModel.RowCount = rows;
+            _antWarsViewModel.ColumnCount = collumns;
+            _antWarsViewModel.BattlegroundWidth = _antWarsViewModel.RowCount * BATTLEFIELD_UNIT_HEIGTH;
+            _antWarsViewModel.BattlegroundHeigth = _antWarsViewModel.ColumnCount * BATTLEFIELD_UNIT_WIDTH;
 
             InitiateBattlefield();
         }
 
         private static void InitiateBattlefield()
         {
-            for (int i = 0; i < _cubeClashViewModel.RowCount; i++)
+            for (int i = 0; i < _antWarsViewModel.RowCount; i++)
             {
-                for (int j = 0; j < _cubeClashViewModel.ColumnCount; j++)
+                for (int j = 0; j < _antWarsViewModel.ColumnCount; j++)
                 {
                     var gridUnit = new GridUnitModel(new GridUnitViewModel())
                     {
@@ -39,7 +39,7 @@ namespace Game.CubeClash.Utilities
                         Type = ReturnWithSomeProbability()
                     };
 
-                    _cubeClashViewModel.BattlefieldObjectsCollection.Add(gridUnit);
+                    _antWarsViewModel.BattlefieldObjectsCollection.Add(gridUnit);
                 }
             }
         }

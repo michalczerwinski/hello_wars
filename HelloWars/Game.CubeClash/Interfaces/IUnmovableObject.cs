@@ -1,6 +1,6 @@
-﻿using Game.CubeClash.Enums;
+﻿using Game.AntWars.Enums;
 
-namespace Game.CubeClash.Interfaces
+namespace Game.AntWars.Interfaces
 {
     public interface IUnmovableObject
     {

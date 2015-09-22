@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Game.CubeClash.UserControls.Resoures.ExplosionUserControl"
+﻿<UserControl x:Class="Game.AntWars.UserControls.Resoures.ExplosionUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

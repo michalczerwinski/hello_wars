@@ -1,10 +1,10 @@
 ﻿using System.Windows.Media;
 using Common.Helpers;
 using Common.Models;
-using Game.CubeClash.Enums;
-using Game.CubeClash.Properties;
+using Game.AntWars.Enums;
+using Game.AntWars.Properties;
 
-namespace Game.CubeClash.ViewModels
+namespace Game.AntWars.ViewModels
 {
     public class GridUnitViewModel : BindableBase
     {
