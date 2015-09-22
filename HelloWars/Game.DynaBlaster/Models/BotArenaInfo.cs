@@ -7,6 +7,7 @@ namespace Game.DynaBlaster.Models
 {
     public class BotArenaInfo
     {
+        public int RoundNumber { get; set; }
         public Guid BotId { get; set; }
         public BoardTile[,] Board { get; set; }
         public Point BotLocation { get; set; }
@@ -14,5 +15,6 @@ namespace Game.DynaBlaster.Models
         public List<Point> OpponentLocations { get; set; }
         public List<IBomb> Bombs { get; set; }
         public List<IMissile> Missiles { get; set; }
+        public DynaBlasterConfig GameConfig { get; set; }
     }
 }

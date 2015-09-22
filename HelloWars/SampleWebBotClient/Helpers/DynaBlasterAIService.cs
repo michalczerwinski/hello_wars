@@ -10,26 +10,58 @@ namespace SampleWebBotClient.Helpers
     {
         private BotArenaInfo _arena;
         private int[,] _dangerMap;
-        private const int _explosionRadius = 2;
-        private const int _desiredDistanceFromOpponent = 2;
+        private int _desiredDistanceFromOpponent = 4;
         private static readonly Random _rand = new Random(DateTime.Now.Millisecond);
         private static readonly List<MoveDirection> _allDirections = Enum.GetValues(typeof (MoveDirection)).Cast<MoveDirection>().ToList();
+        private Objective _currentObjective;
+        private Point _closestOpponentLocation;
+
+        private int CurrentBombBlastRadius
+        {
+            get { return _arena.GameConfig.BombBlastRadius + (_arena.GameConfig.RoundsBeforeIncreasingBlastRadius == 0 ? 0 : (_arena.RoundNumber / _arena.GameConfig.RoundsBeforeIncreasingBlastRadius)); }
+        }
+
+        private int CurrentMissileBlastRadius
+        {
+            get { return _arena.GameConfig.MissileBlastRadius + (_arena.GameConfig.RoundsBeforeIncreasingBlastRadius == 0 ? 0 : (_arena.RoundNumber / _arena.GameConfig.RoundsBeforeIncreasingBlastRadius)); }
+        }
 
         public BotMove CalculateNextMove(BotArenaInfo arena, List<Point> previousLocations)
         {
             _arena = arena;
+            _desiredDistanceFromOpponent = CurrentMissileBlastRadius + 4;
             _dangerMap = CalculateDangerMap();
 
             var result = new BotMove()
             {
-                Action = _rand.Next(5) == 0 ? (arena.IsMissileAvailable ? BotAction.FireMissile : BotAction.DropBomb) : BotAction.None,
-                FireDirection = _allDirections[_rand.Next(_allDirections.Count)]
+                Action = _rand.Next(7) == 0 ?  BotAction.DropBomb : BotAction.None
             };
 
-            var closestOpponent = _arena.OpponentLocations.OrderBy(point => point.DistanceFrom(_arena.BotLocation)).First();
+            _closestOpponentLocation = _arena.OpponentLocations.OrderBy(point => point.DistanceFrom(_arena.BotLocation)).First();
             
             var safestDirections = SafestDirections(_arena.BotLocation).ToList();
-            var objectiveDirections = ObjectiveDirections(_arena.BotLocation, closestOpponent);
+
+            var currentObjective = GetCurrentObjective();
+            List<MoveDirection> objectiveDirections = new List<MoveDirection>();
+            switch (currentObjective)
+            {
+                case Objective.GetCloserToOpponent:
+                    objectiveDirections = MatchingDirections(_arena.BotLocation, _closestOpponentLocation);
+                    break;
+                case Objective.GetIntoFiringPosition:
+                    objectiveDirections = _allDirections;
+                    break;
+                case Objective.DestroyThatSucker:
+                    if (IsSafe(_arena.BotLocation))
+                    {
+                        result.Action = BotAction.FireMissile;
+                        result.FireDirection = MatchingDirections(_arena.BotLocation, _closestOpponentLocation).First();
+                        result.Direction = null;
+                        return result;
+                    }
+                    break;
+            }
+
             var viableDirections = safestDirections.Intersect(objectiveDirections).ToList();
 
             if (viableDirections.Any())
@@ -46,16 +78,6 @@ namespace SampleWebBotClient.Helpers
 
         #region Movement methods
 
-        private List<MoveDirection> ObjectiveDirections(Point botLocation, Point opponentLocation)
-        {
-            if (botLocation.DistanceFrom(opponentLocation) < _desiredDistanceFromOpponent)
-            {
-                return _allDirections;
-            }
-
-            return MatchingDirections(botLocation, opponentLocation);
-        }
-
         private List<MoveDirection> MatchingDirections(Point startingPoint, Point destinationPoint)
         {
             var currentDistance = startingPoint.DistanceFrom(destinationPoint);
@@ -64,6 +86,7 @@ namespace SampleWebBotClient.Helpers
                 _allDirections.Where(
                     direction =>
                         IsValidLocation(startingPoint.AddDirectionMove(direction)) && startingPoint.AddDirectionMove(direction).DistanceFrom(destinationPoint) < currentDistance)
+                    .OrderByDescending(direction => startingPoint.DistanceFromInDirection(destinationPoint, direction))
                     .ToList();
         }
 
@@ -109,9 +132,10 @@ namespace SampleWebBotClient.Helpers
             return location.X >= 0 && location.Y >= 0 && location.X < _arena.Board.GetLength(0) && location.Y < _arena.Board.GetLength(1);
         }
 
-        private bool IsBlocked(Point location)
+        private bool IsBlocked(Point location, bool includeExplodables = false)
         {
-            return _arena.Board[location.X, location.Y] != BoardTile.Empty;
+            return _arena.Board[location.X, location.Y] != BoardTile.Empty && _arena.OpponentLocations.All(point => point != location) &&
+                   (!includeExplodables || (_arena.Bombs.All(bomb => bomb.Location != location) && _arena.Missiles.All(missile => missile.Location != location)));
         }
 
         #endregion
@@ -171,10 +195,56 @@ namespace SampleWebBotClient.Helpers
 
         private List<Point> GetBombDangerZone(Point centerLocation)
         {
-            var result = GetSurroundingPoints(centerLocation, _explosionRadius).ToList();
+            var result = GetSurroundingPoints(centerLocation, CurrentBombBlastRadius).ToList();
             result.Add(centerLocation);
 
             return result;
+        }
+
+        private bool CanSafelyFire(Point location, MoveDirection direction)
+        {
+            var tempLocation = new Point(location.X, location.Y);
+            for (int i = 0; i <= Math.Min(CurrentMissileBlastRadius, 4); i++)
+            {
+                tempLocation = tempLocation.AddDirectionMove(direction);
+                if (!IsValidLocation(tempLocation) || IsBlocked(tempLocation, true) || !IsSafe(tempLocation))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool IsFiringPosition(Point location)
+        {
+            return location.DistanceFrom(_closestOpponentLocation) >= _desiredDistanceFromOpponent &&
+                   (location.IsOnSameAxis(_closestOpponentLocation) || GetSurroundingPoints(_closestOpponentLocation, 1).Any(point => point.IsOnSameAxis(location))) &&
+                   CanSafelyFire(location, MatchingDirections(location, _closestOpponentLocation).First());
+        }
+
+        private bool IsSafe(Point location)
+        {
+            return _dangerMap[location.X, location.Y] == 0;
+        }
+
+        #endregion
+
+        #region Objective methods
+
+        private Objective GetCurrentObjective()
+        {
+            if (IsFiringPosition(_arena.BotLocation) && _arena.IsMissileAvailable)
+            {
+                return Objective.DestroyThatSucker;
+            }
+
+            if (_arena.BotLocation.DistanceFrom(_closestOpponentLocation) > _desiredDistanceFromOpponent)
+            {
+                return Objective.GetCloserToOpponent;
+            }
+
+            return Objective.GetIntoFiringPosition;
         }
 
         #endregion

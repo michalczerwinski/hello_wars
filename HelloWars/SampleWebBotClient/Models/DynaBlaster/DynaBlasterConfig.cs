@@ -1,8 +1,7 @@
 ﻿using System.Xml.Serialization;
 
-namespace Game.DynaBlaster.Models
+namespace SampleWebBotClient.Models.DynaBlaster
 {
-    [XmlRoot("DynaBlasterConfig")]
     public class DynaBlasterConfig
     {
         public int MapWidth { get; set; }
@@ -11,6 +10,5 @@ namespace Game.DynaBlaster.Models
         public int MissileBlastRadius { get; set; }
         public int RoundsBetweenMissiles { get; set; }
         public int RoundsBeforeIncreasingBlastRadius { get; set; }
-        public bool IsFastMissileModeEnabled { get; set; }
     }
 }
