@@ -45,16 +45,15 @@ namespace Game.DynaBlaster.UserControls
             _bombExplHorImgSource = ResourceImageHelper.LoadImage(Properties.Resources.bomb_expl_mid_hor);
             _bombExplVerImgSource = ResourceImageHelper.LoadImage(Properties.Resources.bomb_expl_mid_vert);
 
-            
+            _tileSize = (int)(Height - PlayersGrid.Height) / _arena.Board.GetLength(1);
+            Width = _tileSize * _arena.Board.GetLength(0);
+
             BoardGrid = new DynaBlasterGridControl();
             BoardGrid.SetValue(Grid.RowProperty, 1);
-            BoardGrid.Init(_arena.Board.GetLength(0), _arena.Board.GetLength(1));
+            BoardGrid.Init(_arena.Board.GetLength(0), _arena.Board.GetLength(1), _tileSize);
             Background = new ImageBrush(_mapBackgroundImgSource);
 
             MainGrid.Children.Add(BoardGrid);
-
-            _tileSize = (int) (Height - PlayersGrid.Height)/_arena.Board.GetLength(1);
-            Width = _tileSize*_arena.Board.GetLength(0);
             
             arena.ArenaChanged += OnArenaChange;
         }

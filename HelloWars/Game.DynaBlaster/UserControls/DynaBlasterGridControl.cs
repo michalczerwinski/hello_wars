@@ -1,25 +1,24 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 
 namespace Game.DynaBlaster.UserControls
 {
     public class DynaBlasterGridControl : Grid
     {
-        public void Init(int xSize, int ySize)
+        public void Init(int xSize, int ySize, int tileSize)
         {
-            SetValue(ShowGridLinesProperty, false);
-
             for (int i = 0; i < xSize; i++)
             {
-                ColumnDefinitions.Add(new ColumnDefinition());
+                ColumnDefinitions.Add(new ColumnDefinition(){Width = new GridLength(tileSize)});
             }
 
             for (int i = 0; i < ySize; i++)
             {
-                RowDefinitions.Add(new RowDefinition());
+                RowDefinitions.Add(new RowDefinition(){Height = new GridLength(tileSize)});
             }
         }
-
+        
         public void AddElement(UIElement element, int x, int y)
         {
             if(element == null)
