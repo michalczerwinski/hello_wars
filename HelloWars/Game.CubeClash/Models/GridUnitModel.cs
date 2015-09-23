@@ -1,7 +1,8 @@
-﻿using Game.CubeClash.Interfaces;
-using Game.CubeClash.ViewModels;
+﻿using Game.AntWars.Enums;
+using Game.AntWars.Interfaces;
+using Game.AntWars.ViewModels;
 
-namespace Game.CubeClash.Models
+namespace Game.AntWars.Models
 {
     class GridUnitModel: IUnmovableObject
     {
@@ -22,6 +23,12 @@ namespace Game.CubeClash.Models
         public GridUnitModel(GridUnitViewModel viewModel)
         {
             ViewModel = viewModel;
+        }
+
+        public UnmovableObjectTypes Type
+        {
+            get { return ViewModel.LandType; }
+            set { ViewModel.LandType = value; }
         }
     }
 }

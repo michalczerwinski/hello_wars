@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Game.DynaBlaster.Helpers;
+using Common.Helpers;
 using Game.DynaBlaster.Models;
 using Image = System.Windows.Controls.Image;
 
@@ -26,7 +26,6 @@ namespace Game.DynaBlaster.UserControls
         private readonly BitmapImage _mapBackgroundImgSource;
         private readonly BitmapImage _bombExplVerImgSource;
         private readonly BitmapImage _bombExplHorImgSource;
-        private readonly MediaPlayer _mediaPlayer;
 
         private readonly int _tileSize;
 

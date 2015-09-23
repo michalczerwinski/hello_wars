@@ -1,9 +1,8 @@
-﻿using System.Drawing;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using Common.Models;
-using Game.CubeClash.Enums;
+using Game.AntWars.Enums;
 
-namespace Game.CubeClash.ViewModels
+namespace Game.AntWars.ViewModels
 {
     public class MissileViewModel : BindableBase
     {
@@ -11,10 +10,13 @@ namespace Game.CubeClash.ViewModels
         private int _range;
         private int _y;
         private SolidColorBrush _color;
-        private Image _image;
-        private AvailableMoves _direction;
-
-        public Image Image
+        private ImageSource _image;
+        private ActionDirections _direction;
+        private int _angle;
+        private double _centerX;
+        private double _centerY;
+       
+        public ImageSource Image
         {
             get { return _image; }
             set { SetProperty(ref _image, value); }
@@ -26,7 +28,7 @@ namespace Game.CubeClash.ViewModels
             set { SetProperty(ref _color, value); }
         }
 
-        public AvailableMoves Direction
+        public ActionDirections Direction
         {
             get { return _direction; }
             set { SetProperty(ref _direction, value); }
@@ -50,9 +52,22 @@ namespace Game.CubeClash.ViewModels
             set { SetProperty(ref _y, value); }
         }
 
-        public MissileViewModel()
+        public int Angle
         {
-            Color = new SolidColorBrush(Colors.Black);
+            get { return _angle; }
+            set { SetProperty(ref _angle, value); }
+        }
+
+        public double CenterX
+        {
+            get { return _centerX; }
+            set { SetProperty(ref _centerX, value); }
+        }
+
+        public double CenterY
+        {
+            get { return _centerY; }
+            set { SetProperty(ref _centerY, value); }
         }
     }
 }
