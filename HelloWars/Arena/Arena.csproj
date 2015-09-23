@@ -91,6 +91,7 @@
     <Compile Include="Commands\MenuItemCommands\GameRulesCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\OpenGameConfigCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\OpenCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\StopCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\PlayDuelCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\ToggleHistoryCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\VerifyPlayersCommand.cs" />
@@ -155,12 +156,14 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\autoplay2.png" />
+    <Resource Include="Icons\play.png" />
+    <Resource Include="Icons\stop.png" />
     <Resource Include="Icons\About.png" />
     <Resource Include="Icons\Rules.png" />
     <Resource Include="Icons\VerifyPlayers.png" />
     <Resource Include="Icons\Settings.png" />
     <Resource Include="Icons\Close.png" />
-    <Resource Include="Icons\AutoPlay.png" />
     <Resource Include="Icons\Open.png" />
     <Resource Include="Icons\PlayDuel.png" />
   </ItemGroup>

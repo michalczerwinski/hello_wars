@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Common.Helpers
@@ -9,6 +10,14 @@ namespace Common.Helpers
         {
             var webClient = CreateWebClient();
             var response = webClient.UploadString(url, JsonHelper.Serialize(parameter));
+
+            return JsonHelper.Deserialize<TResponse>(response);
+        }
+
+        public static async Task<TResponse> PostDataAsync<TParam, TResponse>(string url, TParam parameter)
+        {
+            var webClient = CreateWebClient();
+            var response = await webClient.UploadStringTaskAsync(new Uri(url), JsonHelper.Serialize(parameter));
 
             return JsonHelper.Deserialize<TResponse>(response);
         }

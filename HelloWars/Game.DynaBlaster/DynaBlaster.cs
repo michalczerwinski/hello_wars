@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using Common.Helpers;
 using Common.Interfaces;
@@ -42,7 +43,7 @@ namespace Game.DynaBlaster
 
         #region IGame members
 
-        public RoundResult PerformNextRound()
+        public async Task<RoundResult> PerformNextRoundAsync()
         {
             _roundNumber++;
 
@@ -58,7 +59,7 @@ namespace Game.DynaBlaster
                 };
             }
 
-            var partialResults = PlayBotMoves();
+            var partialResults = await PlayBotMovesAsync();
 
             return new RoundResult
             {
@@ -236,20 +237,23 @@ namespace Game.DynaBlaster
             }
         }
 
-        private IEnumerable<RoundPartialHistory> PlayBotMoves()
+        private async Task<List<RoundPartialHistory>> PlayBotMovesAsync()
         {
+            var result = new List<RoundPartialHistory>();
             foreach (var dynaBlasterBot in _arena.Bots.Where(bot => !bot.IsDead))
             {
-                var move = dynaBlasterBot.NextMove(GetBotArenaInfo(dynaBlasterBot));
+                var move = await dynaBlasterBot.NextMoveAsync(GetBotArenaInfo(dynaBlasterBot));
 
                 if (IsMoveValid(dynaBlasterBot, move))
                 {
-                    yield return PerformMove(dynaBlasterBot, move);
+                    result.Add(PerformMove(dynaBlasterBot, move));
                     _arena.OnArenaChanged();
                 }
 
                 DelayHelper.Delay(_delayTime);
             }
+
+            return result;
         }
 
         private bool IsMoveValid(DynaBlasterBot bot, BotMove move)

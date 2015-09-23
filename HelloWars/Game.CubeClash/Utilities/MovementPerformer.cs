@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Media;
 using Common.Helpers;
 using Game.AntWars.Enums;
@@ -31,14 +32,14 @@ namespace Game.AntWars.Utilities
             }
         }
 
-        public void PerformAntMove()
+        public async Task PerformAntMoveAsync()
         {
             var listOfMissilesToFire = new List<MissileModel>();
             var listOfAntsToRemove = new List<AntModel>();
 
             foreach (var movableObject in _antWarsViewModel.MovableObjectsCollection.OfType<AntModel>())
             {
-                var move = movableObject.NextMove(null);
+                var move = await movableObject.NextMoveAsync(null);
 
                 switch (move.Action)
                 {

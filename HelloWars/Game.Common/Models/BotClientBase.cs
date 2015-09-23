@@ -1,4 +1,5 @@
-﻿using Common.Helpers;
+﻿using System.Threading.Tasks;
+using Common.Helpers;
 using Common.Interfaces;
 
 namespace Common.Models
@@ -11,9 +12,9 @@ namespace Common.Models
         public BotClientBase(ICompetitor competitor) : base(competitor)
         {}
 
-        public virtual TMove NextMove(TArenaInfo arenaInfo)
+        public virtual async Task<TMove> NextMoveAsync(TArenaInfo arenaInfo)
         {
-            return WebClientHelper.PostData<TArenaInfo, TMove>(Url + Resources.PerformNextMoveUrlSuffix, arenaInfo);
+            return await WebClientHelper.PostDataAsync<TArenaInfo, TMove>(Url + Resources.PerformNextMoveUrlSuffix, arenaInfo);
         }
     }
 }

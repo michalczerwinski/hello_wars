@@ -54,6 +54,7 @@
     <Compile Include="Converters\BinaryImageConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToOpacityConverter.cs" />
+    <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Helpers\CompetitorLoadService.cs" />
     <Compile Include="Helpers\DelayHelper.cs" />
     <Compile Include="Helpers\EnumValueHelper.cs" />
