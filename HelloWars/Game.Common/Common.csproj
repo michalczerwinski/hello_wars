@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,14 +51,17 @@
   <ItemGroup>
     <Compile Include="Annotations.cs" />
     <Compile Include="CommandBase.cs" />
+    <Compile Include="Converters\BinaryImageConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToOpacityConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Helpers\CompetitorLoadService.cs" />
     <Compile Include="Helpers\DelayHelper.cs" />
+    <Compile Include="Helpers\EnumValueHelper.cs" />
     <Compile Include="Helpers\GridHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\MultiDimArrayExtensions.cs" />
+    <Compile Include="Helpers\ResourceImageHelper.cs" />
     <Compile Include="Helpers\WebClientHelper.cs" />
     <Compile Include="Interfaces\IBotClient.cs" />
     <Compile Include="Interfaces\ICompetitor.cs" />

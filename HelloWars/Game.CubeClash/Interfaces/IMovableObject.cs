@@ -1,4 +1,4 @@
-﻿namespace Game.CubeClash.Interfaces
+﻿namespace Game.AntWars.Interfaces
 {
     public interface IMovableObject
     {

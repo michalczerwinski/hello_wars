@@ -1,4 +1,4 @@
-﻿namespace Game.CubeClash.Models
+﻿namespace Game.AntWars.Models
 {
     public class SurroundingAreaInfo
     {

@@ -1,37 +1,35 @@
-﻿using Game.CubeClash.Enums;
-using Game.CubeClash.Interfaces;
-using Game.CubeClash.ViewModels;
+﻿using Game.AntWars.Enums;
+using Game.AntWars.Interfaces;
+using Game.AntWars.ViewModels;
 
-namespace Game.CubeClash.Models
+namespace Game.AntWars.Models
 {
     public class MissileModel : IMovableObject
     {
-        private MissileViewModel _viewModel;
-        private AvailableMoves _direction;
+        public MissileViewModel ViewModel { get; set; }
         public int Range;
 
-        public AvailableMoves Direction
+        public ActionDirections Direction
         {
-            get { return _viewModel.Direction; }
-            set { _viewModel.Direction = value; }
+            get { return ViewModel.Direction; }
+            set { ViewModel.Direction = value; }
         }
 
         public int X
         {
-            get { return _viewModel.X; }
-            set { _viewModel.X = value; }
+            get { return ViewModel.X; }
+            set { ViewModel.X = value; }
         }
 
         public int Y
         {
-            get { return _viewModel.Y; }
-            set { _viewModel.Y = value; }
+            get { return ViewModel.Y; }
+            set { ViewModel.Y = value; }
         }
 
         public MissileModel(MissileViewModel viewModel)
         {
-            _viewModel = viewModel;
-            Range = 10;
+            ViewModel = viewModel;
         }
     }
 }
