@@ -12,38 +12,38 @@ namespace Game.DynaBlaster.Services
 {
     internal class BotService
     {
-        private readonly GameArena _arena;
+        private readonly Battlefield _field;
         private readonly DynaBlasterConfig _gameConfig;
         private readonly LocationService _locationService;
 
-        public BotService(GameArena arena, DynaBlasterConfig config, LocationService locationService)
+        public BotService(Battlefield field, DynaBlasterConfig config, LocationService locationService)
         {
-            _arena = arena;
+            _field = field;
             _gameConfig = config;
             _locationService = locationService;
         }
 
         public bool AreMultipleBotsLeft
         {
-            get { return _arena.AliveBots.Count >= 2; }
+            get { return _field.AliveBots.Count >= 2; }
         }
 
         public Dictionary<ICompetitor, double> GetBotResults()
         {
-            return _arena.Bots.ToDictionary(bot => bot as ICompetitor, bot => bot.IsDead ? 0.0 : 1.0);
+            return _field.Bots.ToDictionary(bot => bot as ICompetitor, bot => bot.IsDead ? 0.0 : 1.0);
         }
 
         public async Task<List<RoundPartialHistory>> PlayBotMovesAsync(int delayTime, int roundNumber)
         {
             var result = new List<RoundPartialHistory>();
-            foreach (var dynaBlasterBot in _arena.Bots.Where(bot => !bot.IsDead))
+            foreach (var dynaBlasterBot in _field.Bots.Where(bot => !bot.IsDead))
             {
-                var move = await dynaBlasterBot.NextMoveAsync(GetBotArenaInfo(dynaBlasterBot, roundNumber));
+                var move = await dynaBlasterBot.NextMoveAsync(GetBotBattlefieldInfo(dynaBlasterBot, roundNumber));
 
                 if (IsMoveValid(dynaBlasterBot, move))
                 {
                     result.Add(PerformMove(dynaBlasterBot, move, roundNumber));
-                    _arena.OnArenaChanged();
+                    _field.OnArenaChanged();
                 }
 
                 await DelayHelper.DelayAsync(delayTime);
@@ -54,12 +54,12 @@ namespace Game.DynaBlaster.Services
 
         public void SetUpBots(IEnumerable<ICompetitor> competitors)
         {
-            _arena.Bots = competitors.Select(competitor => new DynaBlasterBot(competitor)).ToList();
+            _field.Bots = competitors.Select(competitor => new DynaBlasterBot(competitor)).ToList();
 
-            for (var i = 0; i < _arena.Bots.Count; i++)
+            for (var i = 0; i < _field.Bots.Count; i++)
             {
-                _arena.Bots[i].Location = _locationService.GetRandomEmptyPointOnBoard();
-                _arena.Bots[i].Image = ResourceImageHelper.LoadImage(i%2 == 0 ? Resources.tank1 : Resources.tank2);
+                _field.Bots[i].Location = _locationService.GetRandomEmptyPointOnBoard();
+                _field.Bots[i].Image = ResourceImageHelper.LoadImage(i%2 == 0 ? Resources.tank1 : Resources.tank2);
             }
         }
 
@@ -73,17 +73,17 @@ namespace Game.DynaBlaster.Services
             return _gameConfig.MissileBlastRadius + (_gameConfig.RoundsBeforeIncreasingBlastRadius == 0 ? 0 : (roundNumber/_gameConfig.RoundsBeforeIncreasingBlastRadius));
         }
 
-        private BotArenaInfo GetBotArenaInfo(DynaBlasterBot bot, int roundNumber)
+        private BotBattlefieldInfo GetBotBattlefieldInfo(DynaBlasterBot bot, int roundNumber)
         {
-            return new BotArenaInfo
+            return new BotBattlefieldInfo
             {
                 RoundNumber = roundNumber,
                 BotId = bot.Id,
-                Board = _arena.Board,
-                Bombs = _arena.Bombs.Cast<IBomb>().ToList(),
+                Board = _field.Board,
+                Bombs = _field.Bombs.Cast<IBomb>().ToList(),
                 BotLocation = bot.Location,
-                OpponentLocations = _arena.Bots.Where(blasterBot => blasterBot.Id != bot.Id && !blasterBot.IsDead).Select(blasterBot => blasterBot.Location).ToList(),
-                Missiles = _arena.Missiles.Cast<IMissile>().ToList(),
+                OpponentLocations = _field.Bots.Where(blasterBot => blasterBot.Id != bot.Id && !blasterBot.IsDead).Select(blasterBot => blasterBot.Location).ToList(),
+                Missiles = _field.Missiles.Cast<IMissile>().ToList(),
                 IsMissileAvailable = IsMissileAvailable(bot, roundNumber),
                 GameConfig = _gameConfig
             };
@@ -97,8 +97,8 @@ namespace Game.DynaBlaster.Services
         private bool IsMoveValid(DynaBlasterBot bot, BotMove move)
         {
             var newLocation = _locationService.GetNewLocation(bot.Location, move.Direction);
-            return _locationService.IsLocationValid(newLocation) && _arena.Board[newLocation.X, newLocation.Y] == BoardTile.Empty
-                   && !_arena.Bots.Any(blasterBot => blasterBot.Id != bot.Id && blasterBot.Location == newLocation);
+            return _locationService.IsLocationValid(newLocation) && _field.Board[newLocation.X, newLocation.Y] == BoardTile.Empty
+                   && !_field.Bots.Any(blasterBot => blasterBot.Id != bot.Id && blasterBot.Location == newLocation);
         }
 
         private RoundPartialHistory PerformMove(DynaBlasterBot bot, BotMove move, int roundNumber)
@@ -107,7 +107,7 @@ namespace Game.DynaBlaster.Services
 
             if (move.Action == BotAction.DropBomb)
             {
-                _arena.Bombs.Add(new Bomb
+                _field.Bombs.Add(new Bomb
                 {
                     Location = bot.Location,
                     RoundsUntilExplodes = 5,
@@ -125,7 +125,7 @@ namespace Game.DynaBlaster.Services
                 if (IsMissileAvailable(bot, roundNumber) && _locationService.IsLocationAvailableForMissile(_locationService.GetNewLocation(bot.Location, move.FireDirection)))
                 {
                     bot.LastMissileFiredRound = roundNumber;
-                    _arena.Missiles.Add(new Missile
+                    _field.Missiles.Add(new Missile
                     {
                         ExplosionRadius = CurrentMissileBlastRadius(roundNumber),
                         MoveDirection = move.FireDirection,
@@ -142,7 +142,7 @@ namespace Game.DynaBlaster.Services
             return new RoundPartialHistory
             {
                 Caption = string.Format("Round {0} {1}: {2}", roundNumber, bot.Name, actionDescription),
-                BoardState = _arena.ExportState()
+                BoardState = _field.ExportState()
             };
         }
     }

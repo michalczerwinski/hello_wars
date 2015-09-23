@@ -9,22 +9,22 @@ namespace Game.DynaBlaster.Services
 {
     internal class ExplosionService
     {
-        private readonly GameArena _arena;
+        private readonly Battlefield _field;
         private readonly DynaBlasterConfig _gameConfig;
         private readonly LocationService _locationService;
 
-        public ExplosionService(GameArena arena, DynaBlasterConfig config, LocationService locationService)
+        public ExplosionService(Battlefield field, DynaBlasterConfig config, LocationService locationService)
         {
-            _arena = arena;
+            _field = field;
             _locationService = locationService;
             _gameConfig = config;
         }
 
         public async Task HandleExplodablesAsync(int explosionDisplayTime)
         {
-            _arena.Explosions.Clear();
+            _field.Explosions.Clear();
 
-            foreach (var bomb in _arena.Bombs)
+            foreach (var bomb in _field.Bombs)
             {
                 bomb.RoundsUntilExplodes--;
                 if (!bomb.IsExploded && bomb.RoundsUntilExplodes == 0)
@@ -33,19 +33,19 @@ namespace Game.DynaBlaster.Services
                 }
             }
 
-            foreach (var missile in _arena.Missiles)
+            foreach (var missile in _field.Missiles)
             {
                 HandleMissileMovement(missile);
             }
 
-            _arena.Bombs.RemoveAll(bomb => bomb.IsExploded);
-            _arena.Missiles.RemoveAll(missile => missile.IsExploded);
+            _field.Bombs.RemoveAll(bomb => bomb.IsExploded);
+            _field.Missiles.RemoveAll(missile => missile.IsExploded);
 
-            _arena.OnArenaChanged();
+            _field.OnArenaChanged();
 
             await DelayHelper.DelayAsync(explosionDisplayTime);
 
-            _arena.Explosions.Clear();
+            _field.Explosions.Clear();
         }
 
         private IEnumerable<Point> CalculateExplosionRay(ExplodableBase explodable, MoveDirection direction)
@@ -62,7 +62,7 @@ namespace Game.DynaBlaster.Services
 
                 yield return currentPoint;
 
-                if (_arena.Board[currentPoint.X, currentPoint.Y] != BoardTile.Empty)
+                if (_field.Board[currentPoint.X, currentPoint.Y] != BoardTile.Empty)
                 {
                     yield break;
                 }
@@ -87,7 +87,7 @@ namespace Game.DynaBlaster.Services
             {
                 var newLocation = _locationService.GetNewLocation(missile.Location, missile.MoveDirection);
 
-                if (_locationService.IsLocationAvailableForMissile(newLocation) && _arena.Bots.All(bot => bot.Location != missile.Location))
+                if (_locationService.IsLocationAvailableForMissile(newLocation) && _field.Bots.All(bot => bot.Location != missile.Location))
                 {
                     missile.Location = newLocation;
 
@@ -103,7 +103,7 @@ namespace Game.DynaBlaster.Services
 
         private void SetChainedExplosions(Explosion explosion)
         {
-            foreach (var bomb in _arena.Bombs)
+            foreach (var bomb in _field.Bombs)
             {
                 if (explosion.BlastLocations.Any(point => point == bomb.Location) && !bomb.IsExploded)
                 {
@@ -111,7 +111,7 @@ namespace Game.DynaBlaster.Services
                 }
             }
 
-            foreach (var missile in _arena.Missiles)
+            foreach (var missile in _field.Missiles)
             {
                 if (explosion.BlastLocations.Any(point => point == missile.Location) && !missile.IsExploded)
                 {
@@ -128,23 +128,23 @@ namespace Game.DynaBlaster.Services
                 BlastLocations = GetExplosionLocations(explodable)
             };
 
-            _arena.Explosions.Add(explosion);
+            _field.Explosions.Add(explosion);
 
             explodable.IsExploded = true;
 
             foreach (var explosionLocation in explosion.BlastLocations)
             {
-                switch (_arena.Board[explosionLocation.X, explosionLocation.Y])
+                switch (_field.Board[explosionLocation.X, explosionLocation.Y])
                 {
                     case BoardTile.Regular:
-                        _arena.Board[explosionLocation.X, explosionLocation.Y] = BoardTile.Empty;
+                        _field.Board[explosionLocation.X, explosionLocation.Y] = BoardTile.Empty;
                         break;
                     case BoardTile.Fortified:
-                        _arena.Board[explosionLocation.X, explosionLocation.Y] = BoardTile.Regular;
+                        _field.Board[explosionLocation.X, explosionLocation.Y] = BoardTile.Regular;
                         break;
                 }
 
-                _arena.Bots.ForEach(bot =>
+                _field.Bots.ForEach(bot =>
                 {
                     if (bot.Location == explosionLocation)
                     {

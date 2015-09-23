@@ -6,7 +6,7 @@ using Common.Models;
 
 namespace Game.DynaBlaster.Models
 {
-    public class DynaBlasterBot : BotClientBase<BotArenaInfo, BotMove>
+    public class DynaBlasterBot : BotClientBase<BotBattlefieldInfo, BotMove>
     {
         public DynaBlasterBot(ICompetitor competitor) : base(competitor)
         {

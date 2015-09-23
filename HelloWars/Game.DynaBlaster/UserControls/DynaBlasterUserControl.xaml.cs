@@ -16,7 +16,7 @@ namespace Game.DynaBlaster.UserControls
     public partial class DynaBlasterUserControl : UserControl
     {
         public DynaBlasterGridControl BoardGrid;
-        private readonly GameArena _arena;
+        private readonly Battlefield _arena;
         private readonly BitmapImage _bombImgSource;
         private readonly BitmapImage _missileImgSource;
         private readonly BitmapImage _regularTileImgSource;
@@ -29,7 +29,7 @@ namespace Game.DynaBlaster.UserControls
 
         private readonly int _tileSize;
 
-        public DynaBlasterUserControl(GameArena arena)
+        public DynaBlasterUserControl(Battlefield arena)
         {
             InitializeComponent();
 

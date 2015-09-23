@@ -5,11 +5,11 @@ using Common.Helpers;
 
 namespace Game.DynaBlaster.Models
 {
-    public class GameArena
+    public class Battlefield
     {
         private readonly Random _rand = new Random(DateTime.Now.Millisecond);
 
-        public GameArena(int boardWidth, int boardHeight)
+        public Battlefield(int boardWidth, int boardHeight)
         {
             Bots = new List<DynaBlasterBot>();
             Bombs = new List<Bomb>();
@@ -49,9 +49,9 @@ namespace Game.DynaBlaster.Models
             OnArenaChanged();
         }
 
-        public GameArena ExportState()
+        public Battlefield ExportState()
         {
-            var arena = new GameArena(Board.GetLength(0), Board.GetLength(1));
+            var arena = new Battlefield(Board.GetLength(0), Board.GetLength(1));
 
             Board.ForEveryElement((x, y, val) =>
             {
@@ -65,7 +65,7 @@ namespace Game.DynaBlaster.Models
             return arena;
         }
 
-        public void ImportState(GameArena arena)
+        public void ImportState(Battlefield arena)
         {
             Board = arena.Board;
             Bots = arena.Bots;

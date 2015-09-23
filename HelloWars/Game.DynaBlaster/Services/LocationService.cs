@@ -8,11 +8,11 @@ namespace Game.DynaBlaster.Services
     internal class LocationService
     {
         private readonly Random _rand = new Random(DateTime.Now.Millisecond);
-        private readonly GameArena _arena;
+        private readonly Battlefield _field;
 
-        public LocationService(GameArena arena)
+        public LocationService(Battlefield field)
         {
-            _arena = arena;
+            _field = field;
         }
 
         public Point GetRandomEmptyPointOnBoard()
@@ -20,10 +20,10 @@ namespace Game.DynaBlaster.Services
             var result = new Point();
             while (true)
             {
-                result.X = _rand.Next(_arena.Board.GetLength(0));
-                result.Y = _rand.Next(_arena.Board.GetLength(1));
+                result.X = _rand.Next(_field.Board.GetLength(0));
+                result.Y = _rand.Next(_field.Board.GetLength(1));
 
-                if (_arena.Board[result.X, result.Y] == BoardTile.Empty && _arena.Bots.All(bot => bot.Location != result))
+                if (_field.Board[result.X, result.Y] == BoardTile.Empty && _field.Bots.All(bot => bot.Location != result))
                 {
                     return result;
                 }
@@ -32,8 +32,8 @@ namespace Game.DynaBlaster.Services
 
         public bool IsLocationAvailableForMissile(Point location)
         {
-            return IsLocationValid(location) && _arena.Board[location.X, location.Y] == BoardTile.Empty && _arena.Bots.All(blasterBot => blasterBot.Location != location) &&
-                   _arena.Bombs.All(bomb => bomb.Location != location) && _arena.Missiles.All(m => m.Location != location);
+            return IsLocationValid(location) && _field.Board[location.X, location.Y] == BoardTile.Empty && _field.Bots.All(blasterBot => blasterBot.Location != location) &&
+                   _field.Bombs.All(bomb => bomb.Location != location) && _field.Missiles.All(m => m.Location != location);
         }
 
         public Point GetNewLocation(Point oldLocation, MoveDirection? direction)
@@ -67,9 +67,9 @@ namespace Game.DynaBlaster.Services
         public bool IsLocationValid(Point location)
         {
             return location.X >= 0
-                   && location.X < _arena.Board.GetLength(0)
+                   && location.X < _field.Board.GetLength(0)
                    && location.Y >= 0
-                   && location.Y < _arena.Board.GetLength(1);
+                   && location.Y < _field.Board.GetLength(1);
         }
     }
 }

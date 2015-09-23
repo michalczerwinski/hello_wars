@@ -17,7 +17,7 @@ namespace Game.DynaBlaster
     public class DynaBlaster : IGame
     {
         private readonly Random _rand = new Random(DateTime.Now.Millisecond);
-        private GameArena _arena;
+        private Battlefield _field;
         private BotService _botService;
         private int _delayTime;
         private ExplosionService _explosionService;
@@ -61,30 +61,30 @@ namespace Game.DynaBlaster
         public UserControl GetVisualisationUserControl(IConfigurable configurable)
         {
             _delayTime = configurable.NextMoveDelay;
-            return new DynaBlasterUserControl(_arena);
+            return new DynaBlasterUserControl(_field);
         }
 
         public void SetupNewGame(IEnumerable<ICompetitor> competitors)
         {
             Reset();
 
-            _arena.GenerateRandomBoard();
+            _field.GenerateRandomBoard();
 
             _botService.SetUpBots(competitors);
 
-            _arena.OnArenaChanged();
+            _field.OnArenaChanged();
         }
 
         public void Reset()
         {
-            _arena.Reset();
+            _field.Reset();
             _roundNumber = 0;
         }
 
         public void SetPreview(object boardState)
         {
-            _arena.ImportState((GameArena) boardState);
-            _arena.OnArenaChanged();
+            _field.ImportState((Battlefield) boardState);
+            _field.OnArenaChanged();
         }
 
         public string GetGameRules()
@@ -95,10 +95,10 @@ namespace Game.DynaBlaster
         public void ApplyConfiguration(string configurationXml)
         {
             _gameConfig = new XmlSerializer<DynaBlasterConfig>().Deserialize(configurationXml);
-            _arena = new GameArena(_gameConfig.MapWidth, _gameConfig.MapHeight);
-            _locationService = new LocationService(_arena);
-            _explosionService = new ExplosionService(_arena, _gameConfig, _locationService);
-            _botService = new BotService(_arena, _gameConfig, _locationService);
+            _field = new Battlefield(_gameConfig.MapWidth, _gameConfig.MapHeight);
+            _locationService = new LocationService(_field);
+            _explosionService = new ExplosionService(_field, _gameConfig, _locationService);
+            _botService = new BotService(_field, _gameConfig, _locationService);
         }
     }
 }
