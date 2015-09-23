@@ -120,6 +120,7 @@ namespace Game.DynaBlaster.UserControls
                     var xExplosion = new Image()
                     {
                         Source = _bombExplHorImgSource,
+                        Width = _tileSize
                     };
                     BoardGrid.AddElement(xExplosion, xLocation.X, xLocation.Y);
                 }
@@ -129,6 +130,7 @@ namespace Game.DynaBlaster.UserControls
                     var yExplosion = new Image
                     {
                         Source = _bombExplVerImgSource,
+                        Height = _tileSize
                     };
                     BoardGrid.AddElement(yExplosion, yLocation.X, yLocation.Y);
                 }

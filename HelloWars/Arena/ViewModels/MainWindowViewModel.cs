@@ -277,5 +277,38 @@ namespace Arena.ViewModels
             var container = new CompositionContainer(catalog);
             container.ComposeParts(ArenaConfiguration);
         }
+
+        public async Task PlayNextGameAsync()
+        {
+            var nextCompetitors = Elimination.GetNextCompetitors();
+            if (nextCompetitors != null)
+            {
+                var gameHistoryEntry = new GameHistoryEntryViewModel()
+                {
+                    GameDescription = Elimination.GetGameDescription(),
+                    History = new List<RoundPartialHistory>()
+                };
+
+                Game.SetupNewGame(nextCompetitors);
+
+                OutputText += "Game starting: " + gameHistoryEntry.GameDescription + "\n";
+
+                RoundResult result = new RoundResult();
+
+                do
+                {
+                    result = await Game.PerformNextRoundAsync();
+                    gameHistoryEntry.History.AddRange(result.History);
+                } while (!result.IsFinished && IsGameInProgress);
+
+                GameHistory.Add(gameHistoryEntry);
+
+                if (result.IsFinished)
+                {
+                    Elimination.SetLastDuelResult(result.FinalResult);
+                    ScoreList.SaveScore(result.FinalResult);
+                }
+            }
+        }
     }
 }

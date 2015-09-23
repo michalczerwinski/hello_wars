@@ -7,6 +7,8 @@ namespace Game.DynaBlaster.Models
 {
     public class GameArena
     {
+        private readonly Random _rand = new Random(DateTime.Now.Millisecond);
+
         public GameArena(int boardWidth, int boardHeight)
         {
             Bots = new List<DynaBlasterBot>();
@@ -21,6 +23,11 @@ namespace Game.DynaBlaster.Models
         public List<Bomb> Bombs { get; set; }
         public List<Missile> Missiles { get; set; }
         public List<Explosion> Explosions { get; set; }
+
+        public List<DynaBlasterBot> AliveBots
+        {
+            get { return Bots.Where(bot => !bot.IsDead).ToList(); }
+        } 
 
         public event EventHandler ArenaChanged;
 
@@ -64,6 +71,18 @@ namespace Game.DynaBlaster.Models
             Bots = arena.Bots;
             Bombs = arena.Bombs;
             Missiles = arena.Missiles;
+        }
+
+        public void GenerateRandomBoard()
+        {
+            for (var i = 0; i < Board.GetLength(0); i++)
+            {
+                for (var j = 0; j < Board.GetLength(1); j++)
+                {
+                    var tileType = _rand.Next(4) != 0 ? BoardTile.Empty : (BoardTile)(_rand.Next(3) + 1);
+                    Board[i, j] = tileType;
+                }
+            }
         }
     }
 }

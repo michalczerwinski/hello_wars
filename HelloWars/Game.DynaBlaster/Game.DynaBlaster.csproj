@@ -66,6 +66,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\BotService.cs" />
+    <Compile Include="Services\ExplosionService.cs" />
+    <Compile Include="Services\LocationService.cs" />
     <Compile Include="UserControls\DynaBlasterGridControl.cs" />
     <Compile Include="UserControls\DynaBlasterUserControl.xaml.cs">
       <DependentUpon>DynaBlasterUserControl.xaml</DependentUpon>
