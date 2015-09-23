@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using Common.Helpers;
 using Common.Interfaces;
@@ -17,7 +18,7 @@ namespace Game.AntWars
         private MovementPerformer _movementPerformer;
         #region IGameMembers
 
-        public RoundResult PerformNextRound()
+        public async Task<RoundResult> PerformNextRoundAsync()
         {
             _movementPerformer.KillExplosions();
             DelayHelper.Delay(20);
@@ -26,7 +27,7 @@ namespace Game.AntWars
 
             DelayHelper.Delay(100);
 
-           _movementPerformer.PerformAntMove();
+           await _movementPerformer.PerformAntMoveAsync();
 
             DelayHelper.Delay(100);
 
