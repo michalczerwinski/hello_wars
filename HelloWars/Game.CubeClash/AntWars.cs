@@ -27,7 +27,7 @@ namespace Game.AntWars
             _movementService.PerformMissilesMove();
             DelayHelper.Delay(100);
 
-           await _movementPerformer.PerformAntMoveAsync();
+           await _movementService.PerformAntMoveAsync();
 
             return new RoundResult
             {
