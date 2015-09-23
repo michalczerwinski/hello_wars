@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -18,6 +19,11 @@ namespace Common.Helpers
             {
                 //DoNothing
             }
+        }
+
+        public static async Task DelayAsync(int milliseconds)
+        {
+            await Task.Delay(milliseconds);
         }
     }
 }

@@ -55,8 +55,8 @@
     <Compile Include="Models\DynaBlasterBot.cs" />
     <Compile Include="Models\ExplodableBase.cs" />
     <Compile Include="Models\Explosion.cs" />
-    <Compile Include="Models\GameArena.cs" />
-    <Compile Include="Models\BotArenaInfo.cs" />
+    <Compile Include="Models\Battlefield.cs" />
+    <Compile Include="Models\BotBattlefieldInfo.cs" />
     <Compile Include="Models\DynaBlasterConfig.cs" />
     <Compile Include="Models\Missile.cs" />
     <Compile Include="Models\MoveDirection.cs" />
@@ -66,6 +66,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\BotService.cs" />
+    <Compile Include="Services\ExplosionService.cs" />
+    <Compile Include="Services\LocationService.cs" />
     <Compile Include="UserControls\DynaBlasterGridControl.cs" />
     <Compile Include="UserControls\DynaBlasterUserControl.xaml.cs">
       <DependentUpon>DynaBlasterUserControl.xaml</DependentUpon>

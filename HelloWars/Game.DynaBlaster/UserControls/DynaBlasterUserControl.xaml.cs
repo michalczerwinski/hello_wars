@@ -16,7 +16,7 @@ namespace Game.DynaBlaster.UserControls
     public partial class DynaBlasterUserControl : UserControl
     {
         public DynaBlasterGridControl BoardGrid;
-        private readonly GameArena _arena;
+        private readonly Battlefield _arena;
         private readonly BitmapImage _bombImgSource;
         private readonly BitmapImage _missileImgSource;
         private readonly BitmapImage _regularTileImgSource;
@@ -29,7 +29,7 @@ namespace Game.DynaBlaster.UserControls
 
         private readonly int _tileSize;
 
-        public DynaBlasterUserControl(GameArena arena)
+        public DynaBlasterUserControl(Battlefield arena)
         {
             InitializeComponent();
 
@@ -45,16 +45,15 @@ namespace Game.DynaBlaster.UserControls
             _bombExplHorImgSource = ResourceImageHelper.LoadImage(Properties.Resources.bomb_expl_mid_hor);
             _bombExplVerImgSource = ResourceImageHelper.LoadImage(Properties.Resources.bomb_expl_mid_vert);
 
-            
+            _tileSize = (int)(Height - PlayersGrid.Height) / _arena.Board.GetLength(1);
+            Width = _tileSize * _arena.Board.GetLength(0);
+
             BoardGrid = new DynaBlasterGridControl();
             BoardGrid.SetValue(Grid.RowProperty, 1);
-            BoardGrid.Init(_arena.Board.GetLength(0), _arena.Board.GetLength(1));
+            BoardGrid.Init(_arena.Board.GetLength(0), _arena.Board.GetLength(1), _tileSize);
             Background = new ImageBrush(_mapBackgroundImgSource);
 
             MainGrid.Children.Add(BoardGrid);
-
-            _tileSize = (int) (Height - PlayersGrid.Height)/_arena.Board.GetLength(1);
-            Width = _tileSize*_arena.Board.GetLength(0);
             
             arena.ArenaChanged += OnArenaChange;
         }
@@ -120,6 +119,7 @@ namespace Game.DynaBlaster.UserControls
                     var xExplosion = new Image()
                     {
                         Source = _bombExplHorImgSource,
+                        Width = _tileSize
                     };
                     BoardGrid.AddElement(xExplosion, xLocation.X, xLocation.Y);
                 }
@@ -129,6 +129,7 @@ namespace Game.DynaBlaster.UserControls
                     var yExplosion = new Image
                     {
                         Source = _bombExplVerImgSource,
+                        Height = _tileSize
                     };
                     BoardGrid.AddElement(yExplosion, yLocation.X, yLocation.Y);
                 }

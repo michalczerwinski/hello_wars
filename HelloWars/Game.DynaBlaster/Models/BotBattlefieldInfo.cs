@@ -5,7 +5,7 @@ using Game.DynaBlaster.Interfaces;
 
 namespace Game.DynaBlaster.Models
 {
-    public class BotArenaInfo
+    public class BotBattlefieldInfo
     {
         public int RoundNumber { get; set; }
         public Guid BotId { get; set; }

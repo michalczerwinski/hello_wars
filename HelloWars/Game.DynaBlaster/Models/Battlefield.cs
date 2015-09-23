@@ -5,9 +5,11 @@ using Common.Helpers;
 
 namespace Game.DynaBlaster.Models
 {
-    public class GameArena
+    public class Battlefield
     {
-        public GameArena(int boardWidth, int boardHeight)
+        private readonly Random _rand = new Random(DateTime.Now.Millisecond);
+
+        public Battlefield(int boardWidth, int boardHeight)
         {
             Bots = new List<DynaBlasterBot>();
             Bombs = new List<Bomb>();
@@ -21,6 +23,11 @@ namespace Game.DynaBlaster.Models
         public List<Bomb> Bombs { get; set; }
         public List<Missile> Missiles { get; set; }
         public List<Explosion> Explosions { get; set; }
+
+        public List<DynaBlasterBot> AliveBots
+        {
+            get { return Bots.Where(bot => !bot.IsDead).ToList(); }
+        } 
 
         public event EventHandler ArenaChanged;
 
@@ -42,9 +49,9 @@ namespace Game.DynaBlaster.Models
             OnArenaChanged();
         }
 
-        public GameArena ExportState()
+        public Battlefield ExportState()
         {
-            var arena = new GameArena(Board.GetLength(0), Board.GetLength(1));
+            var arena = new Battlefield(Board.GetLength(0), Board.GetLength(1));
 
             Board.ForEveryElement((x, y, val) =>
             {
@@ -58,12 +65,24 @@ namespace Game.DynaBlaster.Models
             return arena;
         }
 
-        public void ImportState(GameArena arena)
+        public void ImportState(Battlefield arena)
         {
             Board = arena.Board;
             Bots = arena.Bots;
             Bombs = arena.Bombs;
             Missiles = arena.Missiles;
+        }
+
+        public void GenerateRandomBoard()
+        {
+            for (var i = 0; i < Board.GetLength(0); i++)
+            {
+                for (var j = 0; j < Board.GetLength(1); j++)
+                {
+                    var tileType = _rand.Next(4) != 0 ? BoardTile.Empty : (BoardTile)(_rand.Next(3) + 1);
+                    Board[i, j] = tileType;
+                }
+            }
         }
     }
 }
