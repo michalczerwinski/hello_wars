@@ -6,8 +6,8 @@
   </EliminationConfiguration>
 
   <GameConfiguration>
-    <Type>AntWars</Type>
-    <NextMoveDelay>300</NextMoveDelay>
+    <Type>DynaBlaster</Type>
+    <NextMoveDelay>150</NextMoveDelay>
     <NextMatchDelay>400</NextMatchDelay>
   </GameConfiguration>
 
@@ -17,8 +17,8 @@
     <!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
     <!--    <Url>http://localhost:53886/TicTacToeBot/</Url>-->
 
-    <Url>http://localhost:53886/AntWarsBot/</Url>
-    <Url>http://localhost:53886/AntWarsBot/</Url>
+<!--    <Url>http://localhost:53886/AntWarsBot/</Url>-->
+<!--    <Url>http://localhost:53886/AntWarsBot/</Url>-->
     
     
     <!--<Url>http://localhost:53886/DynaBlasterBot/</Url>

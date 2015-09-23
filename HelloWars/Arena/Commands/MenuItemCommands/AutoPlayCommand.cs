@@ -1,19 +1,28 @@
-﻿using Arena.ViewModels;
+﻿using System.Threading.Tasks;
+using Arena.ViewModels;
+using Common;
+using Common.Helpers;
 
 namespace Arena.Commands.MenuItemCommands
 {
-    public class AutoPlayCommand : PlayDuelCommand
+    public class AutoPlayCommand : CommandBase
     {
-        public AutoPlayCommand(MainWindowViewModel viewModel) : base(viewModel)
+        protected readonly MainWindowViewModel _viewModel;
+
+        public AutoPlayCommand(MainWindowViewModel viewModel)
         {
+            _viewModel = viewModel;
         }
 
-        public override void Execute(object parameter = null)
+        public async override void Execute(object parameter = null)
         {
-            while (_viewModel.Elimination.GetNextCompetitors() != null)
+            _viewModel.IsGameInProgress = true;
+            while (_viewModel.Elimination.GetNextCompetitors() != null && _viewModel.IsGameInProgress)
             {
-                base.Execute(parameter);
+                await _viewModel.PlayNextGameAsync();
+                await DelayHelper.DelayAsync(5000);
             }
+            _viewModel.IsGameInProgress = false;
         }
     }
 }

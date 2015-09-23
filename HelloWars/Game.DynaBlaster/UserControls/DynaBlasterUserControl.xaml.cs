@@ -16,7 +16,7 @@ namespace Game.DynaBlaster.UserControls
     public partial class DynaBlasterUserControl : UserControl
     {
         public DynaBlasterGridControl BoardGrid;
-        private readonly GameArena _arena;
+        private readonly Battlefield _arena;
         private readonly BitmapImage _bombImgSource;
         private readonly BitmapImage _missileImgSource;
         private readonly BitmapImage _regularTileImgSource;
@@ -29,7 +29,7 @@ namespace Game.DynaBlaster.UserControls
 
         private readonly int _tileSize;
 
-        public DynaBlasterUserControl(GameArena arena)
+        public DynaBlasterUserControl(Battlefield arena)
         {
             InitializeComponent();
 
@@ -45,15 +45,16 @@ namespace Game.DynaBlaster.UserControls
             _bombExplHorImgSource = ResourceImageHelper.LoadImage(Properties.Resources.bomb_expl_mid_hor);
             _bombExplVerImgSource = ResourceImageHelper.LoadImage(Properties.Resources.bomb_expl_mid_vert);
 
+            _tileSize = (int)(Height - PlayersGrid.Height) / _arena.Board.GetLength(1);
+            Width = _tileSize * _arena.Board.GetLength(0);
+
             BoardGrid = new DynaBlasterGridControl();
-            BoardGrid.Init(_arena.Board.GetLength(0), _arena.Board.GetLength(1));
-            BoardGrid.Background = new ImageBrush(_mapBackgroundImgSource);
+            BoardGrid.SetValue(Grid.RowProperty, 1);
+            BoardGrid.Init(_arena.Board.GetLength(0), _arena.Board.GetLength(1), _tileSize);
+            Background = new ImageBrush(_mapBackgroundImgSource);
 
-            AddChild(BoardGrid);
-
-            _tileSize = (int) Height/_arena.Board.GetLength(1);
-            Width = _tileSize*_arena.Board.GetLength(0);
-
+            MainGrid.Children.Add(BoardGrid);
+            
             arena.ArenaChanged += OnArenaChange;
         }
 
@@ -70,6 +71,37 @@ namespace Game.DynaBlaster.UserControls
             DisplayMissiles();
 
             DisplayExplosions();
+
+            PlayersGrid.Children.Clear();
+
+            PlayersGrid.ColumnDefinitions.Clear();
+
+            for (int i = 0; i < _arena.Bots.Count; i++)
+            {
+                PlayersGrid.ColumnDefinitions.Add(new ColumnDefinition());
+
+                var botGrid = new Grid();
+                botGrid.SetValue(Grid.ColumnProperty, i);
+
+                var text = new TextBlock()
+                {
+                    Text = _arena.Bots[i].Name,
+                    Margin = new Thickness(1, 0, 0, 0),
+                    FontSize = PlayersGrid.Height * 0.75
+                };
+                text.SetValue(Grid.ColumnProperty, 1);
+
+                var image = new Image()
+                {
+                    Source = _arena.Bots[i].Image
+                };
+                image.SetValue(Grid.ColumnProperty, 0);
+
+                botGrid.Children.Add(image);
+                botGrid.Children.Add(text);
+
+                PlayersGrid.Children.Add(botGrid);
+            }
         }
 
         private void DisplayExplosions()
@@ -87,6 +119,7 @@ namespace Game.DynaBlaster.UserControls
                     var xExplosion = new Image()
                     {
                         Source = _bombExplHorImgSource,
+                        Width = _tileSize
                     };
                     BoardGrid.AddElement(xExplosion, xLocation.X, xLocation.Y);
                 }
@@ -96,6 +129,7 @@ namespace Game.DynaBlaster.UserControls
                     var yExplosion = new Image
                     {
                         Source = _bombExplVerImgSource,
+                        Height = _tileSize
                     };
                     BoardGrid.AddElement(yExplosion, yLocation.X, yLocation.Y);
                 }
@@ -122,7 +156,11 @@ namespace Game.DynaBlaster.UserControls
 
                 var textToAdd = new TextBlock()
                 {
-                    Text = bomb.RoundsUntilExplodes.ToString()
+                    Text = bomb.RoundsUntilExplodes.ToString(),
+                    MaxWidth = _tileSize * 0.75,
+                    MaxHeight = _tileSize * 0.75,
+                    FontSize = _tileSize * 0.6,
+                    FontWeight = FontWeights.SemiBold
                 };
                 BoardGrid.AddElement(elementToAdd, bomb.Location.X, bomb.Location.Y);
                 BoardGrid.AddElement(textToAdd, bomb.Location.X, bomb.Location.Y);

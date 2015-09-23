@@ -34,8 +34,10 @@ namespace Arena.ViewModels
         private string _outputText;
         private static readonly object _lock = new object();
         private bool _isFullScreenApplied;
+        private bool _isGameInProgress;
 
         private ICommand _autoPlayCommand;
+        private ICommand _stopCommand;
         private ICommand _onLoadedCommand;
         private ICommand _openCommand;
         private ICommand _openGameConfigCommand;
@@ -57,6 +59,12 @@ namespace Arena.ViewModels
         {
             get { return _outputText; }
             set { SetProperty(ref _outputText, value); }
+        }
+
+        public bool IsGameInProgress
+        {
+            get { return _isGameInProgress; }
+            set { SetProperty(ref _isGameInProgress, value); }
         }
 
         public bool IsHistoryVisible
@@ -143,6 +151,11 @@ namespace Arena.ViewModels
         public ICommand AutoPlayCommand
         {
             get { return _autoPlayCommand ?? (_autoPlayCommand = new AutoPlayCommand(this)); }
+        }
+
+        public ICommand StopCommand
+        {
+            get { return _stopCommand ?? (_stopCommand = new StopCommand(this)); }
         }
 
         public ICommand VerifyPlayersCommand
@@ -263,6 +276,39 @@ namespace Arena.ViewModels
             catalog.Catalogs.Add(dictionary);
             var container = new CompositionContainer(catalog);
             container.ComposeParts(ArenaConfiguration);
+        }
+
+        public async Task PlayNextGameAsync()
+        {
+            var nextCompetitors = Elimination.GetNextCompetitors();
+            if (nextCompetitors != null)
+            {
+                var gameHistoryEntry = new GameHistoryEntryViewModel()
+                {
+                    GameDescription = Elimination.GetGameDescription(),
+                    History = new List<RoundPartialHistory>()
+                };
+
+                Game.SetupNewGame(nextCompetitors);
+
+                OutputText += "Game starting: " + gameHistoryEntry.GameDescription + "\n";
+
+                RoundResult result = new RoundResult();
+
+                do
+                {
+                    result = await Game.PerformNextRoundAsync();
+                    gameHistoryEntry.History.AddRange(result.History);
+                } while (!result.IsFinished && IsGameInProgress);
+
+                GameHistory.Add(gameHistoryEntry);
+
+                if (result.IsFinished)
+                {
+                    Elimination.SetLastDuelResult(result.FinalResult);
+                    ScoreList.SaveScore(result.FinalResult);
+                }
+            }
         }
     }
 }

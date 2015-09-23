@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Common.Interfaces;
 using Point = System.Drawing.Point;
 
@@ -12,7 +13,7 @@ namespace Game.TicTacToe.Models
         {
         }
 
-        public override Point NextMove(BoardFieldSign[,] arenaInfo)
+        public override async Task<Point> NextMoveAsync(BoardFieldSign[,] arenaInfo)
         {
             var point = new Point();
             do
