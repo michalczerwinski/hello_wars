@@ -1,6 +1,4 @@
-﻿using System.Xml.Serialization;
-
-namespace SampleWebBotClient.Models.DynaBlaster
+﻿namespace SampleWebBotClient.Models.DynaBlaster
 {
     public class DynaBlasterConfig
     {

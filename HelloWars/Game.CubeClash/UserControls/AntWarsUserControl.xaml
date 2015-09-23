@@ -58,5 +58,11 @@
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
+
+        <Image Stretch="Fill"  Visibility="{Binding SplashScreenVisible, Mode=TwoWay}">
+            <Image.Source>
+                <BitmapImage UriSource="/Game.AntWars;component/Images/Backgrounds/helloScreen.jpeg"/>
+            </Image.Source>
+        </Image>
     </Grid>
 </UserControl>

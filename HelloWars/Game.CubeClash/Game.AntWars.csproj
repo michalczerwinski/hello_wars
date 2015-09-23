@@ -84,7 +84,7 @@
     <Compile Include="UserControls\Resoures\GridUnit.xaml.cs">
       <DependentUpon>GridUnit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\MovementPerformer.cs" />
+    <Compile Include="Utilities\MovementService.cs" />
     <Compile Include="ViewModels\AntWarsViewModel.cs" />
     <Compile Include="ViewModels\AntViewModel.cs" />
     <Compile Include="ViewModels\ExplosionViewModel.cs" />
@@ -130,6 +130,7 @@
     <None Include="Resources\wood.png" />
     <None Include="Resources\ant.png" />
     <None Include="Resources\lawn1.jpg" />
+    <Resource Include="Images\Backgrounds\helloScreen.jpeg" />
     <Content Include="Images\explosion.png" />
     <Content Include="Images\lawn.jpg" />
     <Content Include="Images\redAnt.png" />
@@ -150,7 +151,10 @@
     <Content Include="Sound\attack1.mp3" />
     <Content Include="Sound\attack1.wav" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Images\Garden\" />
+    <Folder Include="Images\Space\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

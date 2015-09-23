@@ -9,10 +9,10 @@ namespace Game.AntWars.ViewModels
 {
     public class AntViewModel : BindableBase
     {
-        public static ImageSource _redAntImage = ResourceImageHelper.LoadImage(Resources.redAnt);
-        private static bool _isRedAntAdded;
-        public static ImageSource _yellowAntImage = ResourceImageHelper.LoadImage(Resources.yellowAnt);
-        private static bool _isYellowAntAdded;
+        public static ImageSource RedAntImage = ResourceImageHelper.LoadImage(Resources.redAnt);
+        public static bool IsRedAntAdded;
+        public static ImageSource YellowAntImage = ResourceImageHelper.LoadImage(Resources.yellowAnt);
+        public static bool IsYellowAntAdded;
 
         private int _x;
         private int _y;
@@ -145,15 +145,15 @@ namespace Game.AntWars.ViewModels
 
         public AntViewModel()
         {
-            if (!_isRedAntAdded)
+            if (!IsRedAntAdded)
             {
-                _isRedAntAdded = true;
-                Image = _redAntImage;
+                IsRedAntAdded = true;
+                Image = RedAntImage;
             }
-            else if (!_isYellowAntAdded)
+            else if (!IsYellowAntAdded)
             {
-                _isYellowAntAdded = true;
-                Image = _yellowAntImage;
+                IsYellowAntAdded = true;
+                Image = YellowAntImage;
             }
         }
     }

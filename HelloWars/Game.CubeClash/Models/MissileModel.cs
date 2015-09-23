@@ -30,6 +30,9 @@ namespace Game.AntWars.Models
         public MissileModel(MissileViewModel viewModel)
         {
             ViewModel = viewModel;
+            Type = MovableObjectsTypes.Missile;
         }
+
+        public MovableObjectsTypes Type { get; set; }
     }
 }
