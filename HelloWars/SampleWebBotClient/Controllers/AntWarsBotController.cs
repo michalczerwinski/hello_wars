@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Configuration;
+using System.Web.Http;
 using SampleWebBotClient.Helpers;
 using SampleWebBotClient.Models;
 using SampleWebBotClient.Models.AntWars;
@@ -16,6 +17,7 @@ namespace SampleWebBotClient.Controllers
                 AvatarUrl = "http://localhost:53886/Content/BotImg.png",
                 GameType = "AntWars"
             };
+            bot.Description = "Hi, I am " + bot.Name + " and I would like to win this tournament.... haha haha haha.";
 
             return bot;
         }
@@ -38,10 +40,10 @@ namespace SampleWebBotClient.Controllers
                     }
 
                 case AvailableActions.Watch:
-                {
-                    result.ActionDirection = null;
-                    break;
-                }
+                    {
+                        result.ActionDirection = null;
+                        break;
+                    }
             }
 
             return result;

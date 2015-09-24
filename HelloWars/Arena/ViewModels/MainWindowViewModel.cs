@@ -232,6 +232,7 @@ namespace Arena.ViewModels
                         {
                             OutputText += string.Format("ERROR: Url: {0} - couldn't verify bot!\nPossible game type mismatch or url inaccesible.\n", bot.Url);
                         }
+
                         return bot;
                     }
 
@@ -240,8 +241,8 @@ namespace Arena.ViewModels
                         OutputText += string.Format("Bot \"{0}\" connected!\n", bot.Name);
                         Elimination.Bots.First(f => f.Id == bot.Id).Name = bot.Name;
                     }
-                    return bot;
 
+                    return bot;
                 }).ToList();
 
                 Task.WhenAll(competitorsTasks).ContinueWith(task =>
@@ -255,7 +256,6 @@ namespace Arena.ViewModels
                     {
                         OutputText += "WARNING: Not all players were succesfully verified.\nTry reconnecting or play tournament without them\n";
                     }
-                    
                 });
             });
         }
@@ -318,7 +318,7 @@ namespace Arena.ViewModels
 
                 OutputText += "Game starting: " + gameHistoryEntry.GameDescription + "\n";
 
-                RoundResult result = new RoundResult();
+                RoundResult result;
 
                 do
                 {
