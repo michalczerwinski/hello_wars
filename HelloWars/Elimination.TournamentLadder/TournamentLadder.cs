@@ -37,12 +37,25 @@ namespace Elimination.TournamentLadder
                         var botViewModel = bot.ViewModel;
                         if (botViewModel.StilInGame)
                         {
-                            var connectedBot = stageList.First(f => f.PairWithId == bot.Id).ViewModel;
+                            var connectedBot = stageList.First(f => f.PairWithId == bot.Id);
 
-                            if (connectedBot.StilInGame)
+                            if (connectedBot.ViewModel.StilInGame)
                             {
+                                if (botViewModel.BotClient == null || !botViewModel.BotClient.IsVerified)
+                                {
+                                    UpdateTournamentLadder(bot, 0);
+                                    UpdateTournamentLadder(connectedBot, 1);
+                                    return GetNextCompetitors();
+                                }
+                                if (connectedBot.ViewModel.BotClient == null || !connectedBot.ViewModel.BotClient.IsVerified)
+                                {
+                                    UpdateTournamentLadder(bot, 1);
+                                    UpdateTournamentLadder(connectedBot, 0);
+                                    return GetNextCompetitors();
+                                }
+
                                 result.Add(bot.ViewModel.BotClient);
-                                result.Add(connectedBot.BotClient);
+                                result.Add(connectedBot.ViewModel.BotClient);
                                 return result;
                             }
                         }
@@ -63,21 +76,26 @@ namespace Elimination.TournamentLadder
 
                     if (botControl != null)
                     {
-                        if ((int)singleResult.Value == 1)
-                        {
-                            if (_tournamentLadderViewModel.StageLists[botControl.ViewModel.CurrentStage].Count > 1)
-                            {
-                                var nextStageControl = _tournamentLadderViewModel.StageLists[botControl.ViewModel.CurrentStage + 1].First(f => f.Id == botControl.NextStageTargetId);
-                                botControl.ViewModel.CurrentStage++;
-                                nextStageControl.ViewModel = botControl.ViewModel;
-                            }
-                        }
-                        if ((int)singleResult.Value == 0)
-                        {
-                            botControl.ViewModel.StilInGame = false;
-                        }
+                        UpdateTournamentLadder(botControl, singleResult.Value);
                     }
                 }
+            }
+        }
+
+        private void UpdateTournamentLadder(BotUserControl botControl, double score)
+        {
+            if ((int)score == 1)
+            {
+                if (_tournamentLadderViewModel.StageLists[botControl.ViewModel.CurrentStage].Count > 1)
+                {
+                    var nextStageControl = _tournamentLadderViewModel.StageLists[botControl.ViewModel.CurrentStage + 1].First(f => f.Id == botControl.NextStageTargetId);
+                    botControl.ViewModel.CurrentStage++;
+                    nextStageControl.ViewModel = botControl.ViewModel;
+                }
+            }
+            if ((int)score == 0)
+            {
+                botControl.ViewModel.StilInGame = false;
             }
         }
 

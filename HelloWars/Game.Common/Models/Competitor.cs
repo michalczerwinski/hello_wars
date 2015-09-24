@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Common.Helpers;
 using Common.Interfaces;
 
 namespace Common.Models
@@ -10,6 +12,8 @@ namespace Common.Models
 
         public Guid Id { get; set; }
         public string Url { get; set; }
+
+        public bool IsVerified { get; private set; }
 
         public string AvatarUrl
         {
@@ -33,6 +37,28 @@ namespace Common.Models
             Url = competitor.Url;
             AvatarUrl = competitor.AvatarUrl;
             Name = competitor.Name;
+        }
+
+        public async Task<bool> VerifyAsync(string gameType)
+        {
+            IsVerified = false;
+            var competitorInfo = await LoadCompetitorAsync();
+
+            if (competitorInfo == null || competitorInfo.GameType != gameType)
+            {
+                Name = "Not connected";
+                return false;
+            }
+
+            Name = competitorInfo.Name;
+            AvatarUrl = competitorInfo.AvatarUrl;
+            IsVerified = true;
+            return true;
+        }
+
+        private async Task<CompetitorInfo> LoadCompetitorAsync()
+        {
+            return await WebClientHelper.GetDataAsync<CompetitorInfo>(Url + Resources.InfoUrlSuffix);
         }
     }
 }
