@@ -223,13 +223,11 @@ namespace Arena.ViewModels
 
             Task.Run(() =>
             {
-                var loader = new CompetitorLoadService();
-
                 var competitorsTasks = emptyCompetitors.Select(async bot =>
                 {
-                    var competitor = await loader.LoadCompetitorAsync(bot.Url, gameTypeName);
+                    var isVerified = await bot.VerifyAsync(gameTypeName);
 
-                    if (competitor == null)
+                    if (!isVerified)
                     {
                         lock (_lock)
                         {
@@ -239,22 +237,27 @@ namespace Arena.ViewModels
                         return bot;
                     }
 
-                    bot.Name = competitor.Name;
-                    bot.AvatarUrl = competitor.AvatarUrl;
-
                     lock (_lock)
                     {
                         OutputText += string.Format("Bot \"{0}\" connected!\n", bot.Name);
                         Elimination.Bots.First(f => f.Id == bot.Id).Name = bot.Name;
                     }
-
                     return bot;
+
                 }).ToList();
 
                 Task.WhenAll(competitorsTasks).ContinueWith(task =>
                 {
-                    IsPlayButtonAvailable = true;
-                    OutputText += "All players connected!\n";
+                    if (emptyCompetitors.All(competitor => competitor.IsVerified))
+                    {
+                        IsPlayButtonAvailable = true;
+                        OutputText += "All players connected!\n";
+                    }
+                    else
+                    {
+                        OutputText += "Not all players were succesfully verified.\nPlease try again or load different configuration file...\n";
+                    }
+                    
                 });
             });
         }
