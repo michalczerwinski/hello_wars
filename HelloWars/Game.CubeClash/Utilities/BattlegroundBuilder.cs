@@ -32,16 +32,42 @@ namespace Game.AntWars.Utilities
             {
                 for (int j = 0; j < _antWarsViewModel.ColumnCount; j++)
                 {
-                    var gridUnit = new GridUnitModel(new GridUnitViewModel())
-                    {
-                        X = i,
-                        Y = j,
-                        Type = ReturnWithSomeProbability()
-                    };
+                    var gridUnit = AddLawnUnit(i, j);
 
                     _antWarsViewModel.BattlefieldObjectsCollection.Add(gridUnit);
+
+                    var obsticles = AddObsticlesWithProbability(i, j);
+
+                    if (obsticles.Type != UnmovableObjectTypes.Lawn)
+                    {
+                        _antWarsViewModel.BattlefieldObjectsCollection.Add(obsticles);
+                    }
                 }
             }
+        }
+
+        private static GridUnitModel AddLawnUnit(int i, int j)
+        {
+            var gridUnit = new GridUnitModel(new GridUnitViewModel())
+            {
+                X = i,
+                Y = j,
+                Type = UnmovableObjectTypes.Lawn
+            };
+
+            return gridUnit;
+        }
+
+        private static GridUnitModel AddObsticlesWithProbability(int i, int j)
+        {
+            var gridUnit = new GridUnitModel(new GridUnitViewModel())
+            {
+                X = i,
+                Y = j,
+                Type = ReturnWithSomeProbability()
+            };
+
+            return gridUnit;
         }
 
         private static UnmovableObjectTypes ReturnWithSomeProbability()
@@ -56,7 +82,13 @@ namespace Game.AntWars.Utilities
             {
                 return UnmovableObjectTypes.Rock;
             }
+
             return UnmovableObjectTypes.Lawn;
+        }
+
+        internal static void ReturnDefaultLogo()
+        {
+            throw new NotImplementedException();
         }
     }
 }

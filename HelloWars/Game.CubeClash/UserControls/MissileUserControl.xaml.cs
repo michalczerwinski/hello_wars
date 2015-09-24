@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace Game.AntWars.UserControls
+﻿namespace Game.AntWars.UserControls
 {
     /// <summary>
     /// Interaction logic for MissileUserControl.xaml

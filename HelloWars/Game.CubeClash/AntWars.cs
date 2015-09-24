@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Common.Helpers;
@@ -14,22 +15,19 @@ namespace Game.AntWars
     public class AntWars : IGame
     {
         private AntWarsViewModel _antWarsViewModel;
+        private MovementService _movementService;
 
-        private MovementPerformer _movementPerformer;
         #region IGameMembers
 
         public async Task<RoundResult> PerformNextRoundAsync()
         {
-            _movementPerformer.KillExplosions();
-            DelayHelper.Delay(20);
+            _movementService.ExpiryExplosions();
+            DelayHelper.Delay(10);
 
-            _movementPerformer.PerformMissilesMove();
-
+            _movementService.PerformMissilesMove();
             DelayHelper.Delay(100);
 
-           await _movementPerformer.PerformAntMoveAsync();
-
-            DelayHelper.Delay(100);
+           await _movementService.PerformAntMoveAsync();
 
             return new RoundResult
             {
@@ -51,21 +49,25 @@ namespace Game.AntWars
 
         public void SetupNewGame(IEnumerable<ICompetitor> competitors)
         {
+            _antWarsViewModel.SplashScreenVisible = Visibility.Collapsed;
             Reset();
+            BattlegroundBuilder.CreateBattleground(20, 20, _antWarsViewModel);
             BotBuilder.AddBots(competitors, _antWarsViewModel);
         }
 
         public void Reset()
         {
             _antWarsViewModel.MovableObjectsCollection.Clear();
+            _antWarsViewModel.BattlefieldObjectsCollection.Clear();
+
+            AntViewModel.IsRedAntAdded = false;
+            AntViewModel.IsYellowAntAdded = false;
         }
 
         public UserControl GetVisualisationUserControl(IConfigurable configuration)
         {
             _antWarsViewModel = new AntWarsViewModel();
-            _movementPerformer = new MovementPerformer(_antWarsViewModel);
-
-            BattlegroundBuilder.CreateBattleground(10, 10, _antWarsViewModel);
+            _movementService = new MovementService(_antWarsViewModel);
             return new AntWarsUserControl(_antWarsViewModel);
         }
 

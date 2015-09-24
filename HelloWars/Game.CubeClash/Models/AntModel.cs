@@ -61,11 +61,11 @@ namespace Game.AntWars.Models
                 Direction = actionDirection,
             };
 
-            if (ViewModel.Image == AntViewModel._redAntImage)
+            if (ViewModel.Image == AntViewModel.RedAntImage)
             {
                 missile.ViewModel.Image = _redMissileImage;
             }
-            else if (ViewModel.Image == AntViewModel._yellowAntImage)
+            else if (ViewModel.Image == AntViewModel.YellowAntImage)
             {
                 missile.ViewModel.Image = _yellowMissileImage;
             }
@@ -157,6 +157,11 @@ namespace Game.AntWars.Models
             ViewModel.MovementShadowWidth = 11 * _antWidth;
             ViewModel.MovementShadowHeight = 9 * _antHeigth;
             ViewModel.MovementShadowVisibility = Visibility.Visible;
+        }
+
+        public MovableObjectsTypes Type
+        {
+            get { return MovableObjectsTypes.Bot; }
         }
     }
 }

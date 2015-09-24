@@ -4,5 +4,6 @@
     {
         Bot,
         Missile,
+        Explosion,
     }
 }

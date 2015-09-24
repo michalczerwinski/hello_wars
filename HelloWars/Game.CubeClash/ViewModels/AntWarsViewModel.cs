@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using Common.Models;
 using Game.AntWars.Interfaces;
 
@@ -15,6 +16,7 @@ namespace Game.AntWars.ViewModels
         private int _antHeigth;
         private int _columnCount;
         private int _rowCount;
+        private Visibility _splashScreenVisible;
 
         public int BattlegroundHeigth
         {
@@ -52,10 +54,17 @@ namespace Game.AntWars.ViewModels
             set { SetProperty(ref _antHeigth, value); }
         }
 
+        public Visibility SplashScreenVisible
+        {
+            get { return _splashScreenVisible; }
+            set { SetProperty(ref _splashScreenVisible, value); }
+        }
+
         public AntWarsViewModel()
         {
             MovableObjectsCollection = new ObservableCollection<IMovableObject>();
             BattlefieldObjectsCollection = new ObservableCollection<IUnmovableObject>();
+            SplashScreenVisible = Visibility.Visible;
         }
     }
 }
