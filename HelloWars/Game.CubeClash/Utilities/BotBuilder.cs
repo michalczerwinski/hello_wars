@@ -20,7 +20,6 @@ namespace Game.AntWars.Utilities
             {
                 var viewModel = new AntViewModel();
 
-
                 var antModel = new AntModel(viewModel, competitor)
                 {
                     X = _rand.Next(0, _antWarsViewModel.ColumnCount),

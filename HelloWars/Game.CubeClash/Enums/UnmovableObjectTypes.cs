@@ -5,6 +5,6 @@
         Lawn,
         Wood,
         Rock,
-        Explosion,
+        
     }
 }
