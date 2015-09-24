@@ -148,6 +148,8 @@
     <None Include="Resources\wood.jpg" />
     <None Include="Resources\yellowAnt.png" />
     <None Include="Resources\yellowMissile.png" />
+    <None Include="Resources\kaboom.png" />
+    <None Include="Resources\redMissile2.png" />
     <Content Include="Sound\attack1.mp3" />
     <Content Include="Sound\attack1.wav" />
   </ItemGroup>

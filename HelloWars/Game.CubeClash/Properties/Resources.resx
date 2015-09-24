@@ -121,6 +121,9 @@
   <data name="explosion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\explosion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="kaboom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kaboom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="lawn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lawn.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -129,6 +132,9 @@
   </data>
   <data name="redMissile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\redMissile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="redMissile2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\redMissile2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="rock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rock.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

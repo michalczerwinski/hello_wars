@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
+using Game.AntWars.Models;
 using Game.AntWars.UserControls;
 using Game.AntWars.Utilities;
 using Game.AntWars.ViewModels;
@@ -16,24 +18,39 @@ namespace Game.AntWars
     {
         private AntWarsViewModel _antWarsViewModel;
         private MovementService _movementService;
+        private BotService _botService;
+        private int _roundNumber;
 
         #region IGameMembers
 
         public async Task<RoundResult> PerformNextRoundAsync()
         {
+            _roundNumber++;
+
             _movementService.ExpiryExplosions();
-            DelayHelper.Delay(10);
+            DelayHelper.Delay(50);
 
             _movementService.PerformMissilesMove();
-            DelayHelper.Delay(100);
+            DelayHelper.Delay(150);
 
-           await _movementService.PerformAntMoveAsync();
+            //call winer
+            if (_antWarsViewModel.MovableObjectsCollection.OfType<AntModel>().Count() <= 1)
+            {
+                return new RoundResult
+                {
+                    FinalResult = _botService.GetBotResults(),
+                    IsFinished = true,
+                    History = new List<RoundPartialHistory>()
+                };
+            }
+
+            var partialResults = await _movementService.PlayAntsMoveAsync(200, _roundNumber);
 
             return new RoundResult
             {
                 FinalResult = null,
                 IsFinished = false,
-                History = new List<RoundPartialHistory>()
+                History = partialResults,
             };
         }
 
@@ -52,7 +69,7 @@ namespace Game.AntWars
             _antWarsViewModel.SplashScreenVisible = Visibility.Collapsed;
             Reset();
             BattlegroundBuilder.CreateBattleground(20, 20, _antWarsViewModel);
-            BotBuilder.AddBots(competitors, _antWarsViewModel);
+            _botService.AddBots(competitors);
         }
 
         public void Reset()
@@ -68,6 +85,7 @@ namespace Game.AntWars
         {
             _antWarsViewModel = new AntWarsViewModel();
             _movementService = new MovementService(_antWarsViewModel);
+            _botService = new BotService(_antWarsViewModel);
             return new AntWarsUserControl(_antWarsViewModel);
         }
 

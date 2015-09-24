@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Markup;
 using System.Windows.Media;
 using Common.Helpers;
+using Common.Models;
 using Game.AntWars.Enums;
 using Game.AntWars.Models;
 using Game.AntWars.Properties;
@@ -12,7 +14,7 @@ namespace Game.AntWars.Utilities
 {
     public class MovementService
     {
-        private static ImageSource _explosionImage = ResourceImageHelper.LoadImage(Resources.explosion);
+        private static ImageSource _explosionImage = ResourceImageHelper.LoadImage(Resources.kaboom);
         private AntWarsViewModel _antWarsViewModel;
         private IList<MissileModel> _listOfMissilesToFire;
         private IList<AntModel> _listOfAntsToRemove;
@@ -20,15 +22,18 @@ namespace Game.AntWars.Utilities
         public MovementService(AntWarsViewModel antWarsViewModel)
         {
             _antWarsViewModel = antWarsViewModel;
+            _listOfMissilesToFire = new List<MissileModel>();
         }
 
-        public async Task PerformAntMoveAsync()
+        public async Task<List<RoundPartialHistory>> PlayAntsMoveAsync(int delayBetweenBots, int roundnumber)
         {
-            _listOfMissilesToFire = new List<MissileModel>();
+            var result = new List<RoundPartialHistory>();
+            _listOfMissilesToFire.Clear();
 
             foreach (var movableObject in _antWarsViewModel.MovableObjectsCollection.OfType<AntModel>())
             {
-                await PerformMove(movableObject);
+                result.Add(await PerformMove(movableObject, roundnumber));
+                await DelayHelper.DelayAsync(delayBetweenBots);
             }
 
             //fire missile
@@ -37,10 +42,7 @@ namespace Game.AntWars.Utilities
                 _antWarsViewModel.MovableObjectsCollection.Add(missile);
             }
 
-            //call winer
-            if (_antWarsViewModel.MovableObjectsCollection.OfType<AntModel>().Count() <= 1)
-            {
-            }
+            return result;
         }
 
         public void PerformMissilesMove()
@@ -112,9 +114,15 @@ namespace Game.AntWars.Utilities
             RemoveDeadAnts();
         }
 
-        private async Task PerformMove(AntModel movableObject)
+        private async Task<RoundPartialHistory> PerformMove(AntModel movableObject, int roundNumber)
         {
             var move = await movableObject.NextMoveAsync(null);
+            var actionDescription = move.Action.ToString() + " ";
+
+            if (move.ActionDirection != null)
+            {
+                actionDescription += move.ActionDirection.Value.ToString() + ". ";
+            }
 
             switch (move.Action)
             {
@@ -128,6 +136,10 @@ namespace Game.AntWars.Utilities
                                     {
                                         movableObject.Down();
                                     }
+                                    else
+                                    {
+                                        actionDescription += "Lost his move.";
+                                    }
                                     break;
                                 }
                             case ActionDirections.Up:
@@ -135,6 +147,10 @@ namespace Game.AntWars.Utilities
                                     if (IsMoveValid(movableObject.X, movableObject.Y - 1))
                                     {
                                         movableObject.Up();
+                                    }
+                                    else
+                                    {
+                                        actionDescription += "Lost his move.";
                                     }
                                     break;
                                 }
@@ -144,6 +160,10 @@ namespace Game.AntWars.Utilities
                                     {
                                         movableObject.Left();
                                     }
+                                    else
+                                    {
+                                        actionDescription += "Lost his move.";
+                                    }
                                     break;
                                 }
                             case ActionDirections.Right:
@@ -151,6 +171,10 @@ namespace Game.AntWars.Utilities
                                     if (IsMoveValid(movableObject.X + 1, movableObject.Y))
                                     {
                                         movableObject.Right();
+                                    }
+                                    else
+                                    {
+                                        actionDescription += "Lost his move.";
                                     }
                                     break;
                                 }
@@ -164,13 +188,18 @@ namespace Game.AntWars.Utilities
                     }
                 case AvailableActions.FireMissile:
                     {
+
                         switch (move.ActionDirection)
                         {
                             case ActionDirections.Down:
                                 {
                                     if (IsMoveValid(movableObject.X, movableObject.Y + 1))
                                     {
-                                        _listOfMissilesToFire.Add(movableObject.FireMissile(move.ActionDirection));
+                                        _listOfMissilesToFire.Add(movableObject.FireMissile(move.ActionDirection.Value));
+                                    }
+                                    else
+                                    {
+                                        actionDescription += "Lost his move.";
                                     }
                                     break;
                                 }
@@ -178,7 +207,11 @@ namespace Game.AntWars.Utilities
                                 {
                                     if (IsMoveValid(movableObject.X, movableObject.Y - 1))
                                     {
-                                        _listOfMissilesToFire.Add(movableObject.FireMissile(move.ActionDirection));
+                                        _listOfMissilesToFire.Add(movableObject.FireMissile(move.ActionDirection.Value));
+                                    }
+                                    else
+                                    {
+                                        actionDescription += "Lost his move.";
                                     }
                                     break;
                                 }
@@ -186,7 +219,11 @@ namespace Game.AntWars.Utilities
                                 {
                                     if (IsMoveValid(movableObject.X - 1, movableObject.Y))
                                     {
-                                        _listOfMissilesToFire.Add(movableObject.FireMissile(move.ActionDirection));
+                                        _listOfMissilesToFire.Add(movableObject.FireMissile(move.ActionDirection.Value));
+                                    }
+                                    else
+                                    {
+                                        actionDescription += "Lost his move.";
                                     }
                                     break;
                                 }
@@ -194,7 +231,11 @@ namespace Game.AntWars.Utilities
                                 {
                                     if (IsMoveValid(movableObject.X + 1, movableObject.Y))
                                     {
-                                        _listOfMissilesToFire.Add(movableObject.FireMissile(move.ActionDirection));
+                                        _listOfMissilesToFire.Add(movableObject.FireMissile(move.ActionDirection.Value));
+                                    }
+                                    else
+                                    {
+                                        actionDescription += "Lost his move.";
                                     }
                                     break;
                                 }
@@ -202,6 +243,11 @@ namespace Game.AntWars.Utilities
                         break;
                     }
             }
+
+            return new RoundPartialHistory
+            {
+                Caption = string.Format("Round {0} {1}: {2}", roundNumber, movableObject.Competitor.Name, actionDescription),
+            };
         }
 
         private bool IsMoveValid(int newX, int newY)
