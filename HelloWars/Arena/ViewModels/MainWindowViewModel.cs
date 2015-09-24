@@ -35,6 +35,7 @@ namespace Arena.ViewModels
         private static readonly object _lock = new object();
         private bool _isFullScreenApplied;
         private bool _isGameInProgress;
+        private bool _isPlayButtonAvailable;
 
         private ICommand _autoPlayCommand;
         private ICommand _stopCommand;
@@ -64,7 +65,17 @@ namespace Arena.ViewModels
         public bool IsGameInProgress
         {
             get { return _isGameInProgress; }
-            set { SetProperty(ref _isGameInProgress, value); }
+            set
+            {
+                SetProperty(ref _isGameInProgress, value);
+                IsPlayButtonAvailable = !value;
+            }
+        }
+
+        public bool IsPlayButtonAvailable
+        {
+            get { return _isPlayButtonAvailable; }
+            set { SetProperty(ref _isPlayButtonAvailable, value); }
         }
 
         public bool IsHistoryVisible
@@ -206,6 +217,8 @@ namespace Arena.ViewModels
 
         public void AskForCompetitors(string gameTypeName, List<ICompetitor> emptyCompetitors)
         {
+            IsPlayButtonAvailable = false;
+
             OutputText += string.Format("Waiting for players ({0})\n", emptyCompetitors.Count);
 
             Task.Run(() =>
@@ -215,6 +228,16 @@ namespace Arena.ViewModels
                 var competitorsTasks = emptyCompetitors.Select(async bot =>
                 {
                     var competitor = await loader.LoadCompetitorAsync(bot.Url, gameTypeName);
+
+                    if (competitor == null)
+                    {
+                        lock (_lock)
+                        {
+                            OutputText += string.Format("Url: {0} - wrong game type!\n", bot.Url);
+                        }
+                        
+                        return bot;
+                    }
 
                     bot.Name = competitor.Name;
                     bot.AvatarUrl = competitor.AvatarUrl;
@@ -230,6 +253,7 @@ namespace Arena.ViewModels
 
                 Task.WhenAll(competitorsTasks).ContinueWith(task =>
                 {
+                    IsPlayButtonAvailable = true;
                     OutputText += "All players connected!\n";
                 });
             });
