@@ -39,6 +39,7 @@ namespace SampleWebBotClient.Controllers
 
                 case AvailableActions.Watch:
                 {
+                    result.ActionDirection = null;
                     break;
                 }
             }

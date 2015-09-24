@@ -7,7 +7,7 @@ namespace Game.AntWars.Utilities
 {
     public static class BattlegroundBuilder
     {
-        //if you change this please change centerX in UserControls using RotationTransform for 5 (10/2) 
+        //if you change this please change centerX in UserControls using RotationTransform to 5 (10/2) 
         private const int BATTLEFIELD_UNIT_HEIGTH = 10;
         private const int BATTLEFIELD_UNIT_WIDTH = 10;
         private static Random _rand = new Random(DateTime.Now.Millisecond);
@@ -74,11 +74,11 @@ namespace Game.AntWars.Utilities
         {
             var probability = _rand.NextDouble();
 
-            if (probability < 0.15)
+            if (probability < 0.05)
             {
                 return UnmovableObjectTypes.Wood;
             }
-            if (probability < 0.3)
+            if (probability < 0.1)
             {
                 return UnmovableObjectTypes.Rock;
             }

@@ -13,7 +13,7 @@ namespace Game.AntWars.Models
     public class AntModel : BotClientBase<SurroundingAreaInfo, BotMove>, IMovableObject
     {
         private static ImageSource _yellowMissileImage = ResourceImageHelper.LoadImage(Resources.yellowMissile);
-        private static ImageSource _redMissileImage = ResourceImageHelper.LoadImage(Resources.redMissile);
+        private static ImageSource _redMissileImage = ResourceImageHelper.LoadImage(Resources.redMissile2);
 
         public ICompetitor Competitor { get; set; }
         public AntViewModel ViewModel { get; set; }
