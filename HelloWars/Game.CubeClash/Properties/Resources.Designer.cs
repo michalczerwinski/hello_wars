@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace Game.AntWars.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -70,6 +73,16 @@ namespace Game.AntWars.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap kaboom {
+            get {
+                object obj = ResourceManager.GetObject("kaboom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap lawn {
             get {
                 object obj = ResourceManager.GetObject("lawn", resourceCulture);
@@ -93,6 +106,16 @@ namespace Game.AntWars.Properties {
         internal static System.Drawing.Bitmap redMissile {
             get {
                 object obj = ResourceManager.GetObject("redMissile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap redMissile2 {
+            get {
+                object obj = ResourceManager.GetObject("redMissile2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
