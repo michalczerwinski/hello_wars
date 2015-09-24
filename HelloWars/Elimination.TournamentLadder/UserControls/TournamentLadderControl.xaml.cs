@@ -23,9 +23,8 @@ namespace Elimination.TournamentLadder.UserControls
             InitializeComponent();
 
             _viewModel = viewModel;
-            _startingNumberOfBots = _viewModel.Bots.Count;
-            _numberOfStages = (int)Math.Ceiling(Math.Log(_startingNumberOfBots, 2)) + 1;
-            
+            _numberOfStages = (int)Math.Ceiling(Math.Log(_viewModel.Bots.Count, 2)) + 1;
+            _startingNumberOfBots = (int) Math.Pow(2, _numberOfStages - 1);
             Refresh();
         }
 
@@ -81,11 +80,17 @@ namespace Elimination.TournamentLadder.UserControls
 
         private void AddBotsToTournamentList()
         {
+            var numberOfEmptyShells = _startingNumberOfBots - _viewModel.Bots.Count;
             var botsEnumerable = _viewModel.Bots.GetEnumerator();
-            foreach (var emptyBotShell in _viewModel.StageLists[0])
+            for (int i = 0; i < _viewModel.StageLists[0].Count; i++)
             {
+                if (numberOfEmptyShells > 0 && i%2 != 0)
+                {
+                    numberOfEmptyShells--;
+                    continue;
+                }
                 botsEnumerable.MoveNext();
-                emptyBotShell.ViewModel.BotClient = botsEnumerable.Current;
+                _viewModel.StageLists[0][i].ViewModel.BotClient = botsEnumerable.Current;
             }
         }
 

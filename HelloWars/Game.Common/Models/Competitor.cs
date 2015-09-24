@@ -44,24 +44,21 @@ namespace Common.Models
             IsVerified = false;
             var competitorInfo = await LoadCompetitorAsync();
 
-            if (competitorInfo.GameType != gameType)
+            if (competitorInfo == null || competitorInfo.GameType != gameType)
             {
-                return IsVerified;
+                Name = "Not connected";
+                return false;
             }
 
             Name = competitorInfo.Name;
             AvatarUrl = competitorInfo.AvatarUrl;
             IsVerified = true;
-            return IsVerified;
+            return true;
         }
 
         private async Task<CompetitorInfo> LoadCompetitorAsync()
         {
-            var competitor = await WebClientHelper.GetDataAsync<CompetitorInfo>(Url + Resources.InfoUrlSuffix);
-
-            competitor.Url = Url;
-
-            return competitor;
+            return await WebClientHelper.GetDataAsync<CompetitorInfo>(Url + Resources.InfoUrlSuffix);
         }
     }
 }

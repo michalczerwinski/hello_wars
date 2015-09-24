@@ -14,7 +14,6 @@ using Arena.Commands;
 using Arena.Commands.MenuItemCommands;
 using Arena.Configuration;
 using Common;
-using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
 using Common.Serialization;
@@ -231,9 +230,8 @@ namespace Arena.ViewModels
                     {
                         lock (_lock)
                         {
-                            OutputText += string.Format("Url: {0} - wrong game type!\n", bot.Url);
+                            OutputText += string.Format("ERROR: Url: {0} - couldn't verify bot!\nPossible game type mismatch or url inaccesible.\n", bot.Url);
                         }
-                        
                         return bot;
                     }
 
@@ -248,14 +246,14 @@ namespace Arena.ViewModels
 
                 Task.WhenAll(competitorsTasks).ContinueWith(task =>
                 {
+                    IsPlayButtonAvailable = true;
                     if (emptyCompetitors.All(competitor => competitor.IsVerified))
                     {
-                        IsPlayButtonAvailable = true;
                         OutputText += "All players connected!\n";
                     }
                     else
                     {
-                        OutputText += "Not all players were succesfully verified.\nPlease try again or load different configuration file...\n";
+                        OutputText += "WARNING: Not all players were succesfully verified.\nTry reconnecting or play tournament without them\n";
                     }
                     
                 });
