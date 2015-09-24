@@ -248,14 +248,14 @@ namespace Arena.ViewModels
 
                 Task.WhenAll(competitorsTasks).ContinueWith(task =>
                 {
+                    IsPlayButtonAvailable = true;
                     if (emptyCompetitors.All(competitor => competitor.IsVerified))
                     {
-                        IsPlayButtonAvailable = true;
                         OutputText += "All players connected!\n";
                     }
                     else
                     {
-                        OutputText += "Not all players were succesfully verified.\nPlease try again or load different configuration file...\n";
+                        OutputText += "WARNING: Not all players were succesfully verified.\nTry reconnecting or play tournament without them\n";
                     }
                     
                 });
