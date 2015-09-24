@@ -14,7 +14,6 @@ using Arena.Commands;
 using Arena.Commands.MenuItemCommands;
 using Arena.Configuration;
 using Common;
-using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
 using Common.Serialization;
@@ -233,7 +232,6 @@ namespace Arena.ViewModels
                         {
                             OutputText += string.Format("ERROR: Url: {0} - couldn't verify bot!\nPossible game type mismatch or url inaccesible.\n", bot.Url);
                         }
-                        
                         return bot;
                     }
 
