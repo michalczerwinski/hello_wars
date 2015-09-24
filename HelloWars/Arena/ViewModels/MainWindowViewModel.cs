@@ -231,7 +231,7 @@ namespace Arena.ViewModels
                     {
                         lock (_lock)
                         {
-                            OutputText += string.Format("Url: {0} - wrong game type!\n", bot.Url);
+                            OutputText += string.Format("ERROR: Url: {0} - couldn't verify bot!\nPossible game type mismatch or url inaccesible.\n", bot.Url);
                         }
                         
                         return bot;
