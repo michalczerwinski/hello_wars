@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Common.Interfaces
 {
@@ -8,7 +9,9 @@ namespace Common.Interfaces
         string Name { get; set; }
         string AvatarUrl { get; set; }
         string Url { get; set; }
+        bool IsVerified { get; }
 
+        Task<bool> VerifyAsync(string gameType);
         // TODO: Verify Method
     }
 }

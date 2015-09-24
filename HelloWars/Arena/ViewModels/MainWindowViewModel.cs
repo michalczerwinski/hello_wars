@@ -35,6 +35,7 @@ namespace Arena.ViewModels
         private static readonly object _lock = new object();
         private bool _isFullScreenApplied;
         private bool _isGameInProgress;
+        private bool _isPlayButtonAvailable;
 
         private ICommand _autoPlayCommand;
         private ICommand _stopCommand;
@@ -64,7 +65,17 @@ namespace Arena.ViewModels
         public bool IsGameInProgress
         {
             get { return _isGameInProgress; }
-            set { SetProperty(ref _isGameInProgress, value); }
+            set
+            {
+                SetProperty(ref _isGameInProgress, value);
+                IsPlayButtonAvailable = !value;
+            }
+        }
+
+        public bool IsPlayButtonAvailable
+        {
+            get { return _isPlayButtonAvailable; }
+            set { SetProperty(ref _isPlayButtonAvailable, value); }
         }
 
         public bool IsHistoryVisible
@@ -206,31 +217,47 @@ namespace Arena.ViewModels
 
         public void AskForCompetitors(string gameTypeName, List<ICompetitor> emptyCompetitors)
         {
+            IsPlayButtonAvailable = false;
+
             OutputText += string.Format("Waiting for players ({0})\n", emptyCompetitors.Count);
 
             Task.Run(() =>
             {
-                var loader = new CompetitorLoadService();
-
                 var competitorsTasks = emptyCompetitors.Select(async bot =>
                 {
-                    var competitor = await loader.LoadCompetitorAsync(bot.Url, gameTypeName);
+                    var isVerified = await bot.VerifyAsync(gameTypeName);
 
-                    bot.Name = competitor.Name;
-                    bot.AvatarUrl = competitor.AvatarUrl;
+                    if (!isVerified)
+                    {
+                        lock (_lock)
+                        {
+                            OutputText += string.Format("Url: {0} - wrong game type!\n", bot.Url);
+                        }
+                        
+                        return bot;
+                    }
 
                     lock (_lock)
                     {
                         OutputText += string.Format("Bot \"{0}\" connected!\n", bot.Name);
                         Elimination.Bots.First(f => f.Id == bot.Id).Name = bot.Name;
                     }
-
                     return bot;
+
                 }).ToList();
 
                 Task.WhenAll(competitorsTasks).ContinueWith(task =>
                 {
-                    OutputText += "All players connected!\n";
+                    if (emptyCompetitors.All(competitor => competitor.IsVerified))
+                    {
+                        IsPlayButtonAvailable = true;
+                        OutputText += "All players connected!\n";
+                    }
+                    else
+                    {
+                        OutputText += "Not all players were succesfully verified.\nPlease try again or load different configuration file...\n";
+                    }
+                    
                 });
             });
         }
