@@ -175,6 +175,5 @@
         </Grid>
 
         <views:PlayerPresentationUserControl DataContext="{Binding Competitors}"/>
-        
     </Grid>
 </Window>

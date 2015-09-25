@@ -1,4 +1,5 @@
-﻿using Arena.ViewModels;
+﻿using System.Windows;
+using Arena.ViewModels;
 using Common;
 
 namespace Arena.Commands.MenuItemCommands
@@ -14,7 +15,7 @@ namespace Arena.Commands.MenuItemCommands
 
         public override void Execute(object parameter = null)
         {
-           ///////
+            _viewModel.IsPlayerPresentationVisible = Visibility.Visible; 
         }
     }
 }

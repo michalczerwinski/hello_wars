@@ -47,8 +47,10 @@ namespace Arena.ViewModels
         private ICommand _aboutCommand;
         private ICommand _toggleHistoryCommand;
         private ICommand _fullScreenWindowCommand;
+        private ICommand _presentPlayersCommand;
         private WindowState _windowState;
         private WindowStyle _windowStyle;
+        private Visibility _isPlayerPresentationVisible;
 
         public ArenaConfiguration ArenaConfiguration { get; set; }
         public IElimination Elimination { get; set; }
@@ -87,6 +89,12 @@ namespace Arena.ViewModels
         {
             get { return _isOutputVisible; }
             set { SetProperty(ref _isOutputVisible, value); }
+        }
+
+        public Visibility IsPlayerPresentationVisible
+        {
+            get { return _isPlayerPresentationVisible; }
+            set { SetProperty(ref _isPlayerPresentationVisible, value); }
         }
 
         public int SelectedTabIndex
@@ -193,6 +201,11 @@ namespace Arena.ViewModels
             get { return _toggleHistoryCommand ?? (_toggleHistoryCommand = new ToggleHistoryCommand(this)); }
         }
 
+        public ICommand PresentPlayersCommand
+        {
+            get { return _presentPlayersCommand ?? (_presentPlayersCommand = new PresentPlayersCommand(this)); }
+        }
+
         public bool IsFullScreenApplied
         {
             get { return _isFullScreenApplied; }
@@ -211,6 +224,7 @@ namespace Arena.ViewModels
             IsHistoryVisible = true;
             IsOutputVisible = true;
             IsFullScreenApplied = false;
+            IsPlayerPresentationVisible = Visibility.Collapsed;
             ApplyConfiguration(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Resources.DefaultArenaConfigurationName);
         }
 
