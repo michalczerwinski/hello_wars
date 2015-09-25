@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Helpers;
@@ -58,8 +59,20 @@ namespace Game.DynaBlaster.Services
 
             for (var i = 0; i < _field.Bots.Count; i++)
             {
-                _field.Bots[i].Location = _locationService.GetRandomEmptyPointOnBoard();
+                _field.Bots[i].Location = GetBotRandomStartupLocation();
                 _field.Bots[i].Image = ResourceImageHelper.LoadImage(i%2 == 0 ? Resources.tank1 : Resources.tank2);
+            }
+        }
+
+        private Point GetBotRandomStartupLocation()
+        {
+            while (true)
+            {
+                var candidatePoint = _locationService.GetRandomEmptyPointOnBoard();
+                if (_locationService.GetAdjacentLocations(candidatePoint).All(point => _locationService.IsLocationEmpty(point)))
+                {
+                    return candidatePoint;
+                }
             }
         }
 
