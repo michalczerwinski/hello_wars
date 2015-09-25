@@ -124,10 +124,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\DynaBlasterAIService.cs" />
-    <Compile Include="Helpers\DynaBlasterExtensions.cs" />
+    <Compile Include="Helpers\DynaBlaster\CombatService.cs" />
+    <Compile Include="Helpers\DynaBlaster\DynaBlasterAIService.cs" />
+    <Compile Include="Helpers\DynaBlaster\DynaBlasterExtensions.cs" />
+    <Compile Include="Helpers\DynaBlaster\LocationService.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
-    <Compile Include="Helpers\DynaBlasterStorageHelper.cs" />
     <Compile Include="Helpers\EnumValueHelper.cs" />
     <Compile Include="Models\AntWars\ActionDirections.cs" />
     <Compile Include="Models\AntWars\AvailableActions.cs" />

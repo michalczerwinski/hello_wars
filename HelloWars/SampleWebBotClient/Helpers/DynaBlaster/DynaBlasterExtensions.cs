@@ -2,7 +2,7 @@
 using System.Drawing;
 using SampleWebBotClient.Models.DynaBlaster;
 
-namespace SampleWebBotClient.Helpers
+namespace SampleWebBotClient.Helpers.DynaBlaster
 {
     public static class DynaBlasterExtensions
     {
