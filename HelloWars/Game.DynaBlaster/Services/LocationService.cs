@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Game.DynaBlaster.Models;
@@ -29,6 +30,11 @@ namespace Game.DynaBlaster.Services
                 }
             }
         }
+
+        public List<Point> GetAdjacentLocations(Point startingLocation)
+        {
+            return Enum.GetValues(typeof (MoveDirection)).Cast<MoveDirection>().Select(direction => GetNewLocation(startingLocation, direction)).ToList();
+        } 
 
         public bool IsLocationAvailableForMissile(Point location)
         {
@@ -70,6 +76,15 @@ namespace Game.DynaBlaster.Services
                    && location.X < _field.Board.GetLength(0)
                    && location.Y >= 0
                    && location.Y < _field.Board.GetLength(1);
+        }
+
+        public bool IsLocationEmpty(Point location)
+        {
+            return IsLocationValid(location) 
+                && _field.Board[location.X, location.Y] == BoardTile.Empty 
+                && _field.Bots.All(bot => bot.Location != location) 
+                && _field.Bombs.All(bomb => bomb.Location != location) 
+                && _field.Missiles.All(missile => missile.Location != location);
         }
     }
 }
