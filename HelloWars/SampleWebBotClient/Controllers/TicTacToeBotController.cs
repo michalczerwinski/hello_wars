@@ -20,6 +20,7 @@ namespace SampleWebBotClient.Controllers
                 AvatarUrl = "http://localhost:53886/Content/BotImg.png",
                 GameType = "TicTacToe"
             };
+            bot.Description = "Hi, I am " + bot.Name + " and I would like to win this tournament.... haha haha haha.";
 
             return bot;
         }
