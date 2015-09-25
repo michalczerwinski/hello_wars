@@ -267,6 +267,7 @@ namespace Game.AntWars.Utilities
             {
                 return false;
             }
+
             return true;
         }
 

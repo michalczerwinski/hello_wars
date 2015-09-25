@@ -15,7 +15,7 @@ namespace Arena.Commands.MenuItemCommands
 
         public override void Execute(object parameter = null)
         {
-            _viewModel.IsPlayerPresentationVisible = Visibility.Visible; 
+            _viewModel.PlayerPresentationVisibility = Visibility.Visible; 
         }
     }
 }

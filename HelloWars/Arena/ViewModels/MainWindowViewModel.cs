@@ -50,7 +50,7 @@ namespace Arena.ViewModels
         private ICommand _presentPlayersCommand;
         private WindowState _windowState;
         private WindowStyle _windowStyle;
-        private Visibility _isPlayerPresentationVisible;
+        private Visibility _playerPresentationVisibility;
 
         public ArenaConfiguration ArenaConfiguration { get; set; }
         public IElimination Elimination { get; set; }
@@ -91,10 +91,10 @@ namespace Arena.ViewModels
             set { SetProperty(ref _isOutputVisible, value); }
         }
 
-        public Visibility IsPlayerPresentationVisible
+        public Visibility PlayerPresentationVisibility
         {
-            get { return _isPlayerPresentationVisible; }
-            set { SetProperty(ref _isPlayerPresentationVisible, value); }
+            get { return _playerPresentationVisibility; }
+            set { SetProperty(ref _playerPresentationVisibility, value); }
         }
 
         public int SelectedTabIndex
@@ -224,7 +224,7 @@ namespace Arena.ViewModels
             IsHistoryVisible = true;
             IsOutputVisible = true;
             IsFullScreenApplied = false;
-            IsPlayerPresentationVisible = Visibility.Collapsed;
+            PlayerPresentationVisibility = Visibility.Collapsed;
             ApplyConfiguration(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Resources.DefaultArenaConfigurationName);
         }
 
