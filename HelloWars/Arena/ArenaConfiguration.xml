@@ -7,8 +7,8 @@
 
   <GameConfiguration>
     <Type>DynaBlaster</Type>
-    <NextMoveDelay>500</NextMoveDelay>
-    <NextMatchDelay>400</NextMatchDelay>
+    <NextMoveDelay>250</NextMoveDelay>
+    <NextMatchDelay>3000</NextMatchDelay>
   </GameConfiguration>
 
   <BotUrls>
