@@ -51,11 +51,6 @@ namespace Arena.Views
         {
             _timer.Elapsed += OnTimedEvent;
 
-            if (_enumeratedCompetitors.MoveNext())
-            {
-                CurrentViewedPlayerUserControl.DataContext = _enumeratedCompetitors.Current;
-            }
-
             StartCounting();
         }
 
@@ -67,6 +62,10 @@ namespace Arena.Views
                 if (_enumeratedCompetitors != null)
                 {
                     _enumeratedCompetitors.Reset();
+                    if (_enumeratedCompetitors.MoveNext())
+                    {
+                        CurrentViewedPlayerUserControl.DataContext = _enumeratedCompetitors.Current;
+                    }
                     CurrentViewedPlayerUserControl.DataContext = _enumeratedCompetitors.Current;
                 }
             }
