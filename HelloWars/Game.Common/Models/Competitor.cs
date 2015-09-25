@@ -9,7 +9,7 @@ namespace Common.Models
     {
         private string _name;
         private string _avatarUrl;
-
+        private string _description;
         public Guid Id { get; set; }
         public string Url { get; set; }
 
@@ -27,6 +27,12 @@ namespace Common.Models
             set { SetProperty(ref _name, value); }
         }
 
+        public string Description
+        {
+            get { return _description; }
+            set { SetProperty(ref _description, value); }
+        }
+
         public Competitor()
         {
         }
@@ -35,6 +41,7 @@ namespace Common.Models
         {
             Id = competitor.Id;
             Url = competitor.Url;
+            Description = competitor.Description;
             AvatarUrl = competitor.AvatarUrl;
             Name = competitor.Name;
         }
@@ -52,6 +59,7 @@ namespace Common.Models
 
             Name = competitorInfo.Name;
             AvatarUrl = competitorInfo.AvatarUrl;
+            Description = competitorInfo.Description;
             IsVerified = true;
             return true;
         }
@@ -60,5 +68,7 @@ namespace Common.Models
         {
             return await WebClientHelper.GetDataAsync<CompetitorInfo>(Url + Resources.InfoUrlSuffix);
         }
+
+      
     }
 }

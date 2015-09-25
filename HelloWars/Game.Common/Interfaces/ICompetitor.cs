@@ -7,6 +7,7 @@ namespace Common.Interfaces
     {
         Guid Id { get; }
         string Name { get; set; }
+        string Description { get; set; }
         string AvatarUrl { get; set; }
         string Url { get; set; }
         bool IsVerified { get; }

@@ -5,6 +5,7 @@
         xmlns:arena="clr-namespace:Arena.ViewModels"
         xmlns:models="clr-namespace:Common.Models;assembly=Common"
         xmlns:converters="clr-namespace:Common.Converters;assembly=Common"
+        xmlns:views="clr-namespace:Arena.Views"
         Title="Hello Wars Main Window"
         Width="800" Height="600"
         WindowState="{Binding WindowState}"
@@ -26,145 +27,153 @@
             <i:InvokeCommandAction Command="{Binding OnLoadedCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    <Grid>
+        <Grid Background="#2D2D30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-    <Grid Background="#2D2D30">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="5"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition />
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20" />
-                <RowDefinition Height="40" />
-                <RowDefinition />
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
+                <Menu IsMainMenu="True">
+                    <MenuItem Header="_File">
+                        <MenuItem Header="_Open arena config..." Command="{Binding OpenCommand}" IsEnabled="{Binding Path=IsGameInProgress, Converter={StaticResource InverseBooleanConverter}}">
+                            <MenuItem.Icon>
+                                <Image Source="/Icons/Open.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="_Open game config..." Command="{Binding OpenGameConfigCommand}" IsEnabled="{Binding Path=IsGameInProgress, Converter={StaticResource InverseBooleanConverter}}">
+                            <MenuItem.Icon>
+                                <Image Source="/Icons/Open.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="_Close" Command="{Binding CloseCommand}">
+                            <MenuItem.Icon >
+                                <Image Source="/Icons/Close.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="_View">
+                        <MenuItem Header="_History" IsCheckable="True" IsChecked="{Binding IsHistoryVisible, Mode=TwoWay}" Command="{Binding ToggleHistoryCommand}"/>
+                        <MenuItem Header="_Output" IsCheckable="True" IsChecked="{Binding IsOutputVisible, Mode=TwoWay}"/>
+                        <MenuItem Header="_Full Screen" IsCheckable="True" IsChecked="{Binding IsFullScreenApplied, Mode=TwoWay}"/>
+                    </MenuItem>
+                    <MenuItem Header="_Game" >
+                        <MenuItem Header="_Play Duel" Command="{Binding PlayDuelCommand}" IsEnabled="{Binding IsPlayButtonAvailable}">
+                            <MenuItem.Icon >
+                                <Image Source="/Icons/play.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="_Auto Play" Command="{Binding AutoPlayCommand}" IsEnabled="{Binding IsPlayButtonAvailable}">
+                            <MenuItem.Icon >
+                                <Image Source="/Icons/autoplay2.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="_Stop" Command="{Binding StopCommand}" IsEnabled="{Binding IsGameInProgress}">
+                            <MenuItem.Icon >
+                                <Image Source="/Icons/stop.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="_Players">
+                        <MenuItem Header="_Verify" Command="{Binding VerifyPlayersCommand}" IsEnabled="{Binding IsGameInProgress, Converter={StaticResource InverseBooleanConverter}}">
+                            <MenuItem.Icon >
+                                <Image Source="/Icons/VerifyPlayers.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="_Present" Command="{Binding PresentPlayersCommand}" IsEnabled="{Binding IsGameInProgress, Converter={StaticResource InverseBooleanConverter}}">
+                            <MenuItem.Icon >
+                                <Image Source="/Icons/VerifyPlayers.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="_Help">
+                        <MenuItem Header="_Game Rules" Command="{Binding GameRulesCommand}">
+                            <MenuItem.Icon >
+                                <Image Source="/Icons/Rules.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="_About" Command="{Binding AboutCommand}" >
+                            <MenuItem.Icon >
+                                <Image Source="/Icons/About.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
 
-            <Menu IsMainMenu="True">
-                <MenuItem Header="_File">
-                    <MenuItem Header="_Open arena config..." Command="{Binding OpenCommand}" IsEnabled="{Binding Path=IsGameInProgress, Converter={StaticResource InverseBooleanConverter}}">
-                        <MenuItem.Icon>
-                            <Image Source="/Icons/Open.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Header="_Open game config..." Command="{Binding OpenGameConfigCommand}" IsEnabled="{Binding Path=IsGameInProgress, Converter={StaticResource InverseBooleanConverter}}">
-                        <MenuItem.Icon>
-                            <Image Source="/Icons/Open.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Header="_Close" Command="{Binding CloseCommand}">
-                        <MenuItem.Icon >
-                            <Image Source="/Icons/Close.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </MenuItem>
-                <MenuItem Header="_View">
-                    <MenuItem Header="_History" IsCheckable="True" IsChecked="{Binding IsHistoryVisible, Mode=TwoWay}" Command="{Binding ToggleHistoryCommand}"/>
-                    <MenuItem Header="_Output" IsCheckable="True" IsChecked="{Binding IsOutputVisible, Mode=TwoWay}"/>
-                    <MenuItem Header="_Full Screen" IsCheckable="True" IsChecked="{Binding IsFullScreenApplied, Mode=TwoWay}"/>
-                </MenuItem>
-                <MenuItem Header="_Game" >
-                    <MenuItem Header="_Play Duel" Command="{Binding PlayDuelCommand}" IsEnabled="{Binding IsPlayButtonAvailable}">
-                        <MenuItem.Icon >
+                <Grid Grid.Row="1" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="1" Style="{StaticResource BorderPretendingToolBarStyle}">
+                        <Button Command="{Binding PlayDuelCommand}" IsEnabled="{Binding IsPlayButtonAvailable}">
+                            <Button.ToolTip >Play Single Duel</Button.ToolTip>
                             <Image Source="/Icons/play.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Header="_Auto Play" Command="{Binding AutoPlayCommand}" IsEnabled="{Binding IsPlayButtonAvailable}">
-                        <MenuItem.Icon >
+                        </Button>
+                    </Border>
+
+                    <Border Grid.Column="2" Style="{StaticResource BorderPretendingToolBarStyle}">
+                        <Button Command="{Binding AutoPlayCommand}" IsEnabled="{Binding IsPlayButtonAvailable}">
+                            <Button.ToolTip >Play Duels To The End Of Tournament</Button.ToolTip>
                             <Image Source="/Icons/autoplay2.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Header="_Stop" Command="{Binding StopCommand}" IsEnabled="{Binding IsGameInProgress}">
-                        <MenuItem.Icon >
+                        </Button>
+                    </Border>
+
+                    <Border Grid.Column="3" Style="{StaticResource BorderPretendingToolBarStyle}">
+                        <Button Command="{Binding StopCommand}" IsEnabled="{Binding IsGameInProgress}">
+                            <Button.ToolTip >Stops current game</Button.ToolTip>
                             <Image Source="/Icons/stop.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </MenuItem>
-                <MenuItem Header="_Diagnostics">
-                    <MenuItem Header="_Verify Players" Command="{Binding VerifyPlayersCommand}" IsEnabled="{Binding Path=IsGameInProgress, Converter={StaticResource InverseBooleanConverter}}">
-                        <MenuItem.Icon >
-                            <Image Source="/Icons/VerifyPlayers.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </MenuItem>
-                <MenuItem Header="_Help">
-                    <MenuItem Header="_Game Rules" Command="{Binding GameRulesCommand}">
-                        <MenuItem.Icon >
-                            <Image Source="/Icons/Rules.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Header="_About" Command="{Binding AboutCommand}" >
-                        <MenuItem.Icon >
-                            <Image Source="/Icons/About.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </MenuItem>
-            </Menu>
+                        </Button>
+                    </Border>
+                </Grid>
 
-            <Grid Grid.Row="1" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+                <TabControl Grid.Row="2" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}" Margin="2,10,2,10">
+                    <TabItem Header="Game">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <Viewbox HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}" />
+                            </Viewbox>
+                        </ScrollViewer>
+                    </TabItem>
+                    <TabItem Header="History" Name="HistoryTab" Visibility="{Binding IsHistoryVisible, Converter= {StaticResource BooleanToVisibilityConverter}, ConverterParameter=null}">
+                        <TreeView Name="GameHistoryTree" ItemsSource="{Binding GameHistory}" Margin="10" Background="{StaticResource BackgroundHighlighted}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  SelectedItemChanged="GameHistoryTree_OnSelectedItemChanged">
+                            <TreeView.Resources>
+                                <HierarchicalDataTemplate DataType="{x:Type arena:GameHistoryEntryViewModel}" ItemsSource="{Binding History}">
+                                    <TextBlock Text="{Binding GameDescription}" Foreground="White"/>
+                                </HierarchicalDataTemplate>
+                                <DataTemplate DataType="{x:Type models:RoundPartialHistory}">
+                                    <TextBlock Text="{Binding Caption}" Foreground="White"/>
+                                </DataTemplate>
+                            </TreeView.Resources>
+                        </TreeView>
+                    </TabItem>
+                </TabControl>
 
-                <Border Grid.Column="1" Style="{StaticResource BorderPretendingToolBarStyle}">
-                    <Button Command="{Binding PlayDuelCommand}" IsEnabled="{Binding IsPlayButtonAvailable}">
-                        <Button.ToolTip >Play Single Duel</Button.ToolTip>
-                        <Image Source="/Icons/play.png" />
-                    </Button>
-                </Border>
-
-                <Border Grid.Column="2" Style="{StaticResource BorderPretendingToolBarStyle}">
-                    <Button Command="{Binding AutoPlayCommand}" IsEnabled="{Binding IsPlayButtonAvailable}">
-                        <Button.ToolTip >Play Duels To The End Of Tournament</Button.ToolTip>
-                        <Image Source="/Icons/autoplay2.png" />
-                    </Button>
-                </Border>
-
-                <Border Grid.Column="3" Style="{StaticResource BorderPretendingToolBarStyle}">
-                    <Button Command="{Binding StopCommand}" IsEnabled="{Binding IsGameInProgress}">
-                        <Button.ToolTip >Stops current game</Button.ToolTip>
-                        <Image Source="/Icons/stop.png" />
-                    </Button>
-                </Border>
+                <TextBox Grid.Row="3" VerticalAlignment="Bottom" Height="150" IsReadOnly="True" Name="OutputWindow" Text="{Binding OutputText}" Visibility="{Binding IsOutputVisible, Converter= {StaticResource BooleanToVisibilityConverter}}" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextChanged="OutputWindow_TextChanged"/>
             </Grid>
 
-            <TabControl Grid.Row="2" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}" Margin="2,10,2,10">
-                <TabItem Header="Game">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <Viewbox HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <UserControl Content="{Binding EliminationTypeControl, Mode=TwoWay}" />
-                        </Viewbox>
-                    </ScrollViewer>
-                </TabItem>
-                <TabItem Header="History" Name="HistoryTab" Visibility="{Binding IsHistoryVisible, Converter= {StaticResource BooleanToVisibilityConverter}, ConverterParameter=null}">
-                    <TreeView Name="GameHistoryTree" ItemsSource="{Binding GameHistory}" Margin="10" Background="{StaticResource BackgroundHighlighted}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  SelectedItemChanged="GameHistoryTree_OnSelectedItemChanged">
-                        <TreeView.Resources>
-                            <HierarchicalDataTemplate DataType="{x:Type arena:GameHistoryEntryViewModel}" ItemsSource="{Binding History}">
-                                <TextBlock Text="{Binding GameDescription}" Foreground="White"/>
-                            </HierarchicalDataTemplate>
-                            <DataTemplate DataType="{x:Type models:RoundPartialHistory}">
-                                <TextBlock Text="{Binding Caption}" Foreground="White"/>
-                            </DataTemplate>
-                        </TreeView.Resources>
-                    </TreeView>
-                </TabItem>
-            </TabControl>
+            <GridSplitter Grid.Column="1" Width="5" Background="DimGray"  HorizontalAlignment="Stretch" ShowsPreview="True"/>
 
-            <TextBox Grid.Row="3" VerticalAlignment="Bottom" Height="150" IsReadOnly="True" Name="OutputWindow" Text="{Binding OutputText}" Visibility="{Binding IsOutputVisible, Converter= {StaticResource BooleanToVisibilityConverter}}" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextChanged="OutputWindow_TextChanged"/>
+            <Viewbox Grid.Column="2" Stretch="Uniform" >
+                <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}"/>
+            </Viewbox>
         </Grid>
 
-        <GridSplitter Grid.Column="1" Width="5" Background="DimGray"  HorizontalAlignment="Stretch" ShowsPreview="True"/>
-
-        <Viewbox Grid.Column="2" Stretch="Uniform" >
-            <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}"/>
-        </Viewbox>
+        <views:PlayerPresentationUserControl DataContext="{Binding Competitors}"/>
     </Grid>
 </Window>
