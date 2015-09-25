@@ -7,7 +7,7 @@
   <RoundsBetweenMissiles>5</RoundsBetweenMissiles>
   
   <!-- Increase explosion range every x rounds to increase difficulty -->
-  <RoundsBeforeIncreasingBlastRadius>50</RoundsBeforeIncreasingBlastRadius> <!-- set to 0 to disable this feature-->
+  <RoundsBeforeIncreasingBlastRadius>70</RoundsBeforeIncreasingBlastRadius> <!-- set to 0 to disable this feature-->
   <!-- If set to "true", missile will explode in the same round that it reaches its last free location. Otherwise it will explode in the next round -->
-  <IsFastMissileModeEnabled>true</IsFastMissileModeEnabled>
+  <IsFastMissileModeEnabled>false</IsFastMissileModeEnabled>
 </DynaBlasterConfig>

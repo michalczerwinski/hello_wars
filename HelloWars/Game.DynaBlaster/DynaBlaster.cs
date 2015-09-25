@@ -89,6 +89,14 @@ namespace Game.DynaBlaster
 
         public string GetGameRules()
         {
+            Resources.indestructibleTile.Save("hello_wars_indestructible_tile.png");
+            Resources.regularTile.Save("hello_wars_regular_tile.png");
+            Resources.fortifiedTile.Save("hello_wars_fortified_tile.png");
+            Resources.bomb.Save("hello_wars_bomb.png");
+            Resources.missile.Save("hello_wars_missile.png");
+            Resources.hello_wars_example.Save("hello_wars_example.png");
+            Resources.tank1.Save("hello_wars_tank.png");
+            Resources.blast_example.Save("hello_wars_blast_example.png");
             return Resources.GameRules;
         }
 
