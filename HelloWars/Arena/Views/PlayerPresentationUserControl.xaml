@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              x:Name="PlayerPresenter"
-             Visibility="{Binding DataContext.IsPlayerPresentationVisible,
+             Visibility="{Binding DataContext.PlayerPresentationVisibility,
                      RelativeSource={RelativeSource FindAncestor,
                      AncestorType={x:Type views:MainWindow}}, Mode=TwoWay}"
              IsVisibleChanged="PlayerPresentationUserControl_OnIsVisibleChanged"
