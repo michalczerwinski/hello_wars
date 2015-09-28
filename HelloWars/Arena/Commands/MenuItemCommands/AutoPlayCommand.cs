@@ -20,7 +20,7 @@ namespace Arena.Commands.MenuItemCommands
             while (_viewModel.Elimination.GetNextCompetitors() != null && _viewModel.IsGameInProgress)
             {
                 await _viewModel.PlayNextGameAsync();
-                await DelayHelper.DelayAsync(5000);
+                await DelayHelper.DelayAsync(_viewModel.ArenaConfiguration.GameConfiguration.NextMatchDelay);
             }
             _viewModel.IsGameInProgress = false;
         }

@@ -1,33 +1,202 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<style>
-		body{
-			font-family: Arial, Helvetica, sans-serif
-		}
-	</style>
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif }
+
+        #top {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        #toc span {
+            display: block;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-top: 15px;
+        }
+
+        .h2 {
+            font-size: 22px;
+            margin-left: 10px;
+        }
+
+        .h3 {
+            font-size: 18px;
+            padding-left: 30px;
+        }
+
+        .h4 {
+            font-size: 16px;
+            padding-left: 50px;
+        }
+
+        img.icon {
+            height: 32px;
+            width: 32px;
+        }
+    </style>
+
 </head>
 <body>
-<h1>Hello Wars: DynaBlaster</h1>
+    <span id="top">Hello Wars: DynaBlaster</span>
+    <div id="toc">
+        <span>Table of Contents</span>
+    </div>
+    <div id="content">
+        <h2 id="game-overview">Game overview</h2>
+        <b>Hello Wars: DynaBlaster</b> is a game resembling popular Bomberman. It consists of game board divided into small tiles and players moving through this board, dropping bombs and firing missiles
 
-<h2>Game overview</h2>
-<b>Hello Wars: DynaBlaster</b> is a game resembling popular Bomberman. It consists of game board divided into small tiles.
-Each tile can be of different type:
-<ul>
-	<li><b>Empty tile</b> - self explanatory</li>
-	<li>
-		<b>Regular tile (<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAALJJREFUWEdjjIiI+M8ABDNmzABRDDdu3ADTDx48ANMbNmwA0+jy1AJMUHrAADwEDFbsBQuggwsRzmAalzylYMBDYNQBow5gtLBwAOeCgQIDHwIfPnwAhwCxJRylJeQBC18wDStfBj4EOhhEyUoDlJaQgyYERh0w6oDRkhBnm5BSgF5iFhQUgGl0MHhCgFZtPkIl5mg2HHXA4MkFEhISYAFqgxcvXoBpXOYPfAiM8LqAgQEAO9BLhzF7OrkAAAAASUVORK5CYII="/>)
-		</b> - this is a tile that will get destroyed if a bomb explodes nearby
-	</li>
-	<li>
-		<b>Fortified tile (<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAABGdBTUEAALGPC/xhBQAAABVQTFRFODhAWFhYcHBwiIiQqKioyMjI8PDwsPMRxQAAAEdJREFUKM9jEEwLdQFiOGDAFDA2NgZhGKCNAGEAcRPMbcaCmAJQs2Dm0kiAMEAKPhdBaJiiCSB5XRAWHtQXUEIAEBtTgCAAAEV8VUU5xSC/AAAAAElFTkSuQmCC"/>)
-		</b> - this is a tile that won't get destroyed by a bomb blast, but will turn into regular tile instead.
-		 So basically it is a tile with 2 HP
-	</li>
-	<li>
-		<b>Indestructible tile (<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAABGdBTUEAALGPC/xhBQAAABVQTFRFODhAWFhYcHBwiIiQqKioyMjI8PDwsPMRxQAAADpJREFUKM9jSAtFBi4MDBgCLkrIQBCrgIsglOciiENAECYgiEuAsC3DSYAKIWaMDLAJKAmiACwCBAEAvoBCz9cxYrAAAAAASUVORK5CYII="/>)
-		</b> - this is a tile that won't get destroyed at all
-	</li>
-</ul>
+        <h3>Board tiles</h3>
+        Each tile can be of different type:
+        <ul>
+            <li><b>Empty tile</b> - nothing is there. Player can safely move through it</li>
+            <li>
+                <b>
+                    Regular tile (<img class="icon" src="hello_wars_regular_tile.png" />)
+                </b> - this is a tile that will get destroyed if a bomb explodes nearby. Players cannot move through this tile and missiles will explode on impact
+            </li>
+            <li>
+                <b>
+                    Fortified tile (<img class="icon" src="hello_wars_fortified_tile.png" />)
+                </b> - this is a tile that won't get destroyed by a bomb blast, but will turn into regular tile instead.
+                So basically it is a tile with 2 HP. Players cannot move through this tile and missiles will explode on impact
+            </li>
+            <li>
+                <b>
+                    Indestructible tile (<img class="icon" src="hello_wars_indestructible_tile.png" />)
+                </b> - this is a tile that won't get destroyed at all. Players cannot move through this tile and missiles will explode on impact
+            </li>
+        </ul>
+        <br />
+        <a href="#top">Back to top</a>
+        <h3>Bombs & Missiles</h3>
+        There are two types of explodables in the game:
+        <ul>
+            <li>
+                <b>
+                    Bomb (
+                    <img class="icon" src="hello_wars_bomb.png" />
+                    )
+                </b> - remains in place for 5 rounds and then explodes
+            </li>
+            <li>
+                <b>
+                    Missile (
+                    <img class="icon" src="hello_wars_missile.png" />
+                    )
+                </b> - Moves in firing direction at constant speed (1 tile/round). Explodes on contact with tiles, map edges, players, bombs and other missiles.
+            </li>
+        </ul>
+        <br />
+        <a href="#top">Back to top</a>
+        <h3>Players</h3>
+        Players are displayed in a form of tanks (<img class="icon" src="hello_wars_tank.png" />). They move through game board trying to kill their opponents with bombs and missiles.
+        <br />
+        <a href="#top">Back to top</a>
+        <h3>Game board</h3>
+        Game board is a rectangle, usually 15 - 20 tiles wide and 15 - 20 tiles high (configurable via configuration file).
+        In program it is represented by 2 dimensional array, where first dimension is X position and second is Y position.
+        <br />
+        Example game board:
+        <br />
+        <img src="hello_wars_example.png" />
+        <br />
+        <a href="#top">Back to top</a>
+
+        <h2>Game mechanics</h2>
+        <h3>Game round</h3>
+        Game is divided into rounds. Each round consists of several steps performed in strict order:
+        <ol>
+            <li>Increase round number</li>
+            <li>Move missiles, for each missile calculate explosions (if there is an impact)</li>
+            <li>Decrease bombs timers and calculate explosions (if bomb's timer reaches 0)</li>
+            <li>
+                Clear explosions. Unlike original Bomberman, explosions are instant, so there is no chance that player will walk into lasting explosion and get killed.
+                However, standing on the field that will explode in the next round is of course fatal
+            </li>
+            <li>Check if there are at least two alive players left and if not, end the game</li>
+            <li>
+                Ask players for their moves and execute them. The process is sequential, so each player is asked for next move (current board state is provided), then
+                the move is executed (if it's valid), and then next player is asked for his next move, etc.
+            </li>
+        </ol>
+        <br />
+        <a href="#top">Back to top</a>
+        <h3>Movement & locations</h3>
+        As mentioned before, game board is represented by 2 dimensional array (grid) [X, Y] with X determining horizontal position (or column) and Y vertical position (or row).
+        There are 4 types of movement directions: Up, Down, Left and Right. Left and Right directions are pretty obvious: they respectively decrease and increase X value.
+        Up and Down directions are slightly different. Becasuse game board is being rendered from top left corner, the Up movement direction actually decreases Y value and Down movement direction increases it.
+        <br />
+        <br />
+        Players can safely move through empty tiles. Moving to fields with regular, fortified or indestructible tiles is prohibited (they are blocking tiles, so game will take this as an invalid move and ignore).
+        Bombs are non blocking, so players can safely stand on tiles with bombs on them (just need to remember to run before bomb explodes).
+        Missiles are technically non blocking (game will execute the move), but they explode on impact so moving to a field with missile will result in player's death.
+        <br />
+        <a href="#top">Back to top</a>
+
+        <h3>Explosions</h3>
+        Each explodable (bomb or missile) explodes when certain condition is met. For bomb it is timer expiration,
+        for missile it's collision with another object (map edge, tile, player, bomb or another missile).
+        <h4>Explosion radius</h4>
+        Each explodable has an explosion radius. It's a number of fields in all directions that are affected by an explosion. Explosions affect only fields in vertical and horizontal axis, no diagonals.
+        Eg. if bomb's explosion radius is 2 and bomb location is [10, 10], then fields affected by explosion would be:
+        bomb location ([10, 10]), 2 fields Up ([10, 9] and [10, 8]), 2 fields Down ([10, 11] and [10, 12]), 2 fields Left ([9, 10] and [8, 10]) and 2 fields right ([11, 10] and [12, 10])
+        <br/>
+        Example:
+        <br />
+        <img src="hello_wars_blast_example.png" />
+        <br/>
+        Explosion radius can be set separately for bombs and missiles via configuration file. It can also change during gameplay (see Configuration File section)
+        <h4></h4>
+        <br />
+        <a href="#top">Back to top</a>
+    </div>
+
+    <script>
+        window.onload = htmlTableOfContents;
+
+        /**
+         * Generates a table of contents for your document based on the headings
+         *  present. Anchors are injected into the document and the
+         *  entries in the table of contents are linked to them. The table of
+         *  contents will be generated inside of the first element with the id `toc`.
+         * @param {HTMLDOMDocument} documentRef Optional A reference to the document
+         *  object. Defaults to `document`.
+         * @author Matthew Christopher Kastor-Inare III
+         * @version 20130726
+         * @example
+         * // call this after the page has loaded
+         * htmlTableOfContents();
+         */
+        function htmlTableOfContents(documentRef) {
+            var documentRef = document;
+            var toc = documentRef.getElementById('toc');
+            var headings = [].slice.call(documentRef.body.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+            headings.forEach(function (heading, index) {
+                var anchor = documentRef.createElement('a');
+                anchor.setAttribute('name', 'toc' + index);
+                anchor.setAttribute('id', 'toc' + index);
+
+                var link = documentRef.createElement('a');
+                link.setAttribute('href', '#toc' + index);
+                link.textContent = heading.textContent;
+
+                var div = documentRef.createElement('div');
+                div.setAttribute('class', heading.tagName.toLowerCase());
+
+                div.appendChild(link);
+                toc.appendChild(div);
+                heading.parentNode.insertBefore(anchor, heading);
+            });
+        }
+
+        try {
+            module.exports = htmlTableOfContents;
+        } catch (e) {
+            // module.exports is not defined
+        }
+    </script>
 </body>
 </html>

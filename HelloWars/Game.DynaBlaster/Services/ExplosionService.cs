@@ -24,6 +24,11 @@ namespace Game.DynaBlaster.Services
         {
             _field.Explosions.Clear();
 
+            foreach (var missile in _field.Missiles)
+            {
+                HandleMissileMovement(missile);
+            }
+
             foreach (var bomb in _field.Bombs)
             {
                 bomb.RoundsUntilExplodes--;
@@ -31,11 +36,6 @@ namespace Game.DynaBlaster.Services
                 {
                     SetExplosion(bomb);
                 }
-            }
-
-            foreach (var missile in _field.Missiles)
-            {
-                HandleMissileMovement(missile);
             }
 
             _field.Bombs.RemoveAll(bomb => bomb.IsExploded);
