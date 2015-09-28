@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.TicTacToe", "Game.TicT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elimination.TournamentLadder", "Elimination.TournamentLadder\Elimination.TournamentLadder.csproj", "{5963818B-9CFD-4F59-88E0-15E0DFE36315}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.DynaBlaster", "Game.DynaBlaster\Game.DynaBlaster.csproj", "{8EB50EEF-B103-4A14-B5B1-2DAC34268D0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.TankBlaster", "Game.TankBlaster\Game.TankBlaster.csproj", "{8EB50EEF-B103-4A14-B5B1-2DAC34268D0F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elimination.RoundRobin", "Elimination.RoundRobin\Elimination.RoundRobin.csproj", "{7E34827F-DD0B-42D7-8766-5C4D06A6D652}"
 EndProject

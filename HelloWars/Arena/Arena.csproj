@@ -187,9 +187,9 @@
       <Project>{a40d2185-d837-4773-8dd7-3830f0c9e3ff}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Game.DynaBlaster\Game.DynaBlaster.csproj">
+    <ProjectReference Include="..\Game.TankBlaster\Game.TankBlaster.csproj">
       <Project>{8eb50eef-b103-4a14-b5b1-2dac34268d0f}</Project>
-      <Name>Game.DynaBlaster</Name>
+      <Name>Game.TankBlaster</Name>
     </ProjectReference>
     <ProjectReference Include="..\Game.TicTacToe\Game.TicTacToe.csproj">
       <Project>{EE3BBF9D-A0BF-4F11-91BC-21A5B5099730}</Project>

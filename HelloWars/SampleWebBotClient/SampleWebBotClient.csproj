@@ -118,16 +118,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\DynaBlasterBotController.cs" />
+    <Compile Include="Controllers\TankBlasterBotController.cs" />
     <Compile Include="Controllers\AntWarsBotController.cs" />
     <Compile Include="Controllers\TicTacToeBotController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\DynaBlaster\CombatService.cs" />
-    <Compile Include="Helpers\DynaBlaster\DynaBlasterAIService.cs" />
-    <Compile Include="Helpers\DynaBlaster\DynaBlasterExtensions.cs" />
-    <Compile Include="Helpers\DynaBlaster\LocationService.cs" />
+    <Compile Include="Helpers\TankBlaster\CombatService.cs" />
+    <Compile Include="Helpers\TankBlaster\TankBlasterAIService.cs" />
+    <Compile Include="Helpers\TankBlaster\TankBlasterExtensions.cs" />
+    <Compile Include="Helpers\TankBlaster\LocationService.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Helpers\EnumValueHelper.cs" />
     <Compile Include="Models\AntWars\ActionDirections.cs" />
@@ -135,16 +135,16 @@
     <Compile Include="Models\AntWars\AntMove.cs" />
     <Compile Include="Models\AntWars\ObjectTypes.cs" />
     <Compile Include="Models\AntWars\SurroundingAreaInfo.cs" />
-    <Compile Include="Models\DynaBlaster\BoardTile.cs" />
-    <Compile Include="Models\DynaBlaster\Bomb.cs" />
-    <Compile Include="Models\DynaBlaster\BotAction.cs" />
-    <Compile Include="Models\DynaBlaster\BotArenaInfo.cs" />
+    <Compile Include="Models\TankBlaster\BoardTile.cs" />
+    <Compile Include="Models\TankBlaster\Bomb.cs" />
+    <Compile Include="Models\TankBlaster\BotAction.cs" />
+    <Compile Include="Models\TankBlaster\BotArenaInfo.cs" />
     <Compile Include="Models\BotInfo.cs" />
-    <Compile Include="Models\DynaBlaster\BotMove.cs" />
-    <Compile Include="Models\DynaBlaster\DynaBlasterConfig.cs" />
-    <Compile Include="Models\DynaBlaster\Missile.cs" />
-    <Compile Include="Models\DynaBlaster\Objective.cs" />
-    <Compile Include="Models\DynaBlaster\MoveDirection.cs" />
+    <Compile Include="Models\TankBlaster\BotMove.cs" />
+    <Compile Include="Models\TankBlaster\TankBlasterConfig.cs" />
+    <Compile Include="Models\TankBlaster\Missile.cs" />
+    <Compile Include="Models\TankBlaster\Objective.cs" />
+    <Compile Include="Models\TankBlaster\MoveDirection.cs" />
     <Compile Include="Models\TicTacToe\TicTacToeBoardFieldType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
