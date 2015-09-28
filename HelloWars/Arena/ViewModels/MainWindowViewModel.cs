@@ -34,10 +34,13 @@ namespace Arena.ViewModels
         private static readonly object _lock = new object();
         private bool _isFullScreenApplied;
         private bool _isGameInProgress;
+        private bool _isGamePaused;
         private bool _isPlayButtonAvailable;
+        private bool _isRestartButtonAvailable;
 
         private ICommand _autoPlayCommand;
-        private ICommand _stopCommand;
+        private ICommand _restartCommand;
+        private ICommand _pauseCommand;
         private ICommand _onLoadedCommand;
         private ICommand _openCommand;
         private ICommand _openGameConfigCommand;
@@ -51,6 +54,7 @@ namespace Arena.ViewModels
         private WindowState _windowState;
         private WindowStyle _windowStyle;
         private Visibility _playerPresentationVisibility;
+        
 
         public ArenaConfiguration ArenaConfiguration { get; set; }
         public IElimination Elimination { get; set; }
@@ -70,13 +74,37 @@ namespace Arena.ViewModels
             {
                 SetProperty(ref _isGameInProgress, value);
                 IsPlayButtonAvailable = !value;
+                CalculateRestartButtonAvailability();
             }
         }
+
+        public bool IsGamePaused
+        {
+            get { return _isGamePaused; }
+            set
+            {
+                _isGamePaused = value;
+                CalculateRestartButtonAvailability();
+            }
+        }
+
+        public bool ShouldRestartGame { get; set; }
 
         public bool IsPlayButtonAvailable
         {
             get { return _isPlayButtonAvailable; }
             set { SetProperty(ref _isPlayButtonAvailable, value); }
+        }
+
+        public bool IsRestartButtonAvailable
+        {
+            get { return _isRestartButtonAvailable; }
+            set { SetProperty(ref _isRestartButtonAvailable, value); }
+        }
+
+        private void CalculateRestartButtonAvailability()
+        {
+            IsRestartButtonAvailable = IsGameInProgress || IsGamePaused;
         }
 
         public bool IsHistoryVisible
@@ -171,9 +199,14 @@ namespace Arena.ViewModels
             get { return _autoPlayCommand ?? (_autoPlayCommand = new AutoPlayCommand(this)); }
         }
 
-        public ICommand StopCommand
+        public ICommand RestartCommand
         {
-            get { return _stopCommand ?? (_stopCommand = new StopCommand(this)); }
+            get { return _restartCommand ?? (_restartCommand = new RestartCommand(this)); }
+        }
+
+        public ICommand PauseCommand
+        {
+            get { return _pauseCommand ?? (_pauseCommand = new PauseCommand(this)); }
         }
 
         public ICommand VerifyPlayersCommand
@@ -324,29 +357,51 @@ namespace Arena.ViewModels
                 var gameHistoryEntry = new GameHistoryEntryViewModel()
                 {
                     GameDescription = Elimination.GetGameDescription(),
-                    History = new List<RoundPartialHistory>()
+                    History = new ObservableCollection<RoundPartialHistory>()
                 };
-
+                
                 Game.SetupNewGame(nextCompetitors);
+                GameHistory.Add(gameHistoryEntry);
 
                 OutputText += "Game starting: " + gameHistoryEntry.GameDescription + "\n";
 
-                RoundResult result;
-
-                do
-                {
-                    result = await Game.PerformNextRoundAsync();
-                    gameHistoryEntry.History.AddRange(result.History);
-                } while (!result.IsFinished && IsGameInProgress);
-
-                GameHistory.Add(gameHistoryEntry);
-
-                if (result.IsFinished)
-                {
-                    Elimination.SetLastDuelResult(result.FinalResult);
-                    ScoreList.SaveScore(result.FinalResult);
-                }
+                await PlayGameAsync(gameHistoryEntry);
             }
+        }
+
+        public async Task ResumeGameAsync()
+        {
+            var gameHistoryEntry = GameHistory.Last();
+            Game.SetPreview(gameHistoryEntry.History.Last().BoardState);
+            await PlayGameAsync(gameHistoryEntry);
+        }
+
+        private async Task PlayGameAsync(GameHistoryEntryViewModel gameHistoryEntry)
+        {
+            RoundResult result;
+
+            do
+            {
+                result = await Game.PerformNextRoundAsync();
+                foreach (var roundPartialHistory in result.History)
+                {
+                    gameHistoryEntry.History.Add(roundPartialHistory);
+                }
+                
+            } while (!result.IsFinished && IsGameInProgress && !IsGamePaused);
+
+            if (result.IsFinished)
+            {
+                Elimination.SetLastDuelResult(result.FinalResult);
+                ScoreList.SaveScore(result.FinalResult);
+            }
+        }
+
+        public void RestartGame()
+        {
+            ShouldRestartGame = false;
+            IsGamePaused = false;
+            PlayDuelCommand.Execute(null);
         }
     }
 }

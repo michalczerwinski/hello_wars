@@ -8,18 +8,19 @@ using Common;
 
 namespace Arena.Commands.MenuItemCommands
 {
-    public class StopCommand : CommandBase
+    public class PauseCommand : CommandBase
     {
         protected readonly MainWindowViewModel _viewModel;
 
-        public StopCommand(MainWindowViewModel viewModel)
+        public PauseCommand(MainWindowViewModel viewModel)
         {
             _viewModel = viewModel;
         }
 
         public override void Execute(object parameter = null)
         {
-            _viewModel.IsGameInProgress = false;
+            _viewModel.IsGamePaused = true;
+            _viewModel.IsGameInProgress = false;    
         }
     }
 }

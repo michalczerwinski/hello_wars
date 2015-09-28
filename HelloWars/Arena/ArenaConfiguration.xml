@@ -6,8 +6,8 @@
   </EliminationConfiguration>
 
   <GameConfiguration>
-    <Type>AntWars</Type>
-    <NextMoveDelay>150</NextMoveDelay>
+    <Type>TankBlaster</Type>
+    <NextMoveDelay>300</NextMoveDelay>
     <NextMatchDelay>400</NextMatchDelay>
   </GameConfiguration>
 
@@ -18,18 +18,18 @@
         <Url>http://localhost:53886/TicTacToeBot/</Url>
         <Url>http://localhost:53886/TicTacToeBot/</Url>-->
 
-    <Url>http://localhost:53886/AntWarsBot/</Url>
-    <Url>http://localhost:53886/AntWarsBot/</Url>
-    <Url>http://localhost:53886/AntWarsBot/</Url>
-    <Url>http://localhost:53886/AntWarsBots/</Url>
+<!--    <Url>http://localhost:53886/AntWarsBot/</Url>-->
+<!--    <Url>http://localhost:53886/AntWarsBot/</Url>-->
+<!--    <Url>http://localhost:53886/AntWarsBot/</Url>-->
+<!--    <Url>http://localhost:53886/AntWarsBots/</Url>-->
     
     
     <Url>http://localhost:53886/TankBlasterBot/</Url>
-<!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->
-<!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->
-<!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->
-<!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->
-<!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->
-<!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->
+    <Url>http://localhost:53886/TankBlasterBot/</Url>
+    <Url>http://localhost:53886/TankBlasterBot/</Url>
+    <Url>http://localhost:53886/TankBlasterBot/</Url>
+    <Url>http://localhost:53886/TankBlasterBot/</Url>
+    <Url>http://localhost:53886/TankBlasterBot/</Url>
+    <Url>http://localhost:53886/TankBlasterBot/</Url>
   </BotUrls>
 </ArenaConfiguration>

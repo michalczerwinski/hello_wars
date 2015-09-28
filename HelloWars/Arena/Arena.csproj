@@ -91,7 +91,8 @@
     <Compile Include="Commands\MenuItemCommands\GameRulesCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\OpenGameConfigCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\OpenCommand.cs" />
-    <Compile Include="Commands\MenuItemCommands\StopCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\PauseCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\RestartCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\PlayDuelCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\ToggleHistoryCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\PresentPlayersCommand.cs" />
@@ -171,6 +172,8 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\restart.png" />
+    <Resource Include="Icons\pause.png" />
     <Resource Include="Icons\autoplay2.png" />
     <Resource Include="Icons\play.png" />
     <Resource Include="Icons\stop.png" />
