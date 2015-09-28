@@ -24,12 +24,12 @@
     <Url>http://localhost:53886/AntWarsBots/</Url>
     
     
-    <Url>http://localhost:53886/DynaBlasterBot/</Url>
-<!--    <Url>http://localhost:53886/DynaBlasterBot/</Url>-->
-<!--    <Url>http://localhost:53886/DynaBlasterBot/</Url>-->
-<!--    <Url>http://localhost:53886/DynaBlasterBot/</Url>-->
-<!--    <Url>http://localhost:53886/DynaBlasterBot/</Url>-->
-<!--    <Url>http://localhost:53886/DynaBlasterBot/</Url>-->
-<!--    <Url>http://localhost:53886/DynaBlasterBot/</Url>-->
+    <Url>http://localhost:53886/TankBlasterBot/</Url>
+<!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->
+<!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->
+<!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->
+<!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->
+<!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->
+<!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->
   </BotUrls>
 </ArenaConfiguration>
