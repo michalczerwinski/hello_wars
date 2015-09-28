@@ -171,6 +171,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\Checked.ico" />
     <Resource Include="Icons\autoplay2.png" />
     <Resource Include="Icons\play.png" />
     <Resource Include="Icons\stop.png" />
