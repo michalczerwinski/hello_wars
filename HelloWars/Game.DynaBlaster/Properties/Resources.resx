@@ -154,4 +154,10 @@
   <data name="bomb_expl_mid_vert" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bomb_expl_mid_vert.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="hello_wars_example" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hello_wars_example.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blast_example" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blast_example.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

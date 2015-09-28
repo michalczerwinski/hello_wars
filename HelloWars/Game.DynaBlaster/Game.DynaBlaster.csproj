@@ -99,6 +99,8 @@
     <Content Include="DynaBlaster.config.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\blast_example.png" />
+    <None Include="Resources\hello_wars_example.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bomb.png" />

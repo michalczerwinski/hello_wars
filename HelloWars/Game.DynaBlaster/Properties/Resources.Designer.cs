@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace Game.DynaBlaster.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -54,6 +57,16 @@ namespace Game.DynaBlaster.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap blast_example {
+            get {
+                object obj = ResourceManager.GetObject("blast_example", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -111,13 +124,29 @@ namespace Game.DynaBlaster.Properties {
         ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
         ///&lt;html&gt;
         ///&lt;head&gt;
-        ///&lt;/head&gt;
+        ///    &lt;style&gt;
+        ///        body { font-family: Arial, Helvetica, sans-serif }
         ///
-        ///&lt;body&gt;
-        ///&lt;h1&gt;DynaBlaster game info&lt;/h1&gt;
-        ///&lt;/body&gt;
-        ///&lt;/html&gt;
-        ///.
+        ///        #top {
+        ///            font-size: 36px;
+        ///            font-weight: bold;
+        ///        }
+        ///
+        ///        #toc span {
+        ///            display: block;
+        ///            font-size: 24px;
+        ///            font-weight: bold;
+        ///            margin-bottom: 10px;
+        ///            margin-top: 15px;
+        ///        }
+        ///
+        ///        .h2 {
+        ///            font-size: 22px;
+        ///            margin-left: 10px;
+        ///        }
+        ///
+        ///        .h3 {
+        ///            font-s [rest of string was truncated]&quot;;.
         /// </summary>
         public static string GameRules {
             get {
@@ -131,6 +160,16 @@ namespace Game.DynaBlaster.Properties {
         public static System.Drawing.Bitmap grass {
             get {
                 object obj = ResourceManager.GetObject("grass", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap hello_wars_example {
+            get {
+                object obj = ResourceManager.GetObject("hello_wars_example", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
