@@ -26,8 +26,9 @@ namespace Arena.Views
         private void GameHistoryTree_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var roundPartial = ((TreeView)sender).SelectedItem as RoundPartialHistory;
-            if (roundPartial != null)
+            if (roundPartial != null && !_viewModel.IsGameInProgress)
             {
+                _viewModel.GameOverTextVisibility = Visibility.Collapsed;
                 _viewModel.Game.SetPreview(roundPartial.BoardState);
             }
         }
