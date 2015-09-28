@@ -16,7 +16,6 @@ namespace Game.TankBlaster
 {
     public class TankBlaster : IGame
     {
-        private readonly Random _rand = new Random(DateTime.Now.Millisecond);
         private Battlefield _field;
         private BotService _botService;
         private int _delayTime;

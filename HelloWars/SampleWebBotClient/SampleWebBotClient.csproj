@@ -120,6 +120,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\TankBlasterBotController.cs" />
     <Compile Include="Controllers\AntWarsBotController.cs" />
+    <Compile Include="Controllers\TankBlasterSimpleBotControllerBase.cs" />
     <Compile Include="Controllers\TicTacToeBotController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -130,6 +131,7 @@
     <Compile Include="Helpers\TankBlaster\LocationService.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Helpers\EnumValueHelper.cs" />
+    <Compile Include="Helpers\TankBlaster\TankBlasterSimpleAIService.cs" />
     <Compile Include="Models\AntWars\ActionDirections.cs" />
     <Compile Include="Models\AntWars\AvailableActions.cs" />
     <Compile Include="Models\AntWars\AntMove.cs" />
