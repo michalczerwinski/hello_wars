@@ -238,25 +238,24 @@ namespace Arena.ViewModels
             {
                 var competitorsTasks = emptyCompetitors.Select(async bot =>
                 {
-                    var isVerified = await bot.VerifyAsync(gameTypeName);
-
-                    if (!isVerified)
+                    try
                     {
+                        await bot.VerifyAsync(gameTypeName);
+
                         lock (_lock)
                         {
-                            OutputText += string.Format("ERROR: Url: {0} - couldn't verify bot!\nPossible game type mismatch or url inaccesible.\n", bot.Url);
+                            OutputText += string.Format("Bot \"{0}\" connected!\n", bot.Name);
+                            Elimination.Bots.First(f => f.Id == bot.Id).Name = bot.Name;
                         }
-
-                        return bot;
                     }
-
-                    lock (_lock)
+                    catch (Exception e)
                     {
-                        OutputText += string.Format("Bot \"{0}\" connected!\n", bot.Name);
-                        Elimination.Bots.First(f => f.Id == bot.Id).Name = bot.Name;
+                        bot.Name = "Not connected";
+                        OutputText += string.Format("ERROR: Url: {0} - couldn't verify bot!\nError message:\n{1}\n", bot.Url, e.Message);
                     }
 
                     return bot;
+
                 }).ToList();
 
                 Task.WhenAll(competitorsTasks).ContinueWith(task =>

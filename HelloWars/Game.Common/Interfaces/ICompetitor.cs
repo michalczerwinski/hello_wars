@@ -12,7 +12,7 @@ namespace Common.Interfaces
         string Url { get; set; }
         bool IsVerified { get; }
 
-        Task<bool> VerifyAsync(string gameType);
+        Task VerifyAsync(string gameType);
         // TODO: Verify Method
     }
 }

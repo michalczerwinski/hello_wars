@@ -34,15 +34,8 @@ namespace Common.Helpers
         public static async Task<TResponse> GetDataAsync<TResponse>(string url)
         {
             var webClient = CreateWebClient();
-            try
-            {
-                var downloadedString = await webClient.DownloadStringTaskAsync(url);
-                return JsonHelper.Deserialize<TResponse>(downloadedString);
-            }
-            catch (Exception)
-            {
-                return default(TResponse);
-            }
+            var downloadedString = await webClient.DownloadStringTaskAsync(url);
+            return JsonHelper.Deserialize<TResponse>(downloadedString);
         }
 
         private static WebClient CreateWebClient()
