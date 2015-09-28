@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using System.Windows;
 using Arena.ViewModels;
 using Common;
 using Common.Helpers;
