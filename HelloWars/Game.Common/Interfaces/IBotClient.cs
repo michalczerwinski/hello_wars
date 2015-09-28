@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Common.Models;
 
 namespace Common.Interfaces
 {

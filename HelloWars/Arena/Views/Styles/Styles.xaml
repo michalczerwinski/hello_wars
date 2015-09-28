@@ -393,9 +393,12 @@
                                     <ContentPresenter x:Name="Icon" Height="35" Grid.Column="0" VerticalAlignment="Center" ContentSource="Icon"/>
                                     <Grid x:Name="Check" Grid.Column="0" Height="35" Visibility="Collapsed"  Width="15"  Margin="5,0,5,0" 
                                             Background="Transparent">
-                                        <Border Height="15" Width="15" BorderThickness="1" BorderBrush="#FFFFFFFF">
-                                            <Path  Name="CheckMark" Width="7" Height="7"  Visibility="Hidden" SnapsToDevicePixels="False" 
-                                               Stroke="#FFFFFFFF" StrokeThickness="2" Data="M 0 0 L 7 7 M 0 7 L 7 0" />
+                                        <Border Height="15" Width="15" BorderThickness="1" >
+                                            <Image  Name="CheckMark" Width="17" Height="17" Visibility="Hidden" SnapsToDevicePixels="False" >
+                                                <Image.Source>
+                                                    <BitmapImage UriSource="pack://application:,,,/Icons/Checked.ico"/>
+                                                </Image.Source>
+                                            </Image>
                                         </Border>
                                     </Grid>
                                     <ContentPresenter x:Name="HeaderHost" Grid.Column="1" Margin="{TemplateBinding Padding}" 

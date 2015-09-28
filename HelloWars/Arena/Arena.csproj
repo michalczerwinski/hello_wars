@@ -100,6 +100,9 @@
     <Compile Include="Configuration\ArenaConfiguration.cs" />
     <Compile Include="ViewModels\GameHistoryEntryViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Views\GameOverUserControl.xaml.cs">
+      <DependentUpon>GameOverUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PlayerPresentationUserControl.xaml.cs">
       <DependentUpon>PlayerPresentationUserControl.xaml</DependentUpon>
     </Compile>
@@ -107,6 +110,10 @@
       <DependentUpon>SinglePlayerForPresentationUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GameOverUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -174,6 +181,7 @@
     </Content>
     <Resource Include="Icons\restart.png" />
     <Resource Include="Icons\pause.png" />
+    <Resource Include="Icons\Checked.ico" />
     <Resource Include="Icons\autoplay2.png" />
     <Resource Include="Icons\play.png" />
     <Resource Include="Icons\stop.png" />

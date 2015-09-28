@@ -67,10 +67,11 @@ namespace Game.TankBlaster.Models
 
         public void ImportState(Battlefield arena)
         {
-            Board = arena.Board;
-            Bots = arena.Bots;
-            Bombs = arena.Bombs;
-            Missiles = arena.Missiles;
+            var arenaCopy = arena.ExportState();
+            Board = arenaCopy.Board;
+            Bots = arenaCopy.Bots;
+            Bombs = arenaCopy.Bombs;
+            Missiles = arenaCopy.Missiles;
         }
 
         public void GenerateRandomBoard()

@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Game.AntWars.Interfaces;
-using Game.AntWars.ViewModels;
+﻿using Game.AntWars.ViewModels;
 
 namespace Game.AntWars.UserControls
 {
