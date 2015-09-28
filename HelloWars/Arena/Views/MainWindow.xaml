@@ -172,6 +172,7 @@
             <Viewbox Grid.Column="2" Stretch="Uniform" >
                 <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}"/>
             </Viewbox>
+            <views:GameOverUserControl Grid.Column="2" Visibility="{Binding GameOverTextVisibility}"/>
         </Grid>
 
         <views:PlayerPresentationUserControl DataContext="{Binding Competitors}"/>

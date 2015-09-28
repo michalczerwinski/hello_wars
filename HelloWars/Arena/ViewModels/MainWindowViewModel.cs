@@ -51,6 +51,7 @@ namespace Arena.ViewModels
         private WindowState _windowState;
         private WindowStyle _windowStyle;
         private Visibility _playerPresentationVisibility;
+        private Visibility _gameOverTextVisibility;
 
         public ArenaConfiguration ArenaConfiguration { get; set; }
         public IElimination Elimination { get; set; }
@@ -95,6 +96,12 @@ namespace Arena.ViewModels
         {
             get { return _playerPresentationVisibility; }
             set { SetProperty(ref _playerPresentationVisibility, value); }
+        }
+
+        public Visibility GameOverTextVisibility
+        {
+            get { return _gameOverTextVisibility; }
+            set { SetProperty(ref _gameOverTextVisibility, value); }
         }
 
         public int SelectedTabIndex
@@ -224,6 +231,7 @@ namespace Arena.ViewModels
             IsHistoryVisible = true;
             IsOutputVisible = true;
             IsFullScreenApplied = false;
+            GameOverTextVisibility = Visibility.Collapsed;
             PlayerPresentationVisibility = Visibility.Collapsed;
             ApplyConfiguration(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Resources.DefaultArenaConfigurationName);
         }
@@ -319,6 +327,8 @@ namespace Arena.ViewModels
         public async Task PlayNextGameAsync()
         {
             var nextCompetitors = Elimination.GetNextCompetitors();
+            GameOverTextVisibility = Visibility.Collapsed;
+
             if (nextCompetitors != null)
             {
                 var gameHistoryEntry = new GameHistoryEntryViewModel()
@@ -343,6 +353,7 @@ namespace Arena.ViewModels
 
                 if (result.IsFinished)
                 {
+                    GameOverTextVisibility = Visibility.Visible;
                     Elimination.SetLastDuelResult(result.FinalResult);
                     ScoreList.SaveScore(result.FinalResult);
                 }

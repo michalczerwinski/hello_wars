@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Windows;
 using Arena.ViewModels;
 using Common;
-using Common.Models;
 
 namespace Arena.Commands.MenuItemCommands
 {
