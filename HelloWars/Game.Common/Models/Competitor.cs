@@ -46,22 +46,20 @@ namespace Common.Models
             Name = competitor.Name;
         }
 
-        public async Task<bool> VerifyAsync(string gameType)
+        public async Task VerifyAsync(string gameType)
         {
             IsVerified = false;
             var competitorInfo = await LoadCompetitorAsync();
 
-            if (competitorInfo == null || competitorInfo.GameType != gameType)
+            if (competitorInfo.GameType != gameType)
             {
-                Name = "Not connected";
-                return false;
+                throw new ArgumentException("Game type mismatch");
             }
 
             Name = competitorInfo.Name;
             AvatarUrl = competitorInfo.AvatarUrl;
             Description = competitorInfo.Description;
             IsVerified = true;
-            return true;
         }
 
         private async Task<CompetitorInfo> LoadCompetitorAsync()
