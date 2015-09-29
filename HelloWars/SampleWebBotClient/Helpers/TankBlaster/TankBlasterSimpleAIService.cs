@@ -62,7 +62,7 @@ namespace SampleWebBotClient.Helpers.TankBlaster
                 var fireDirections = _allMoveDirections.Where(direction =>
                 {
                     var tempLocation = _field.BotLocation;
-                    for (int i = 0; i < CurrentMissileBlastRadius; i++)
+                    for (int i = 0; i < CurrentMissileBlastRadius + 1; i++)
                     {
                         tempLocation = AddDirectionMove(tempLocation, direction);
                         if (!IsLocationValid(tempLocation) || _field.Board[tempLocation.X, tempLocation.Y] != BoardTile.Empty)

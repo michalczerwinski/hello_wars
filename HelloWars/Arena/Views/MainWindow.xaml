@@ -77,9 +77,14 @@
                                 <Image Source="/Icons/autoplay2.png" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="_Stop" Command="{Binding StopCommand}" IsEnabled="{Binding IsGameInProgress}">
+                        <MenuItem Header="_Pause" Command="{Binding PauseCommand}" IsEnabled="{Binding IsGameInProgress}">
                             <MenuItem.Icon >
-                                <Image Source="/Icons/stop.png" />
+                                <Image Source="/Icons/pause.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="_Restart" Command="{Binding RestartCommand}" IsEnabled="{Binding IsRestartButtonAvailable}">
+                            <MenuItem.Icon >
+                                <Image Source="/Icons/restart.png" />
                             </MenuItem.Icon>
                         </MenuItem>
                     </MenuItem>
@@ -135,9 +140,16 @@
                     </Border>
 
                     <Border Grid.Column="3" Style="{StaticResource BorderPretendingToolBarStyle}">
-                        <Button Command="{Binding StopCommand}" IsEnabled="{Binding IsGameInProgress}">
-                            <Button.ToolTip >Stops current game</Button.ToolTip>
-                            <Image Source="/Icons/stop.png" />
+                        <Button Command="{Binding PauseCommand}" IsEnabled="{Binding IsGameInProgress}">
+                            <Button.ToolTip >Pause current game</Button.ToolTip>
+                            <Image Source="/Icons/pause.png" />
+                        </Button>
+                    </Border>
+                    
+                    <Border Grid.Column="4" Style="{StaticResource BorderPretendingToolBarStyle}">
+                        <Button Command="{Binding RestartCommand}" IsEnabled="{Binding IsRestartButtonAvailable}">
+                            <Button.ToolTip >Restarts current game</Button.ToolTip>
+                            <Image Source="/Icons/restart.png" />
                         </Button>
                     </Border>
                 </Grid>
