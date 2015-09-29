@@ -2,6 +2,6 @@
 {
     public class SurroundingAreaInfo
     {
-        public ObjectTypes[,] Battleground { get; set; }
+        public AllGameObjectTypes[,] Objects { get; set; }
     }
 }

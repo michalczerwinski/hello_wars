@@ -115,7 +115,8 @@ namespace Game.AntWars.Utilities
 
         private async Task<RoundPartialHistory> PerformMove(AntModel movableObject, int roundNumber)
         {
-            var move = await movableObject.NextMoveAsync(null);
+            var surroundingArea = movableObject.GetAllGameObjects(_antWarsViewModel);
+            var move = await movableObject.NextMoveAsync(surroundingArea);
             var actionDescription = move.Action.ToString() + " ";
 
             if (move.ActionDirection != null)

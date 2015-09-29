@@ -47,6 +47,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\AllGameObjectTypes.cs" />
     <Compile Include="Utilities\BattlegroundBuilder.cs" />
     <Compile Include="Utilities\BotService.cs" />
     <Compile Include="AntWars.cs" />

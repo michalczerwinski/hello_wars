@@ -1,7 +1,14 @@
-﻿namespace Game.AntWars.Models
+﻿using Game.AntWars.Enums;
+
+namespace Game.AntWars.Models
 {
     public class SurroundingAreaInfo
     {
-        public int[,] Battleground { get; set; }
+        public AllGameObjectTypes[,] Objects { get; set; }
+
+        public SurroundingAreaInfo(int rangeX, int rangeY)
+        {
+            Objects = new AllGameObjectTypes[rangeX, rangeY];
+        }
     }
 }

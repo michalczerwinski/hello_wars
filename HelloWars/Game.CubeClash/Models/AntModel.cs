@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 using Common.Helpers;
 using Common.Interfaces;
@@ -162,6 +163,65 @@ namespace Game.AntWars.Models
         public MovableObjectsTypes Type
         {
             get { return MovableObjectsTypes.Bot; }
+        }
+
+        public SurroundingAreaInfo GetAllGameObjects(AntWarsViewModel antWarsViewModel)
+        {
+            var result = new SurroundingAreaInfo( 9, 9);
+            var currentAntX = this.X;
+            var currentAntY = this.Y;
+
+            var sss = antWarsViewModel.BattlefieldObjectsCollection.Where(t => t.Type != UnmovableObjectTypes.Lawn).
+                Where(b => b.Y <= currentAntY + 4 && b.Y >= currentAntY - 4 && b.X <= currentAntX + 4 && b.X >= currentAntX - 4).ToList();
+
+            foreach (var itemType in sss)
+            {
+                switch (itemType.Type)
+                {
+                    case UnmovableObjectTypes.Rock:
+                    {
+
+                        var x = antWarsViewModel.ColumnCount - 1 - (antWarsViewModel.ColumnCount - 1 - 9);
+                        var y = antWarsViewModel.RowCount - 1 - (antWarsViewModel.RowCount - 1 - 9);
+                        result.Objects[x,y] = AllGameObjectTypes.Rock;
+                            break;
+                        }
+                    case UnmovableObjectTypes.Wood:
+                        {
+                            var x = antWarsViewModel.ColumnCount - 1 - (antWarsViewModel.ColumnCount - 1 - 9);
+                            var y = antWarsViewModel.RowCount - 1 - (antWarsViewModel.RowCount - 1 - 9);
+                            result.Objects[x, y] = AllGameObjectTypes.Wood;
+                            break;
+                        }
+                }
+            }
+
+            var sss2 = antWarsViewModel.MovableObjectsCollection.
+              Where(b => b.Y <= currentAntY + 4 && b.Y >= currentAntY - 4 && b.X <= currentAntX + 4 && b.Y >= currentAntX - 4).ToList();
+
+            foreach (var itemType in sss2)
+            {
+                switch (itemType.Type)
+                {
+                    case MovableObjectsTypes.Missile:
+                        {
+                            result.Objects[itemType.X, itemType.Y] = AllGameObjectTypes.Missile;
+                            break;
+                        }
+                    case MovableObjectsTypes.Bot:
+                        {
+                            result.Objects[itemType.X, itemType.Y] = AllGameObjectTypes.Bot;
+                            break;
+                        }
+                    case MovableObjectsTypes.Explosion:
+                        {
+                            result.Objects[itemType.X, itemType.Y] = AllGameObjectTypes.Explosion;
+                            break;
+                        }
+                }
+            }
+
+            return result;
         }
     }
 }

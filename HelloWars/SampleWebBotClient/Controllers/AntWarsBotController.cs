@@ -22,7 +22,7 @@ namespace SampleWebBotClient.Controllers
         }
 
         [HttpPost]
-        public BotMove PerformNextMove(SurroundingAreaInfo arenaInfo)
+        public BotMove PerformNextMove(SurroundingAreaInfo surroundingArea)
         {
             var nextMove = EnumValueHelper<AvailableActions>.RandomEnumValue();
 
