@@ -2,12 +2,12 @@
 
 <ArenaConfiguration>
   <EliminationConfiguration>
-    <Type>RoundRobin</Type>
+    <Type>TournamentLadder</Type>
   </EliminationConfiguration>
 
   <GameConfiguration>
     <Type>TankBlaster</Type>
-    <NextMoveDelay>1</NextMoveDelay>
+    <NextMoveDelay>150</NextMoveDelay>
     <NextMatchDelay>400</NextMatchDelay>
   </GameConfiguration>
 
@@ -24,11 +24,11 @@
 <!--    <Url>http://localhost:53886/AntWarsBots/</Url>-->
     
     
-    <Url>http://localhost:53886/TankBlasterBotAdam/</Url>
-    <Url>http://localhost:53886/TankBlasterBot/</Url>
-<!--    <Url>http://localhost:53886/TankBlasterBotVeronica/</Url>-->
+<!--    <Url>http://localhost:53886/TankBlasterBotAdam/</Url>-->
 <!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->
-<!--    <Url>http://localhost:53886/TankBlasterBotVeronica/</Url>-->
+    <Url>http://localhost:53886/TankBlasterBotVeronica/</Url>
+<!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->
+    <Url>http://localhost:53886/TankBlasterBotVeronica/</Url>
 <!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->
 <!--    <Url>http://localhost:53886/TankBlasterBotAdam/</Url>-->
 <!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->

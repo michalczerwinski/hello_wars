@@ -21,24 +21,6 @@ namespace SampleWebBotClient.Helpers.TankBlaster
 
         private static readonly Random _rand = new Random(DateTime.Now.Millisecond);
 
-        private int CurrentBombBlastRadius
-        {
-            get
-            {
-                return _field.GameConfig.BombBlastRadius +
-                       (_field.GameConfig.RoundsBeforeIncreasingBlastRadius == 0 ? 0 : (_field.RoundNumber / _field.GameConfig.RoundsBeforeIncreasingBlastRadius));
-            }
-        }
-
-        private int CurrentMissileBlastRadius
-        {
-            get
-            {
-                return _field.GameConfig.MissileBlastRadius +
-                       (_field.GameConfig.RoundsBeforeIncreasingBlastRadius == 0 ? 0 : (_field.RoundNumber / _field.GameConfig.RoundsBeforeIncreasingBlastRadius));
-            }
-        }
-
         public TankBlasterSimpleAIService(bool shouldDropBombs, bool shouldFireMissiles, int bombDroppingFrequency, int missileFiringFrequency)
         {
             _shouldDropBombs = shouldDropBombs;
@@ -96,29 +78,30 @@ namespace SampleWebBotClient.Helpers.TankBlaster
             return result;
         }
 
+        private int CurrentMissileBlastRadius
+        {
+            get
+            {
+                return _field.GameConfig.MissileBlastRadius +
+                       (_field.GameConfig.RoundsBeforeIncreasingBlastRadius == 0 ? 0 : (_field.RoundNumber / _field.GameConfig.RoundsBeforeIncreasingBlastRadius));
+            }
+        }
+
         private bool IsInDangerZone(Point location)
         {
-            return !IsLocationValid(location) || _field.Bombs.SelectMany(bomb => GetBombDangerZone(bomb.Location)).Contains(location) ||
-                   _field.Missiles.SelectMany(missile => GetMissileDangerZone(missile.Location)).Contains(location) || _field.Board[location.X, location.Y] != BoardTile.Empty;
+            return !IsLocationValid(location) || _field.Bombs.SelectMany(bomb => GetDangerZone(bomb.Location, bomb.ExplosionRadius)).Contains(location) ||
+                   _field.Missiles.SelectMany(missile => GetDangerZone(missile.Location, missile.ExplosionRadius)).Contains(location) || _field.Board[location.X, location.Y] != BoardTile.Empty;
         }
 
-        private List<Point> GetBombDangerZone(Point centerLocation)
+        private List<Point> GetDangerZone(Point centerLocation, int explosionRadius)
         {
-            var result = GetSurroundingPoints(centerLocation, CurrentBombBlastRadius).ToList();
+            var result = GetSurroundingPoints(centerLocation, explosionRadius).ToList();
             result.Add(centerLocation);
 
             return result;
         }
 
-        private List<Point> GetMissileDangerZone(Point centerLocation)
-        {
-            var result = GetSurroundingPoints(centerLocation, CurrentMissileBlastRadius).ToList();
-            result.Add(centerLocation);
-
-            return result;
-        }
-
-        public IEnumerable<Point> GetSurroundingPoints(Point centerLocation, int radius)
+        private IEnumerable<Point> GetSurroundingPoints(Point centerLocation, int radius)
         {
             for (int i = 1; i <= radius; i++)
             {
@@ -137,7 +120,7 @@ namespace SampleWebBotClient.Helpers.TankBlaster
             }
         }
 
-        public bool IsLocationValid(Point location)
+        private bool IsLocationValid(Point location)
         {
             return location.X >= 0
                    && location.X < _field.Board.GetLength(0)
@@ -145,7 +128,7 @@ namespace SampleWebBotClient.Helpers.TankBlaster
                    && location.Y < _field.Board.GetLength(1);
         }
 
-        public Point AddDirectionMove(Point location, MoveDirection direction)
+        private Point AddDirectionMove(Point location, MoveDirection direction)
         {
             var result = new Point(location.X, location.Y);
             switch (direction)

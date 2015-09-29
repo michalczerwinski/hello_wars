@@ -6,5 +6,6 @@ namespace SampleWebBotClient.Models.TankBlaster
     {
         public Point Location { get; set; }
         public int RoundsUntilExplodes { get; set; }
+        public int ExplosionRadius { get; set; }
     }
 }
