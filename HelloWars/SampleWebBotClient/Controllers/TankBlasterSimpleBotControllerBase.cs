@@ -29,12 +29,6 @@ namespace SampleWebBotClient.Controllers
         }
 
         [HttpPost]
-        public virtual BotMove PerformNextMove(BotArenaInfo arenaInfo)
-        {
-            var aiService = new TankBlasterAiService();
-            var result = aiService.CalculateNextMove(arenaInfo);
-
-            return result;
-        }
+        public abstract BotMove PerformNextMove(BotArenaInfo arenaInfo);
     }
 }

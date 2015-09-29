@@ -118,8 +118,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\TankBlasterBotAdamController.cs" />
     <Compile Include="Controllers\TankBlasterBotController.cs" />
     <Compile Include="Controllers\AntWarsBotController.cs" />
+    <Compile Include="Controllers\TankBlasterBotVeronicaController.cs" />
     <Compile Include="Controllers\TankBlasterSimpleBotControllerBase.cs" />
     <Compile Include="Controllers\TicTacToeBotController.cs" />
     <Compile Include="Global.asax.cs">
