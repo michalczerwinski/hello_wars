@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,7 +28,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -194,9 +194,21 @@
     <Resource Include="Icons\PlayDuel.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Elimination.RoundRobin\Elimination.RoundRobin.csproj">
+      <Project>{7e34827f-dd0b-42d7-8766-5c4d06a6d652}</Project>
+      <Name>Elimination.RoundRobin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elimination.TournamentLadder\Elimination.TournamentLadder.csproj">
+      <Project>{5963818b-9cfd-4f59-88e0-15e0dfe36315}</Project>
+      <Name>Elimination.TournamentLadder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Game.Common\Common.csproj">
       <Project>{a40d2185-d837-4773-8dd7-3830f0c9e3ff}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Game.CubeClash\Game.AntWars.csproj">
+      <Project>{559c3c3a-f7cb-4f67-8800-d5c8eced9e08}</Project>
+      <Name>Game.AntWars</Name>
     </ProjectReference>
     <ProjectReference Include="..\Game.TankBlaster\Game.TankBlaster.csproj">
       <Project>{8eb50eef-b103-4a14-b5b1-2dac34268d0f}</Project>
