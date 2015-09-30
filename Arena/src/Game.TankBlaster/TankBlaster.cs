@@ -88,14 +88,15 @@ namespace Game.TankBlaster
 
         public string GetGameRules()
         {
-            Resources.indestructibleTile.Save("hello_wars_indestructible_tile.png");
-            Resources.regularTile.Save("hello_wars_regular_tile.png");
-            Resources.fortifiedTile.Save("hello_wars_fortified_tile.png");
-            Resources.bomb.Save("hello_wars_bomb.png");
-            Resources.missile.Save("hello_wars_missile.png");
-            Resources.hello_wars_example.Save("hello_wars_example.png");
-            Resources.tank1.Save("hello_wars_tank.png");
-            Resources.blast_example.Save("hello_wars_blast_example.png");
+            Resources.indestructibleTile.Save("tank_blaster_indestructible_tile.png");
+            Resources.regularTile.Save("tank_blaster_regular_tile.png");
+            Resources.fortifiedTile.Save("tank_blaster_fortified_tile.png");
+            Resources.bomb.Save("tank_blaster_bomb.png");
+            Resources.missile.Save("tank_blaster_missile.png");
+            Resources.hello_wars_example.Save("tank_blaster_example.png");
+            Resources.tank1.Save("tank_blaster_tank.png");
+            Resources.blast_example.Save("tank_blaster_blast_example.png");
+            Resources.tank_blaster_chained_explosion.Save("tank_blaster_chained_explosion.png");
             return Resources.GameRules;
         }
 
