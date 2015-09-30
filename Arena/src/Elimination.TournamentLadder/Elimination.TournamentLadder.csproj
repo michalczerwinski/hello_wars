@@ -67,7 +67,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Game.Common\Common.csproj">
+    <ProjectReference Include="..\Common\Common.csproj">
       <Project>{a40d2185-d837-4773-8dd7-3830f0c9e3ff}</Project>
       <Name>Common</Name>
     </ProjectReference>
