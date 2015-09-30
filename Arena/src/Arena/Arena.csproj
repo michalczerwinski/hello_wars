@@ -202,7 +202,7 @@
       <Project>{5963818b-9cfd-4f59-88e0-15e0dfe36315}</Project>
       <Name>Elimination.TournamentLadder</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Game.Common\Common.csproj">
+    <ProjectReference Include="..\Common\Common.csproj">
       <Project>{a40d2185-d837-4773-8dd7-3830f0c9e3ff}</Project>
       <Name>Common</Name>
     </ProjectReference>

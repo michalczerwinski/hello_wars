@@ -92,7 +92,7 @@
     <Compile Include="ViewModels\MissileViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Game.Common\Common.csproj">
+    <ProjectReference Include="..\Common\Common.csproj">
       <Project>{A40D2185-D837-4773-8DD7-3830F0C9E3FF}</Project>
       <Name>Common</Name>
     </ProjectReference>
