@@ -46,14 +46,7 @@ namespace Game.TankBlaster
                 };
             }
 
-            var partialResults = await _botService.PlayBotMovesAsync(_delayTime, _roundNumber);
-
-            return new RoundResult
-            {
-                FinalResult = null,
-                IsFinished = false,
-                History = partialResults.ToList()
-            };
+            return await _botService.PlayBotMovesAsync(_delayTime, _roundNumber);
         }
 
         public UserControl GetVisualisationUserControl(IConfigurable configurable)
