@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
-using Common.Models;
+using Common.Utilities;
 using Game.AntWars.Interfaces;
 
 namespace Game.AntWars.ViewModels

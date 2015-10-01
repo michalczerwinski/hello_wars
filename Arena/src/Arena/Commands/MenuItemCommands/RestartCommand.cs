@@ -1,5 +1,5 @@
 ﻿using Arena.ViewModels;
-using Common;
+using Common.Utilities;
 
 namespace Arena.Commands.MenuItemCommands
 {
@@ -23,7 +23,6 @@ namespace Arena.Commands.MenuItemCommands
             {
                 _viewModel.RestartGame();
             }
-            
         }
     }
 }

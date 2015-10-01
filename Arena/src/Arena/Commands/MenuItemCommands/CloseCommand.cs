@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Common;
+using Common.Utilities;
 
 namespace Arena.Commands.MenuItemCommands
 {

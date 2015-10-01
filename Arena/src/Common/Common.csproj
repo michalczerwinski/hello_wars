@@ -41,25 +41,18 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Annotations.cs" />
-    <Compile Include="CommandBase.cs" />
-    <Compile Include="Converters\BinaryImageConverter.cs" />
+    <Compile Include="Utilities\CommandBase.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToOpacityConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Helpers\DelayHelper.cs" />
-    <Compile Include="Helpers\EnumValueHelper.cs" />
     <Compile Include="Helpers\GridHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
-    <Compile Include="Helpers\MultiDimArrayExtensions.cs" />
+    <Compile Include="Extensions\MultiDimArrayExtension.cs" />
     <Compile Include="Helpers\ResourceImageHelper.cs" />
     <Compile Include="Helpers\WebClientHelper.cs" />
     <Compile Include="Interfaces\IBotClient.cs" />
@@ -67,8 +60,8 @@
     <Compile Include="Interfaces\IConfigurable.cs" />
     <Compile Include="Interfaces\IElimination.cs" />
     <Compile Include="Interfaces\IGame.cs" />
-    <Compile Include="Models\BindableBase.cs" />
-    <Compile Include="Models\BotClientBase.cs" />
+    <Compile Include="Utilities\BindableBase.cs" />
+    <Compile Include="Utilities\BotClientBase.cs" />
     <Compile Include="Models\Competitor.cs" />
     <Compile Include="Models\CompetitorInfo.cs" />
     <Compile Include="Models\EliminationConfiguration.cs" />
@@ -82,8 +75,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Serialization\XmlSerializer.cs" />
-    <Compile Include="Models\BindableArray.cs" />
-    <Compile Include="Utilities\Score.cs" />
+    <Compile Include="Utilities\BindableArray.cs" />
+    <Compile Include="Models\GameScore.cs" />
     <Compile Include="Utilities\ScoreList.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,19 +2,18 @@
 using System.Windows.Media;
 using Common.Helpers;
 using Common.Interfaces;
-using Common.Models;
+using Common.Utilities;
 using Game.AntWars.Enums;
 using Game.AntWars.Interfaces;
 using Game.AntWars.Properties;
-using Game.AntWars.ViewModels;
+using Game.AntWars.ViewModels.BaseUnits;
 
-namespace Game.AntWars.Models
+namespace Game.AntWars.Models.BaseUnits
 {
     public class AntModel : BotClientBase<SurroundingAreaInfo, BotMove>, IMovableObject
     {
         private static ImageSource _yellowMissileImage = ResourceImageHelper.LoadImage(Resources.yellowMissile);
         private static ImageSource _redMissileImage = ResourceImageHelper.LoadImage(Resources.redMissile2);
-
         public ICompetitor Competitor { get; set; }
         public AntViewModel ViewModel { get; set; }
         private readonly int _antWidth;
@@ -36,6 +35,11 @@ namespace Game.AntWars.Models
         {
             get { return ViewModel.Color; }
             set { ViewModel.Color = value; }
+        }
+
+        public MovableObjectsTypes Type
+        {
+            get { return MovableObjectsTypes.Bot; }
         }
 
         public AntModel(AntViewModel viewModel, ICompetitor competitor)
@@ -157,11 +161,6 @@ namespace Game.AntWars.Models
             ViewModel.MovementShadowWidth = 11 * _antWidth;
             ViewModel.MovementShadowHeight = 9 * _antHeigth;
             ViewModel.MovementShadowVisibility = Visibility.Visible;
-        }
-
-        public MovableObjectsTypes Type
-        {
-            get { return MovableObjectsTypes.Bot; }
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using Game.AntWars.Enums;
 using Game.AntWars.Interfaces;
-using Game.AntWars.ViewModels;
+using Game.AntWars.ViewModels.BaseUnits;
 
-namespace Game.AntWars.Models
+namespace Game.AntWars.Models.BaseUnits
 {
     public class ExplosionModel: IMovableObject
     {
         public ExplosionViewModel ViewModel { get; set; }
+        public MovableObjectsTypes Type { get; set; }
 
         public int X
         {
@@ -19,8 +20,6 @@ namespace Game.AntWars.Models
             get { return ViewModel.Y; }
             set { ViewModel.Y = value; }
         }
-
-        public MovableObjectsTypes Type { get; set; }
 
         public ExplosionModel(ExplosionViewModel viewModel)
         {

@@ -7,10 +7,11 @@ using System.Windows.Controls;
 using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
-using Game.AntWars.Models;
+using Game.AntWars.Models.BaseUnits;
+using Game.AntWars.Services;
 using Game.AntWars.UserControls;
-using Game.AntWars.Utilities;
 using Game.AntWars.ViewModels;
+using Game.AntWars.ViewModels.BaseUnits;
 
 namespace Game.AntWars
 {
@@ -68,7 +69,7 @@ namespace Game.AntWars
         {
             _antWarsViewModel.SplashScreenVisible = Visibility.Collapsed;
             Reset();
-            BattlegroundBuilder.CreateBattleground(20, 20, _antWarsViewModel);
+            BattlegroundService.CreateBattleground(20, 20, _antWarsViewModel);
             _botService.AddBots(competitors);
         }
 

@@ -11,7 +11,7 @@ namespace Arena
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            var mainWindow = new MainWindow( new MainWindowViewModel());
+            var mainWindow = new MainWindow(new MainWindowViewModel());
             mainWindow.Show();
         }
     }

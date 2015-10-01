@@ -1,8 +1,8 @@
 ﻿using Game.AntWars.Enums;
 using Game.AntWars.Interfaces;
-using Game.AntWars.ViewModels;
+using Game.AntWars.ViewModels.BaseUnits;
 
-namespace Game.AntWars.Models
+namespace Game.AntWars.Models.BaseUnits
 {
     class GridUnitModel: IUnmovableObject
     {

@@ -1,5 +1,5 @@
 ﻿using Arena.ViewModels;
-using Common;
+using Common.Utilities;
 
 namespace Arena.Commands.MenuItemCommands
 {
@@ -15,7 +15,7 @@ namespace Arena.Commands.MenuItemCommands
         public override void Execute(object parameter = null)
         {
             _viewModel.IsGamePaused = true;
-            _viewModel.IsGameInProgress = false;    
+            _viewModel.IsGameInProgress = false;
         }
     }
 }

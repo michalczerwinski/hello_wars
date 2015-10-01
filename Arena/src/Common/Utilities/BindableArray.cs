@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Data;
 
-namespace Common.Models
+namespace Common.Utilities
 {
     /// <summary>
     /// This class is a bindable encapsulation of a 2D array.

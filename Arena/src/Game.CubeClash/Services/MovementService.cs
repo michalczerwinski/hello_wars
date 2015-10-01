@@ -5,11 +5,11 @@ using System.Windows.Media;
 using Common.Helpers;
 using Common.Models;
 using Game.AntWars.Enums;
-using Game.AntWars.Models;
+using Game.AntWars.Models.BaseUnits;
 using Game.AntWars.Properties;
 using Game.AntWars.ViewModels;
 
-namespace Game.AntWars.Utilities
+namespace Game.AntWars.Services
 {
     public class MovementService
     {

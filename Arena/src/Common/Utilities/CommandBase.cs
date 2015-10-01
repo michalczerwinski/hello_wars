@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Common
+namespace Common.Utilities
 {
     public class CommandBase : ICommand
     {

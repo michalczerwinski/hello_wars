@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace Common.Models
+namespace Common.Utilities
 {
     public abstract class BindableBase : INotifyPropertyChanged
     {

@@ -1,5 +1,5 @@
 ﻿using Common.Interfaces;
-using Common.Models;
+using Common.Utilities;
 
 namespace Elimination.TournamentLadder.ViewModels
 {

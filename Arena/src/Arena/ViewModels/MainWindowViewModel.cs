@@ -49,6 +49,7 @@ namespace Arena.ViewModels
         private ICommand _gameRulesCommand;
         private ICommand _aboutCommand;
         private ICommand _toggleHistoryCommand;
+        private ICommand _playDuelCommand;
         private ICommand _fullScreenWindowCommand;
         private ICommand _presentPlayersCommand;
         private WindowState _windowState;
@@ -60,6 +61,7 @@ namespace Arena.ViewModels
         public IElimination Elimination { get; set; }
         public IGame Game { get; set; }
         public ScoreList ScoreList { get; set; }
+        public bool ShouldRestartGame { get; set; }
 
         public string OutputText
         {
@@ -87,8 +89,6 @@ namespace Arena.ViewModels
                 CalculateRestartButtonAvailability();
             }
         }
-
-        public bool ShouldRestartGame { get; set; }
 
         public bool IsPlayButtonAvailable
         {
@@ -197,7 +197,7 @@ namespace Arena.ViewModels
 
         public ICommand PlayDuelCommand
         {
-            get { return new PlayDuelCommand(this); }
+            get { return _playDuelCommand ?? (_playDuelCommand = new PlayDuelCommand(this)); }
         }
 
         public ICommand AutoPlayCommand
@@ -315,7 +315,7 @@ namespace Arena.ViewModels
 
         public void ApplyConfiguration(string configFilePath)
         {
-            ArenaConfiguration = ReadConfigurationFromXML(configFilePath);
+            ArenaConfiguration = ReadConfigurationFromXml(configFilePath);
             InitiateManagedExtensibilityFramework();
             Competitors = ArenaConfiguration.BotUrls.Select(url => new Competitor()
             {
@@ -331,7 +331,7 @@ namespace Arena.ViewModels
             GameTypeControl = Game.GetVisualisationUserControl(ArenaConfiguration.GameConfiguration);
         }
 
-        public ArenaConfiguration ReadConfigurationFromXML(string path)
+        public ArenaConfiguration ReadConfigurationFromXml(string path)
         {
             var configurationFile = ReadFile(path);
             var serializer = new XmlSerializer<ArenaConfiguration>();
@@ -342,6 +342,7 @@ namespace Arena.ViewModels
         private string ReadFile(string path)
         {
             var xmlStream = new StreamReader(path);
+
             return xmlStream.ReadToEnd();
         }
 
@@ -368,7 +369,7 @@ namespace Arena.ViewModels
                     GameDescription = Elimination.GetGameDescription(),
                     History = new ObservableCollection<RoundPartialHistory>()
                 };
-                
+
                 Game.SetupNewGame(nextCompetitors);
                 GameHistory.Add(gameHistoryEntry);
 
@@ -399,7 +400,7 @@ namespace Arena.ViewModels
                 {
                     gameHistoryEntry.History.Add(roundPartialHistory);
                 }
-                
+
             } while (!result.IsFinished && IsGameInProgress && !IsGamePaused);
 
             if (result.IsFinished)

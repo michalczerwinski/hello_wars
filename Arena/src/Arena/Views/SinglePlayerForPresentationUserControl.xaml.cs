@@ -1,11 +1,9 @@
-﻿using System.Windows.Controls;
-
-namespace Arena.Views
+﻿namespace Arena.Views
 {
     /// <summary>
     /// Interaction logic for SinglePlayerForPresentationUserControl.xaml
     /// </summary>
-    public partial class SinglePlayerForPresentationUserControl : UserControl
+    public partial class SinglePlayerForPresentationUserControl
     {
         public SinglePlayerForPresentationUserControl()
         {

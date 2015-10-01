@@ -12,9 +12,7 @@ namespace Arena.Configuration
     {
         [XmlArrayItem(ElementName = "Url")]
         public List<string> BotUrls { get; set; }
-        
         public GameConfiguration GameConfiguration { get; set; }
-
         public EliminationConfiguration EliminationConfiguration { get; set; }
 
         [XmlIgnore]

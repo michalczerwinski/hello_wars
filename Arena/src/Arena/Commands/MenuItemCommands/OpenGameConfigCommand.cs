@@ -1,5 +1,5 @@
 ﻿using Arena.ViewModels;
-using Common;
+using Common.Utilities;
 using Microsoft.Win32;
 
 namespace Arena.Commands.MenuItemCommands
@@ -27,7 +27,6 @@ namespace Arena.Commands.MenuItemCommands
             {
                 var filePath = dlg.FileName;
                 _viewModel.ApplyGameCustomConfiguration(filePath);
-               // _viewModel.OnLoadedCommand.Execute(null);
             }
         }
     }
