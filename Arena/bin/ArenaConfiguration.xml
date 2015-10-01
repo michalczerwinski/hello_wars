@@ -2,7 +2,7 @@
 
 <ArenaConfiguration>
   <EliminationConfiguration>
-    <Type>TournamentLadder</Type>
+    <Type>RoundRobin</Type>
   </EliminationConfiguration>
 
   <GameConfiguration>
