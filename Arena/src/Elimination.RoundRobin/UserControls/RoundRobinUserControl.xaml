@@ -14,7 +14,8 @@
 
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Repeat: " FontWeight="Bold" Foreground="Beige"/>
-            <TextBox Width="40" Text="{Binding NumberOfRepeat, Mode=TwoWay}" HorizontalAlignment="Left"/>
+            <TextBox Width="40" Text="{Binding NumberOfRepeat, Mode=TwoWay}" Background="DarkGray"/>
+            <Button Command="{Binding ResetCommand}" Content="Reset" Margin="15,0,0,0"/>
         </StackPanel>
 
         <Grid Grid.Row="1" ShowGridLines="True">

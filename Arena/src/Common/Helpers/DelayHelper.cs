@@ -12,7 +12,7 @@ namespace Common.Helpers
         {
             try
             {
-                Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
                     new Action(() => Thread.Sleep(miliSeconds)));
             }
             catch

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using Common.Interfaces;
 using Common.Utilities;
+using Elimination.RoundRobin.Commands;
 
 namespace Elimination.RoundRobin.ViewModels
 {
@@ -11,19 +13,21 @@ namespace Elimination.RoundRobin.ViewModels
         private bool _clearScoreBoard;
         private List<BotViewModel> _bots;
         public List<ICompetitor> Competitors { get; set; }
+        private ICommand _resetCommand;
 
-        public RoundRobinViewModel(List<ICompetitor> competitors)
+        public ICommand ResetCommand
         {
-            Competitors = competitors;
-            Bots = WrapBots(competitors);
-            NumberOfRepeat = 1;
+            get
+            {
+                return _resetCommand ?? (_resetCommand = new ResetCommand(this));
+            }
         }
 
         public List<BotViewModel> Bots
         {
-            get{ return _bots; }
+            get { return _bots; }
             set { SetProperty(ref _bots, value); }
-        } 
+        }
 
         public int NumberOfRepeat
         {
@@ -37,14 +41,16 @@ namespace Elimination.RoundRobin.ViewModels
             set { SetProperty(ref _clearScoreBoard, value); }
         }
 
+        public RoundRobinViewModel(List<ICompetitor> competitors)
+        {
+            Competitors = competitors;
+            Bots = WrapBots(competitors);
+            NumberOfRepeat = 1;
+        }
+
         private List<BotViewModel> WrapBots(IEnumerable<ICompetitor> bots)
         {
             return bots.Select(bot => new BotViewModel(bot)).ToList();
-        }
-
-        public void Refresh()
-        {
-            Bots = WrapBots(Competitors);
         }
     }
 }

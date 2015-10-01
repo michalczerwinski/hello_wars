@@ -21,35 +21,34 @@ namespace Elimination.RoundRobin
         public IList<ICompetitor> GetNextCompetitors()
         {
             var result = new List<ICompetitor>();
-            if (_viewModel.NumberOfRepeat < 0)
-            {
-                _viewModel.NumberOfRepeat = 0;
-                return null;
-            }
 
-            do
+            if (_viewModel.NumberOfRepeat > 0)
             {
-                foreach (var bot1 in Bots)
+                var verifiedBots = Bots.Where(b => b.IsVerified).ToList();
+
+                do
                 {
-                    var bot1ViewModel = ReturnWrappedBot(bot1);
-
-                    foreach (var bot2 in Bots.Where(bot2 => (bot1.Id != bot2.Id) && !bot1ViewModel.PlayAgainstId.Contains(bot2.Id)))
+                    foreach (var bot1 in verifiedBots)
                     {
-                        result.Add(bot1);
-                        result.Add(bot2);
-                        return result;
+                        var bot1ViewModel = ReturnWrappedBot(bot1);
+
+                        foreach (var bot2 in verifiedBots.Where(bot2 => (bot1.Id != bot2.Id) && !bot1ViewModel.PlayAgainstId.Contains(bot2.Id)))
+                        {
+                            result.Add(bot1);
+                            result.Add(bot2);
+                            return result;
+                        }
                     }
-                }
 
-                _viewModel.NumberOfRepeat--;
+                    foreach (var bot in verifiedBots)
+                    {
+                        ReturnWrappedBot(bot).PlayAgainstId.Clear();
+                    }
 
-                foreach (var bot in Bots)
-                {
-                    ReturnWrappedBot(bot).PlayAgainstId.Clear();
-                }
+                    _viewModel.NumberOfRepeat--;
 
-            } while (_viewModel.NumberOfRepeat > 0);
-
+                } while (_viewModel.NumberOfRepeat > 0);
+            }
             return null;
         }
 

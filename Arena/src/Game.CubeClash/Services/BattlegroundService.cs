@@ -75,11 +75,11 @@ namespace Game.AntWars.Services
         {
             var probability = _rand.NextDouble();
 
-            if (probability < 0.15)
+            if (probability < 0.05)
             {
                 return UnmovableObjectTypes.Wood;
             }
-            if (probability < 0.3)
+            if (probability < 0.1)
             {
                 return UnmovableObjectTypes.Rock;
             }

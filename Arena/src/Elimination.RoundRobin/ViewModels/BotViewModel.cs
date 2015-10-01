@@ -15,7 +15,7 @@ namespace Elimination.RoundRobin.ViewModels
         public ICompetitor Competitor
         {
             get { return _competitor; }
-            set { SetProperty(ref _competitor,value); }
+            set { SetProperty(ref _competitor, value); }
         }
 
         public int Wins
