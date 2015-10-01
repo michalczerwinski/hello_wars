@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Threading;
 using Common.Interfaces;
 
 namespace Arena.Views
@@ -40,7 +42,7 @@ namespace Arena.Views
 
         private void OnTimedEvent(object sender, System.Timers.ElapsedEventArgs e)
         {
-            ProgressBar1.Dispatcher.Invoke(() => ProgressBar1.Value++);
+            ProgressBar1.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action( () => ProgressBar1.Value++));
         }
 
         private void Close_OnClick(object sender, RoutedEventArgs e)
@@ -82,7 +84,7 @@ namespace Arena.Views
 
         private void ProgressBar1_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (ProgressBar1.Value <= TIMEFORPRESENTINGONEPLAYER * 100)
+            if (ProgressBar1.Value >= TIMEFORPRESENTINGONEPLAYER * 100)
             {
                 if (_enumeratedCompetitors.MoveNext())
                 {
