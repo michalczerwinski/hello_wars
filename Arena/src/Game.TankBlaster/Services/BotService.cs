@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,16 +35,36 @@ namespace Game.TankBlaster.Services
             return _field.Bots.ToDictionary(bot => bot as ICompetitor, bot => bot.IsDead ? 0.0 : 1.0);
         }
 
-        public async Task<List<RoundPartialHistory>> PlayBotMovesAsync(int delayTime, int roundNumber)
+        public async Task<RoundResult> PlayBotMovesAsync(int delayTime, int roundNumber)
         {
-            var result = new List<RoundPartialHistory>();
+            var result = new RoundResult()
+            {
+                FinalResult = null,
+                IsFinished = false,
+                History = new List<RoundPartialHistory>()
+            };
+
             foreach (var dynaBlasterBot in _field.Bots.Where(bot => !bot.IsDead))
             {
-                var move = await dynaBlasterBot.NextMoveAsync(GetBotBattlefieldInfo(dynaBlasterBot, roundNumber));
+                BotMove move;
+                try
+                {
+                    move = await dynaBlasterBot.NextMoveAsync(GetBotBattlefieldInfo(dynaBlasterBot, roundNumber));
+                }
+                catch (Exception e)
+                {
+                    move = new BotMove()
+                    {
+                        Action = BotAction.None,
+                        Direction = null
+                    };
+
+                    result.OutputText += string.Format("Bot {0} threw exception:\n{1}\n", dynaBlasterBot.Name, e.Message);
+                }
 
                 if (IsMoveValid(dynaBlasterBot, move))
                 {
-                    result.Add(PerformMove(dynaBlasterBot, move, roundNumber));
+                    result.History.Add(PerformMove(dynaBlasterBot, move, roundNumber));
                     _field.OnArenaChanged();
                 }
 
