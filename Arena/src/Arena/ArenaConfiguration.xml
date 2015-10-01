@@ -2,7 +2,7 @@
 
 <ArenaConfiguration>
   <EliminationConfiguration>
-    <Type>RoundRobin</Type>
+    <Type>TournamentLadder</Type>
   </EliminationConfiguration>
 
   <GameConfiguration>
@@ -18,10 +18,10 @@
         <Url>http://localhost:53886/TicTacToeBot/</Url>
         <Url>http://localhost:53886/TicTacToeBot/</Url>-->
 
-        <Url>http://localhost:53886/AntWarsBot/</Url>
-        <Url>http://localhost:53886/AntWarsBot/</Url>
-        <Url>http://localhost:53886/AntWarsBot/</Url>
-        <Url>http://localhost:53886/AntWarsBots/</Url>
+    <Url>http://localhost:53886/AntWarsBot/</Url>
+    <Url>http://localhost:53886/AntWarsBot/</Url>
+    <Url>http://localhost:53886/AntWarsBot/</Url>
+    <Url>http://localhost:53886/AntWarsBots/</Url>
 
     <!--<Url>http://localhost:81//TankBlasterBotVeronica/</Url>-->
     <!--<Url>http://localhost:81/TankBlasterBotVeronica/</Url>-->
