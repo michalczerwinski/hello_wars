@@ -96,6 +96,7 @@
     <None Include="Resources\index.html" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\tank_blaster_chained_explosion.PNG" />
     <Content Include="TankBlaster.config.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

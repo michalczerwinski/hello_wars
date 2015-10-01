@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace Game.TankBlaster.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -197,6 +200,16 @@ namespace Game.TankBlaster.Properties {
         public static System.Drawing.Bitmap regularTile {
             get {
                 object obj = ResourceManager.GetObject("regularTile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap tank_blaster_chained_explosion {
+            get {
+                object obj = ResourceManager.GetObject("tank_blaster_chained_explosion", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
