@@ -1,7 +1,7 @@
 ﻿using System.Windows.Media;
 using Common.Utilities;
 
-namespace Game.AntWars.ViewModels
+namespace Game.AntWars.ViewModels.BaseUnits
 {
     public class ExplosionViewModel : BindableBase
     {

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Common.Interfaces;
 using Game.AntWars.Enums;
-using Game.AntWars.Models;
+using Game.AntWars.Models.BaseUnits;
 using Game.AntWars.ViewModels;
+using Game.AntWars.ViewModels.BaseUnits;
 
-namespace Game.AntWars.Utilities
+namespace Game.AntWars.Services
 {
     public class BotService
     {

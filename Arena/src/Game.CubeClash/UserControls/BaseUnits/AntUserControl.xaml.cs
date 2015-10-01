@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows;
-using Game.AntWars.Models;
-using Game.AntWars.ViewModels;
+using Game.AntWars.Models.BaseUnits;
+using Game.AntWars.ViewModels.BaseUnits;
 
-namespace Game.AntWars.UserControls
+namespace Game.AntWars.UserControls.Units
 {
     public partial class AntUserControl
     {

@@ -1,8 +1,5 @@
-﻿namespace Game.AntWars.UserControls.Resoures
+﻿namespace Game.AntWars.UserControls.Units
 {
-    /// <summary>
-    /// Interaction logic for ExplosionUserControl.xaml
-    /// </summary>
     public partial class ExplosionUserControl
     {
         public ExplosionUserControl()

@@ -2,7 +2,7 @@
 using Common.Utilities;
 using Game.AntWars.Enums;
 
-namespace Game.AntWars.ViewModels
+namespace Game.AntWars.ViewModels.BaseUnits
 {
     public class MissileViewModel : BindableBase
     {

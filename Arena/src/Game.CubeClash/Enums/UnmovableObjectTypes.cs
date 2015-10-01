@@ -5,6 +5,5 @@
         Lawn,
         Wood,
         Rock,
-        
     }
 }

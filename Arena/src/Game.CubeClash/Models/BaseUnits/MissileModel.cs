@@ -1,13 +1,15 @@
 ﻿using Game.AntWars.Enums;
 using Game.AntWars.Interfaces;
-using Game.AntWars.ViewModels;
+using Game.AntWars.ViewModels.BaseUnits;
 
-namespace Game.AntWars.Models
+namespace Game.AntWars.Models.BaseUnits
 {
     public class MissileModel : IMovableObject
     {
-        public MissileViewModel ViewModel { get; set; }
         public int Range;
+
+        public MovableObjectsTypes Type { get; set; }
+        public MissileViewModel ViewModel { get; set; }
 
         public ActionDirections Direction
         {
@@ -32,7 +34,5 @@ namespace Game.AntWars.Models
             ViewModel = viewModel;
             Type = MovableObjectsTypes.Missile;
         }
-
-        public MovableObjectsTypes Type { get; set; }
     }
 }

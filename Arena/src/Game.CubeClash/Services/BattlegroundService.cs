@@ -1,11 +1,12 @@
 ﻿using System;
 using Game.AntWars.Enums;
-using Game.AntWars.Models;
+using Game.AntWars.Models.BaseUnits;
 using Game.AntWars.ViewModels;
+using Game.AntWars.ViewModels.BaseUnits;
 
-namespace Game.AntWars.Utilities
+namespace Game.AntWars.Services
 {
-    public static class BattlegroundBuilder
+    public static class BattlegroundService
     {
         //if you change this please change centerX in UserControls using RotationTransform to 5 (10/2) 
         private const int BATTLEFIELD_UNIT_HEIGTH = 10;

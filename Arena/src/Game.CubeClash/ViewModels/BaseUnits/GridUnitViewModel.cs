@@ -4,7 +4,7 @@ using Common.Utilities;
 using Game.AntWars.Enums;
 using Game.AntWars.Properties;
 
-namespace Game.AntWars.ViewModels
+namespace Game.AntWars.ViewModels.BaseUnits
 {
     public class GridUnitViewModel : BindableBase
     {
