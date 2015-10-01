@@ -6,25 +6,25 @@
   </EliminationConfiguration>
 
   <GameConfiguration>
-    <Type>TicTacToe</Type>
+    <Type>TankBlaster</Type>
     <NextMoveDelay>150</NextMoveDelay>
     <NextMatchDelay>400</NextMatchDelay>
   </GameConfiguration>
 
   <BotUrls>
-    <Url>http://localhost:53886/TicTacToeBot/</Url>
-    <Url>http://localhost:53886/TicTacToeBot/</Url>
-    <Url>http://localhost:53886/TicTacToeBot/</Url>
-    <Url>http://localhost:53886/TicTacToeBot/</Url>
-    <Url>http://localhost:53886/TicTacToeBot/</Url>
+    <!--<Url>http://localhost:53886/TicTacToeBot/</Url>
+        <Url>http://localhost:53886/TicTacToeBot/</Url>
+        <Url>http://localhost:53886/TicTacToeBot/</Url>
+        <Url>http://localhost:53886/TicTacToeBot/</Url>
+        <Url>http://localhost:53886/TicTacToeBot/</Url>-->
 
     <!--    <Url>http://localhost:53886/AntWarsBot/</Url>-->
     <!--    <Url>http://localhost:53886/AntWarsBot/</Url>-->
     <!--    <Url>http://localhost:53886/AntWarsBot/</Url>-->
     <!--    <Url>http://localhost:53886/AntWarsBots/</Url>-->
 
-    <!--<Url>http://localhost:81//TankBlasterBotVeronica/</Url>-->
-    <!--<Url>http://localhost:81/TankBlasterBotVeronica/</Url>-->
+    <Url>http://localhost:81//TankBlasterBotVeronica/</Url>
+    <Url>http://localhost:81/TankBlasterBotVeronica/</Url>
 
     <!--    <Url>http://localhost:53886/TankBlasterBotAdam/</Url>-->
     <!--    <Url>http://localhost:53886/TankBlasterBot/</Url>-->
