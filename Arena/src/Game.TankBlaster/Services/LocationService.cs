@@ -86,5 +86,45 @@ namespace Game.TankBlaster.Services
                 && _field.Bombs.All(bomb => bomb.Location != location) 
                 && _field.Missiles.All(missile => missile.Location != location);
         }
+
+        public bool IsPassageBetweenTwoPlayers()
+        {
+            var matrix = new int[_field.Board.GetLength(0), _field.Board.GetLength(1)];
+            var firstBot = _field.Bots[0].Location;
+            var botPositions = _field.Bots.Select(t => t.Location).ToList();
+            botPositions.Remove(firstBot);
+
+            return CheckNeighborhood(firstBot.X, firstBot.Y, matrix, botPositions);
+        }
+
+        private bool CheckNeighborhood(int x, int y, Int32[,] matrix, List<Point> botPositions)
+        {
+            if (!IsLocationValid(new Point { X = x, Y = y }))
+            {
+                return false;
+            }
+
+            if (botPositions.Contains(new Point { X = x, Y = y }))
+            {
+                return true;
+            }
+
+            if ((_field.Board[x, y] != BoardTile.Indestructible) && (matrix[x, y] != 1))
+            {
+                matrix[x, y] = 1;
+
+                // ReSharper disable once LoopCanBeConvertedToQuery
+                foreach (var location in GetAdjacentLocations(new Point(x, y)))
+                {
+                    var botFound = CheckNeighborhood(location.X, location.Y, matrix, botPositions);
+                    if (botFound)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 }
