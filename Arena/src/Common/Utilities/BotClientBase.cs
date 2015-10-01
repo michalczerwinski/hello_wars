@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Common.Helpers;
 using Common.Interfaces;
+using Common.Models;
 
-namespace Common.Models
+namespace Common.Utilities
 {
     public class BotClientBase<TArenaInfo, TMove> : Competitor, IBotClient<TArenaInfo, TMove>
     {

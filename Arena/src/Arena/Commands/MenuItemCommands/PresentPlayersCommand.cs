@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using Arena.ViewModels;
-using Common;
+using Common.Utilities;
 
 namespace Arena.Commands.MenuItemCommands
 {

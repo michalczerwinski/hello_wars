@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Common.Helpers
+namespace Common.Extensions
 {
-    public static class MultiDimArrayExtensions
+    public static class MultiDimArrayExtension
     {
         public static void ForEveryElement<T>(this T[,] array, Action<int, int, T> action)
         {

@@ -1,6 +1,6 @@
 ﻿using Common.Interfaces;
 
-namespace Common.Utilities
+namespace Common.Models
 {
     public class GameScore
     {

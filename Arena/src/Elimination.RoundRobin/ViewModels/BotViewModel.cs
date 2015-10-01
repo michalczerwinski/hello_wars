@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common.Interfaces;
-using Common.Models;
+using Common.Utilities;
 
 namespace Elimination.RoundRobin.ViewModels
 {

@@ -1,5 +1,5 @@
 ﻿using System.Windows.Media;
-using Common.Models;
+using Common.Utilities;
 
 namespace Game.AntWars.ViewModels
 {

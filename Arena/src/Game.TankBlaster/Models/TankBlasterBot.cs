@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Media;
 using Common.Interfaces;
-using Common.Models;
+using Common.Utilities;
 
 namespace Game.TankBlaster.Models
 {
