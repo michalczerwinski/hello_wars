@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -65,13 +64,17 @@ namespace Game.TankBlaster
 
         public void SetupNewGame(IEnumerable<ICompetitor> competitors)
         {
-            Reset();
+            do
+            {
+                Reset();
 
-            _field.GenerateRandomBoard();
+                _field.GenerateRandomBoard();
 
-            _botService.SetUpBots(competitors);
+                _botService.SetUpBots(competitors);
 
-            _field.OnArenaChanged();
+                _field.OnArenaChanged();
+
+            } while (!_locationService.IsPassageBetweenTwoPlayers());
         }
 
         public void Reset()
@@ -82,7 +85,7 @@ namespace Game.TankBlaster
 
         public void SetPreview(object boardState)
         {
-            _field.ImportState((Battlefield) boardState);
+            _field.ImportState((Battlefield)boardState);
             _field.OnArenaChanged();
         }
 
