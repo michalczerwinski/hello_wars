@@ -19,8 +19,10 @@ namespace Arena.Views
         private void PlayerPresentationUserControl_OnLoaded(object sender, RoutedEventArgs e)
         {
             ProgressBar1.Maximum = TIMEFORPRESENTINGONEPLAYER * 100;
-            _timer = new System.Timers.Timer();
-            _timer.Interval = 10;
+            _timer = new System.Timers.Timer
+            {
+                Interval = 10
+            };
 
             _competitors = (List<ICompetitor>)DataContext;
 
@@ -80,7 +82,7 @@ namespace Arena.Views
 
         private void ProgressBar1_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (ProgressBar1.Value == TIMEFORPRESENTINGONEPLAYER * 100)
+            if (ProgressBar1.Value <= TIMEFORPRESENTINGONEPLAYER * 100)
             {
                 if (_enumeratedCompetitors.MoveNext())
                 {

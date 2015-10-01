@@ -21,6 +21,7 @@ namespace Arena.Commands
                 _viewModel.Elimination.Bots = _viewModel.Competitors;
                 _viewModel.EliminationTypeControl = _viewModel.Elimination.GetVisualization(_viewModel.ArenaConfiguration.EliminationConfiguration);
             }
+
             if (_viewModel.Game != null)
             {
                 _viewModel.GameTypeControl = _viewModel.Game.GetVisualisationUserControl(_viewModel.ArenaConfiguration.GameConfiguration);

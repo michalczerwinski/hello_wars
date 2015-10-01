@@ -145,7 +145,7 @@
                             <Image Source="/Icons/pause.png" />
                         </Button>
                     </Border>
-                    
+
                     <Border Grid.Column="4" Style="{StaticResource BorderPretendingToolBarStyle}">
                         <Button Command="{Binding RestartCommand}" IsEnabled="{Binding IsRestartButtonAvailable}">
                             <Button.ToolTip >Restarts current game</Button.ToolTip>

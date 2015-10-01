@@ -4,7 +4,7 @@ using Common.Utilities;
 
 namespace Arena.Commands.MenuItemCommands
 {
-    class GameRulesCommand: CommandBase
+    class GameRulesCommand : CommandBase
     {
         protected readonly MainWindowViewModel _viewModel;
 
@@ -15,7 +15,7 @@ namespace Arena.Commands.MenuItemCommands
 
         public override void Execute(object parameter = null)
         {
-            using (StreamWriter sw = new StreamWriter("GameRules.html"))
+            using (var sw = new StreamWriter("GameRules.html"))
             {
                 sw.Write(_viewModel.Game.GetGameRules());
             }

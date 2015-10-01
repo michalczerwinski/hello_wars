@@ -27,7 +27,6 @@ namespace Arena.Commands.MenuItemCommands
             {
                 var filePath = dlg.FileName;
                 _viewModel.ApplyGameCustomConfiguration(filePath);
-               // _viewModel.OnLoadedCommand.Execute(null);
             }
         }
     }

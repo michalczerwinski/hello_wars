@@ -23,7 +23,6 @@ namespace Arena.Commands.MenuItemCommands
             {
                 _viewModel.RestartGame();
             }
-            
         }
     }
 }
