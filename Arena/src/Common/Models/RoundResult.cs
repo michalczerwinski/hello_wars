@@ -8,5 +8,6 @@ namespace Common.Models
         public bool IsFinished { get; set; }
         public Dictionary<ICompetitor, double> FinalResult { get; set; }
         public List<RoundPartialHistory> History { get; set; }
+        public string OutputText { get; set; }
     }
 }

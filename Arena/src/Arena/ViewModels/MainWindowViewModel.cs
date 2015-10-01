@@ -392,6 +392,9 @@ namespace Arena.ViewModels
             do
             {
                 result = await Game.PerformNextRoundAsync();
+
+                OutputText += result.OutputText;
+
                 foreach (var roundPartialHistory in result.History)
                 {
                     gameHistoryEntry.History.Add(roundPartialHistory);
