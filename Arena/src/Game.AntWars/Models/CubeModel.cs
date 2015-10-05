@@ -2,11 +2,11 @@
 using System.Windows.Media;
 using Common.Interfaces;
 using Common.Models;
-using Game.CubeClash.Enums;
-using Game.CubeClash.Interfaces;
-using Game.CubeClash.ViewModels;
+using Game.AntWars.Enums;
+using Game.AntWars.Interfaces;
+using Game.AntWars.ViewModels;
 
-namespace Game.CubeClash.Models
+namespace Game.AntWars.Models
 {
     public class CubeModel : BotClientBase<SurroundingAreaInfo, CubeMove>, IMovableObject
     {

@@ -178,7 +178,7 @@
       <Project>{a40d2185-d837-4773-8dd7-3830f0c9e3ff}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Game.CubeClash\Game.AntWars.csproj">
+    <ProjectReference Include="..\Game.AntWars\Game.AntWars.csproj">
       <Project>{559c3c3a-f7cb-4f67-8800-d5c8eced9e08}</Project>
       <Name>Game.AntWars</Name>
     </ProjectReference>

@@ -118,7 +118,7 @@
                     <b> Arena</b>
                     <ul>
                         <li>
-                            <b>  bin </b>- compiled binaries of arena, game and elimination plugins and ArenaConfiguration.xml file
+                            <b>  bin </b>- compiled binaries of arena, game and elimination plugins and ArenaConfiguration.xml file. To start the arena run Arena.exe.
                         </li>
                         <li>
                             <b>
@@ -135,10 +135,10 @@
                                     <b>  Game.TicTacToe</b>
                                 </li>
                                 <li>
-                                    <b>  Elimination.LaderTournament</b>
+                                    <b>  Elimination.TournamentLader</b>
                                 </li>
                                 <li>
-                                    <b> Elimination.RoundRobinTournament</b>
+                                    <b> Elimination.RoundRobin</b>
                                 </li>
                                 <li>
                                     <b> Common</b>
@@ -166,13 +166,13 @@
 
             <ul>
                 <li>
-                    Arena is a environment which is designed for playing games beetween many players. Arena uses settings information from ArenaConfiguration.xml and based on this data runs proper game which is played according selected elimination rules.
+                    Arena is an environment designed for playing games between multiple players. Arena uses settings information from ArenaConfiguration.xml and based on this data runs proper game which is played according to selected elimination rules.
                 </li>
                 <li>
-                    Bot it is web application which is able to response for two calls:
+                    Bot is a web application which plays the game. It responds to two calls:
                     <ul>
                         <li>
-                            <b> Info() </b>- returns base information about bot and his owner.
+                            <b> GET &lt;bot_url&gt;/info </b>- returns base information about bot and his owner.
                             <ul>
                                 <li>&lt;string&gt;<b> Name</b> - your bot name</li>
                                 <li>&lt;string&gt; <b>AvatarUrl </b>- path to your avatar</li>
@@ -181,19 +181,27 @@
                             </ul>
                         </li>
                         <li>
-                            <b> PerformNextMove(TInfo info)</b> returns TMove class. Bot is called whenever Arena decide that it is his turn to do the move. Arena shares with bot TInfo class which contains information about situation in duel (usually position of obsticles and oponents position). After running some highly advanced, high tech algorithm bot returns TMove to Arena.
+                            <b> POST &lt;bot_url&gt;/PerformNextMove</b> - bot receives current battlefield/game status (map info, opponents locations, obstacles, etc.) and returns information about its next move.
                         </li>
                     </ul>
                 </li>
 
                 <li>
-                    Elimination Plugin- description
+                    Elimination Plugin - plugin that determines participants and order of games during tournament. Currently there are two elimination plugins implemented:
+                    <ul>
+                        <li>
+                            <b>TournamentLadder</b> - players are grouped in pairs and play duels. The winner from each pair goes to the next stage, loser leaves in sorrow
+                        </li>
+                        <li>
+                            <b>RoundRobin</b> - each player plays specified number of duels with every other player. Players are evaluated by their number of wins and loses
+                        </li>
+                    </ul>
                 </li>
                 <li>
-                    Game Plugin - description
+                    Game Plugin - plugin that determines the type of game which bots are playing
                 </li>
                 <li>
-                    ArenaConfiguration.xml- XML configuration file used by Arena, contains Bots links and some settings to Game and Elimination Controls.
+                    ArenaConfiguration.xml- XML configuration file used by Arena, contains Bots links and some settings for Game and Elimination Controls.
 
                     <ul>
                         <li>
@@ -205,17 +213,17 @@
                         <li>
                             <b> GameConfiguration</b>
                             <ul>
-                                <li><b>Type </b>- runs selected gamr.</li>
+                                <li><b>Type </b>- runs selected game.</li>
                                 <li>
-                                    <b> NextMoveDelay </b>- time in miliseconds between each bot move
+                                    <b> NextMoveDelay </b>- time in miliseconds between executing bot moves. Lower value means faster gameplay
                                 </li>
                                 <li>
-                                    <b> NextMatchDelay</b> - time between next matches
+                                    <b> NextMatchDelay</b> - time between next matches. Used in AutoPlay feature
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <b> BotUrls</b> - bot adres in localhost or in local network (if bot is set)
+                            <b> BotUrls</b> - bot addresses
                             ex.
                             <ul>
                                 <li>
@@ -238,27 +246,26 @@
             <ul>
                 <li>
                     Setup sample bot on IIS server
-                    <ul>
-                        <li>Open some bot project from "dotNet" folder, rebuild it or restore packages for solution and then rebuild. Run solution. Bot should be visible in IIS server.</li>
-                        <li>open iis and add bot example from "dotNet" folder project - right click on "Sites" -> "Add Web Site"</li>
-                        <li>change Port number to some unused port</li>
-                        <li>type and remember web site name it will be application pool and you will need it.</li>
-                        <li>choose path to application folder</li>
-                        <li>click OK.</li>
-                        <li>right clic on bot web site then "Edit Permissions" and "Security" bookmark</li>
-                        <li>click "Edit" then by clicking "Add" add the new user with permissions for IIS .... something, type IIS APPPOOL\{application pool} in text box, change Location for your local host location ie. computer name. Click Ok.</li>
-                        <li>Choosing your user allow to has Full controll, click OK and go back to IIS.</li>
-                        <li>run sample bot if not running</li>
-                        <li>make sure that Windows Features -> Internet Information Services -> WWW services -> Asp.Net 4.5 is checked.</li>
-                        <li>check bot in web browser ex. "http://localhost:53886/antwarsbot/info" or http://67221-tpe540:81/tankblasterbotveronica/info or http://192.168.104.226:81/tankblasterbotveronica/info </li>
-                    </ul>
+                    <ol>
+                        <li>Open some bot project from "dotNet" folder, rebuild it or restore packages for solution and then rebuild. Run solution. Bot should be visible in IIS server. This is the moment you can test your bot localy.</li>
+                        <li>Open IIS and create new website using binaries from "dotNet" folder project - right click on "Sites" -> "Add Web Site"</li>
+                        <li>Change Port number to some unused port (eg. 82)</li>
+                        <li>Type in website name</li>
+                        <li>Set physical path to your bot application folder</li>
+                        <li>Click OK.</li>
+                        <li>Right click on your bot web site -> "Edit Permissions" -> "Security" bookmark</li>
+                        <li>Click "Edit" and then "Add" to grant permission to user. Dialog will appear, type "IIS APPPOOL\{your application name}" in text box. Change Location for your local host location ie. computer name. Click Ok.</li>
+                        <li>Choose your user and grant him Full control, click OK and go back to IIS.</li>
+                        <li>Run sample bot (if not already running)</li>
+                        <li>Make sure that Windows Features (Accessible from Add/Remove programs in Control Panel) -> Internet Information Services -> WWW services -> Asp.Net 4.5 is checked.</li>
+                        <li>Check your bot in web browser eg. "http://localhost:82/info"</li>
+                    </ol>
                 </li>
                 <li>
-                    If you wish that your bot should be visible from outside. Configure your firewall.
+                    If you want your bot to be visible from our network, configure your firewall:
                     <ul>
-                        <li>open Windows Firewall -> Advanced Settings -> Inbound Rules - add exception for port on which your bot exist.</li>
-                        <li>configure other firewall if installed.</li>
-                        <li>your bot adress is for example: http://192.168.104.226:81/tankblasterbotveronica/info </li>
+                        <li>open Windows Firewall -> Advanced Settings -> Inbound Rules - add exception for port on which your bot runs</li>
+                        <li>configure other firewall programs if installed.</li>
                     </ul>
                 </li>
                 <li>
