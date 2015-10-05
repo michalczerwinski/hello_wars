@@ -1,0 +1,292 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Hello_Wars Instruction</title>
+    <style>
+        header {
+            font-family: times, Times New Roman, times-roman, georgia, serif;
+            color: #444;
+            margin: 0;
+            padding: 0px 0px 6px 0px;
+            font-size: 40px;
+            line-height: 44px;
+            letter-spacing: -2px;
+            font-weight: bold;
+        }
+
+        article {
+            top: 1px;
+            font-size: 20px;
+            margin: 20px;
+        }
+
+        #repositoryLink {
+            font-family: Georgia,"Times New Roman",serif;
+            font-size: 12px;
+            font-weight: bold;
+            color: #600;
+            line-height: 22px;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #lista {
+            counter-reset: li;
+            list-style: none;
+            padding: 0;
+        }
+
+        .lista a {
+            position: relative;
+            display: block;
+            padding: .6em .6em .6em 1.0em;
+            margin: .6em 0 .6em 2.9em;
+            border: 1px solid #e0e0e0;
+            background: linear-gradient(left bottom, rgb(255,255,255) 14%, rgb(240,240,240) 100%);
+            background: -o-linear-gradient(left bottom, rgb(255,255,255) 14%, rgb(240,240,240) 100%);
+            background: -moz-linear-gradient(left bottom, rgb(255,255,255) 14%, rgb(240,240,240) 100%);
+            background: -webkit-linear-gradient(left bottom, rgb(255,255,255) 14%, rgb(240,240,240) 100%);
+            background: -ms-linear-gradient(left bottom, rgb(255,255,255) 14%, rgb(240,240,240) 100%);
+            background: -webkit-gradient( linear, left bottom, right top, color-stop(0.14, rgb(255,255,255)), color-stop(1, rgb(240,240,240)));
+            color: #505050;
+            text-decoration: none;
+            transition: all .3s ease-out;
+        }
+
+            .lista a:hover {
+                border: 1px solid #f00000;
+            }
+
+            .lista a:before {
+                content: counter(li);
+                counter-increment: li;
+                position: absolute;
+                left: -2.9em;
+                top: 43%;
+                content: counter(li, decimal);
+                color: #fff;
+                margin-top: -1em;
+                background: #f00000;
+                height: 2.4em;
+                width: 2.4em;
+                line-height: 2.4em;
+                text-align: center;
+                font-weight: bold;
+                text-shadow: 0 1px 0 rgba(0,0,0,.5);
+            }
+
+            .lista a:after {
+                position: absolute;
+                content: '';
+                border: .5em solid transparent;
+                left: -1em;
+                top: 53%;
+                margin-top: -.5em;
+                transition: all .3s ease-out;
+            }
+
+            .lista a:hover:after {
+                left: -.5em;
+                border-left-color: #f00000;
+            }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul id="lista" class="lista">
+            <li><a href="#repository">Repository</a></li>
+            <li><a href="#general">General Information</a></li>
+            <li><a href="#dotNet">.Net Bots</a></li>
+            <li><a href="#php">PHP Bots</a></li>
+            <li><a href="#nodeJS">NodeJS Bots</a></li>
+            <li><a href="#authors">Authors</a></li>
+        </ul>
+    </nav>
+    <section id="repository">
+        <header>Information about repository.</header>
+        <aside id="repositoryLink">
+            <b> <a href="https://github.com/michalczerwinski/hello_wars/">https://github.com/michalczerwinski/hello_wars/</a> </b>
+        </aside>
+        <article>
+            <span> Hello Wars contains:</span>
+            <ul>
+                <li>
+                    <b> Arena</b>
+                    <ul>
+                        <li>
+                            <b>  bin </b>- compiled binaries of arena, game and elimination plugins and ArenaConfiguration.xml file
+                        </li>
+                        <li>
+                            <b>
+                                src
+                            </b> - the source code of Arena, games and eliminations plugins
+                            <ul>
+                                <li>
+                                    <b> Game.TankBlaster</b>
+                                </li>
+                                <li>
+                                    <b> Game.AntWars (not finished)</b>
+                                </li>
+                                <li>
+                                    <b>  Game.TicTacToe</b>
+                                </li>
+                                <li>
+                                    <b>  Elimination.LaderTournament</b>
+                                </li>
+                                <li>
+                                    <b> Elimination.RoundRobinTournament</b>
+                                </li>
+                                <li>
+                                    <b> Common</b>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <b>dotNet</b> - bot example written in .Net
+                </li>
+                <li>
+                    <b>nodeJs</b> - bot example written in NodeJS
+                </li>
+                <li>
+                    <b>PHP </b>- bot example written in PHP
+                </li>
+            </ul>
+        </article>
+    </section>
+
+    <section id="general">
+        <header>General information about Arena.</header>
+        <article>
+
+            <ul>
+                <li>
+                    Arena is a environment which is designed for playing games beetween many players. Arena uses settings information from ArenaConfiguration.xml and based on this data runs proper game which is played according selected elimination rules.
+                </li>
+                <li>
+                    Bot it is web application which is able to response for two calls:
+                    <ul>
+                        <li>
+                            <b> Info() </b>- returns base information about bot and his owner.
+                            <ul>
+                                <li>&lt;string&gt;<b> Name</b> - your bot name</li>
+                                <li>&lt;string&gt; <b>AvatarUrl </b>- path to your avatar</li>
+                                <li>&lt;string&gt;<b> GameType </b>- type of game that your bot is able to play</li>
+                                <li>&lt;string&gt; <b>Description</b> </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <b> PerformNextMove(TInfo info)</b> returns TMove class. Bot is called whenever Arena decide that it is his turn to do the move. Arena shares with bot TInfo class which contains information about situation in duel (usually position of obsticles and oponents position). After running some highly advanced, high tech algorithm bot returns TMove to Arena.
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    Elimination Plugin- description
+                </li>
+                <li>
+                    Game Plugin - description
+                </li>
+                <li>
+                    ArenaConfiguration.xml- XML configuration file used by Arena, contains Bots links and some settings to Game and Elimination Controls.
+
+                    <ul>
+                        <li>
+                            <b>  EliminationConfiguration</b>
+                            <ul>
+                                <li><b>Type </b>- runs selected elimination.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <b> GameConfiguration</b>
+                            <ul>
+                                <li><b>Type </b>- runs selected gamr.</li>
+                                <li>
+                                    <b> NextMoveDelay </b>- time in miliseconds between each bot move
+                                </li>
+                                <li>
+                                    <b> NextMatchDelay</b> - time between next matches
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <b> BotUrls</b> - bot adres in localhost or in local network (if bot is set)
+                            ex.
+                            <ul>
+                                <li>
+                                    &lt;url&gt;http://localhost:53886/TicTacToeBot/&lt;/url&gt;
+                                </li>
+                                <li>
+                                    &lt;url&gt;http://67221-tpe540:81/tankblasterbotveronica/&lt;/url&gt;
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </article>
+    </section>
+
+    <section id="dotNet">
+        <header>Bot written in .Net</header>
+        <article>
+            <ul>
+                <li>
+                    Setup sample bot on IIS server
+                    <ul>
+                        <li>Open some bot project from "dotNet" folder, rebuild it or restore packages for solution and then rebuild. Run solution. Bot should be visible in IIS server.</li>
+                        <li>open iis and add bot example from "dotNet" folder project - right click on "Sites" -> "Add Web Site"</li>
+                        <li>change Port number to some unused port</li>
+                        <li>type and remember web site name it will be application pool and you will need it.</li>
+                        <li>choose path to application folder</li>
+                        <li>click OK.</li>
+                        <li>right clic on bot web site then "Edit Permissions" and "Security" bookmark</li>
+                        <li>click "Edit" then by clicking "Add" add the new user with permissions for IIS .... something, type IIS APPPOOL\{application pool} in text box, change Location for your local host location ie. computer name. Click Ok.</li>
+                        <li>Choosing your user allow to has Full controll, click OK and go back to IIS.</li>
+                        <li>run sample bot if not running</li>
+                        <li>make sure that Windows Features -> Internet Information Services -> WWW services -> Asp.Net 4.5 is checked.</li>
+                        <li>check bot in web browser ex. "http://localhost:53886/antwarsbot/info" or http://67221-tpe540:81/tankblasterbotveronica/info or http://192.168.104.226:81/tankblasterbotveronica/info </li>
+                    </ul>
+                </li>
+                <li>
+                    If you wish that your bot should be visible from outside. Configure your firewall.
+                    <ul>
+                        <li>open Windows Firewall -> Advanced Settings -> Inbound Rules - add exception for port on which your bot exist.</li>
+                        <li>configure other firewall if installed.</li>
+                        <li>your bot adress is for example: http://192.168.104.226:81/tankblasterbotveronica/info </li>
+                    </ul>
+                </li>
+                <li>
+                    Modify ArenaConfiguration file:
+                    <ul>
+                        <li>change game type you wish to play. Note if you selected bot which could play TicTacToe game, you have to play TicTacToe game.</li>
+                        <li>change elimination type name ex. RoundRobin, LadderTournament, so far only this two are available.</li>
+                        <li>modify url to bot on your computer, you should put a few identhical links so that simulate few competitors.</li>
+                    </ul>
+                </li>
+                <li>While solution with bot is running or bot is set up on IIS run Arena. Arena should automathicaly  connect with bots. Now press play to see the duel...</li>
+            </ul>
+        </article>
+    </section>
+
+    <section id="php">
+        <header>Bot written in PHP</header>
+        <article></article>
+    </section>
+
+    <section id="nodeJS">
+        <header>Bot written in nodeJS</header>
+        <article></article>
+    </section>
+
+    <section id="authors">
+        <header>Authors</header>
+        <article></article>
+    </section>
+</body>
+</html>

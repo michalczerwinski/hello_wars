@@ -50,6 +50,7 @@ namespace Arena.ViewModels
         private ICommand _aboutCommand;
         private ICommand _toggleHistoryCommand;
         private ICommand _playDuelCommand;
+        private ICommand _showArenaInstructionCommand;
         private ICommand _fullScreenWindowCommand;
         private ICommand _presentPlayersCommand;
         private WindowState _windowState;
@@ -243,6 +244,11 @@ namespace Arena.ViewModels
         public ICommand PresentPlayersCommand
         {
             get { return _presentPlayersCommand ?? (_presentPlayersCommand = new PresentPlayersCommand(this)); }
+        }
+
+        public ICommand ShowArenaInstructionCommand
+        {
+            get { return _showArenaInstructionCommand ?? (_showArenaInstructionCommand = new ShowArenaInstruction(this)); }
         }
 
         public bool IsFullScreenApplied
