@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using Newtonsoft.Json;
 
 namespace Game.TankBlaster.Models
 {
@@ -16,6 +17,8 @@ namespace Game.TankBlaster.Models
 
         public Point Location { get; set; }
         public int ExplosionRadius { get; set; }
+
+        [JsonIgnore]
         public bool IsExploded { get; set; }
     }
 }
