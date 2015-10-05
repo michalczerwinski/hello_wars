@@ -248,7 +248,7 @@ namespace Arena.ViewModels
 
         public ICommand ShowArenaInstructionCommand
         {
-            get { return _showArenaInstructionCommand ?? (_showArenaInstructionCommand = new ShowArenaInstruction(this)); }
+            get { return _showArenaInstructionCommand ?? (_showArenaInstructionCommand = new ShowArenaInstruction()); }
         }
 
         public bool IsFullScreenApplied
