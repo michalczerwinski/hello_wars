@@ -148,7 +148,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\ArenaInstruction.html" />
+    <Content Include="Resources\ArenaInstruction.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Icons\restart.png" />
     <Resource Include="Icons\pause.png" />
     <Resource Include="Icons\Checked.ico" />
