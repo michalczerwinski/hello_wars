@@ -23,45 +23,67 @@ namespace Arena.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        private UserControl _gameTypeControl;
-        private UserControl _eliminationTypeControl;
-        private List<ICompetitor> _competitors;
-        private ObservableCollection<GameHistoryEntryViewModel> _gameHistory;
-        private bool _isHistoryVisible;
-        private bool _isOutputVisible;
-        private int _selectedTabIndex;
-        private string _outputText;
         private static readonly object _lock = new object();
+
+        #region BackingFields
+
+        private List<ICompetitor> _competitors;
+        private UserControl _eliminationTypeControl;
+        private UserControl _gameTypeControl;
+        private ObservableCollection<GameHistoryEntryViewModel> _gameHistory;
+        
         private bool _isFullScreenApplied;
         private bool _isGameInProgress;
         private bool _isGamePaused;
+        private bool _isHistoryVisible;
+        private bool _isOutputVisible;
         private bool _isPlayButtonAvailable;
         private bool _isRestartButtonAvailable;
 
+        private string _outputText;
+        private int _selectedTabIndex;
+
+        private Visibility _playerPresentationVisibility;
+        private Visibility _gameOverTextVisibility;
+        
+        private WindowState _windowState;
+        private WindowStyle _windowStyle;
+        
+        private ICommand _gameRulesCommand;
+        private ICommand _fullScreenWindowCommand;
+        private ICommand _closeCommand;
+        private ICommand _aboutCommand;
         private ICommand _autoPlayCommand;
-        private ICommand _restartCommand;
         private ICommand _pauseCommand;
+        private ICommand _playDuelCommand;
+        private ICommand _toggleHistoryCommand;
+        private ICommand _verifyPlayersCommand;
         private ICommand _onLoadedCommand;
         private ICommand _openCommand;
         private ICommand _openGameConfigCommand;
-        private ICommand _closeCommand;
-        private ICommand _verifyPlayersCommand;
-        private ICommand _gameRulesCommand;
-        private ICommand _aboutCommand;
-        private ICommand _toggleHistoryCommand;
-        private ICommand _playDuelCommand;
-        private ICommand _fullScreenWindowCommand;
         private ICommand _presentPlayersCommand;
-        private WindowState _windowState;
-        private WindowStyle _windowStyle;
-        private Visibility _playerPresentationVisibility;
-        private Visibility _gameOverTextVisibility;
+        private ICommand _restartCommand;
+
+        #endregion
+
+        public MainWindowViewModel()
+        {
+            ScoreList = new ScoreList();
+            IsHistoryVisible = true;
+            IsOutputVisible = true;
+            IsFullScreenApplied = false;
+            GameOverTextVisibility = Visibility.Collapsed;
+            PlayerPresentationVisibility = Visibility.Collapsed;
+            ApplyConfiguration(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Resources.DefaultArenaConfigurationName);
+        }
 
         public ArenaConfiguration ArenaConfiguration { get; set; }
         public IElimination Elimination { get; set; }
         public IGame Game { get; set; }
         public ScoreList ScoreList { get; set; }
         public bool ShouldRestartGame { get; set; }
+
+        #region ObservableProperties
 
         public string OutputText
         {
@@ -100,11 +122,6 @@ namespace Arena.ViewModels
         {
             get { return _isRestartButtonAvailable; }
             set { SetProperty(ref _isRestartButtonAvailable, value); }
-        }
-
-        private void CalculateRestartButtonAvailability()
-        {
-            IsRestartButtonAvailable = IsGameInProgress || IsGamePaused;
         }
 
         public bool IsHistoryVisible
@@ -177,6 +194,8 @@ namespace Arena.ViewModels
             get { return _windowState; }
             set { SetProperty(ref _windowState, value); }
         }
+
+#endregion
 
         #region MenuItems
 
@@ -257,15 +276,58 @@ namespace Arena.ViewModels
 
         #endregion
 
-        public MainWindowViewModel()
+        public async Task PlayNextGameAsync()
         {
-            ScoreList = new ScoreList();
-            IsHistoryVisible = true;
-            IsOutputVisible = true;
-            IsFullScreenApplied = false;
+            var nextCompetitors = Elimination.GetNextCompetitors();
             GameOverTextVisibility = Visibility.Collapsed;
-            PlayerPresentationVisibility = Visibility.Collapsed;
-            ApplyConfiguration(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Resources.DefaultArenaConfigurationName);
+
+            if (nextCompetitors != null)
+            {
+                var gameHistoryEntry = new GameHistoryEntryViewModel
+                {
+                    GameDescription = Elimination.GetGameDescription(),
+                    History = new ObservableCollection<RoundPartialHistory>()
+                };
+
+                Game.SetupNewGame(nextCompetitors);
+                GameHistory.Add(gameHistoryEntry);
+
+                OutputText += "Game starting: " + gameHistoryEntry.GameDescription + "\n";
+
+                await PlayGameAsync(gameHistoryEntry);
+            }
+        }
+
+        public async Task ResumeGameAsync()
+        {
+            var gameHistoryEntry = GameHistory.Last();
+            Game.SetPreview(gameHistoryEntry.History.Last().BoardState);
+            await PlayGameAsync(gameHistoryEntry);
+        }
+
+        public void RestartGame()
+        {
+            ShouldRestartGame = false;
+            IsGamePaused = false;
+            PlayDuelCommand.Execute(null);
+        }
+
+        public void ApplyConfiguration(string configFilePath)
+        {
+            ArenaConfiguration = ReadConfigurationFromXml(configFilePath);
+            InitiateManagedExtensibilityFramework();
+            Competitors = ArenaConfiguration.BotUrls.Select(url => new Competitor
+            {
+                Id = Guid.NewGuid(),
+                Name = "Connecting...",
+                Url = url
+            } as ICompetitor).ToList();
+        }
+
+        public void ApplyGameCustomConfiguration(string configFilePath)
+        {
+            Game.ApplyConfiguration(ReadFile(configFilePath));
+            GameTypeControl = Game.GetVisualisationUserControl(ArenaConfiguration.GameConfiguration);
         }
 
         public void AskForCompetitors(string gameTypeName, List<ICompetitor> emptyCompetitors)
@@ -295,7 +357,6 @@ namespace Arena.ViewModels
                     }
 
                     return bot;
-
                 }).ToList();
 
                 Task.WhenAll(competitorsTasks).ContinueWith(task =>
@@ -313,40 +374,7 @@ namespace Arena.ViewModels
             });
         }
 
-        public void ApplyConfiguration(string configFilePath)
-        {
-            ArenaConfiguration = ReadConfigurationFromXml(configFilePath);
-            InitiateManagedExtensibilityFramework();
-            Competitors = ArenaConfiguration.BotUrls.Select(url => new Competitor()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Connecting...",
-                Url = url
-            } as ICompetitor).ToList();
-        }
-
-        public void ApplyGameCustomConfiguration(string configFilePath)
-        {
-            Game.ApplyConfiguration(ReadFile(configFilePath));
-            GameTypeControl = Game.GetVisualisationUserControl(ArenaConfiguration.GameConfiguration);
-        }
-
-        public ArenaConfiguration ReadConfigurationFromXml(string path)
-        {
-            var configurationFile = ReadFile(path);
-            var serializer = new XmlSerializer<ArenaConfiguration>();
-
-            return serializer.Deserialize(configurationFile);
-        }
-
-        private string ReadFile(string path)
-        {
-            var xmlStream = new StreamReader(path);
-
-            return xmlStream.ReadToEnd();
-        }
-
-        public void InitiateManagedExtensibilityFramework()
+        private void InitiateManagedExtensibilityFramework()
         {
             var catalog = new AggregateCatalog();
             var assembly = Assembly.GetExecutingAssembly().Location;
@@ -357,33 +385,17 @@ namespace Arena.ViewModels
             container.ComposeParts(ArenaConfiguration);
         }
 
-        public async Task PlayNextGameAsync()
+        private ArenaConfiguration ReadConfigurationFromXml(string path)
         {
-            var nextCompetitors = Elimination.GetNextCompetitors();
-            GameOverTextVisibility = Visibility.Collapsed;
+            var configurationFile = ReadFile(path);
+            var serializer = new XmlSerializer<ArenaConfiguration>();
 
-            if (nextCompetitors != null)
-            {
-                var gameHistoryEntry = new GameHistoryEntryViewModel()
-                {
-                    GameDescription = Elimination.GetGameDescription(),
-                    History = new ObservableCollection<RoundPartialHistory>()
-                };
-
-                Game.SetupNewGame(nextCompetitors);
-                GameHistory.Add(gameHistoryEntry);
-
-                OutputText += "Game starting: " + gameHistoryEntry.GameDescription + "\n";
-
-                await PlayGameAsync(gameHistoryEntry);
-            }
+            return serializer.Deserialize(configurationFile);
         }
 
-        public async Task ResumeGameAsync()
+        private void CalculateRestartButtonAvailability()
         {
-            var gameHistoryEntry = GameHistory.Last();
-            Game.SetPreview(gameHistoryEntry.History.Last().BoardState);
-            await PlayGameAsync(gameHistoryEntry);
+            IsRestartButtonAvailable = IsGameInProgress || IsGamePaused;
         }
 
         private async Task PlayGameAsync(GameHistoryEntryViewModel gameHistoryEntry)
@@ -400,7 +412,6 @@ namespace Arena.ViewModels
                 {
                     gameHistoryEntry.History.Add(roundPartialHistory);
                 }
-
             } while (!result.IsFinished && IsGameInProgress && !IsGamePaused);
 
             if (result.IsFinished)
@@ -411,11 +422,11 @@ namespace Arena.ViewModels
             }
         }
 
-        public void RestartGame()
+        private string ReadFile(string path)
         {
-            ShouldRestartGame = false;
-            IsGamePaused = false;
-            PlayDuelCommand.Execute(null);
+            var xmlStream = new StreamReader(path);
+
+            return xmlStream.ReadToEnd();
         }
     }
 }
