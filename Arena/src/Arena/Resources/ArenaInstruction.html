@@ -107,7 +107,7 @@
         </ul>
     </nav>
     <section id="repository">
-        <header>Information about repository.</header>
+        <header>Information about repository</header>
         <aside id="repositoryLink">
             <b> <a href="https://github.com/michalczerwinski/hello_wars/">https://github.com/michalczerwinski/hello_wars/</a> </b>
         </aside>
@@ -262,7 +262,7 @@
                     </ol>
                 </li>
                 <li>
-                    If you want your bot to be visible from our network, configure your firewall:
+                    If you want your bot to be visible from your network, configure your firewall:
                     <ul>
                         <li>open Windows Firewall -> Advanced Settings -> Inbound Rules - add exception for port on which your bot runs</li>
                         <li>configure other firewall programs if installed.</li>
@@ -271,19 +271,27 @@
                 <li>
                     Modify ArenaConfiguration file:
                     <ul>
-                        <li>change game type you wish to play. Note if you selected bot which could play TicTacToe game, you have to play TicTacToe game.</li>
-                        <li>change elimination type name ex. RoundRobin, LadderTournament, so far only this two are available.</li>
-                        <li>modify url to bot on your computer, you should put a few identhical links so that simulate few competitors.</li>
+                        <li>change game type you wish to play</li>
+                        <li>change elimination type name to your preferred elimination type</li>
+                        <li>modify but urls. If you need more players, just type a few copies of the same url. They will be interpreted as a separate bots</li>
                     </ul>
                 </li>
-                <li>While solution with bot is running or bot is set up on IIS run Arena. Arena should automathicaly  connect with bots. Now press play to see the duel...</li>
+                <li>When you run the arena, it should automatically connect with bots. Press "Play" to start game</li>
             </ul>
         </article>
     </section>
 
     <section id="php">
         <header>Bot written in PHP</header>
-        <article></article>
+        <article>
+            Setup sample bot on Apache server
+            <ol>
+                <li>Download WAMP server from <a href="http://www.wampserver.com/" target="blank">http://www.wampserver.com/</a> and install it</li>
+                <li>Copy folder "TankBlasterBot" (hello_wars/PHP/TankBlaster/) to your WAMP server www folder (default "C:/wamp/www" on Windows) </li>
+                <li>Run WAMP</li>
+                <li>Your bot should be accessible at "http://localhost/tankblasterbot/". Check "http://localhost/tankblasterbot/info" in your browser to see if it works</li>
+            </ol>
+        </article>
     </section>
 
     <section id="nodeJS">
