@@ -78,9 +78,9 @@ namespace Game.TicTacToe
 
                 result.History.Add(await PerformNextMove(competitor));
 
-                DelayHelper.Delay(_configuration.NextMoveDelay);
+                await DelayHelper.DelayAsync(_configuration.NextMoveDelay);
 
-                if (IsPlayerWon(competitor))
+                if (await IsPlayerWon(competitor))
                 {
                     result.IsFinished = true;
                     result.FinalResult = GetResults();
@@ -171,7 +171,7 @@ namespace Game.TicTacToe
             return TicTacToeViewModel.Board[movePoint.X, movePoint.Y] == BoardFieldSign.Empty;
         }
 
-        private bool IsPlayerWon(ITicTacToeBot player)
+        private async Task<bool> IsPlayerWon(ITicTacToeBot player)
         {
             var array = TicTacToeViewModel.Board;
             var diagonal1 = 0;
@@ -204,14 +204,14 @@ namespace Game.TicTacToe
                 {
                     TicTacToeViewModel.ArrayOfDiagonalLines[0, 0] = Visibility.Visible;
                     player.IsWinner = true;
-                    DelayHelper.Delay(_configuration.NextMatchDelay);
+                    await DelayHelper.DelayAsync(_configuration.NextMatchDelay);
                     return true;
                 }
                 if (diagonal2 == 3)
                 {
                     TicTacToeViewModel.ArrayOfDiagonalLines[1, 0] = Visibility.Visible;
                     player.IsWinner = true;
-                    DelayHelper.Delay(_configuration.NextMatchDelay);
+                    await DelayHelper.DelayAsync(_configuration.NextMatchDelay);
                     return true;
                 }
                 for (int j = 0; j < 3; j++)
@@ -220,14 +220,14 @@ namespace Game.TicTacToe
                     {
                         TicTacToeViewModel.ArrayOfHorizontalLines[j, 0] = Visibility.Visible;
                         player.IsWinner = true;
-                        DelayHelper.Delay(_configuration.NextMatchDelay);
+                        await DelayHelper.DelayAsync(_configuration.NextMatchDelay);
                         return true;
                     }
                     if (yLine[j] == 3)
                     {
                         TicTacToeViewModel.ArrayOfVerticalLines[j, 0] = Visibility.Visible;
                         player.IsWinner = true;
-                        DelayHelper.Delay(_configuration.NextMatchDelay);
+                        await DelayHelper.DelayAsync(_configuration.NextMatchDelay);
                         return true;
                     }
                 }

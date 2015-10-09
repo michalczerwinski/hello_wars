@@ -29,12 +29,12 @@ namespace Game.AntWars
             _roundNumber++;
 
             _movementService.ExpiryExplosions();
-            DelayHelper.Delay(50);
+            await DelayHelper.DelayAsync(50);
 
             _movementService.PerformMissilesMove();
-            DelayHelper.Delay(150);
+            await DelayHelper.DelayAsync(150);
 
-            //call winer
+            //call winner
             if (_antWarsViewModel.MovableObjectsCollection.OfType<AntModel>().Count() <= 1)
             {
                 return new RoundResult
