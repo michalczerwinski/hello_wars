@@ -66,7 +66,7 @@ namespace Game.TankBlaster
 
                 _field.OnArenaChanged();
 
-            } while (!_locationService.IsPassageBetweenTwoPlayers());
+            } while (!_locationService.CanBotsMeet());
         }
 
         public void Reset()

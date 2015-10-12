@@ -87,7 +87,7 @@ namespace Game.TankBlaster.Services
                 && _field.Missiles.All(missile => missile.Location != location);
         }
 
-        public bool IsPassageBetweenTwoPlayers()
+        public bool CanBotsMeet()
         {
             var matrix = new int[_field.Board.GetLength(0), _field.Board.GetLength(1)];
             var firstBot = _field.Bots[0].Location;

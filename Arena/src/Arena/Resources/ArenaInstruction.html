@@ -284,24 +284,35 @@
     <section id="php">
         <header>Bot written in PHP</header>
         <article>
-            Setup sample bot on Apache server
-            <ol>
-                <li>Download WAMP server from <a href="http://www.wampserver.com/" target="blank">http://www.wampserver.com/</a> and install it</li>
-                <li>Copy folder "TankBlasterBot" (hello_wars/PHP/TankBlaster/) to your WAMP server www folder (default "C:/wamp/www" on Windows) </li>
-                <li>Run WAMP</li>
-                <li>Your bot should be accessible at "http://localhost/tankblasterbot/". Check "http://localhost/tankblasterbot/info" in your browser to see if it works</li>
-            </ol>
+            <ul>
+                <li>
+                    Setup sample bot on Apache server
+                    <ol>
+                        <li>Download WAMP server from <a href="http://www.wampserver.com/" target="blank">http://www.wampserver.com/</a> and install it</li>
+                        <li>Copy folder "TankBlasterBot" (hello_wars/PHP/TankBlaster/) to your WAMP server www folder (default "C:/wamp/www" on Windows) </li>
+                        <li>Run WAMP</li>
+                        <li>Your bot should be accessible at "http://localhost/tankblasterbot/". Check "http://localhost/tankblasterbot/info" in your browser to see if it works</li>
+                    </ol>
+                </li>
+                <li>
+                    If you want your bot to be visible from your network, configure your firewall:
+                    <ul>
+                        <li>open Windows Firewall -> Advanced Settings -> Inbound Rules - add exception for port on which your bot runs</li>
+                        <li>configure other firewall programs if installed.</li>
+                    </ul>
+                </li>
+                <li>
+                    Modify ArenaConfiguration file:
+                    <ul>
+                        <li>change game type you wish to play</li>
+                        <li>change elimination type name to your preferred elimination type</li>
+                        <li>modify but urls. If you need more players, just type a few copies of the same url. They will be interpreted as a separate bots</li>
+                    </ul>
+                </li>
+                <li>When you run the arena, it should automatically connect with bots. Press "Play" to start game</li>
+            </ul>
+            
         </article>
-    </section>
-
-    <section id="nodeJS">
-        <header>Bot written in nodeJS</header>
-        <article></article>
-    </section>
-
-    <section id="authors">
-        <header>Authors</header>
-        <article></article>
     </section>
 </body>
 </html>
