@@ -5,16 +5,21 @@
     <meta charset="utf-8" />
     <title>Hello_Wars Instruction</title>
     <style>
-        header {
-            font-family: times, Times New Roman, times-roman, georgia, serif;
-            color: #444;
-            margin: 0;
-            padding: 0px 0px 6px 0px;
-            font-size: 40px;
-            line-height: 44px;
-            letter-spacing: -2px;
-            font-weight: bold;
+        body {
+             font-family: times, Times New Roman, times-roman, georgia, serif;
+             color: #444;
         }
+
+         header {
+             font-family: times, Times New Roman, times-roman, georgia, serif;
+             color: #444;
+             margin: 0;
+             padding: 0px 0px 6px 0px;
+             font-size: 40px;
+             line-height: 44px;
+             letter-spacing: -2px;
+             font-weight: bold;
+         }
 
         article {
             top: 1px;
@@ -56,54 +61,62 @@
             transition: all .3s ease-out;
         }
 
-            .lista a:hover {
-                border: 1px solid #f00000;
-            }
+        .lista a:hover {
+            border: 1px solid #505050;
+        }
 
-            .lista a:before {
-                content: counter(li);
-                counter-increment: li;
-                position: absolute;
-                left: -2.9em;
-                top: 43%;
-                content: counter(li, decimal);
-                color: #fff;
-                margin-top: -1em;
-                background: #f00000;
-                height: 2.4em;
-                width: 2.4em;
-                line-height: 2.4em;
-                text-align: center;
-                font-weight: bold;
-                text-shadow: 0 1px 0 rgba(0,0,0,.5);
-            }
+        .lista a:before {
+            content: counter(li);
+            counter-increment: li;
+            position: absolute;
+            left: -2.9em;
+            top: 43%;
+            content: counter(li, decimal);
+            color: #fff;
+            margin-top: -1em;
+            background: #505050;
+            height: 2.4em;
+            width: 2.4em;
+            line-height: 2.4em;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 0 1px 0 rgba(0,0,0,.5);
+        }
 
-            .lista a:after {
-                position: absolute;
-                content: '';
-                border: .5em solid transparent;
-                left: -1em;
-                top: 53%;
-                margin-top: -.5em;
-                transition: all .3s ease-out;
-            }
+        .lista a:after {
+            position: absolute;
+            content: '';
+            border: .5em solid transparent;
+            left: -1em;
+            top: 53%;
+            margin-top: -.5em;
+            transition: all .3s ease-out;
+        }
 
-            .lista a:hover:after {
-                left: -.5em;
-                border-left-color: #f00000;
-            }
+        .lista a:hover:after {
+            left: -.5em;
+            border-left-color: #505050;
+        }
+
+        #logo {
+            height: 100px;
+        }
     </style>
 </head>
+    <body>
+        <div style="text-align: center;">
+            <img id="logo" src="tankblasterlogo.jpg" />
+        </div>
 
-<body>
-    <nav>
+        <nav>
+
         <ul id="lista" class="lista">
             <li><a href="#repository">Repository</a></li>
             <li><a href="#general">General Information</a></li>
             <li><a href="#dotNet">.Net Bots</a></li>
             <li><a href="#php">PHP Bots</a></li>
-            <li><a href="#nodeJS">NodeJS Bots</a></li>
-            <li><a href="#authors">Authors</a></li>
+            <li><a href="#java">JAVA Bots</a></li>
+            <li><a href="#firewall">Firewall Configuration</a></li>
         </ul>
     </nav>
     <section id="repository">
@@ -261,20 +274,14 @@
                         <li>Check your bot in web browser eg. "http://localhost:82/info"</li>
                     </ol>
                 </li>
-                <li>
-                    If you want your bot to be visible from your network, configure your firewall:
-                    <ul>
-                        <li>open Windows Firewall -> Advanced Settings -> Inbound Rules - add exception for port on which your bot runs</li>
-                        <li>configure other firewall programs if installed.</li>
-                    </ul>
-                </li>
+
                 <li>
                     Modify ArenaConfiguration file:
-                    <ul>
+                    <ol>
                         <li>change game type you wish to play</li>
                         <li>change elimination type name to your preferred elimination type</li>
                         <li>modify bot urls. If you need more players, just type a few copies of the same url. They will be interpreted as a separate bots</li>
-                    </ul>
+                    </ol>
                 </li>
                 <li>When you run the arena, it should automatically connect with bots. Press "Play" to start game</li>
             </ul>
@@ -294,6 +301,49 @@
                         <li>Your bot should be accessible at "http://localhost/tankblasterbot/". Check "http://localhost/tankblasterbot/info" in your browser to see if it works</li>
                     </ol>
                 </li>
+
+                <li>
+                    Modify ArenaConfiguration file:
+                    <ol>
+                        <li>change game type you wish to play</li>
+                        <li>change elimination type name to your preferred elimination type</li>
+                        <li>modify bot urls. If you need more players, just type a few copies of the same url. They will be interpreted as a separate bots</li>
+                    </ol>
+                </li>
+                <li>When you run the arena, it should automatically connect with bots. Press "Play" to start game</li>
+            </ul>
+
+        </article>
+    </section>
+
+    <section id="java">
+        <header>Bot written in JAVA</header>
+        <article>
+            <ol>
+                <li> Import bot from HELLOWARS/JAVA folder to your workspace </li>
+                <li> Find InetSocketAddress method in TankBlasterBot class and change port number to some valid port number </li>
+                <li> Run project </li>
+                <li> You can check if bot is running typing http://localhost:9065/info in webbrowser </li>
+                <li> You can disable your bot calling http://localhost:9065/close </li>
+
+                <li>
+                    Modify ArenaConfiguration file:
+                    <ol>
+                        <li>change game type you wish to play</li>
+                        <li>change elimination type name to your preferred elimination type</li>
+                        <li>modify bot urls. If you need more players, just type a few copies of the same url. They will be interpreted as a separate bots</li>
+                    </ol>
+                </li>
+                <li>When you run the arena, it should automatically connect with bots. Press "Play" to start game</li>
+            </ol>
+
+        </article>
+    </section>
+
+    <section id="firewall">
+        <header>Firewall configuration</header>
+        <article>
+            <ul>
                 <li>
                     If you want your bot to be visible from your network, configure your firewall:
                     <ul>
@@ -301,17 +351,7 @@
                         <li>configure other firewall programs if installed.</li>
                     </ul>
                 </li>
-                <li>
-                    Modify ArenaConfiguration file:
-                    <ul>
-                        <li>change game type you wish to play</li>
-                        <li>change elimination type name to your preferred elimination type</li>
-                        <li>modify bot urls. If you need more players, just type a few copies of the same url. They will be interpreted as a separate bots</li>
-                    </ul>
-                </li>
-                <li>When you run the arena, it should automatically connect with bots. Press "Play" to start game</li>
             </ul>
-            
         </article>
     </section>
 </body>

@@ -151,6 +151,7 @@
     <Content Include="Resources\ArenaInstruction.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\TankBlasterLogo.jpg" />
     <Resource Include="Icons\restart.png" />
     <Resource Include="Icons\pause.png" />
     <Resource Include="Icons\Checked.ico" />
