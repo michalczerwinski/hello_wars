@@ -57,6 +57,7 @@
     <Compile Include="Commands\MenuItemCommands\CloseCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\FullScreenWindowCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\GameRulesCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\GameSpeedCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\OpenGameConfigCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\OpenCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\PauseCommand.cs" />
@@ -148,6 +149,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\normal.png" />
+    <Resource Include="Icons\fast.png" />
+    <Resource Include="Icons\veryfast.png" />
     <Content Include="Resources\ArenaInstruction.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

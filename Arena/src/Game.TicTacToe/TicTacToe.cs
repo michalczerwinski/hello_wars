@@ -274,5 +274,10 @@ namespace Game.TicTacToe
         {
             throw new NotImplementedException();
         }
+
+        public void ChangeDelayTime(int delayTime)
+        {
+            _configuration.NextMoveDelay = delayTime;
+        }
     }
 }

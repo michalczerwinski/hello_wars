@@ -44,6 +44,10 @@ namespace Arena.Views
             {
                 _viewModel.IsFullScreenApplied = false;
             }
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) && e.Key == Key.F5)
+            {
+                _viewModel.VerifyPlayersCommand.Execute(_viewModel);
+            }
         }
     }
 }

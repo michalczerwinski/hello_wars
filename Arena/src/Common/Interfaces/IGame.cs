@@ -16,5 +16,6 @@ namespace Common.Interfaces
         void SetPreview(object boardState);
         string GetGameRules();
         void ApplyConfiguration(string configurationXml);
+        void ChangeDelayTime(int delayTime);
     }
 }

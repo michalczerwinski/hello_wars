@@ -37,6 +37,7 @@ namespace Arena.ViewModels
         private bool _isGamePaused;
         private bool _isPlayButtonAvailable;
         private bool _isRestartButtonAvailable;
+        private GameSpeedMode _currentSpeedMode;
 
         private ICommand _autoPlayCommand;
         private ICommand _restartCommand;
@@ -53,6 +54,10 @@ namespace Arena.ViewModels
         private ICommand _showArenaInstructionCommand;
         private ICommand _fullScreenWindowCommand;
         private ICommand _presentPlayersCommand;
+        private ICommand _setNormalSpeedCommand;
+        private ICommand _setFastSpeedCommand;
+        private ICommand _setVeryFastSeedCommand;
+
         private WindowState _windowState;
         private WindowStyle _windowStyle;
         private Visibility _playerPresentationVisibility;
@@ -118,6 +123,13 @@ namespace Arena.ViewModels
         {
             get { return _isOutputVisible; }
             set { SetProperty(ref _isOutputVisible, value); }
+        }
+
+        public GameSpeedMode CurrentSpeedMode
+        {
+            get { return _currentSpeedMode; }
+            set { SetProperty(ref _currentSpeedMode, value); }
+
         }
 
         public Visibility PlayerPresentationVisibility
@@ -249,6 +261,30 @@ namespace Arena.ViewModels
         public ICommand ShowArenaInstructionCommand
         {
             get { return _showArenaInstructionCommand ?? (_showArenaInstructionCommand = new ShowArenaInstruction()); }
+        }
+
+        public ICommand SetNormalSpeedCommand
+        {
+            get
+            {
+                return _setNormalSpeedCommand ?? (_setNormalSpeedCommand = new GameSpeedCommand(this, GameSpeedMode.Normal));
+            }
+        }
+
+        public ICommand SetFastSpeedCommand
+        {
+            get
+            {
+                return _setFastSpeedCommand ?? (_setFastSpeedCommand= new GameSpeedCommand(this, GameSpeedMode.Fast));
+            }
+        }
+
+        public ICommand SetVeryFastSpeedCommand
+        {
+            get
+            {
+                return _setVeryFastSeedCommand ?? ( _setVeryFastSeedCommand = new GameSpeedCommand(this, GameSpeedMode.VeryFast));
+            }
         }
 
         public bool IsFullScreenApplied
