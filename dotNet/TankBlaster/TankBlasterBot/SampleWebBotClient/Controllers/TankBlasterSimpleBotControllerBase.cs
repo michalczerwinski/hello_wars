@@ -14,7 +14,7 @@ namespace SampleWebBotClient.Controllers
             var bot = new BotInfo
             {
                 Name = Name,
-                AvatarUrl = "http://localhost:53886/Content/BotImg.png",
+                AvatarUrl = Url.Content("~/Content/BotImg.png"),
                 GameType = "TankBlaster"
             };
             bot.Description = "Hi, I am " + bot.Name + " and I would like to win this tournament.... haha haha haha.";
