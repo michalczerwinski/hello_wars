@@ -8,13 +8,18 @@ namespace SampleWebBotClient.Controllers
     {
         protected abstract string Name { get; }
 
+        protected virtual string AvatarUrl
+        {
+            get { return Url.Content("~/Content/BotImg.png"); }
+        }
+
         [HttpGet]
         public virtual BotInfo Info()
         {
             var bot = new BotInfo
             {
                 Name = Name,
-                AvatarUrl = Url.Content("~/Content/BotImg.png"),
+                AvatarUrl = AvatarUrl,
                 GameType = "TankBlaster"
             };
             bot.Description = "Hi, I am " + bot.Name + " and I would like to win this tournament.... haha haha haha.";

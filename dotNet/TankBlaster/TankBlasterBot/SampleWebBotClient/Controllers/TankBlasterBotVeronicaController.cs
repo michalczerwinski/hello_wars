@@ -10,6 +10,11 @@ namespace SampleWebBotClient.Controllers
             get { return "Veronica"; }
         }
 
+        protected override string AvatarUrl
+        {
+            get { return Url.Content("~/Content/VeronicaImg.png"); }
+        }
+
         public override BotMove PerformNextMove(BotArenaInfo arenaInfo)
         {
             var aiService = new TankBlasterSimpleAIService(true, true, 7, 7);
