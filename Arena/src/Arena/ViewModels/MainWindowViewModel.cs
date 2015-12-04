@@ -38,9 +38,6 @@ namespace Arena.ViewModels
         private bool _isPlayButtonAvailable;
         private bool _isRestartButtonAvailable;
         private GameSpeedMode _currentSpeedMode;
-        private bool _isNormalSpeedGameMode;
-        private bool _isFastSpeedGameMode;
-        private bool _isVeryFastSpeedGameMode;
 
         private ICommand _autoPlayCommand;
         private ICommand _restartCommand;
@@ -131,35 +128,7 @@ namespace Arena.ViewModels
         public GameSpeedMode CurrentSpeedMode
         {
             get { return _currentSpeedMode; }
-            set
-            {
-                SetProperty(ref _currentSpeedMode, value);
-                SetGameModeButtonsAvailability();
-            }
-        }
-
-        public bool IsNormalGameSpeedMode
-        {
-            get { return _isNormalSpeedGameMode; }
-            set { SetProperty(ref _isNormalSpeedGameMode, value); }
-        }
-
-        public bool IsFastGameSpeedMode
-        {
-            get { return _isFastSpeedGameMode; }
-            set { SetProperty(ref _isFastSpeedGameMode, value); }
-        }
-
-        public bool IsVeryFastGameSpeedMode
-        {
-            get { return _isVeryFastSpeedGameMode; }
-            set { SetProperty(ref _isVeryFastSpeedGameMode, value); }
-        }
-        private void SetGameModeButtonsAvailability()
-        {
-            IsNormalGameSpeedMode = CurrentSpeedMode == GameSpeedMode.Normal;
-            IsFastGameSpeedMode = CurrentSpeedMode == GameSpeedMode.Fast;
-            IsVeryFastGameSpeedMode = CurrentSpeedMode == GameSpeedMode.VeryFast;
+            set { SetProperty(ref _currentSpeedMode, value);}
         }
 
         public Visibility PlayerPresentationVisibility

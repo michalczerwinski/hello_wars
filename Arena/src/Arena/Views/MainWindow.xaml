@@ -162,19 +162,19 @@
                         </Button>
                     </Border>
                     <Border Grid.Column="5" Style="{StaticResource BorderPretendingToolBarStyle}">
-                        <Button Command="{Binding SetNormalSpeedCommand}" CommandParameter="{Binding CurrentSpeedMode}" IsEnabled="{Binding IsNormalGameSpeedMode, Converter={StaticResource InverseBooleanConverter}}">
+                        <Button Command="{Binding SetNormalSpeedCommand}">
                             <Button.ToolTip >Normal game speed</Button.ToolTip>
                             <Image Source="/Icons/normal.png" />
                         </Button>
                     </Border>
                     <Border Grid.Column="6" Style="{StaticResource BorderPretendingToolBarStyle}">
-                        <Button Command="{Binding SetFastSpeedCommand}" CommandParameter="{Binding CurrentSpeedMode}" IsEnabled="{Binding IsFastGameSpeedMode, Converter={StaticResource InverseBooleanConverter}}">
+                        <Button Command="{Binding SetFastSpeedCommand}">
                             <Button.ToolTip >Fast game speed</Button.ToolTip>
                             <Image Source="/Icons/fast.png" />
                         </Button>
                     </Border>
                     <Border Grid.Column="7" Style="{StaticResource BorderPretendingToolBarStyle}">
-                        <Button Command="{Binding SetVeryFastSpeedCommand}" CommandParameter="{Binding CurrentSpeedMode}" IsEnabled="{Binding IsVeryFastGameSpeedMode, Converter={StaticResource InverseBooleanConverter}}">
+                        <Button Command="{Binding SetVeryFastSpeedCommand}">
                             <Button.ToolTip >Very fast game speed</Button.ToolTip>
                             <Image Source="/Icons/veryfast.png" />
                         </Button>
