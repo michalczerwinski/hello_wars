@@ -57,7 +57,7 @@
     <Compile Include="Commands\MenuItemCommands\CloseCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\FullScreenWindowCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\GameRulesCommand.cs" />
-    <Compile Include="Commands\MenuItemCommands\GameSpeedCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\GameSpeedChangeCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\OpenGameConfigCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\OpenCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\PauseCommand.cs" />

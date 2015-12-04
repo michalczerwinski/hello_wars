@@ -19,11 +19,11 @@
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
-            <converters:NormalSpeedToNegativeBoolConverter x:Key="NormalSpeedToNegativeBoolConverter"/>
-            <converters:FastSpeedToNegativeBoolConverter x:Key="FastSpeedToNegativeBoolConverter"/>
-            <converters:VeryFastSpeedToNegativeBoolConverter x:Key="VeryFastSpeedToNegativeBoolConverter"/>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Gesture="CTRL+F5" Command="{Binding VerifyPlayersCommand}"/>
+    </Window.InputBindings>
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -162,19 +162,19 @@
                         </Button>
                     </Border>
                     <Border Grid.Column="5" Style="{StaticResource BorderPretendingToolBarStyle}">
-                        <Button Command="{Binding SetNormalSpeedCommand}" CommandParameter="{Binding CurrentSpeedMode}" IsEnabled="{Binding CurrentSpeedMode, Converter={StaticResource NormalSpeedToNegativeBoolConverter}}">
+                        <Button Command="{Binding SetNormalSpeedCommand}" CommandParameter="{Binding CurrentSpeedMode}" IsEnabled="{Binding IsNormalGameSpeedMode, Converter={StaticResource InverseBooleanConverter}}">
                             <Button.ToolTip >Normal game speed</Button.ToolTip>
                             <Image Source="/Icons/normal.png" />
                         </Button>
                     </Border>
                     <Border Grid.Column="6" Style="{StaticResource BorderPretendingToolBarStyle}">
-                        <Button Command="{Binding SetFastSpeedCommand}" CommandParameter="{Binding CurrentSpeedMode}" IsEnabled="{Binding CurrentSpeedMode, Converter={StaticResource FastSpeedToNegativeBoolConverter}}">
+                        <Button Command="{Binding SetFastSpeedCommand}" CommandParameter="{Binding CurrentSpeedMode}" IsEnabled="{Binding IsFastGameSpeedMode, Converter={StaticResource InverseBooleanConverter}}">
                             <Button.ToolTip >Fast game speed</Button.ToolTip>
                             <Image Source="/Icons/fast.png" />
                         </Button>
                     </Border>
                     <Border Grid.Column="7" Style="{StaticResource BorderPretendingToolBarStyle}">
-                        <Button Command="{Binding SetVeryFastSpeedCommand}" CommandParameter="{Binding CurrentSpeedMode}" IsEnabled="{Binding CurrentSpeedMode, Converter={StaticResource VeryFastSpeedToNegativeBoolConverter}}">
+                        <Button Command="{Binding SetVeryFastSpeedCommand}" CommandParameter="{Binding CurrentSpeedMode}" IsEnabled="{Binding IsVeryFastGameSpeedMode, Converter={StaticResource InverseBooleanConverter}}">
                             <Button.ToolTip >Very fast game speed</Button.ToolTip>
                             <Image Source="/Icons/veryfast.png" />
                         </Button>

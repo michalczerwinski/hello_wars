@@ -6,7 +6,7 @@ using Common.Models;
 
 namespace Arena.Commands.MenuItemCommands
 {
-    class GameSpeedCommand : CommandBase
+    class GameSpeedChangeCommand : CommandBase
     {
         protected readonly MainWindowViewModel _viewModel;
         private readonly GameSpeedMode _speedMode;
@@ -18,7 +18,7 @@ namespace Arena.Commands.MenuItemCommands
             { GameSpeedMode.VeryFast, 0 }
         };
 
-        public GameSpeedCommand(MainWindowViewModel viewModel, GameSpeedMode speedMode)
+        public GameSpeedChangeCommand(MainWindowViewModel viewModel, GameSpeedMode speedMode)
         {
             _viewModel = viewModel;
             _speedMode = speedMode;

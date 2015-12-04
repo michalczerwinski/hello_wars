@@ -45,10 +45,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\FastSpeedToNegativeBoolConverter.cs" />
-    <Compile Include="Converters\GameSpeedToNegativeBoolConverterBase.cs" />
-    <Compile Include="Converters\NormalSpeedToNegativeBoolConverter.cs" />
-    <Compile Include="Converters\VeryFastSpeedToNegativeBoolConverter.cs" />
     <Compile Include="Models\GameSpeedMode.cs" />
     <Compile Include="Utilities\CommandBase.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />

@@ -8,7 +8,7 @@ namespace Common.Models
 {
     public enum GameSpeedMode
     {
-        Default = 0,
+        ConfigValue = 0,
         Normal = 1,
         Fast = 2,
         VeryFast = 3
