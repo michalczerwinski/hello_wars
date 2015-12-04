@@ -1,10 +1,7 @@
 ﻿using Arena.ViewModels;
 using Common.Utilities;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Input;
 using Common.Models;
-using System;
 
 namespace Arena.Commands.MenuItemCommands
 {

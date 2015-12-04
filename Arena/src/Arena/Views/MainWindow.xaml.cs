@@ -11,7 +11,7 @@ namespace Arena.Views
     /// </summary>
     public partial class MainWindow
     {
-        private MainWindowViewModel _viewModel
+        private MainWindowViewModel ViewModel
         {
             get { return (MainWindowViewModel)DataContext; }
             set { DataContext = value; }
@@ -19,17 +19,17 @@ namespace Arena.Views
 
         public MainWindow(MainWindowViewModel viewModel)
         {
-            _viewModel = viewModel;
+            ViewModel = viewModel;
             InitializeComponent();
         }
 
         private void GameHistoryTree_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var roundPartial = ((TreeView)sender).SelectedItem as RoundPartialHistory;
-            if (roundPartial != null && !_viewModel.IsGameInProgress)
+            if (roundPartial != null && !ViewModel.IsGameInProgress)
             {
-                _viewModel.GameOverTextVisibility = Visibility.Collapsed;
-                _viewModel.Game.SetPreview(roundPartial.BoardState);
+                ViewModel.GameOverTextVisibility = Visibility.Collapsed;
+                ViewModel.Game.SetPreview(roundPartial.BoardState);
             }
         }
 
@@ -42,7 +42,7 @@ namespace Arena.Views
         {
             if (e.Key == Key.Escape)
             {
-                _viewModel.IsFullScreenApplied = false;
+                ViewModel.IsFullScreenApplied = false;
             }
         }
     }

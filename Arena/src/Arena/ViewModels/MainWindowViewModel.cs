@@ -31,7 +31,7 @@ namespace Arena.ViewModels
         private bool _isOutputVisible;
         private int _selectedTabIndex;
         private string _outputText;
-        private static readonly object _lock = new object();
+        private static readonly object Lock = new object();
         private bool _isFullScreenApplied;
         private bool _isGameInProgress;
         private bool _isGamePaused;
@@ -244,7 +244,7 @@ namespace Arena.ViewModels
 
         public ICommand AboutCommand
         {
-            get { return _aboutCommand ?? (_aboutCommand = new AboutCommand(this)); }
+            get { return _aboutCommand ?? (_aboutCommand = new AboutCommand()); }
         }
 
         public ICommand ToggleHistoryCommand
@@ -314,7 +314,7 @@ namespace Arena.ViewModels
                     {
                         await bot.VerifyAsync(gameTypeName);
 
-                        lock (_lock)
+                        lock (Lock)
                         {
                             OutputText += string.Format("Bot \"{0}\" connected!\n", bot.Name);
                             Elimination.Bots.First(f => f.Id == bot.Id).Name = bot.Name;

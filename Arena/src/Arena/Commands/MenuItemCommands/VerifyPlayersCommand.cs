@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Input;
-using System.Windows.Navigation;
-using Arena.ViewModels;
+﻿using Arena.ViewModels;
 using Common.Utilities;
 
 namespace Arena.Commands.MenuItemCommands

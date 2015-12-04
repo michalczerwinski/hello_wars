@@ -5,7 +5,7 @@ namespace Arena.Commands.MenuItemCommands
 {
     class ToggleHistoryCommand : CommandBase
     {
-        protected readonly MainWindowViewModel _viewModel;
+        private readonly MainWindowViewModel _viewModel;
 
         public ToggleHistoryCommand(MainWindowViewModel viewModel)
         {

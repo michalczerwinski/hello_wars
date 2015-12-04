@@ -4,13 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:helpers="clr-namespace:Common.Helpers;assembly=Common"
-             xmlns:models1="clr-namespace:Game.AntWars.Models"
-             xmlns:resoures="clr-namespace:Game.AntWars.UserControls.Resoures"
-             xmlns:userControls1="clr-namespace:Game.AntWars.UserControls"
              xmlns:viewModels1="clr-namespace:Game.AntWars.ViewModels"
-             xmlns:units="clr-namespace:Game.AntWars.UserControls.Units"
              xmlns:baseUnits="clr-namespace:Game.AntWars.ViewModels.BaseUnits"
              xmlns:models11="clr-namespace:Game.AntWars.Models.BaseUnits"
+             xmlns:baseUnits1="clr-namespace:Game.AntWars.UserControls.BaseUnits"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=viewModels1:AntWarsViewModel}">
 
@@ -18,10 +15,10 @@
         <ItemsControl Width="{Binding BattlegroundWidth}" Height="{Binding BattlegroundHeigth}" ItemsSource="{Binding BattlefieldObjectsCollection}">
             <ItemsControl.Resources>
                 <DataTemplate DataType="{x:Type models11:ExplosionModel}">
-                    <units:MissileUserControl/>
+                    <baseUnits1:MissileUserControl/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type models11:GridUnitModel}">
-                    <resoures:GridUnit/>
+                    <baseUnits1:GridUnit/>
                 </DataTemplate>
             </ItemsControl.Resources>
             <ItemsControl.ItemsPanel>
@@ -40,13 +37,13 @@
         <ItemsControl Width="{Binding BattlegroundWidth}" Height="{Binding BattlegroundHeigth}" ItemsSource="{Binding MovableObjectsCollection}">
             <ItemsControl.Resources>
                 <DataTemplate DataType="{x:Type models11:AntModel}">
-                    <units:AntUserControl/>
+                    <baseUnits1:AntUserControl/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type models11:MissileModel}">
-                    <units:MissileUserControl/>
+                    <baseUnits1:MissileUserControl/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type baseUnits:ExplosionViewModel}">
-                    <units:MissileUserControl/>
+                    <baseUnits1:MissileUserControl/>
                 </DataTemplate>
             </ItemsControl.Resources>
             <ItemsControl.ItemsPanel>
