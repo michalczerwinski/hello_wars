@@ -103,5 +103,10 @@ namespace Game.TankBlaster
             _explosionService = new ExplosionService(_field, _gameConfig, _locationService);
             _botService = new BotService(_field, _gameConfig, _locationService);
         }
+
+        public void ChangeDelayTime(int delayTime)
+        {
+            _delayTime = delayTime;
+        }
     }
 }

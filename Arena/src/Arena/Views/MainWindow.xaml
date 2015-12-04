@@ -21,6 +21,9 @@
             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Gesture="CTRL+F5" Command="{Binding VerifyPlayersCommand}"/>
+    </Window.InputBindings>
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -128,6 +131,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <Border Grid.Column="1" Style="{StaticResource BorderPretendingToolBarStyle}">
@@ -155,6 +159,24 @@
                         <Button Command="{Binding RestartCommand}" IsEnabled="{Binding IsRestartButtonAvailable}">
                             <Button.ToolTip >Restarts current game</Button.ToolTip>
                             <Image Source="/Icons/restart.png" />
+                        </Button>
+                    </Border>
+                    <Border Grid.Column="5" Style="{StaticResource BorderPretendingToolBarStyle}">
+                        <Button Command="{Binding SetNormalSpeedCommand}">
+                            <Button.ToolTip >Normal game speed</Button.ToolTip>
+                            <Image Source="/Icons/normal.png" />
+                        </Button>
+                    </Border>
+                    <Border Grid.Column="6" Style="{StaticResource BorderPretendingToolBarStyle}">
+                        <Button Command="{Binding SetFastSpeedCommand}">
+                            <Button.ToolTip >Fast game speed</Button.ToolTip>
+                            <Image Source="/Icons/fast.png" />
+                        </Button>
+                    </Border>
+                    <Border Grid.Column="7" Style="{StaticResource BorderPretendingToolBarStyle}">
+                        <Button Command="{Binding SetVeryFastSpeedCommand}">
+                            <Button.ToolTip >Very fast game speed</Button.ToolTip>
+                            <Image Source="/Icons/veryfast.png" />
                         </Button>
                     </Border>
                 </Grid>

@@ -21,6 +21,7 @@ namespace Game.AntWars
         private MovementService _movementService;
         private BotService _botService;
         private int _roundNumber;
+        private int _delayTime;
 
         #region IGameMembers
 
@@ -29,10 +30,10 @@ namespace Game.AntWars
             _roundNumber++;
 
             _movementService.ExpiryExplosions();
-            await DelayHelper.DelayAsync(50);
+            await DelayHelper.DelayAsync(_delayTime);
 
             _movementService.PerformMissilesMove();
-            await DelayHelper.DelayAsync(150);
+            await DelayHelper.DelayAsync(_delayTime);
 
             //call winner
             if (_antWarsViewModel.MovableObjectsCollection.OfType<AntModel>().Count() <= 1)
@@ -93,6 +94,11 @@ namespace Game.AntWars
         public void SetPreview(object boardState)
         {
             throw new NotImplementedException();
+        }
+
+        public void ChangeDelayTime(int delayTime)
+        {
+            _delayTime = delayTime;
         }
 
         #endregion

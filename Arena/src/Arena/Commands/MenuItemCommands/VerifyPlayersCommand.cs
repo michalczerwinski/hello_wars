@@ -1,11 +1,14 @@
-﻿using Arena.ViewModels;
+﻿using System;
+using System.Windows.Input;
+using System.Windows.Navigation;
+using Arena.ViewModels;
 using Common.Utilities;
 
 namespace Arena.Commands.MenuItemCommands
 {
     class VerifyPlayersCommand : CommandBase
     {
-        protected readonly MainWindowViewModel _viewModel;
+        private readonly MainWindowViewModel _viewModel;
 
         public VerifyPlayersCommand(MainWindowViewModel viewModel)
         {
@@ -16,6 +19,11 @@ namespace Arena.Commands.MenuItemCommands
         {
             _viewModel.Competitors.ForEach(competitor => competitor.Name = "Verifying...");
             _viewModel.AskForCompetitors(_viewModel.ArenaConfiguration.GameConfiguration.Type, _viewModel.Competitors);
+        }
+
+        public override bool CanExecute(object parameter = null)
+        {
+            return !_viewModel.IsGameInProgress;
         }
     }
 }
