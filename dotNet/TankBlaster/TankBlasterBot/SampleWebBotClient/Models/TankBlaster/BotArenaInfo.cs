@@ -10,7 +10,7 @@ namespace SampleWebBotClient.Models.TankBlaster
         public Guid BotId { get; set; }
         public BoardTile[,] Board { get; set; }
         public Point BotLocation { get; set; }
-        public bool IsMissileAvailable { get; set; }
+        public int MissileAvailableIn { get; set; }
         public List<Point> OpponentLocations { get; set; }
         public List<Bomb> Bombs { get; set; }
         public List<Missile> Missiles { get; set; }
