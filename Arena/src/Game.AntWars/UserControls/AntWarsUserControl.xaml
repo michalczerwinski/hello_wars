@@ -4,21 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:helpers="clr-namespace:Common.Helpers;assembly=Common"
-             xmlns:viewModels1="clr-namespace:Game.AntWars.ViewModels"
-             xmlns:baseUnits="clr-namespace:Game.AntWars.ViewModels.BaseUnits"
-             xmlns:models11="clr-namespace:Game.AntWars.Models.BaseUnits"
-             xmlns:baseUnits1="clr-namespace:Game.AntWars.UserControls.BaseUnits"
+             xmlns:viewModels="clr-namespace:Game.AntWars.ViewModels"
+             xmlns:baseUnitsVm="clr-namespace:Game.AntWars.ViewModels.BaseUnits"
+             xmlns:models="clr-namespace:Game.AntWars.Models.BaseUnits"
+             xmlns:userControls="clr-namespace:Game.AntWars.UserControls.BaseUnits"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance Type=viewModels1:AntWarsViewModel}">
+             d:DataContext="{d:DesignInstance Type=viewModels:AntWarsViewModel}">
 
     <Grid>
         <ItemsControl Width="{Binding BattlegroundWidth}" Height="{Binding BattlegroundHeigth}" ItemsSource="{Binding BattlefieldObjectsCollection}">
             <ItemsControl.Resources>
-                <DataTemplate DataType="{x:Type models11:ExplosionModel}">
-                    <baseUnits1:MissileUserControl/>
+                <DataTemplate DataType="{x:Type models:ExplosionModel}">
+                    <userControls:MissileUserControl/>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type models11:GridUnitModel}">
-                    <baseUnits1:GridUnit/>
+                <DataTemplate DataType="{x:Type models:GridUnitModel}">
+                    <userControls:GridUnit/>
                 </DataTemplate>
             </ItemsControl.Resources>
             <ItemsControl.ItemsPanel>
@@ -36,14 +36,14 @@
 
         <ItemsControl Width="{Binding BattlegroundWidth}" Height="{Binding BattlegroundHeigth}" ItemsSource="{Binding MovableObjectsCollection}">
             <ItemsControl.Resources>
-                <DataTemplate DataType="{x:Type models11:AntModel}">
-                    <baseUnits1:AntUserControl/>
+                <DataTemplate DataType="{x:Type models:AntModel}">
+                    <userControls:AntUserControl/>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type models11:MissileModel}">
-                    <baseUnits1:MissileUserControl/>
+                <DataTemplate DataType="{x:Type models:MissileModel}">
+                    <userControls:MissileUserControl/>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type baseUnits:ExplosionViewModel}">
-                    <baseUnits1:MissileUserControl/>
+                <DataTemplate DataType="{x:Type baseUnitsVm:ExplosionViewModel}">
+                    <userControls:MissileUserControl/>
                 </DataTemplate>
             </ItemsControl.Resources>
             <ItemsControl.ItemsPanel>
