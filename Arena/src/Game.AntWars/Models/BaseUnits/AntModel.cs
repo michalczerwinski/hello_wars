@@ -45,6 +45,8 @@ namespace Game.AntWars.Models.BaseUnits
         public AntModel(AntViewModel viewModel, ICompetitor competitor)
             : base(competitor)
         {
+            _antHeigth = 0;
+            _antWidth = 0;
             Competitor = competitor;
             ViewModel = viewModel;
             InitiateMovementShadow();
@@ -59,17 +61,17 @@ namespace Game.AntWars.Models.BaseUnits
 
             var missile = new MissileModel(new MissileViewModel())
             {
-                X = this.X,
-                Y = this.Y,
+                X = X,
+                Y = Y,
                 Range = 6,
                 Direction = actionDirection,
             };
 
-            if (ViewModel.Image == AntViewModel.RedAntImage)
+            if (Equals(ViewModel.Image, AntViewModel.RedAntImage))
             {
                 missile.ViewModel.Image = _redMissileImage;
             }
-            else if (ViewModel.Image == AntViewModel.YellowAntImage)
+            else if (Equals(ViewModel.Image, AntViewModel.YellowAntImage))
             {
                 missile.ViewModel.Image = _yellowMissileImage;
             }

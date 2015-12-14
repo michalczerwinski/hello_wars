@@ -5,7 +5,7 @@ namespace Elimination.RoundRobin.Commands
 {
     public class ResetCommand : CommandBase
     {
-        protected readonly RoundRobinViewModel _viewModel;
+        private readonly RoundRobinViewModel _viewModel;
 
         public ResetCommand(RoundRobinViewModel viewModel)
         {

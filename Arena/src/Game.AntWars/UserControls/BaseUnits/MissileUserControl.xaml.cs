@@ -1,4 +1,4 @@
-﻿namespace Game.AntWars.UserControls.Units
+﻿namespace Game.AntWars.UserControls.BaseUnits
 {
     /// <summary>
     /// Interaction logic for MissileUserControl.xaml

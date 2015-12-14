@@ -9,9 +9,9 @@ namespace Game.AntWars.Services
     public static class BattlegroundService
     {
         //if you change this please change centerX in UserControls using RotationTransform to 5 (10/2) 
-        private const int BATTLEFIELD_UNIT_HEIGTH = 10;
-        private const int BATTLEFIELD_UNIT_WIDTH = 10;
-        private static Random _rand = new Random(DateTime.Now.Millisecond);
+        private const int BattlefieldUnitHeigth = 10;
+        private const int BattlefieldUnitWidth = 10;
+        private static readonly Random Rand = new Random(DateTime.Now.Millisecond);
 
         private static AntWarsViewModel _antWarsViewModel;
 
@@ -21,8 +21,8 @@ namespace Game.AntWars.Services
 
             _antWarsViewModel.RowCount = rows;
             _antWarsViewModel.ColumnCount = collumns;
-            _antWarsViewModel.BattlegroundWidth = _antWarsViewModel.RowCount * BATTLEFIELD_UNIT_HEIGTH;
-            _antWarsViewModel.BattlegroundHeigth = _antWarsViewModel.ColumnCount * BATTLEFIELD_UNIT_WIDTH;
+            _antWarsViewModel.BattlegroundWidth = _antWarsViewModel.RowCount * BattlefieldUnitHeigth;
+            _antWarsViewModel.BattlegroundHeigth = _antWarsViewModel.ColumnCount * BattlefieldUnitWidth;
 
             InitiateBattlefield();
         }
@@ -73,7 +73,7 @@ namespace Game.AntWars.Services
 
         private static UnmovableObjectTypes ReturnWithSomeProbability()
         {
-            var probability = _rand.NextDouble();
+            var probability = Rand.NextDouble();
 
             if (probability < 0.05)
             {

@@ -6,7 +6,7 @@ namespace Arena.Commands.MenuItemCommands
 {
     class OpenCommand : CommandBase
     {
-        protected readonly MainWindowViewModel _viewModel;
+        private readonly MainWindowViewModel _viewModel;
 
         public OpenCommand(MainWindowViewModel viewModel)
         {

@@ -6,7 +6,7 @@ namespace Arena.Commands.MenuItemCommands
 {
     class FullScreenWindowCommand : CommandBase
     {
-        protected readonly MainWindowViewModel _viewModel;
+        private readonly MainWindowViewModel _viewModel;
 
         public FullScreenWindowCommand(MainWindowViewModel viewModel)
         {
