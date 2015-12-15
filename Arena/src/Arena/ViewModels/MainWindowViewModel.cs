@@ -14,6 +14,7 @@ using Arena.Commands;
 using Arena.Commands.MenuItemCommands;
 using Arena.Configuration;
 using Common;
+using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
 using Common.Serialization;
@@ -38,6 +39,7 @@ namespace Arena.ViewModels
         private bool _isPlayButtonAvailable;
         private bool _isRestartButtonAvailable;
         private GameSpeedMode _currentSpeedMode;
+        private string _gameNotification;
 
         private ICommand _autoPlayCommand;
         private ICommand _restartCommand;
@@ -57,6 +59,7 @@ namespace Arena.ViewModels
         private ICommand _setNormalSpeedCommand;
         private ICommand _setFastSpeedCommand;
         private ICommand _setVeryFastSeedCommand;
+        private ICommand _stopDuelCommand;
 
         private WindowState _windowState;
         private WindowStyle _windowStyle;
@@ -190,6 +193,12 @@ namespace Arena.ViewModels
             set { SetProperty(ref _windowState, value); }
         }
 
+        public string GameNotification
+        {
+            get { return _gameNotification; }
+            set { SetProperty(ref _gameNotification, value); }
+        }
+
         #region MenuItems
 
         public ICommand OpenCommand
@@ -275,6 +284,11 @@ namespace Arena.ViewModels
         public ICommand SetVeryFastSpeedCommand
         {
             get { return _setVeryFastSeedCommand ?? ( _setVeryFastSeedCommand = new GameSpeedChangeCommand(this, GameSpeedMode.VeryFast)); }
+        }
+
+        public ICommand StopDuelCommand
+        {
+            get { return _stopDuelCommand ?? (_stopDuelCommand = new StopDuelCommand(this)); }
         }
 
         public bool IsFullScreenApplied
@@ -392,7 +406,6 @@ namespace Arena.ViewModels
         public async Task PlayNextGameAsync()
         {
             var nextCompetitors = Elimination.GetNextCompetitors();
-            GameOverTextVisibility = Visibility.Collapsed;
 
             if (nextCompetitors != null)
             {
@@ -407,6 +420,7 @@ namespace Arena.ViewModels
 
                 OutputText += "Game starting: " + gameHistoryEntry.GameDescription + "\n";
 
+                await SetGameNotification(GameNotificationHelper.GetInitialNotification(nextCompetitors));
                 await PlayGameAsync(gameHistoryEntry);
             }
         }
@@ -435,12 +449,25 @@ namespace Arena.ViewModels
 
             } while (!result.IsFinished && IsGameInProgress && !IsGamePaused);
 
-            if (result.IsFinished)
+            if (result.IsFinished && IsGameInProgress)
             {
-                Elimination.SetLastDuelResult(result.FinalResult);
-                ScoreList.SaveScore(result.FinalResult);
-                GameOverTextVisibility = Visibility.Visible;
+                await MakeEndGameConfiguration(result);
             }
+        }
+
+        public async Task MakeEndGameConfiguration(RoundResult result)
+        {
+            Elimination.SetLastDuelResult(result.FinalResult);
+            ScoreList.SaveScore(result.FinalResult);
+            await SetGameNotification(GameNotificationHelper.GetEndRoundNotification(result.FinalResult));
+        }
+
+        private async Task SetGameNotification(string notification)
+        {
+            GameNotification = notification;
+            GameOverTextVisibility = Visibility.Visible;
+            await DelayHelper.DelayAsync(GameNotificationHelper.NotificationDelay);
+            GameOverTextVisibility = Visibility.Collapsed;
         }
 
         public void RestartGame()

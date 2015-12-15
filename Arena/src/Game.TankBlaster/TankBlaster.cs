@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -107,6 +108,11 @@ namespace Game.TankBlaster
         public void ChangeDelayTime(int delayTime)
         {
             _delayTime = delayTime;
+        }
+
+        public IEnumerable<ICompetitor> GetCurrentCompetitors()
+        {
+            return _field.Bots;
         }
     }
 }

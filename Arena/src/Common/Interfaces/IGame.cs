@@ -17,5 +17,6 @@ namespace Common.Interfaces
         string GetGameRules();
         void ApplyConfiguration(string configurationXml);
         void ChangeDelayTime(int delayTime);
+        IEnumerable<ICompetitor> GetCurrentCompetitors();
     }
 }

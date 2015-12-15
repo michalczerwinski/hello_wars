@@ -64,14 +64,17 @@
     <Compile Include="Commands\MenuItemCommands\RestartCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\PlayDuelCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\ShowArenaInstructionCommand.cs" />
+    <Compile Include="Commands\MenuItemCommands\StopDuelCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\ToggleHistoryCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\PresentPlayersCommand.cs" />
     <Compile Include="Commands\MenuItemCommands\VerifyPlayersCommand.cs" />
+    <Compile Include="Commands\SelectWinnerCommand.cs" />
     <Compile Include="Configuration\ArenaConfiguration.cs" />
     <Compile Include="ViewModels\GameHistoryEntryViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="Views\GameOverUserControl.xaml.cs">
-      <DependentUpon>GameOverUserControl.xaml</DependentUpon>
+    <Compile Include="ViewModels\WinnerSelectionViewModel.cs" />
+    <Compile Include="Views\GameNotificationUserControl.xaml.cs">
+      <DependentUpon>GameNotificationUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PlayerPresentationUserControl.xaml.cs">
       <DependentUpon>PlayerPresentationUserControl.xaml</DependentUpon>
@@ -79,11 +82,14 @@
     <Compile Include="Views\SinglePlayerForPresentationUserControl.xaml.cs">
       <DependentUpon>SinglePlayerForPresentationUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WinnerSelectionWindow.xaml.cs">
+      <DependentUpon>WinnerSelectionWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\GameOverUserControl.xaml">
+    <Page Include="Views\GameNotificationUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -113,6 +119,10 @@
     <Page Include="Views\Styles\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinnerSelectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

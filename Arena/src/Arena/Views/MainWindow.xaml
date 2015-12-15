@@ -132,6 +132,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <Border Grid.Column="1" Style="{StaticResource BorderPretendingToolBarStyle}">
@@ -156,24 +157,31 @@
                     </Border>
 
                     <Border Grid.Column="4" Style="{StaticResource BorderPretendingToolBarStyle}">
+                        <Button Command="{Binding StopDuelCommand}" IsEnabled="{Binding IsGameInProgress}">
+                            <Button.ToolTip >Stop current game</Button.ToolTip>
+                            <Image Source="/Icons/stop.png" />
+                        </Button>
+                    </Border>
+
+                    <Border Grid.Column="5" Style="{StaticResource BorderPretendingToolBarStyle}">
                         <Button Command="{Binding RestartCommand}" IsEnabled="{Binding IsRestartButtonAvailable}">
                             <Button.ToolTip >Restarts current game</Button.ToolTip>
                             <Image Source="/Icons/restart.png" />
                         </Button>
                     </Border>
-                    <Border Grid.Column="5" Style="{StaticResource BorderPretendingToolBarStyle}">
+                    <Border Grid.Column="6" Style="{StaticResource BorderPretendingToolBarStyle}">
                         <Button Command="{Binding SetNormalSpeedCommand}">
                             <Button.ToolTip >Normal game speed</Button.ToolTip>
                             <Image Source="/Icons/normal.png" />
                         </Button>
                     </Border>
-                    <Border Grid.Column="6" Style="{StaticResource BorderPretendingToolBarStyle}">
+                    <Border Grid.Column="7" Style="{StaticResource BorderPretendingToolBarStyle}">
                         <Button Command="{Binding SetFastSpeedCommand}">
                             <Button.ToolTip >Fast game speed</Button.ToolTip>
                             <Image Source="/Icons/fast.png" />
                         </Button>
                     </Border>
-                    <Border Grid.Column="7" Style="{StaticResource BorderPretendingToolBarStyle}">
+                    <Border Grid.Column="8" Style="{StaticResource BorderPretendingToolBarStyle}">
                         <Button Command="{Binding SetVeryFastSpeedCommand}">
                             <Button.ToolTip >Very fast game speed</Button.ToolTip>
                             <Image Source="/Icons/veryfast.png" />
@@ -211,7 +219,14 @@
             <Viewbox Grid.Column="2" Stretch="Uniform" >
                 <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}"/>
             </Viewbox>
-            <views:GameOverUserControl Grid.Column="2" Visibility="{Binding GameOverTextVisibility}"/>
+            <Viewbox Grid.Column="2">
+                <TextBlock Text="{Binding GameNotification}" Visibility="{Binding GameOverTextVisibility}"  TextAlignment="Center" TextWrapping="Wrap" Foreground="{StaticResource CloseButtonStroke}" 
+                       FontWeight="Bold">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.7" BlurRadius="7"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Viewbox>
         </Grid>
 
         <views:PlayerPresentationUserControl DataContext="{Binding Competitors}"/>

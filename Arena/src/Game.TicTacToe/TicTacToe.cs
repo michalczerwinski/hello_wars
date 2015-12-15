@@ -24,6 +24,8 @@ namespace Game.TicTacToe
         protected TicTacToeViewModel TicTacToeViewModel;
         private IConfigurable _configuration;
 
+        public IEnumerable<ICompetitor> Competitors => _competitors; 
+
         public TicTacToe()
         {
             Reset();
@@ -278,6 +280,11 @@ namespace Game.TicTacToe
         public void ChangeDelayTime(int delayTime)
         {
             _configuration.NextMoveDelay = delayTime;
+        }
+
+        public IEnumerable<ICompetitor> GetCurrentCompetitors()
+        {
+            return Competitors;
         }
     }
 }
