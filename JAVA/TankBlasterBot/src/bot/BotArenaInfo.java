@@ -12,7 +12,7 @@ public class BotArenaInfo {
 	public UUID BotId;
 	public int[][] Board;
 	private String BotLocation;
-	public boolean IsMissileAvailable;
+	public int MissileAvailableIn;
 	private List<String> OpponentLocations;
 	public List<Bomb> Bombs;
 	public List<Missile> Missiles;

@@ -118,14 +118,17 @@ namespace Game.TankBlaster.Services
                 BotLocation = bot.Location,
                 OpponentLocations = _field.Bots.Where(blasterBot => blasterBot.Id != bot.Id && !blasterBot.IsDead).Select(blasterBot => blasterBot.Location).ToList(),
                 Missiles = _field.Missiles.Cast<IMissile>().ToList(),
-                IsMissileAvailable = IsMissileAvailable(bot, roundNumber),
+                MissileAvailableIn = MissileAvailableIn(bot, roundNumber),
                 GameConfig = _gameConfig
             };
         }
 
-        private bool IsMissileAvailable(TankBlasterBot bot, int roundNumber)
+        private int MissileAvailableIn(TankBlasterBot bot, int roundNumber)
         {
-            return roundNumber - _gameConfig.RoundsBetweenMissiles > bot.LastMissileFiredRound;
+
+            int result = _gameConfig.RoundsBetweenMissiles - roundNumber + bot.LastMissileFiredRound;
+
+            return bot.LastMissileFiredRound < 0 || result < 0 ? 0 : result;
         }
 
         private bool IsMoveValid(TankBlasterBot bot, BotMove move)
@@ -156,7 +159,7 @@ namespace Game.TankBlaster.Services
 
             if (move.Action == BotAction.FireMissile)
             {
-                if (IsMissileAvailable(bot, roundNumber) && _locationService.IsLocationAvailableForMissile(_locationService.GetNewLocation(bot.Location, move.FireDirection)))
+                if (MissileAvailableIn(bot, roundNumber) == 0 && _locationService.IsLocationAvailableForMissile(_locationService.GetNewLocation(bot.Location, move.FireDirection)))
                 {
                     bot.LastMissileFiredRound = roundNumber;
                     _field.Missiles.Add(new Missile
