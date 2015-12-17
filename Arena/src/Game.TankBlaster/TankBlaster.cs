@@ -109,10 +109,5 @@ namespace Game.TankBlaster
         {
             _delayTime = delayTime;
         }
-
-        public IEnumerable<ICompetitor> GetCurrentCompetitors()
-        {
-            return _field.Bots;
-        }
     }
 }

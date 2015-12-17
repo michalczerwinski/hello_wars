@@ -24,8 +24,6 @@ namespace Game.TicTacToe
         protected TicTacToeViewModel TicTacToeViewModel;
         private IConfigurable _configuration;
 
-        public IEnumerable<ICompetitor> Competitors => _competitors; 
-
         public TicTacToe()
         {
             Reset();
@@ -206,14 +204,12 @@ namespace Game.TicTacToe
                 {
                     TicTacToeViewModel.ArrayOfDiagonalLines[0, 0] = Visibility.Visible;
                     player.IsWinner = true;
-                    await DelayHelper.DelayAsync(_configuration.NextMatchDelay);
                     return true;
                 }
                 if (diagonal2 == 3)
                 {
                     TicTacToeViewModel.ArrayOfDiagonalLines[1, 0] = Visibility.Visible;
                     player.IsWinner = true;
-                    await DelayHelper.DelayAsync(_configuration.NextMatchDelay);
                     return true;
                 }
                 for (int j = 0; j < 3; j++)
@@ -222,14 +218,12 @@ namespace Game.TicTacToe
                     {
                         TicTacToeViewModel.ArrayOfHorizontalLines[j, 0] = Visibility.Visible;
                         player.IsWinner = true;
-                        await DelayHelper.DelayAsync(_configuration.NextMatchDelay);
                         return true;
                     }
                     if (yLine[j] == 3)
                     {
                         TicTacToeViewModel.ArrayOfVerticalLines[j, 0] = Visibility.Visible;
                         player.IsWinner = true;
-                        await DelayHelper.DelayAsync(_configuration.NextMatchDelay);
                         return true;
                     }
                 }
@@ -280,11 +274,6 @@ namespace Game.TicTacToe
         public void ChangeDelayTime(int delayTime)
         {
             _configuration.NextMoveDelay = delayTime;
-        }
-
-        public IEnumerable<ICompetitor> GetCurrentCompetitors()
-        {
-            return Competitors;
         }
     }
 }

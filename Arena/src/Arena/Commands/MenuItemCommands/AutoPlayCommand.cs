@@ -21,13 +21,11 @@ namespace Arena.Commands.MenuItemCommands
             {
                 _viewModel.IsGamePaused = false;
                 await _viewModel.ResumeGameAsync();
-                await DelayHelper.DelayAsync(_viewModel.ArenaConfiguration.GameConfiguration.NextMatchDelay);
             }
 
             while (_viewModel.Elimination.GetNextCompetitors() != null && _viewModel.IsGameInProgress)
             {
                 await _viewModel.PlayNextGameAsync();
-                await DelayHelper.DelayAsync(_viewModel.ArenaConfiguration.GameConfiguration.NextMatchDelay);
             }
             _viewModel.IsGameInProgress = false;
 

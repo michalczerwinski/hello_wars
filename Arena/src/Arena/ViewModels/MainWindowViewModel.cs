@@ -37,9 +37,11 @@ namespace Arena.ViewModels
         private bool _isGameInProgress;
         private bool _isGamePaused;
         private bool _isPlayButtonAvailable;
-        private bool _isRestartButtonAvailable;
+        private bool _isRestartAndStopButtonAvailable;
+        private bool _isPauseButtonAvailable;
+        private bool _isArenaMessageVisible;
         private GameSpeedMode _currentSpeedMode;
-        private string _gameNotification;
+        private string _arenaMessage;
 
         private ICommand _autoPlayCommand;
         private ICommand _restartCommand;
@@ -64,7 +66,6 @@ namespace Arena.ViewModels
         private WindowState _windowState;
         private WindowStyle _windowStyle;
         private Visibility _playerPresentationVisibility;
-        private Visibility _gameOverTextVisibility;
 
         public ArenaConfiguration ArenaConfiguration { get; set; }
         public IElimination Elimination { get; set; }
@@ -85,7 +86,7 @@ namespace Arena.ViewModels
             {
                 SetProperty(ref _isGameInProgress, value);
                 IsPlayButtonAvailable = !value;
-                CalculateRestartButtonAvailability();
+                CalculateButtonsAvailability();
             }
         }
 
@@ -95,7 +96,7 @@ namespace Arena.ViewModels
             set
             {
                 _isGamePaused = value;
-                CalculateRestartButtonAvailability();
+                CalculateButtonsAvailability();
             }
         }
 
@@ -105,15 +106,16 @@ namespace Arena.ViewModels
             set { SetProperty(ref _isPlayButtonAvailable, value); }
         }
 
-        public bool IsRestartButtonAvailable
+        public bool IsRestartAndStopButtonAvailable
         {
-            get { return _isRestartButtonAvailable; }
-            set { SetProperty(ref _isRestartButtonAvailable, value); }
+            get { return _isRestartAndStopButtonAvailable; }
+            set { SetProperty(ref _isRestartAndStopButtonAvailable, value); }
         }
 
-        private void CalculateRestartButtonAvailability()
+        private void CalculateButtonsAvailability()
         {
-            IsRestartButtonAvailable = IsGameInProgress || IsGamePaused;
+            IsPauseButtonAvailable = IsGameInProgress && !IsArenaMessageVisible;
+            IsRestartAndStopButtonAvailable = ( IsGameInProgress || IsGamePaused ) && !IsArenaMessageVisible;
         }
 
         public bool IsHistoryVisible
@@ -128,6 +130,12 @@ namespace Arena.ViewModels
             set { SetProperty(ref _isOutputVisible, value); }
         }
 
+        public bool IsPauseButtonAvailable
+        {
+            get { return _isPauseButtonAvailable; }
+            set { SetProperty(ref _isPauseButtonAvailable, value); }
+        }
+
         public GameSpeedMode CurrentSpeedMode
         {
             get { return _currentSpeedMode; }
@@ -140,10 +148,14 @@ namespace Arena.ViewModels
             set { SetProperty(ref _playerPresentationVisibility, value); }
         }
 
-        public Visibility GameOverTextVisibility
+        public bool IsArenaMessageVisible
         {
-            get { return _gameOverTextVisibility; }
-            set { SetProperty(ref _gameOverTextVisibility, value); }
+            get { return _isArenaMessageVisible; }
+            set
+            {
+                SetProperty(ref _isArenaMessageVisible, value);
+                CalculateButtonsAvailability();
+            }
         }
 
         public int SelectedTabIndex
@@ -193,10 +205,10 @@ namespace Arena.ViewModels
             set { SetProperty(ref _windowState, value); }
         }
 
-        public string GameNotification
+        public string ArenaMessage
         {
-            get { return _gameNotification; }
-            set { SetProperty(ref _gameNotification, value); }
+            get { return _arenaMessage; }
+            set { SetProperty(ref _arenaMessage, value); }
         }
 
         #region MenuItems
@@ -309,7 +321,7 @@ namespace Arena.ViewModels
             IsHistoryVisible = true;
             IsOutputVisible = true;
             IsFullScreenApplied = false;
-            GameOverTextVisibility = Visibility.Collapsed;
+            IsArenaMessageVisible = false;
             PlayerPresentationVisibility = Visibility.Collapsed;
             ApplyConfiguration(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Resources.DefaultArenaConfigurationName);
         }
@@ -406,9 +418,11 @@ namespace Arena.ViewModels
         public async Task PlayNextGameAsync()
         {
             var nextCompetitors = Elimination.GetNextCompetitors();
-
+            
             if (nextCompetitors != null)
             {
+                await SetArenaMessage(ArenaMessageHelper.GetInitialMessage(nextCompetitors));
+
                 var gameHistoryEntry = new GameHistoryEntryViewModel()
                 {
                     GameDescription = Elimination.GetGameDescription(),
@@ -420,7 +434,6 @@ namespace Arena.ViewModels
 
                 OutputText += "Game starting: " + gameHistoryEntry.GameDescription + "\n";
 
-                await SetGameNotification(GameNotificationHelper.GetInitialNotification(nextCompetitors));
                 await PlayGameAsync(gameHistoryEntry);
             }
         }
@@ -459,15 +472,15 @@ namespace Arena.ViewModels
         {
             Elimination.SetLastDuelResult(result.FinalResult);
             ScoreList.SaveScore(result.FinalResult);
-            await SetGameNotification(GameNotificationHelper.GetEndRoundNotification(result.FinalResult));
+            await SetArenaMessage(ArenaMessageHelper.GetEndGameMessage(result.FinalResult));
         }
 
-        private async Task SetGameNotification(string notification)
+        private async Task SetArenaMessage(string message)
         {
-            GameNotification = notification;
-            GameOverTextVisibility = Visibility.Visible;
-            await DelayHelper.DelayAsync(GameNotificationHelper.NotificationDelay);
-            GameOverTextVisibility = Visibility.Collapsed;
+            ArenaMessage = message;
+            IsArenaMessageVisible = true;
+            await DelayHelper.DelayAsync(ArenaConfiguration.ArenaMessageDuration);
+            IsArenaMessageVisible = false;
         }
 
         public void RestartGame()

@@ -8,6 +8,7 @@ using Arena.Views;
 using Common.Interfaces;
 using Common.Models;
 using Common.Utilities;
+using Game.TankBlaster.Models;
 
 namespace Arena.Commands.MenuItemCommands
 {
@@ -19,23 +20,22 @@ namespace Arena.Commands.MenuItemCommands
         {
             _viewModel = viewModel;
         }
-        public override void Execute(object parameter = null)
+        public override async void Execute(object parameter = null)
         {
             _viewModel.IsGameInProgress = false;
 
-            var competitors = _viewModel.Game.GetCurrentCompetitors();
+            var competitors = _viewModel.Elimination.GetNextCompetitors();
 
-            var wnd = new WinnerSelectionWindow(competitors);
-            wnd.ShowDialog();
-
-            if (wnd.DialogResult.HasValue && wnd.DialogResult.Value)
+            var window = new WinnerSelectionDialog(competitors);
+            window.ShowDialog();
+            if (window.DialogResult.HasValue && window.DialogResult.Value)
             {
                 var result = new RoundResult()
                 {
-                    FinalResult = competitors.ToDictionary(comp => comp, comp => comp.Id == wnd.SelectedWinner.Id ? 1.0 : 0.0),
+                    FinalResult = competitors.ToDictionary(comp => comp, comp => comp.Id == window.SelectedWinner.Id ? 1.0 : 0.0),
                     IsFinished = true
                 };
-                _viewModel.MakeEndGameConfiguration(result);
+                await _viewModel.MakeEndGameConfiguration(result);
             }
             else
             {

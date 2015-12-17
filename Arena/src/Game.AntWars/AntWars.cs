@@ -100,12 +100,6 @@ namespace Game.AntWars
         {
             _delayTime = delayTime;
         }
-
-        public IEnumerable<ICompetitor> GetCurrentCompetitors()
-        {
-            return _botService.Competitors;
-        }
-
         #endregion
     }
 }

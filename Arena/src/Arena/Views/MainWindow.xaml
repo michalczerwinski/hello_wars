@@ -80,12 +80,17 @@
                                 <Image Source="/Icons/autoplay2.png" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="_Pause" Command="{Binding PauseCommand}" IsEnabled="{Binding IsGameInProgress}">
+                        <MenuItem Header="_Pause" Command="{Binding PauseCommand}" IsEnabled="{Binding IsPauseButtonAvailable}">
                             <MenuItem.Icon >
                                 <Image Source="/Icons/pause.png" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="_Restart" Command="{Binding RestartCommand}" IsEnabled="{Binding IsRestartButtonAvailable}">
+                        <MenuItem Header="_Stop" Command="{Binding StopDuelCommand}" IsEnabled="{Binding IsRestartAndStopButtonAvailable}">
+                            <MenuItem.Icon >
+                                <Image Source="/Icons/stop.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="_Restart" Command="{Binding RestartCommand}" IsEnabled="{Binding IsRestartAndStopButtonAvailable}">
                             <MenuItem.Icon >
                                 <Image Source="/Icons/restart.png" />
                             </MenuItem.Icon>
@@ -150,21 +155,21 @@
                     </Border>
 
                     <Border Grid.Column="3" Style="{StaticResource BorderPretendingToolBarStyle}">
-                        <Button Command="{Binding PauseCommand}" IsEnabled="{Binding IsGameInProgress}">
+                        <Button Command="{Binding PauseCommand}" IsEnabled="{Binding IsPauseButtonAvailable}">
                             <Button.ToolTip >Pause current game</Button.ToolTip>
                             <Image Source="/Icons/pause.png" />
                         </Button>
                     </Border>
 
                     <Border Grid.Column="4" Style="{StaticResource BorderPretendingToolBarStyle}">
-                        <Button Command="{Binding StopDuelCommand}" IsEnabled="{Binding IsGameInProgress}">
+                        <Button Command="{Binding StopDuelCommand}" IsEnabled="{Binding IsRestartAndStopButtonAvailable}">
                             <Button.ToolTip >Stop current game</Button.ToolTip>
                             <Image Source="/Icons/stop.png" />
                         </Button>
                     </Border>
 
                     <Border Grid.Column="5" Style="{StaticResource BorderPretendingToolBarStyle}">
-                        <Button Command="{Binding RestartCommand}" IsEnabled="{Binding IsRestartButtonAvailable}">
+                        <Button Command="{Binding RestartCommand}" IsEnabled="{Binding IsRestartAndStopButtonAvailable}">
                             <Button.ToolTip >Restarts current game</Button.ToolTip>
                             <Image Source="/Icons/restart.png" />
                         </Button>
@@ -220,7 +225,7 @@
                 <UserControl Content="{Binding GameTypeControl, Mode=TwoWay}"/>
             </Viewbox>
             <Viewbox Grid.Column="2">
-                <TextBlock Text="{Binding GameNotification}" Visibility="{Binding GameOverTextVisibility}"  TextAlignment="Center" TextWrapping="Wrap" Foreground="{StaticResource CloseButtonStroke}" 
+                <TextBlock Text="{Binding ArenaMessage}" Visibility="{Binding IsArenaMessageVisible, Converter={StaticResource BooleanToVisibilityConverter}}"  TextAlignment="Center" TextWrapping="Wrap" Foreground="{StaticResource CloseButtonStroke}" 
                        FontWeight="Bold">
                     <TextBlock.Effect>
                         <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.7" BlurRadius="7"/>

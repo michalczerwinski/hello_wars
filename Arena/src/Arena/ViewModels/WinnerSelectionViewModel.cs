@@ -15,8 +15,6 @@ namespace Arena.ViewModels
         private ICompetitor _selectedWinner;
         private IEnumerable<ICompetitor> _competitors;
 
-        private ICommand _selectWinnerCommand;
-
         public ICompetitor SelectedWinner
         {
             get { return _selectedWinner;}
@@ -29,14 +27,10 @@ namespace Arena.ViewModels
             set { SetProperty(ref _competitors, value); }
         }
 
-        public ICommand SelectWinnerCommand
-        {
-            get { return _selectWinnerCommand ?? (_selectWinnerCommand= new SelectWinnerCommand(this)); }
-        }
-
         public WinnerSelectionViewModel(IEnumerable<ICompetitor> competitors )
         {
             Competitors = competitors;
+            SelectedWinner = Competitors.First();
         }
     }
 }

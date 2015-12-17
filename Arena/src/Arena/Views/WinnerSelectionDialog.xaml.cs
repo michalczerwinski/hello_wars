@@ -17,19 +17,25 @@ using Common.Interfaces;
 namespace Arena.Views
 {
     /// <summary>
-    /// Interaction logic for WinnerSelectionWindow.xaml
+    /// Interaction logic for WinnerSelectionDialog.xaml
     /// </summary>
-    public partial class WinnerSelectionWindow : Window
+    public partial class WinnerSelectionDialog : Window
     {
         readonly WinnerSelectionViewModel _viewModel;
 
         public ICompetitor SelectedWinner => _viewModel.SelectedWinner;
 
-        public WinnerSelectionWindow(IEnumerable<ICompetitor> competitors)
+        public WinnerSelectionDialog(IEnumerable<ICompetitor> competitors)
         {
             InitializeComponent();
             _viewModel = new WinnerSelectionViewModel(competitors);
             DataContext = _viewModel;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+            Close();
         }
     }
 }

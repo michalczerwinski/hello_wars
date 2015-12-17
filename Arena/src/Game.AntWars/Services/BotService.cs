@@ -15,8 +15,6 @@ namespace Game.AntWars.Services
         private AntWarsViewModel _antWarsViewModel;
         private IEnumerable<ICompetitor> _competitors;
 
-        public IEnumerable<ICompetitor> Competitors => _competitors;
-
         public BotService(AntWarsViewModel antWarsViewModel)
         {
             _antWarsViewModel = antWarsViewModel;
