@@ -6,7 +6,7 @@ namespace Arena.Commands.MenuItemCommands
 {
     class PresentPlayersCommand : CommandBase
     {
-        protected readonly MainWindowViewModel _viewModel;
+        private readonly MainWindowViewModel _viewModel;
 
         public PresentPlayersCommand(MainWindowViewModel viewModel)
         {

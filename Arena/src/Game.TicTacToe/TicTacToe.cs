@@ -18,8 +18,8 @@ namespace Game.TicTacToe
 {
     public class TicTacToe : IGame
     {
-        private ITicTacToeBot _player1 { get { return _competitors[0]; } }
-        private ITicTacToeBot _player2 { get { return _competitors[1]; } }
+        private ITicTacToeBot Player1 { get { return _competitors[0]; } }
+        private ITicTacToeBot Player2 { get { return _competitors[1]; } }
         private List<ITicTacToeBot> _competitors;
         protected TicTacToeViewModel TicTacToeViewModel;
         private IConfigurable _configuration;
@@ -61,7 +61,7 @@ namespace Game.TicTacToe
 
         public async Task<RoundResult> PerformNextRoundAsync()
         {
-            if (_player1 == null || _player2 == null) { throw new Exception("There are no players to perform next round."); }
+            if (Player1 == null || Player2 == null) { throw new Exception("There are no players to perform next round."); }
 
             var result = new RoundResult()
             {
@@ -121,8 +121,8 @@ namespace Game.TicTacToe
         {
             if (_competitors.Count == 2)
             {
-                _player1.PlayerSign = BoardFieldSign.O;
-                _player2.PlayerSign = BoardFieldSign.X;
+                Player1.PlayerSign = BoardFieldSign.O;
+                Player2.PlayerSign = BoardFieldSign.X;
             }
             else
             {
@@ -142,7 +142,7 @@ namespace Game.TicTacToe
             }
             else
             {
-                moveDescription = string.Format("{0} has performed an illegal move {{{1}, {2}}. No action was performed\n", competitor.Name, move.X, move.Y);
+                moveDescription = string.Format("{0} has performed an illegal move {{{1}, {2}}}. No action was performed\n", competitor.Name, move.X, move.Y);
             }
 
             return new RoundPartialHistory()

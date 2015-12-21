@@ -6,7 +6,7 @@ namespace Arena.Commands.MenuItemCommands
 {
     class GameRulesCommand : CommandBase
     {
-        protected readonly MainWindowViewModel _viewModel;
+        private readonly MainWindowViewModel _viewModel;
 
         public GameRulesCommand(MainWindowViewModel viewModel)
         {

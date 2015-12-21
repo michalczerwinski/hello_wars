@@ -5,7 +5,7 @@ namespace Arena.Commands.MenuItemCommands
 {
     public class RestartCommand : CommandBase
     {
-        protected readonly MainWindowViewModel _viewModel;
+        private readonly MainWindowViewModel _viewModel;
 
         public RestartCommand(MainWindowViewModel viewModel)
         {

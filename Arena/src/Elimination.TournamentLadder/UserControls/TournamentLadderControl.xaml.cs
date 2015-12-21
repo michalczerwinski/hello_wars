@@ -145,12 +145,12 @@ namespace Elimination.TournamentLadder.UserControls
                 BotHeadPoint = new Point
                 {
                     X = ((stageNumber - 1)*(160 + 50)) + 160,
-                    Y = ((_startingNumberOfBots/numberOfBots)*60*orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1)*60/2) + 60/2,
+                    Y = ((_startingNumberOfBots/numberOfBots)*60*orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1)*60/2) + 60.0/2,
                 },
                 BotTailPoint = new Point
                 {
                     X = ((stageNumber - 1)*(160 + 50)),
-                    Y = ((_startingNumberOfBots/numberOfBots)*60*orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1)*60/2) + 60/2,
+                    Y = ((_startingNumberOfBots/numberOfBots)*60*orderInRow + (Math.Pow(2, (stageNumber - 1)) - 1)*60/2) + 60.0/2,
                 }
             };
 

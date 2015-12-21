@@ -1,0 +1,3 @@
+1. Run setup.bat as Administrator
+2. On virtual machine: Copy files from shared directory "HelloWarsSetup" to desktop
+3. On virtual machine: Run "create repo.bat" as Administrator

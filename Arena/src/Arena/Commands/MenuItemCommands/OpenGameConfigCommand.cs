@@ -6,7 +6,7 @@ namespace Arena.Commands.MenuItemCommands
 {
     class OpenGameConfigCommand : CommandBase
     {
-        protected readonly MainWindowViewModel _viewModel;
+        private readonly MainWindowViewModel _viewModel;
 
         public OpenGameConfigCommand(MainWindowViewModel viewModel)
         {

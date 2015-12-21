@@ -5,7 +5,7 @@ namespace Arena.Commands.MenuItemCommands
 {
     public class PauseCommand : CommandBase
     {
-        protected readonly MainWindowViewModel _viewModel;
+        private readonly MainWindowViewModel _viewModel;
 
         public PauseCommand(MainWindowViewModel viewModel)
         {

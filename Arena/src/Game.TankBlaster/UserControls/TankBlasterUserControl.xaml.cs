@@ -177,7 +177,7 @@ namespace Game.TankBlaster.UserControls
                     Height = _tileSize * 0.75,
                     Source = _missileImgSource,
                     RenderTransform = new RotateTransform(GetRotateAngle(missile.MoveDirection)),
-                    RenderTransformOrigin = new System.Windows.Point(0.5, 0.5)
+                    RenderTransformOrigin = new Point(0.5, 0.5)
                 };
 
                 BoardGrid.AddElement(elementToAdd, missile.Location.X, missile.Location.Y);

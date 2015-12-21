@@ -3,11 +3,11 @@ using System.Windows;
 using Game.AntWars.Models.BaseUnits;
 using Game.AntWars.ViewModels.BaseUnits;
 
-namespace Game.AntWars.UserControls.Units
+namespace Game.AntWars.UserControls.BaseUnits
 {
     public partial class AntUserControl
     {
-        private AntViewModel _viewModel
+        private AntViewModel ViewModel
         {
             get
             {
@@ -26,23 +26,9 @@ namespace Game.AntWars.UserControls.Units
             
         }
 
-        private void MoveAnimation_OnCompleted(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ExplodeAnimation_OnCompleted(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void AttackAnimation_OnCompleted(object sender, EventArgs e)
         {
-            _viewModel.IsAttackingAnimationCompleated = true;
+            ViewModel.IsAttackingAnimationCompleated = true;
         }
 
-        private void ShadowMoveAnimation_OnCompleted(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 }}

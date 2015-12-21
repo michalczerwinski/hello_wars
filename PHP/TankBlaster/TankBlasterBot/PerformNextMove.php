@@ -20,7 +20,7 @@ class BotArenaInfo
 
 	public $BotLocation;
 
-	public $IsMissileAvailable;
+	public $MissileAvailableIn;
 
 	public $OpponentLocations;
 

@@ -1,4 +1,4 @@
-﻿namespace Game.AntWars.UserControls.Resoures
+﻿namespace Game.AntWars.UserControls.BaseUnits
 {
     public partial class GridUnit 
     {

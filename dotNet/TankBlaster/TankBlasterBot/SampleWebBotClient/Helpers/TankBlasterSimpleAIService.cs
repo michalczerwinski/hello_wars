@@ -37,7 +37,7 @@ namespace SampleWebBotClient.Helpers
                 result.Action = BotAction.DropBomb;
             }
 
-            if (_shouldFireMissiles && _rand.Next(_missileFiringFrequency) == 0)
+            if (_shouldFireMissiles && _field.MissileAvailableIn == 0)
             {
                 var fireDirections = _allMoveDirections.Where(direction =>
                 {
