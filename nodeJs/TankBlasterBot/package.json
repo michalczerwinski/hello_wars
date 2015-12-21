@@ -1,0 +1,16 @@
+{
+  "name": "NodeJsBot",
+  "version": "1.0.0",
+  "description": "Sample bot for TankBlaster game",
+  "main": "app.js",
+  "author": "SMT Software Services",
+  "license": "GPL-2.0"
+  "repository" : { 
+	"type" : "git", 
+	"url" : "https://github.com/michalczerwinski/hello_wars"
+  },
+  "dependencies": {
+    "express": "*",
+	"body-parser": "*"
+  }
+}
