@@ -12,6 +12,8 @@ namespace Arena.Configuration
     {
         [XmlArrayItem(ElementName = "Url")]
         public List<string> BotUrls { get; set; }
+        [XmlElement(ElementName = "ArenaMessageDuration")]
+        public int ArenaMessageDuration { get; set; }
         public GameConfiguration GameConfiguration { get; set; }
         public EliminationConfiguration EliminationConfiguration { get; set; }
 

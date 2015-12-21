@@ -13,8 +13,8 @@ namespace Arena.Commands.MenuItemCommands
         private readonly Dictionary<GameSpeedMode, int> _gameModesDictionary = new Dictionary<GameSpeedMode, int>()
         {
             { GameSpeedMode.Normal, 150 },
-            { GameSpeedMode.Fast, 50 },
-            { GameSpeedMode.VeryFast, 0 }
+            { GameSpeedMode.Fast, 75 },
+            { GameSpeedMode.VeryFast, 5 }
         };
 
         public GameSpeedChangeCommand(MainWindowViewModel viewModel, GameSpeedMode speedMode)

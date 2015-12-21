@@ -204,14 +204,12 @@ namespace Game.TicTacToe
                 {
                     TicTacToeViewModel.ArrayOfDiagonalLines[0, 0] = Visibility.Visible;
                     player.IsWinner = true;
-                    await DelayHelper.DelayAsync(_configuration.NextMatchDelay);
                     return true;
                 }
                 if (diagonal2 == 3)
                 {
                     TicTacToeViewModel.ArrayOfDiagonalLines[1, 0] = Visibility.Visible;
                     player.IsWinner = true;
-                    await DelayHelper.DelayAsync(_configuration.NextMatchDelay);
                     return true;
                 }
                 for (int j = 0; j < 3; j++)
@@ -220,14 +218,12 @@ namespace Game.TicTacToe
                     {
                         TicTacToeViewModel.ArrayOfHorizontalLines[j, 0] = Visibility.Visible;
                         player.IsWinner = true;
-                        await DelayHelper.DelayAsync(_configuration.NextMatchDelay);
                         return true;
                     }
                     if (yLine[j] == 3)
                     {
                         TicTacToeViewModel.ArrayOfVerticalLines[j, 0] = Visibility.Visible;
                         player.IsWinner = true;
-                        await DelayHelper.DelayAsync(_configuration.NextMatchDelay);
                         return true;
                     }
                 }

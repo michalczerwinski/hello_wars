@@ -14,6 +14,7 @@ using Arena.Commands;
 using Arena.Commands.MenuItemCommands;
 using Arena.Configuration;
 using Common;
+using Common.Helpers;
 using Common.Interfaces;
 using Common.Models;
 using Common.Serialization;
@@ -36,8 +37,11 @@ namespace Arena.ViewModels
         private bool _isGameInProgress;
         private bool _isGamePaused;
         private bool _isPlayButtonAvailable;
-        private bool _isRestartButtonAvailable;
+        private bool _isRestartAndStopButtonAvailable;
+        private bool _isPauseButtonAvailable;
+        private bool _isArenaMessageVisible;
         private GameSpeedMode _currentSpeedMode;
+        private string _arenaMessage;
 
         private ICommand _autoPlayCommand;
         private ICommand _restartCommand;
@@ -57,11 +61,11 @@ namespace Arena.ViewModels
         private ICommand _setNormalSpeedCommand;
         private ICommand _setFastSpeedCommand;
         private ICommand _setVeryFastSeedCommand;
+        private ICommand _stopDuelCommand;
 
         private WindowState _windowState;
         private WindowStyle _windowStyle;
         private Visibility _playerPresentationVisibility;
-        private Visibility _gameOverTextVisibility;
 
         public ArenaConfiguration ArenaConfiguration { get; set; }
         public IElimination Elimination { get; set; }
@@ -82,7 +86,7 @@ namespace Arena.ViewModels
             {
                 SetProperty(ref _isGameInProgress, value);
                 IsPlayButtonAvailable = !value;
-                CalculateRestartButtonAvailability();
+                CalculateButtonsAvailability();
             }
         }
 
@@ -92,7 +96,7 @@ namespace Arena.ViewModels
             set
             {
                 _isGamePaused = value;
-                CalculateRestartButtonAvailability();
+                CalculateButtonsAvailability();
             }
         }
 
@@ -102,15 +106,16 @@ namespace Arena.ViewModels
             set { SetProperty(ref _isPlayButtonAvailable, value); }
         }
 
-        public bool IsRestartButtonAvailable
+        public bool IsRestartAndStopButtonAvailable
         {
-            get { return _isRestartButtonAvailable; }
-            set { SetProperty(ref _isRestartButtonAvailable, value); }
+            get { return _isRestartAndStopButtonAvailable; }
+            set { SetProperty(ref _isRestartAndStopButtonAvailable, value); }
         }
 
-        private void CalculateRestartButtonAvailability()
+        private void CalculateButtonsAvailability()
         {
-            IsRestartButtonAvailable = IsGameInProgress || IsGamePaused;
+            IsPauseButtonAvailable = IsGameInProgress && !IsArenaMessageVisible;
+            IsRestartAndStopButtonAvailable = ( IsGameInProgress || IsGamePaused ) && !IsArenaMessageVisible;
         }
 
         public bool IsHistoryVisible
@@ -125,6 +130,12 @@ namespace Arena.ViewModels
             set { SetProperty(ref _isOutputVisible, value); }
         }
 
+        public bool IsPauseButtonAvailable
+        {
+            get { return _isPauseButtonAvailable; }
+            set { SetProperty(ref _isPauseButtonAvailable, value); }
+        }
+
         public GameSpeedMode CurrentSpeedMode
         {
             get { return _currentSpeedMode; }
@@ -137,10 +148,14 @@ namespace Arena.ViewModels
             set { SetProperty(ref _playerPresentationVisibility, value); }
         }
 
-        public Visibility GameOverTextVisibility
+        public bool IsArenaMessageVisible
         {
-            get { return _gameOverTextVisibility; }
-            set { SetProperty(ref _gameOverTextVisibility, value); }
+            get { return _isArenaMessageVisible; }
+            set
+            {
+                SetProperty(ref _isArenaMessageVisible, value);
+                CalculateButtonsAvailability();
+            }
         }
 
         public int SelectedTabIndex
@@ -188,6 +203,12 @@ namespace Arena.ViewModels
         {
             get { return _windowState; }
             set { SetProperty(ref _windowState, value); }
+        }
+
+        public string ArenaMessage
+        {
+            get { return _arenaMessage; }
+            set { SetProperty(ref _arenaMessage, value); }
         }
 
         #region MenuItems
@@ -277,6 +298,11 @@ namespace Arena.ViewModels
             get { return _setVeryFastSeedCommand ?? ( _setVeryFastSeedCommand = new GameSpeedChangeCommand(this, GameSpeedMode.VeryFast)); }
         }
 
+        public ICommand StopDuelCommand
+        {
+            get { return _stopDuelCommand ?? (_stopDuelCommand = new StopDuelCommand(this)); }
+        }
+
         public bool IsFullScreenApplied
         {
             get { return _isFullScreenApplied; }
@@ -295,7 +321,7 @@ namespace Arena.ViewModels
             IsHistoryVisible = true;
             IsOutputVisible = true;
             IsFullScreenApplied = false;
-            GameOverTextVisibility = Visibility.Collapsed;
+            IsArenaMessageVisible = false;
             PlayerPresentationVisibility = Visibility.Collapsed;
             ApplyConfiguration(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Resources.DefaultArenaConfigurationName);
         }
@@ -392,10 +418,11 @@ namespace Arena.ViewModels
         public async Task PlayNextGameAsync()
         {
             var nextCompetitors = Elimination.GetNextCompetitors();
-            GameOverTextVisibility = Visibility.Collapsed;
-
+            
             if (nextCompetitors != null)
             {
+                await SetArenaMessage(ArenaMessageHelper.GetInitialMessage(nextCompetitors));
+
                 var gameHistoryEntry = new GameHistoryEntryViewModel()
                 {
                     GameDescription = Elimination.GetGameDescription(),
@@ -435,12 +462,25 @@ namespace Arena.ViewModels
 
             } while (!result.IsFinished && IsGameInProgress && !IsGamePaused);
 
-            if (result.IsFinished)
+            if (result.IsFinished && IsGameInProgress)
             {
-                Elimination.SetLastDuelResult(result.FinalResult);
-                ScoreList.SaveScore(result.FinalResult);
-                GameOverTextVisibility = Visibility.Visible;
+                await MakeEndGameConfiguration(result);
             }
+        }
+
+        public async Task MakeEndGameConfiguration(RoundResult result)
+        {
+            Elimination.SetLastDuelResult(result.FinalResult);
+            ScoreList.SaveScore(result.FinalResult);
+            await SetArenaMessage(ArenaMessageHelper.GetEndGameMessage(result.FinalResult));
+        }
+
+        private async Task SetArenaMessage(string message)
+        {
+            ArenaMessage = message;
+            IsArenaMessageVisible = true;
+            await DelayHelper.DelayAsync(ArenaConfiguration.ArenaMessageDuration);
+            IsArenaMessageVisible = false;
         }
 
         public void RestartGame()

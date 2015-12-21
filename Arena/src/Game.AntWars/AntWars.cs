@@ -100,7 +100,6 @@ namespace Game.AntWars
         {
             _delayTime = delayTime;
         }
-
         #endregion
     }
 }

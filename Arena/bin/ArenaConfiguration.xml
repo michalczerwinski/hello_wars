@@ -2,18 +2,19 @@
 
 <ArenaConfiguration>
   <EliminationConfiguration>
-    <Type>RoundRobin</Type>
+    <Type>TournamentLadder</Type>
   </EliminationConfiguration>
 
   <GameConfiguration>
     <Type>TankBlaster</Type>
     <NextMoveDelay>150</NextMoveDelay>
-    <NextMatchDelay>400</NextMatchDelay>
   </GameConfiguration>
+  
+  <ArenaMessageDuration>2000</ArenaMessageDuration>
 
   <BotUrls>
-<!--        <Url>http://localhost:53886/TicTacToeBot/</Url>-->
-<!--        <Url>http://localhost:53886/TicTacToeBot/</Url> -->
+        <!--<Url>http://localhost:53886/TicTacToeBot/</Url>
+        <Url>http://localhost:53886/TicTacToeBot/</Url>--> 
 
 <!--    <Url>http://localhost:53886/AntWarsBot/</Url>-->
 <!--    <Url>http://localhost:53886/AntWarsBot/</Url>-->

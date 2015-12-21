@@ -28,7 +28,7 @@ namespace Arena.Views
             var roundPartial = ((TreeView)sender).SelectedItem as RoundPartialHistory;
             if (roundPartial != null && !ViewModel.IsGameInProgress)
             {
-                ViewModel.GameOverTextVisibility = Visibility.Collapsed;
+                ViewModel.IsArenaMessageVisible = false;
                 ViewModel.Game.SetPreview(roundPartial.BoardState);
             }
         }
