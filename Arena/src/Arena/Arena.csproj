@@ -151,6 +151,8 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\intive-logo.png" />
+    <Resource Include="Resources\baner-1a.png" />
     <Resource Include="Icons\normal.png" />
     <Resource Include="Icons\fast.png" />
     <Resource Include="Icons\veryfast.png" />
