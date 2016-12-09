@@ -93,6 +93,7 @@ namespace Game.TankBlaster
             Resources.tank1.Save("tank_blaster_tank.png");
             Resources.blast_example.Save("tank_blaster_blast_example.png");
             Resources.tank_blaster_chained_explosion.Save("tank_blaster_chained_explosion.png");
+            Resources.board_explained.Save("tank_blaster_board_explained.png");
             return Resources.GameRules;
         }
 

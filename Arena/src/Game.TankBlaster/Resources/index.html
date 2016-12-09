@@ -493,7 +493,7 @@
             0
         ]
     ],
-    "BotLocation": "0, 0",
+    "BotLocation": "1, 0",
     "MissileAvailableIn": 0,
     "OpponentLocations": [
         "1, 1"
@@ -501,29 +501,32 @@
     "Bombs": [
         {
             "RoundsUntilExplodes": 3,
-            "Location": "0, 1",
+            "Location": "2, 1",
             "ExplosionRadius": 2
         }
     ],
     "Missiles": [
         {
             "MoveDirection": 3,
-            "Location": "1, 0",
+            "Location": "2, 2",
             "ExplosionRadius": 2
         }
     ],
     "GameConfig": {
-        "MapWidth": 20,
-        "MapHeight": 20,
+        "MapWidth": 3,
+        "MapHeight": 3,
         "BombBlastRadius": 2,
         "MissileBlastRadius": 2,
         "RoundsBetweenMissiles": 5,
         "RoundsBeforeIncreasingBlastRadius": 70,
-        "IsFastMissileModeEnabled": true
+        "IsFastMissileModeEnabled": false
     }
 }
 </pre>
-                <br />
+                <br/>
+                The code above represents board:<br/>
+                <img src="tank_blaster_board_explained.PNG"/>
+                <br/>
                 <b>
                     BotMove model:
                 </b>

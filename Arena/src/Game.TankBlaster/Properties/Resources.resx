@@ -163,4 +163,7 @@
   <data name="tank_blaster_chained_explosion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tank_blaster_chained_explosion.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="board_explained" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\board_explained.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
