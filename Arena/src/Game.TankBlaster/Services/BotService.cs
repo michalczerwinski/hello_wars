@@ -147,7 +147,7 @@ namespace Game.TankBlaster.Services
                 _field.Bombs.Add(new Bomb
                 {
                     Location = bot.Location,
-                    RoundsUntilExplodes = 5,
+                    RoundsUntilExplodes = _gameConfig.BombRoundsUntilExplodes,
                     ExplosionRadius = CurrentBombBlastRadius(roundNumber)
                 });
 
