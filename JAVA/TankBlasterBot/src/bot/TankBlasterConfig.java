@@ -7,4 +7,5 @@ public class TankBlasterConfig {
 	public int MissileBlastRadius;
 	public int RoundsBetweenMissiles;
 	public int RoundsBeforeIncreasingBlastRadius;
+	public int BombRoundsUntilExplodes;
 }
