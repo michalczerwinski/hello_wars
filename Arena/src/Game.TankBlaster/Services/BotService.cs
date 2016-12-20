@@ -44,12 +44,14 @@ namespace Game.TankBlaster.Services
                 History = new List<RoundPartialHistory>()
             };
 
+            int turnNumber = 0;
             foreach (var dynaBlasterBot in _field.Bots.Where(bot => !bot.IsDead))
             {
                 BotMove move;
                 try
                 {
-                    move = await dynaBlasterBot.NextMoveAsync(GetBotBattlefieldInfo(dynaBlasterBot, roundNumber));
+                    turnNumber++;
+                    move = await dynaBlasterBot.NextMoveAsync(GetBotBattlefieldInfo(dynaBlasterBot, roundNumber, turnNumber));
                 }
                 catch (Exception e)
                 {
@@ -107,11 +109,12 @@ namespace Game.TankBlaster.Services
             return _gameConfig.MissileBlastRadius + (_gameConfig.RoundsBeforeIncreasingBlastRadius == 0 ? 0 : (roundNumber/_gameConfig.RoundsBeforeIncreasingBlastRadius));
         }
 
-        private BotBattlefieldInfo GetBotBattlefieldInfo(TankBlasterBot bot, int roundNumber)
+        private BotBattlefieldInfo GetBotBattlefieldInfo(TankBlasterBot bot, int roundNumber, int turnNumber)
         {
             return new BotBattlefieldInfo
             {
                 RoundNumber = roundNumber,
+                TurnNumber = turnNumber,
                 BotId = bot.Id,
                 Board = _field.Board,
                 Bombs = _field.Bombs.Cast<IBomb>().ToList(),

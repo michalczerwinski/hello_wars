@@ -7,6 +7,7 @@ namespace SampleWebBotClient.Models.TankBlaster
     public class BotArenaInfo
     {
         public int RoundNumber { get; set; }
+        public int TurnNumber { get; set; }
         public Guid BotId { get; set; }
         public BoardTile[,] Board { get; set; }
         public Point BotLocation { get; set; }
