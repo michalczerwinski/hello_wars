@@ -3,9 +3,10 @@
   <MapWidth>20</MapWidth>
   <MapHeight>20</MapHeight>
   <BombBlastRadius>2</BombBlastRadius>
+  <BombRoundsUntilExplodes>5</BombRoundsUntilExplodes>
   <MissileBlastRadius>2</MissileBlastRadius>
   <RoundsBetweenMissiles>5</RoundsBetweenMissiles>
-  
+    
   <!-- Increase explosion range every x rounds to increase difficulty -->
   <RoundsBeforeIncreasingBlastRadius>70</RoundsBeforeIncreasingBlastRadius> <!-- set to 0 to disable this feature-->
   <!-- If set to "true", missile will explode in the same round that it reaches its last free location. Otherwise it will explode in the next round -->
