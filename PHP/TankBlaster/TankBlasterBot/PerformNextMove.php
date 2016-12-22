@@ -13,6 +13,8 @@ class BotArenaInfo
 
 	{
 	public $RoundNumber;
+	
+	public $TurnNumber;
 
 	public $BotId;
 

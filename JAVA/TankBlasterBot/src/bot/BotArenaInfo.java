@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class BotArenaInfo {
 	public int RoundNumber;
+	public int TurnNumber;
 	public UUID BotId;
 	public int[][] Board;
 	private String BotLocation;
