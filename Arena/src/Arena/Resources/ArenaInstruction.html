@@ -116,6 +116,7 @@
             <li><a href="#dotNet">.Net Bots</a></li>
             <li><a href="#php">PHP Bots</a></li>
             <li><a href="#java">JAVA Bots</a></li>
+            <li><a href="#nodejs">Node.js Bots</a></li>
             <li><a href="#firewall">Firewall Configuration</a></li>
         </ul>
     </nav>
@@ -336,6 +337,36 @@
                 </li>
                 <li>When you run the arena, it should automatically connect with bots. Press "Play" to start game</li>
             </ol>
+
+        </article>
+    </section>
+
+    <section id="nodejs">
+        <header>Bot written in Node.js</header>
+        <article>
+            <ul>
+                <li>
+                    Setup sample bot in Node.js
+                    <ol>
+                        <li>Download Node.js  from <a href="https://nodejs.org/en/" target="blank">https://nodejs.org/en/</a> and install it</li>
+                        <li>Copy folder "TankBlasterBot" (hello_wars/nodeJs/TankBlasterBot/) to your local directory </li>
+                        <li>Open command prompt and go to project directory</li>
+                        <li>Type "npm install" to install all necessary modules</li>
+                        <li>Type "node app.js" to run application</li>
+                        <li>Your bot should be accessible at "http://localhost:8081/". Check "http://localhost:8081/info" in your browser to see if it works</li>
+                    </ol>
+                </li>
+
+                <li>
+                    Modify ArenaConfiguration file:
+                    <ol>
+                        <li>change game type you wish to play</li>
+                        <li>change elimination type name to your preferred elimination type</li>
+                        <li>modify bot urls. If you need more players, just type a few copies of the same url. They will be interpreted as a separate bots</li>
+                    </ol>
+                </li>
+                <li>When you run the arena, it should automatically connect with bots. Press "Play" to start game</li>
+            </ul>
 
         </article>
     </section>
